@@ -1,0 +1,619 @@
+import { Box, Typography, Grid, Button, Stack, Divider, Avatar, Container, InputAdornment, OutlinedInput, FormControl, Select, MenuItem, InputLabel, Input, TextField, Breadcrumbs } from "@mui/material";
+import React, { useState, useEffect } from "react";
+import { Subscriptions, Notifications, Settings, Person, Close, Upload, Add } from '@mui/icons-material';
+import url from "../url"
+import { useNavigate } from "react-router-dom"
+import Swal from 'sweetalert2'
+import axios from 'axios';
+import ClipLoader from "react-spinners/ClipLoader";
+const override = {
+    display: ' block',
+    margin: '0 auto',
+    borderColor: 'red',
+}
+
+const btn = {
+    letterSpacing: "1px",
+    width: '50%',
+    marginTop: '40px',
+    marginBottom: '40px',
+    color: 'white',
+    backgroundColor: '#FF6700',
+    borderColor: '#FF6700',
+    height: '50px',
+    padding: '0px',
+    font: 'normal normal normal 17px/26px Roboto',
+    borderRadius: "50px",
+    boxShadow: "none",
+    fontWeight: "medium",
+    boxShadow: "none",
+    borderRadius: "50px",
+    fontSize: "15px",
+    textTransform: "capitalize"
+}
+
+const Team = () => {
+    const navigate = useNavigate();
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const open = Boolean(anchorEl);
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
+    }
+
+    const [hidelabel, setHidelabel] = useState(false);
+    const [hidecrossicon, setHidecrossicon] = useState(false);
+    const [selectedFile, setSelectedFile] = useState(null);
+    const [Screens, setScreens] = useState([]);
+    useEffect(() => {
+        getAllScreens();
+    }, [])
+    const [isloading, setIsloading] = useState(false);
+
+    const handleAdd = async () => {
+        setIsloading(true)
+        var InsertAPIURL = `${url}ads/add_ad`
+        var headers = {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+        };
+        var Data = {
+            "link": Link,
+            "screen_id": Screen,
+        };
+        console.log(Data);
+        if (Screen === '') {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Oops...',
+                confirmButtonColor: "#FF6700",
+                text: 'Please Select Screen '
+            })
+
+        } else {
+            await fetch(InsertAPIURL, {
+                method: 'POST',
+                headers: headers,
+                body: JSON.stringify(Data),
+            })
+                .then(response => response.json())
+                .then(async response => {
+                    console.log(response);
+                    if (response.message == `Ad's added Successfully!`) {
+                        if (selectedFile !== null && selectedFile !== undefined) {
+                            var Data = {
+                                "id": response.result[0].id,
+                                "image": selectedFile,
+                            };
+
+                            await axios.put(url + "ads/add_ad_image", Data, {
+                                headers: {
+                                    "Content-Type": "multipart/form-data"
+                                }
+                            }).then((response) => {
+                                setIsloading(false)
+
+
+                                // var InsertAPIURL = `${url}logos/add_logos_image`
+                                // var headers = {
+                                //     // 'Accept': 'application/json',
+                                //     // 'Content-Type': 'application/json',
+                                //     "Content-Type": "multipart/form-data"
+
+                                // };
+                                // var Data = {
+                                //     "id": response.result[0].id,
+                                //     "image": selectedFile,
+                                // };
+                                // await fetch(InsertAPIURL, {
+                                //     method: 'PUT',
+                                //     headers: headers,
+                                //     body: JSON.stringify(Data),
+                                // })
+                                //     .then(response => response.json())
+                                //     .then(response => {
+                                console.log(response.data);
+                                if (response.data.message == `Ad Image added Successfully!`) {
+                                    navigate("/manage_banners_ads")
+                                    setIsloading(false)
+                                } else {
+                                    setIsloading(false)
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Oops2...',
+                                        confirmButtonColor: "#FF6700",
+                                        text: ''
+                                    })
+                                }
+                            }
+                            )
+                                .catch(error => {
+                                    alert(error);
+                                });
+                        } else {
+                            setIsloading(false)
+                            navigate("/manage_banners_ads")
+                        }
+                    } else {
+                        setIsloading(false)
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            confirmButtonColor: "#FF6700",
+                            text: ''
+                        })
+                    }
+                }
+                )
+                .catch(error => {
+                    alert(error);
+                });
+        }
+    }
+
+
+    const getAllScreens = async () => {
+        var InsertAPIURL = `${url}screen/get_all_screen`
+        var headers = {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+        };
+        await fetch(InsertAPIURL, {
+            method: 'GET',
+            headers: headers,
+        })
+            .then(response => response.json())
+            .then(response => {
+                console.log(response);
+                if (response.message == `All screens Details`) {
+                    // setLogos(response.count);
+                    setScreens(response.result);
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        confirmButtonColor: "#FF6700",
+                        text: ''
+                    })
+                }
+            }
+            )
+            .catch(error => {
+                alert(error);
+            });
+    }
+
+    const handleImageChange = (e) => {
+        setSelectedFile(e.target.files[0]);
+        setHidecrossicon(true);
+        setHidelabel(true);
+    };
+
+    const clearpreviewimage = () => {
+        setSelectedFile(null);
+        setHidecrossicon(false);
+        setHidelabel(false);
+    }
+
+    const [Status, setStatus] = React.useState('');
+    const [Screen, setScreen] = React.useState('');
+    const [Link, setLink] = React.useState('');
+
+    const handleChangeScreen = (event) => {
+        setScreen(event.target.value);
+    };
+
+    const handleChange = (event) => {
+        setStatus(event.target.value);
+    };
+
+    return (
+        <>
+            <Box sx={{ height: "85vh", width: "100%", overflowX: "scroll" }}>
+                <Grid container spacing={0} pt={{ lg: 2, xl: 1 }} p={2} >
+                    <Grid item xs={6} align="" pt={3} >
+                        <Breadcrumbs separator=">" >
+                            <Typography variant="h5" fontWeight={550} pl={3} fontSize="15px" sx={{ letterSpacing: "2px", cursor: "pointer" }} color="#808080" onClick={() => navigate("/workoutplans")} >
+                                Banner
+                            </Typography>
+
+                            <Typography variant="h5" fontWeight={600} fontSize="15px" sx={{ letterSpacing: "2px" }} color="#404040">
+                                Add Banner
+                            </Typography>
+                        </Breadcrumbs>
+                    </Grid>
+
+                </Grid>
+
+                <Divider sx={{ pb: 2 }} />
+
+                <Container>
+                    <Container>
+                        <Grid container spacing={0}>
+                            <Grid xs={12} align="center" p={1}>
+                                <Box pt={2} pb={2}>
+                                    <Box sx={{ width: '300px', height: '200px', pt: 2, p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
+                                        {hidelabel ?
+                                            null
+                                            :
+                                            <Grid container spacing={0} pt={5}>
+                                                <Grid xs={12} align="">
+                                                    <Stack align="">
+                                                        <label htmlFor="fileInput" style={{ display: "flex", justifyContent: "center", alignContent: "center", color: "#808080" }}>
+                                                            <Stack direction="column" spacing={1} >
+                                                                <Upload sx={{ fontSize: "50px", color: "#808080", ml: 1.8, pb: 1 }} />
+                                                                <span style={{ paddingBottom: "2vh", font: "normal normal normal 16px/26px Arial" }}>Upload Image</span>
+                                                            </Stack>
+                                                        </label>
+                                                        <input
+                                                            style={{ display: "none" }}
+                                                            id="fileInput"
+                                                            type="file"
+                                                            onChange={handleImageChange}
+                                                            accept="image/*"
+                                                        />
+                                                    </Stack>
+                                                </Grid>
+                                            </Grid>
+                                        }
+
+                                        {selectedFile && <img src={URL.createObjectURL(selectedFile)} alt="Preview" style={{ width: "300px", height: "200px" }} />}
+                                    </Box>
+
+                                    {
+                                        hidecrossicon ?
+                                            <Box sx={{ display: "flex", justifyContent: "center", alignContent: "center" }}>
+                                                <Close sx={{
+                                                    padding: 0.2, backgroundColor: "#FF6700", borderRadius: "50px",
+                                                    color: "white", ml: 32, mt: -24
+                                                }} onClick={() => clearpreviewimage()} />
+                                            </Box>
+                                            :
+                                            null
+                                    }
+                                </Box>
+                            </Grid>
+
+                            <Grid xs={12} md={6} lg={6} xl={6} p={1} align="" >
+
+                                <FormControl sx={{ width: "90%" }} align="left">
+                                    <Stack direction="column" spacing={0} pt={2}>
+                                        <Typography variant="paragraph" pl={1} pb={1} sx={{ font: "normal normal normal 17px/26px Roboto", fontSize: "12px", fontWeight: "medium" }} color="#1F1F1F">
+                                            link
+                                        </Typography>
+                                        <OutlinedInput
+                                            onChange={(event) => {
+                                                setLink(event.target.value);
+                                            }}
+                                            id="input-with-icon-adornment"
+                                            sx={{
+                                                borderRadius: "50px",
+                                                backgroundColor: "#F8F8F8",
+                                                "& fieldset": { border: 'none' },
+                                            }}
+                                        />
+                                        <br />
+                                        {/* <Typography variant="paragraph" pl={1} pb={1} sx={{ font: "normal normal normal 17px/26px Roboto", fontSize: "12px", fontWeight: "medium" }} color="#1F1F1F">
+                                            Screen
+                                        </Typography>
+                                        <Select
+                                            sx={{
+                                                borderRadius: "50px",
+                                                backgroundColor: "#F8F8F8",
+                                                "& fieldset": { border: 'none' },
+                                            }}
+                                            labelId="demo-simple-select-label"
+                                            id="demo-simple-select"
+                                            placeholder={Screen}
+                                            label={Screen}
+                                            onChange={handleChangeScreen}
+                                        >
+                                            <MenuItem value="Image Aspects " disabled>
+                                                <em>select Screen</em>
+                                            </MenuItem>
+
+                                            {Screens.map((data) => (
+                                                <MenuItem key={data.id} value={data.id}>{`${data.name}`}</MenuItem>
+                                            ))}
+                                        </Select> */}
+
+                                        {/* <TextField
+                                            id="outlined-multiline-static"
+                                            multiline
+                                            rows={4}
+                                            sx={{
+                                                borderRadius: "20px",
+                                                backgroundColor: "#F8F8F8",
+                                                "& fieldset": { border: 'none' },
+                                            }}
+                                        /> */}
+
+                                    </Stack>
+
+                                </FormControl>
+
+                            </Grid>
+
+                            <Grid xs={12} md={6} lg={6} xl={6} p={1} align="right" >
+
+                                <FormControl sx={{ width: "90%" }} align="left">
+                                    <Stack direction="column" spacing={0} pt={2}>
+                                        <Typography variant="paragraph" pl={1} pb={1} sx={{ font: "normal normal normal 17px/26px Roboto", fontSize: "12px", fontWeight: "medium" }} color="#1F1F1F">
+                                            Screen
+                                        </Typography>
+                                        <Select
+                                            sx={{
+                                                borderRadius: "50px",
+                                                backgroundColor: "#F8F8F8",
+                                                "& fieldset": { border: 'none' },
+                                            }}
+                                            labelId="demo-simple-select-label"
+                                            id="demo-simple-select"
+                                            placeholder={Screen}
+                                            label={Screen}
+                                            onChange={handleChangeScreen}
+                                        >
+                                            <MenuItem value="Image Aspects" disabled>
+                                                <em>select Screen</em>
+                                            </MenuItem>
+
+                                            {Screens.map((data) => (
+                                                <MenuItem key={data.id} value={data.id}>{`${data.name}`}</MenuItem>
+                                            ))}
+                                        </Select>
+
+                                        {/* <Typography variant="paragraph" pl={1} pb={1} sx={{ font: "normal normal normal 17px/26px Roboto", fontSize: "12px", fontWeight: "medium" }} color="#1F1F1F">
+                                            Status
+                                        </Typography>
+                                        <Select
+                                            sx={{
+                                                borderRadius: "50px",
+                                                backgroundColor: "#F8F8F8",
+                                                "& fieldset": { border: 'none' },
+                                            }}
+                                            labelId="demo-simple-select-label"
+                                            id="demo-simple-select"
+                                            value={Status}
+                                            label="status"
+                                            onChange={handleChange}
+                                        >
+                                            <MenuItem value={true}>True</MenuItem>
+                                            <MenuItem value={false}>False</MenuItem>
+                                        </Select> */}
+                                        <br />
+                                        <br />
+
+                                    </Stack>
+
+                                </FormControl>
+
+                            </Grid>
+
+                            <Grid xs={12} align="center">
+                                <Button variant="contained" style={btn} onClick={() => { handleAdd() }} >Add</Button>
+                            </Grid>
+
+                        </Grid>
+                    </Container>
+                </Container>
+
+            </Box>
+        </>
+    )
+}
+
+export default Team
+
+
+
+
+
+// import { Box, Typography, Grid, Button, Stack, Divider, Avatar, Container, InputAdornment, OutlinedInput, FormControl, Select, MenuItem, InputLabel, Input, TextField, Breadcrumbs } from "@mui/material";
+// import { Subscriptions, Notifications, Settings, Person, Close, Upload, Add } from '@mui/icons-material';
+// import React, { useState } from 'react'
+// import { useNavigate } from "react-router-dom"
+
+// const btn = {
+//     letterSpacing: "1px",
+//     width: '50%',
+//     marginTop: '40px',
+//     marginBottom: '40px',
+//     color: 'white',
+//     backgroundColor: '#FF6700',
+//     borderColor: '#FF6700',
+//     height: '50px',
+//     padding: '0px',
+//     font: 'normal normal normal 17px/26px Roboto',
+//     borderRadius: "50px",
+//     boxShadow: "none",
+//     fontWeight: "medium",
+//     boxShadow: "none",
+//     borderRadius: "50px",
+//     fontSize: "15px",
+//     textTransform: "capitalize"
+// }
+
+// const Team = () => {
+//     const navigate = useNavigate();
+//     const [anchorEl, setAnchorEl] = React.useState(null);
+//     const open = Boolean(anchorEl);
+//     const handleClick = (event) => {
+//         setAnchorEl(event.currentTarget);
+//     };
+//     const handleClose = () => {
+//         setAnchorEl(null);
+//     }
+
+//     const [hidelabel, setHidelabel] = useState(false);
+//     const [hidecrossicon, setHidecrossicon] = useState(false);
+//     const [selectedFile, setSelectedFile] = useState(null);
+
+//     const handleImageChange = (e) => {
+//         setSelectedFile(e.target.files[0]);
+//         setHidecrossicon(true);
+//         setHidelabel(true);
+//     };
+
+//     const clearpreviewimage = () => {
+//         setSelectedFile(null);
+//         setHidecrossicon(false);
+//         setHidelabel(false);
+//     }
+
+//     const [age, setAge] = React.useState('');
+
+//     const handleChange = (event) => {
+//         setAge(event.target.value);
+//     };
+
+//     return (
+//         <>
+//             <Box sx={{ height: "85vh", width: "100%", overflowX: "scroll" }}>
+//                 <Grid container spacing={0} pt={{ lg: 2, xl: 1 }} p={2} >
+//                     <Grid item xs={6} align="" pt={3} >
+//                         <Breadcrumbs separator=">" >
+//                             <Typography variant="h5" fontWeight={550} pl={3} fontSize="15px" sx={{ letterSpacing: "2px", cursor: "pointer" }} color="#808080" onClick={() => navigate("/workoutplans")} >
+//                                 Exercises
+//                             </Typography>
+
+//                             <Typography variant="h5" fontWeight={600} fontSize="15px" sx={{ letterSpacing: "2px" }} color="#404040">
+//                                 Add Exercise
+//                             </Typography>
+//                         </Breadcrumbs>
+//                     </Grid>
+
+//                 </Grid>
+
+//                 <Divider sx={{ pb: 2 }} />
+
+//                 <Container>
+//                     <Container>
+//                         <Grid container spacing={0}>
+//                             <Grid xs={12} align="center" p={1}>
+//                                 <Box pt={2} pb={2}>
+//                                     <Box sx={{ pt: 2, width: "50%", height: "25vh", p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
+//                                         {hidelabel ?
+//                                             null
+//                                             :
+//                                             <Grid container spacing={0} pt={5}>
+//                                                 <Grid xs={12} align="">
+//                                                     <Stack align="">
+//                                                         <label htmlFor="fileInput" style={{ display: "flex", justifyContent: "center", alignContent: "center", color: "#808080" }}>
+//                                                             <Stack direction="column" spacing={1} >
+//                                                                 <Upload sx={{ fontSize: "50px", color: "#808080", ml: 1.8, pb: 1 }} />
+//                                                                 <span style={{ paddingBottom: "2vh", font: "normal normal normal 16px/26px Arial" }}>Upload GIF</span>
+//                                                             </Stack>
+//                                                         </label>
+//                                                         <input
+//                                                             style={{ display: "none" }}
+//                                                             id="fileInput"
+//                                                             type="file"
+//                                                             onChange={handleImageChange}
+//                                                             accept="image/*"
+//                                                         />
+//                                                     </Stack>
+//                                                 </Grid>
+//                                             </Grid>
+//                                         }
+
+//                                         {selectedFile && <img src={URL.createObjectURL(selectedFile)} alt="Preview" style={{ width: "100%", height: "auto" }} />}
+//                                     </Box>
+
+//                                     {
+//                                         hidecrossicon ?
+//                                             <Box sx={{ display: "flex", justifyContent: "center", alignContent: "center" }}>
+//                                                 <Close sx={{ padding: 0.2, backgroundColor: "#FF6700", borderRadius: "50px", color: "white", ml: 57, mt: -20 }} onClick={() => clearpreviewimage()} />
+//                                             </Box>
+//                                             :
+//                                             null
+//                                     }
+//                                 </Box>
+//                             </Grid>
+
+//                             <Grid xs={12} md={6} lg={6} xl={6} p={1} align="" >
+
+//                                 <FormControl sx={{ width: "90%" }} align="left">
+//                                     <Stack direction="column" spacing={0} pt={2}>
+//                                         <Typography variant="paragraph" pl={1} pb={1} sx={{ font: "normal normal normal 17px/26px Roboto", fontSize: "12px", fontWeight: "medium" }} color="#1F1F1F">
+//                                             Title
+//                                         </Typography>
+//                                         <OutlinedInput
+//                                             id="input-with-icon-adornment"
+//                                             sx={{
+//                                                 borderRadius: "50px",
+//                                                 backgroundColor: "#F8F8F8",
+//                                                 "& fieldset": { border: 'none' },
+//                                             }}
+//                                         />
+//                                         <br />
+//                                         <Typography variant="paragraph" pl={1} pb={1} sx={{ font: "normal normal normal 17px/26px Roboto", fontSize: "12px", fontWeight: "medium" }} color="#1F1F1F">
+//                                             Description
+//                                         </Typography>
+//                                         <TextField
+//                                             id="outlined-multiline-static"
+//                                             multiline
+//                                             rows={4}
+//                                             sx={{
+//                                                 borderRadius: "20px",
+//                                                 backgroundColor: "#F8F8F8",
+//                                                 "& fieldset": { border: 'none' },
+//                                             }}
+//                                         />
+
+//                                     </Stack>
+
+//                                 </FormControl>
+
+//                             </Grid>
+
+//                             <Grid xs={12} md={6} lg={6} xl={6} p={1} align="right" >
+
+//                                 <FormControl sx={{ width: "90%" }} align="left">
+//                                     <Stack direction="column" spacing={0} pt={2}>
+//                                         <Typography variant="paragraph" pl={1} pb={1} sx={{ font: "normal normal normal 17px/26px Roboto", fontSize: "12px", fontWeight: "medium" }} color="#1F1F1F">
+//                                             Tiime/Reps
+//                                         </Typography>
+//                                         <OutlinedInput
+//                                             id="input-with-icon-adornment"
+//                                             sx={{
+//                                                 borderRadius: "50px",
+//                                                 backgroundColor: "#F8F8F8",
+//                                                 "& fieldset": { border: 'none' },
+//                                             }}
+//                                         />
+//                                         <br />
+//                                         <Typography variant="paragraph" pl={1} pb={1} sx={{ font: "normal normal normal 17px/26px Roboto", fontSize: "12px", fontWeight: "medium" }} color="#1F1F1F">
+//                                             Video Link
+//                                         </Typography>
+//                                         <OutlinedInput
+//                                             id="input-with-icon-adornment"
+//                                             sx={{
+//                                                 borderRadius: "50px",
+//                                                 backgroundColor: "#F8F8F8",
+//                                                 "& fieldset": { border: 'none' },
+//                                             }}
+//                                         />
+//                                         <br />
+
+//                                     </Stack>
+
+//                                 </FormControl>
+
+//                             </Grid>
+
+//                             <Grid xs={12} align="center">
+//                                 <Button variant="contained" style={btn} onClick={() => navigate("/exercises")} >Add</Button>
+//                             </Grid>
+
+//                         </Grid>
+//                     </Container>
+//                 </Container>
+
+//             </Box>
+//         </>
+//     )
+// }
+
+// export default Team
