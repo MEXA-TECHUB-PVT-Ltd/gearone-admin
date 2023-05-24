@@ -121,7 +121,12 @@ const Team = () => {
                         }
                         )
                             .catch(error => {
-                                alert(error);
+                                          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            confirmButtonColor: "#FF6700",
+            text: response.message
+          })
                             });
                     } else {
                         navigate("/subscription")
@@ -148,7 +153,12 @@ const Team = () => {
             )
             .catch(error => {
                 setIsloading(false);
-                alert(error);
+                          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            confirmButtonColor: "#FF6700",
+            text: 'server error'
+          })
             });
     }
 
@@ -180,7 +190,12 @@ const Team = () => {
     //         }
     //         )
     //         .catch(error => {
-    //             alert(error);
+    //                       Swal.fire({
+        //     icon: 'error',
+        //     title: 'Oops...',
+        //     confirmButtonColor: "#FF6700",
+        //     text: response.message
+        //   })
     //         });
     // }
 

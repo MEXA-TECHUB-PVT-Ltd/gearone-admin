@@ -141,7 +141,12 @@ const Team = () => {
                         }
                         )
                             .catch(error => {
-                                alert(error);
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Oops...',
+                                    confirmButtonColor: "#FF6700",
+                                    text: response.message
+                                })
                             });
                     } else {
                         setIsloading(false);
@@ -159,7 +164,12 @@ const Team = () => {
             }
             )
             .catch(error => {
-                alert(error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    confirmButtonColor: "#FF6700",
+                    text:  "Server error"
+                })
             });
     }
 
@@ -191,7 +201,12 @@ const Team = () => {
             }
             )
             .catch(error => {
-                alert(error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    confirmButtonColor: "#FF6700",
+                    text:  "Server error"
+                })
             });
     }
 

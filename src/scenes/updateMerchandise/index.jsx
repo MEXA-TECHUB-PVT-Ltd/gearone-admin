@@ -112,7 +112,12 @@ const Team = () => {
                         }
                         )
                             .catch(error => {
-                                alert(error);
+                                          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            confirmButtonColor: "#FF6700",
+            text: response.message
+          })
                             });
                     } else {
                         navigate("/ManageLogos")
@@ -128,7 +133,12 @@ const Team = () => {
             }
             )
             .catch(error => {
-                alert(error);
+                          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            confirmButtonColor: "#FF6700",
+            text: "Server Error"
+          })
             });
     }
 
@@ -160,7 +170,12 @@ const Team = () => {
             }
             )
             .catch(error => {
-                alert(error);
+                          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            confirmButtonColor: "#FF6700",
+            text: "Server Error"
+          })
             });
     }
 

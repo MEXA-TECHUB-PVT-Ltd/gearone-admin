@@ -233,7 +233,12 @@ const Team = () => {
       }
       )
       .catch(error => {
-        alert(error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          confirmButtonColor: "#FF6700",
+          text: "Server Error"
+        })
       });
   }
 
@@ -273,7 +278,12 @@ const Team = () => {
       }
       )
       .catch(error => {
-        alert(error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          confirmButtonColor: "#FF6700",
+          text: "Server Error"
+        })
       });
   }
 
@@ -281,6 +291,27 @@ const Team = () => {
 
   const columns = [
     { field: 'username', headerName: <span style={{ color: "black", fontWeight: 600 }}>Username</span>, flex: 1 },
+    {
+      field: 'image', headerName: <span style={{ color: "black", fontWeight: 600 }}>Profile</span>,
+      flex: 1,
+      renderCell: (row) => {
+        return (
+          <>
+            {row.row.image !== null ?
+              // <img src={`http://localhost:8082/${row.row.image}`} style={{ bgcolor: "#FF6700", width: '45px', height: '45px' }}>
+                <Avatar src={`https://staging-gearone-be.mtechub.com/${row.row.image}`} style={{ bgcolor: "#FF6700", width: '45px', height: '45px' }}> 
+              </Avatar>
+              :
+              <Avatar sx={{ width: '45px', height: '45px' }}>
+              </Avatar>
+
+            }
+          </>
+
+        );
+      },
+
+    },
     { field: 'email', headerName: <span style={{ color: "black", fontWeight: 600 }}>Email</span>, flex: 1 },
 
     { field: 'country_code', headerName: <span style={{ color: "black", fontWeight: 600 }}>Code</span>, flex: 1 },
@@ -398,7 +429,12 @@ const Team = () => {
       }
       )
       .catch(error => {
-        alert(error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          confirmButtonColor: "#FF6700",
+          text: "Server Error"
+        })
       });
   }
 
@@ -582,7 +618,7 @@ const Team = () => {
 
                           <Grid xs={6} sx={{ pb: 1 }} align="left" onClick={handleOpenmodal}>
                             <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
-                              email 
+                              email
                             </Typography>
                           </Grid>
 
@@ -594,12 +630,12 @@ const Team = () => {
 
                           <Grid xs={6} sx={{ pb: 1 }} align="left" onClick={handleOpenmodal}>
                             <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
-                              Phone 
+                              Phone
                             </Typography>
                           </Grid>
 
                           <Grid xs={6} sx={{ pb: 1 }} align="left" onClick={handleOpenmodal}>
-                            <Typography variant="h5" fontWeight={600} pb={1} fontSize="12px" sx={{ }} color="#808080">
+                            <Typography variant="h5" fontWeight={600} pb={1} fontSize="12px" sx={{}} color="#808080">
                               {`${item.country_code}:${item.phone}`}
                             </Typography>
                           </Grid>
@@ -626,30 +662,28 @@ const Team = () => {
           aria-describedby="modal-modal-description"
         >
           <Box width={{ xs: 400, md: 500, lg: 600, xl: 650 }} height="auto" sx={styleview}>
-            <Grid container spacing={0}>
-              <Box sx={{ borderTopLeftRadius: "20px", borderTopRightRadius: "20px", backgroundColor: "#FF6700", width: "100%", height: "70px" }}>
-                <Grid xs={12} align="right" pt={0.8} pr={1}>
-                  <Close sx={{ color: "white" }} onClick={() => setOpenmodal(false)} />
-                </Grid>
-
-                <Grid xs={12} align="center">
-                  <Stack align="center" >
-                    <Typography variant="paragraph" sx={{ letterSpacing: "1px", fontWeight: 600, fontSize: "30px" }} color="white">
-                      {viewData.username}
-                    </Typography>
-                  </Stack>
-                </Grid>
+            <Box sx={{ borderTopLeftRadius: "20px", borderTopRightRadius: "20px", backgroundColor: "#FF6700", width: "100%", height: "70px" }}>
+              <Box xs={12} align="right" pt={0.1} pr={1}>
+                <Close sx={{ color: "white" }} onClick={() => setOpenmodal(false)} />
               </Box>
-            </Grid>
+              <Box xs={12} sx={{ mb: '20px' }} align="center">
+                <Typography align="center" sx={{ mb: '20px', fontWeight: 600, fontSize: "24px" }} color="white">
+                  {viewData.username}
+                </Typography>
+              </Box>
+            </Box>
             <Grid xs={12} align="center" pt={3}>
               {viewData.image !== null ?
-                <img src={`https://staging-gearone-be.mtechub.com/${viewData.image}`} style={{ bgcolor: "#FF6700", width: '175px', height: '175px' }}>
-                </img>
+                viewData.image !== undefined ?
+                  <img src={`https://staging-gearone-be.mtechub.com/${viewData.image}`} style={{ bgcolor: "#FF6700", width: '175px', height: '175px' }}>
+                  </img>
+                  :
+                  <Avatar sx={{ bgcolor: "#FF6700", width: 75, height: 75 }}>
+                  </Avatar>
                 :
                 <Avatar sx={{ bgcolor: "#FF6700", width: 75, height: 75 }}>
-                  <Typography variant="paragraph" sx={{ textTransform: "uppercase", fontSize: "18px", fontWeight: 600 }} p={1} color="white">
-                  </Typography>
                 </Avatar>
+
               }
             </Grid>
 
@@ -670,7 +704,7 @@ const Team = () => {
 
               <Grid xs={6} align="" p={0.5}>
                 <Typography variant="h5" fontWeight={700} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
-                Phone :
+                  Phone :
                 </Typography>
               </Grid>
 

@@ -3,8 +3,8 @@ import { Box, Container, Divider, FormControl, Grid, IconButton, InputAdornment,
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2'
-import image from '../../components/Images/logo.png'
-import signinmockup from "../../components/Images/signinmockup.png"
+import image from '../../components/Images/logo.svg'
+import signinmockup from "../../components/Images/signinmockup.jpeg"
 import Avatar from '@mui/material/Avatar';
 import url from '../url'
 import { NavLink } from 'react-router-dom';
@@ -56,52 +56,36 @@ function Login() {
       navigate("/dashboard")
     }
   }, [])
+
   const verification = async () => {
     setHide(true);
-    // setEmailmessage(true);
-    // setIsloading(true);
-    // setTimeout(() => {
-    //     setOpen(true);
-    //     setEmailmessage(false);
-    //     setIsloading(false);
-    // }, 3000) 
-}
+  }
 
-const [open, setOpen] = useState(false);
-const handleOpen = () => setOpen(true);
-const handleClose = () => setOpen(false);
+  const login = async () => {
+    setHide(false);
+  }
 
-const [close, setClose] = useState(null);
-const handleclose = () => {
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  const [close, setClose] = useState(null);
+  const handleclose = () => {
     setClose(null);
-};
+  };
 
-const verifyotp = async () => {
-  setIsloading(true);
+  const verifyotp = async () => {
+    setIsloading(true);
 
-  if (enteredotp.length == 0) {
-    setIsloading(false);
+    if (enteredotp.length == 0) {
+      setIsloading(false);
       Swal.fire({
-          icon: 'warning',
-          title: 'warning',
-          confirmButtonColor: "#FF6700",
-          text: 'Enter OTP For Verification'
+        icon: 'warning',
+        title: 'warning',
+        confirmButtonColor: "#FF6700",
+        text: 'Enter OTP For Verification'
       })
       setOpen(false);
-      // setLoading(true);
-      // setTimeout(() => {
-      //     Swal.fire({
-      //         title: "Success",
-      //         text: "User Found , OTP Successfully Matched",
-      //         confirmButtonColor: "#FF6700",
-      //         icon: "success",
-      //         confirmButtonText: "OK",
-      //     });
-      //     setEnteredotp('');
-      //     navigate("/setnewpassword");
-      //     setOpen(false);
-      //     setLoading(false);
-      // }, 3000)
     } else {
       var InsertAPIURL = `${url}admin/verify_OTP_sign_in`
       var headers = {
@@ -133,36 +117,42 @@ const verifyotp = async () => {
               navigate("/dashboard");
             }, 3000)
           } else {
+            login();
             Swal.fire({
               icon: 'error',
               title: 'Oops...',
               confirmButtonColor: "#FF6700",
-              text: 'Email or Password wrong!'
+              text: 'Incorrect OTP, please try again'
             })
             setIsloading(false);
           }
         }
         )
         .catch(error => {
-          alert(error);
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            confirmButtonColor: "#FF6700",
+            text: "Server Error"
+          })
         });
     }
 
-  // } else {
-  //     setLoading(true);
-  //     setTimeout(() => {
-  //         Swal.fire({
-  //             title: "Error",
-  //             text: "OTP Not Matched",
-  //             confirmButtonColor: "#FF6700",
-  //             icon: "error",
-  //             confirmButtonText: "OK",
-  //         });
-  //         setOpen(false);
-  //         setLoading(false);
-  //     }, 3000)
-  // }
-}
+    // } else {
+    //     setLoading(true);
+    //     setTimeout(() => {
+    //         Swal.fire({
+    //             title: "Error",
+    //             text: "OTP Not Matched",
+    //             confirmButtonColor: "#FF6700",
+    //             icon: "error",
+    //             confirmButtonText: "OK",
+    //         });
+    //         setOpen(false);
+    //         setLoading(false);
+    //     }, 3000)
+    // }
+  }
 
 
 
@@ -170,12 +160,6 @@ const verifyotp = async () => {
     setIsloading(true);
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const isValidEmail = emailRegex.test(email);
-    console.log(email);
-    console.log("email");
-
-    // navigate("/dashboard");
-
-
     if (email.length == 0 || password.length == 0) {
       setIsloading(false);
       Swal.fire({
@@ -213,16 +197,6 @@ const verifyotp = async () => {
           if (response.message == `Sent a verification email to ${email}`) {
             setIsloading(false);
             verification();
-            // setTimeout(() => {
-            //   localStorage.setItem("jwtoken", JSON.stringify(response.jwt_token));
-            //   localStorage.setItem("adminemail", JSON.stringify(response.result.email));
-            //   localStorage.setItem("adminname", JSON.stringify(response.result.user_name));
-            //   localStorage.setItem("adminimageurl", JSON.stringify(response.result.img));
-            //   localStorage.setItem("adminID", JSON.stringify(response.result.id));
-            //   localStorage.setItem("password", JSON.stringify(password));
-            //   navigate("/dashboard");
-            //   setIsloading(false);
-            // }, 3000)
           } else {
             setIsloading(false);
             Swal.fire({
@@ -235,7 +209,12 @@ const verifyotp = async () => {
         }
         )
         .catch(error => {
-          alert(error);
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            confirmButtonColor: "#FF6700",
+            text: "Server error"
+          })
         });
     }
   }
@@ -254,7 +233,7 @@ const verifyotp = async () => {
         <Grid xs={12} md={6} lg={6} xl={6} align="">
           <Container>
             <Box sx={{ pt: { xs: 0, sm: 0, md: 0, lg: 7, xl: 25 } }} p={{ lg: 8, xl: 13 }}>
-              <Avatar src={image} sx={{ width: 100, height: 100 }} />
+              <img src={image} sx={{ width: 120, height: 120 }} />
 
 
               {hide ?

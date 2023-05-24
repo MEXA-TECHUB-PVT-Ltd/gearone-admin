@@ -257,7 +257,12 @@ const Team = () => {
             }
             )
             .catch(error => {
-                alert(error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    confirmButtonColor: "#FF6700",
+                    text: 'server error'
+                })
             });
     }
 
@@ -423,7 +428,12 @@ const Team = () => {
             }
             )
             .catch(error => {
-                alert(error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    confirmButtonColor: "#FF6700",
+                    text: "Server error"
+                })
             });
     }
 
@@ -650,31 +660,33 @@ const Team = () => {
                     aria-describedby="modal-modal-description"
                 >
                     <Box width={{ xs: 400, md: 500, lg: 600, xl: 650 }} height="auto" sx={styleview}>
-                        <Grid container spacing={0}>
-                            <Box sx={{ borderTopLeftRadius: "20px", borderTopRightRadius: "20px", backgroundColor: "#FF6700", width: "100%", height: "70px" }}>
-                                <Grid xs={12} align="right" pt={0.8} pr={1}>
-                                    <Close sx={{ color: "white" }} onClick={() => setOpenmodal(false)} />
+                        <Box sx={{ borderTopLeftRadius: "20px", borderTopRightRadius: "20px", backgroundColor: "#FF6700", width: "100%", height: "80px" }}>
+                            <Box xs={12} align="right" pt={0.1} pr={1}>
+                                <Close sx={{ color: "white" }} onClick={() => setOpenmodal(false)} />
+                            </Box>
+                            <Box xs={12} sx={{ mb: '20px' }} align="center">
+                                <Typography align="center" sx={{ mb: '20px', fontWeight: 600, fontSize: "24px" }} color="white">
+                                    {viewData.name}
+                                </Typography>
+                            </Box>
+                        </Box>
+
+                        {viewImage !== null ?
+                            viewImage !== undefined ?
+                                <Grid xs={12} align="center" pt={3}>
+                                    <img src={`http://localhost:8082/${viewImage}`} style={{ bgcolor: "#FF6700", width: '175px', height: '175px' }}>
+                                    {/* <img src={`https://staging-gearone-be.mtechub.com/${viewImage}`} style={{ bgcolor: "#FF6700", width: '175px', height: '175px' }}> */}
+                                    </img>
+                                </Grid>
+                                :
+                                <Grid xs={12} align="center" pt={3}>
+                                    <Avatar sx={{bgcolor: "#FF6700", width: 75, height: 75 }}>
+                                    </Avatar>
                                 </Grid>
 
-                                <Grid xs={12} align="center">
-                                    <Stack align="center">
-                                        <Typography variant="paragraph" sx={{ letterSpacing: "1px", fontWeight: 600, fontSize: "30px" }} color="white">
-                                            {viewData.name}
-                                        </Typography>
-                                    </Stack>
-                                </Grid>
-                            </Box>
-                        </Grid>
-                        {viewImage !== 'undefined' ?
-                            <Grid xs={12} align="center" pt={3}>
-                                <img src={`http://localhost:8082/${viewImage}`} style={{ bgcolor: "#FF6700", width: '175px', height: '175px' }}>
-                                </img>
-                            </Grid>
                             :
                             <Grid xs={12} align="center" pt={3}>
-                                <Avatar sx={{ bgcolor: "#FF6700", width: 75, height: 75 }}>
-                                    <Typography variant="paragraph" sx={{ textTransform: "uppercase", fontSize: "18px", fontWeight: 600 }} p={1} color="white">
-                                    </Typography>
+                                <Avatar sx={{ width: 75, height: 75 }}>
                                 </Avatar>
                             </Grid>
                         }
@@ -757,11 +769,11 @@ const Team = () => {
                             <Grid xs={6} align="right" p={0.5}>
 
                                 {/* {StartDate ==  '0' ? <>Not Yet</> */}
-                                    {/* : */}
-                                    <Typography variant="h5" fontWeight={600} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#808080">
-                                        <Countdown date={Timer} renderer={renderer} />
-                                    </Typography>
-{/* 
+                                {/* : */}
+                                <Typography variant="h5" fontWeight={600} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#808080">
+                                    <Countdown date={Timer} renderer={renderer} />
+                                </Typography>
+                                {/* 
                                 } */}
 
                             </Grid>

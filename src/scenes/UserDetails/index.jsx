@@ -7,7 +7,9 @@ import Link from '@mui/material/Link';
 import HomeIcon from '@mui/icons-material/Home';
 import Swal from 'sweetalert2'
 import PropTypes from 'prop-types';
-import { useLocation , useNavigate } from 'react-router-dom';
+import moment from 'moment'
+import Countdown from "react-countdown";
+import { useLocation, useNavigate } from 'react-router-dom';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import url from "../url"
 import img from '../../components/Images/hairstyleimage.jpg'
@@ -127,156 +129,27 @@ const OrdersColomns = [
   { field: 'username', headerName: <span style={{ color: "black", fontWeight: 600 }}>Name</span>, flex: 1 },
   { field: 'merchandise_name', headerName: <span style={{ color: "black", fontWeight: 600 }}>Item</span>, flex: 1 },
   {
-      field: 'price',
-      headerName: <span style={{ color: "black", fontWeight: 600 }}>price</span>,
-      flex: 1,
+    field: 'price',
+    headerName: <span style={{ color: "black", fontWeight: 600 }}>price</span>,
+    flex: 1,
   },
   {
     field: 'merchandise_description',
     headerName: <span style={{ color: "black", fontWeight: 600 }}>description</span>,
     flex: 1,
-},
+  },
 
   {
-      field: 'status',
-      headerName: <span style={{ color: "black", fontWeight: 600 }}>status</span>,
-      flex: 1,
+    field: 'status',
+    headerName: <span style={{ color: "black", fontWeight: 600 }}>status</span>,
+    flex: 1,
   },
 
 
   {
-      field: 'ordered_at',
-      headerName: <span style={{ color: "black", fontWeight: 600 }}>Location</span>,
-      flex: 1,
-  },
-
-  // {
-  //     field: 'id',
-  //     headerName: <span style={{ color: "black", fontWeight: 600 }}>Actions</span>,
-  //     flex: 1,
-  //     renderCell: (row) => {
-  //         return (
-  //             <>
-
-  //                 <div>
-  //                     <IconButton  >
-  //                         <Tooltip title="view" >
-  //                             <Visibility sx={{ color: "#3FC0FF" }} onClick={() => {
-  //                                 setViewData(row.row); setViewImage(row.row.images[0]); console.log(row.row);
-  //                                 var myDate = new Date(row.row.end_date);
-  //                                 var result = myDate.getTime();
-  //                                 console.log(result);
-  //                                 setTimer(result)
-
-  //                                 var myDate1 = new Date(row.row.start_date);
-  //                                 var result1 = myDate1.getTime();
-  //                                 console.log(result1);
-  //                                 setStartDate(result1)
-
-
-  //                                 handleOpenmodal();
-  //                             }} />
-  //                         </Tooltip>
-  //                     </IconButton>
-
-
-  //                     {row.row.added_by === 'admin' ?
-  //                         <>
-  //                             <IconButton  >
-  //                                 < Tooltip title="edit" >
-  //                                     <Edit sx={{ color: "#40E0D0" }} onClick={() => {
-  //                                         console.log(row.row);
-  //                                         navigate('/updatedietplan', {
-  //                                             state: {
-  //                                                 id: row.row.id,
-  //                                                 images: row.row.images,
-  //                                                 name: row.row.name,
-  //                                                 price: row.row.price,
-  //                                                 category_id: row.row.category_id,
-
-  //                                                 description: row.row.description,
-  //                                                 locations: row.row.location,
-  //                                                 promoted: row.row.promoted,
-  //                                                 start_date: row.row.start_date,
-  //                                                 end_date: row.row.end_date,
-  //                                                 added_by: row.row.added_by,
-
-
-  //                                             }
-  //                                         })
-  //                                     }
-  //                                     }
-  //                                     />
-  //                                 </Tooltip>
-  //                             </IconButton>
-
-  //                             <IconButton >
-  //                                 <Tooltip title="Delete">
-  //                                     <Delete sx={{ color: "#E10006" }} onClick={() => {
-  //                                         setDeleteID(row.row.id);
-  //                                         handleOpendelmodal();
-  //                                     }} />
-  //                                 </Tooltip>
-  //                             </IconButton>
-  //                         </>
-  //                         :
-  //                         <>
-  //                             <IconButton disabled  >
-  //                                 <Edit disabled />
-  //                             </IconButton>
-  //                             <IconButton disabled >
-  //                                 <Delete disabled />
-  //                             </IconButton>
-  //                         </>
-
-  //                     }
-
-  //                 </div>
-  //             </>
-
-  //         );
-  //     },
-  // },
-];
-
-
-const ItemColomns = [
-  { field: 'name', headerName: <span style={{ color: "black", fontWeight: 600 }}>Name</span>, flex: 1 },
-  { field: 'price', headerName: <span style={{ color: "black", fontWeight: 600 }}>Price</span>, flex: 1 },
-  {
-      field: 'location',
-      headerName: <span style={{ color: "black", fontWeight: 600 }}>Location</span>,
-      flex: 1,
-  },
-  {
-      field: 'promoted',
-      headerName: <span style={{ color: "black", fontWeight: 600 }}>Promoted</span>,
-      flex: 1,
-      renderCell: (row) => {
-          return (
-              <>
-                  {row.row.promoted === 'true' ?
-                      < Chip sx={{ cursor: 'pointer' }} label={row.row.promoted} color="success" variant="outlined" />
-                      :
-                      <Chip sx={{ cursor: 'pointer' }} label={row.row.promoted} color="primary" />
-
-                  }
-              </>
-
-          );
-      },
-  },
-
-  {
-      field: 'added_by',
-      headerName: <span style={{ color: "black", fontWeight: 600 }}>Added_by</span>,
-      flex: 1,
-  },
-
-  {
-      field: 'description',
-      headerName: <span style={{ color: "black", fontWeight: 600 }}>Description</span>,
-      flex: 1,
+    field: 'ordered_at',
+    headerName: <span style={{ color: "black", fontWeight: 600 }}>Location</span>,
+    flex: 1,
   },
 
   // {
@@ -367,6 +240,8 @@ const ItemColomns = [
   //     },
   // },
 ];
+
+
 
 
 TabPanel.propTypes = {
@@ -390,6 +265,12 @@ const Team = () => {
 
   const navigate = useNavigate();
   const location = useLocation();
+  const [openmodal, setOpenmodal] = useState(false);
+  const handleOpenmodal = () => setOpenmodal(true);
+  const handleClosemodal = () => setOpenmodal(false);
+  const [viewImage, setViewImage] = useState([]);
+  const [Timer, setTimer] = useState('');
+  const [StartDate, setStartDate] = useState('');
 
   const [isloading, setIsloading] = useState(false);
   let [loading, setLoading] = useState(true);
@@ -417,9 +298,6 @@ const Team = () => {
     );
   }
 
-  const [openmodal, setOpenmodal] = useState(false);
-  const handleOpenmodal = () => setOpenmodal(true);
-  const handleClosemodal = () => setOpenmodal(false);
   const [DeleteID, setDeleteID] = React.useState('');
 
   const [opendelmodal, setOpendelmodal] = useState(false);
@@ -437,6 +315,8 @@ const Team = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const [OrderCount, setOrderCount] = useState('');
+  const [ItemsCount, setItemsCount] = useState('');
   const [Items, setItems] = useState([]);
   const [Orders, setOrders] = useState([]);
 
@@ -477,16 +357,104 @@ const Team = () => {
             icon: 'error',
             title: 'Oops...',
             confirmButtonColor: "#FF6700",
-            text: ''
+            text: response.message
           })
         }
       }
       )
       .catch(error => {
-        alert(error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          confirmButtonColor: "#FF6700",
+          text: 'server error'
+        })
       });
   }
 
+  const ItemColomns = [
+    { field: 'name', headerName: <span style={{ color: "black", fontWeight: 600 }}>Name</span>, flex: 1 },
+    { field: 'price', headerName: <span style={{ color: "black", fontWeight: 600 }}>Price</span>, flex: 1 },
+    {
+      field: 'location',
+      headerName: <span style={{ color: "black", fontWeight: 600 }}>Location</span>,
+      flex: 1,
+    },
+    {
+      field: 'promoted',
+      headerName: <span style={{ color: "black", fontWeight: 600 }}>Promoted</span>,
+      flex: 1,
+      renderCell: (row) => {
+        return (
+          <>
+            {row.row.promoted === 'true' ?
+              < Chip sx={{ cursor: 'pointer' }} label={row.row.promoted} color="success" variant="outlined" />
+              :
+              <Chip sx={{ cursor: 'pointer' }} label={row.row.promoted} color="primary" />
+  
+            }
+          </>
+  
+        );
+      },
+    },
+  
+    {
+      field: 'added_by',
+      headerName: <span style={{ color: "black", fontWeight: 600 }}>Added_by</span>,
+      flex: 1,
+    },
+    {
+      field: 'description',
+      headerName: <span style={{ color: "black", fontWeight: 600 }}>Description</span>,
+      flex: 1,
+    },
+    {
+      field: 'id',
+      headerName: <span style={{ color: "black", fontWeight: 600 }}>Actions</span>,
+      flex: 1,
+      renderCell: (row) => {
+        return (
+          <>
+            <div>
+              <IconButton  >
+                <Tooltip title="view" >
+                  <Visibility sx={{ color: "#3FC0FF" }} onClick={() => {
+                    setViewData(row.row); setViewImage(row.row.images[0]); console.log(row.row);
+                    var myDate = new Date(row.row.end_date);
+                    var result = myDate.getTime();
+                    console.log(result);
+                    setTimer(result)
+                    var myDate1 = new Date(row.row.start_date);
+                    var result1 = myDate1.getTime();
+                    console.log(result1);
+                    setStartDate(result1)
+                    handleOpenmodal();
+                  }} />
+                </Tooltip>
+              </IconButton>
+            </div>
+          </>
+        );
+      },
+    },
+  ];
+  const Completionist = () => <span>InActive</span>;
+
+  // Renderer callback with condition
+  const renderer = ({ days, hours, minutes, seconds, completed }) => {
+      if (completed) {
+          // Render a complete state
+          return <Completionist />;
+      } else {
+          // Render a countdown
+          return (
+              <span>
+                  {days}:{hours}:{minutes}:{seconds}
+              </span>
+          );
+      }
+  };
 
 
   const handleDelete = async () => {
@@ -523,92 +491,14 @@ const Team = () => {
       }
       )
       .catch(error => {
-        alert(error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          confirmButtonColor: "#FF6700",
+          text: 'server error'
+        })
       });
   }
-
-
-
-  const columns = [
-    { field: 'username', headerName: <span style={{ color: "black", fontWeight: 600 }}>Username</span>, flex: 1 },
-    { field: 'email', headerName: <span style={{ color: "black", fontWeight: 600 }}>Email</span>, flex: 1 },
-
-    { field: 'country_code', headerName: <span style={{ color: "black", fontWeight: 600 }}>Code</span>, flex: 1 },
-    { field: 'phone', headerName: <span style={{ color: "black", fontWeight: 600 }}>Phone</span>, flex: 1 },
-    {
-      field: `status`,
-      headerName: <span style={{ color: "black", fontWeight: 600 }}>Status</span>,
-      flex: 1,
-      renderCell: (row) => {
-        return (
-          <>
-            {row.row.status === 'unblock' ?
-              < Chip onClick={() => { changeStatus(row.row) }} sx={{ cursor: 'pointer' }} label={row.row.status} color="success" variant="outlined" />
-              :
-              row.row.status === null ?
-                < Chip onClick={() => { changeStatus(row.row) }} sx={{ cursor: 'pointer' }} label='unblock' color="success" variant="outlined" />
-                :
-                <Chip onClick={() => { changeStatus(row.row) }} sx={{ cursor: 'pointer' }} label={row.row.status} color="primary" variant="outlined" />
-
-            }
-          </>
-
-        );
-      },
-    },
-
-    {
-      field: 'id',
-      headerName: <span style={{ color: "black", fontWeight: 600 }}>Actions</span>,
-      flex: 1,
-      renderCell: (row) => {
-        return (
-          <>
-            <div>
-              <IconButton  >
-                <Tooltip title="view" >
-                  <Visibility sx={{ color: "#3FC0FF" }} onClick={() => {
-                    setViewData(row.row); console.log(row.row);
-                    handleOpenmodal()
-                  }} />
-                </Tooltip>
-              </IconButton>
-
-              {/* <IconButton  >
-                <Tooltip title="edit" >
-                  <Edit sx={{ color: "#40E0D0" }} onClick={() => {
-                    console.log(row.row);
-                    navigate('/UpdateLogo', {
-                      state: {
-                        id: row.row.id,
-                        image: row.row.image,
-                        link: row.row.link,
-                        status: row.row.active_status,
-                        screen: row.row.screen_name,
-                        screen_id: row.row.screen_id
-
-                      }
-                    })
-                  }
-                  }
-                  />
-                </Tooltip>
-              </IconButton>
-
-              <IconButton >
-                <Tooltip title="Delete">
-                  <Delete sx={{ color: "#E10006" }} onClick={() => {
-                    setDeleteID(row.row.id);
-                    handleOpendelmodal();
-                  }} />
-                </Tooltip>
-              </IconButton> */}
-            </div>
-          </>
-        );
-      },
-    },
-  ];
   const [Logos, setLogos] = useState([]);
   useEffect(() => {
     getAllLogos();
@@ -644,85 +534,100 @@ const Team = () => {
       }
       )
       .catch(error => {
-        alert(error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          confirmButtonColor: "#FF6700",
+          text: 'server error'
+        })
       });
   }
 
   const getOrders = async () => {
     var InsertAPIURL = `${url}orders/get_orders_by_user_id`
     var headers = {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
     };
     const Data = {
-      "user_id":location.state.id
+      "user_id": location.state.id
     }
     await fetch(InsertAPIURL, {
-        method: 'POST',
-        headers: headers,
-        body: JSON.stringify(Data),
-        
+      method: 'POST',
+      headers: headers,
+      body: JSON.stringify(Data),
+
     })
-        .then(response => response.json())
-        .then(response => {
-            console.log(response);
-            if (response.message == `User's All orders`) {
-                // setLogos(response.count);
-                console.log(response.result);
-                setOrders(response.result);
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    confirmButtonColor: "#FF6700",
-                    text: ''
-                })
-            }
+      .then(response => response.json())
+      .then(response => {
+        console.log(response);
+        if (response.message == `User's All orders`) {
+          setOrderCount(response.count);
+          console.log(response.result);
+          setOrders(response.result);
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            confirmButtonColor: "#FF6700",
+            text: ''
+          })
         }
-        )
-        .catch(error => {
-            alert(error);
-        });
-}
+      }
+      )
+      .catch(error => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          confirmButtonColor: "#FF6700",
+          text: 'server error'
+        })
+      });
+  }
 
 
 
   const getItems = async () => {
     var InsertAPIURL = `${url}items/get_items_by_user`
     var headers = {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
     };
     const Data = {
-      "user_ID":location.state.id
+      "user_ID": location.state.id
     }
     await fetch(InsertAPIURL, {
-        method: 'POST',
-        headers: headers,
-        body: JSON.stringify(Data),
-        
+      method: 'POST',
+      headers: headers,
+      body: JSON.stringify(Data),
+
     })
-        .then(response => response.json())
-        .then(response => {
-            console.log(response);
-            if (response.message == `User's items data`) {
-                // setLogos(response.count);
-                console.log(response.result);
-                setItems(response.result);
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    confirmButtonColor: "#FF6700",
-                    text: ''
-                })
-            }
+      .then(response => response.json())
+      .then(response => {
+        console.log(response);
+        if (response.message == `User's items data`) {
+          // setLogos(response.count);
+          setItemsCount(response.count);
+          setItems(response.result);
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            confirmButtonColor: "#FF6700",
+            text: ''
+          })
         }
-        )
-        .catch(error => {
-            alert(error);
-        });
-}
+      }
+      )
+      .catch(error => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          confirmButtonColor: "#FF6700",
+          text: 'server error'
+        })
+      });
+  }
 
 
 
@@ -767,58 +672,58 @@ const Team = () => {
         <Divider sx={{ pb: 2 }} />
 
         <Grid sx={{ mb: '23px' }} container spacing={0} pt={2} pl={2} pr={2} >
-        <Typography sx={{ ml: '10px' }} variant="h5" fontWeight={750} fontSize="20px"  color="#404040">
-              Items
-            </Typography>
+          <Typography sx={{ ml: '10px' }} variant="h5" fontWeight={750} fontSize="20px" color="#404040">
+            Items {ItemsCount}
+          </Typography>
 
           {
             showtable ?
-            <>
-              <Grid xs={12} p={1} align="center">
-                <div style={{ height: 400, width: '100%' }}>
-                  <DataGrid
-                    rows={Items}
-                    getRowId={Items.id}
-                    id={Items.id}
-                    columns={ItemColomns}
-                    initialState={{
-                      pagination: {
-                        paginationModel: { page: 0, pageSize: 5 },
-                      },
-                    }}
-                    pageSizeOptions={[5, 10]}
-                    //  checkboxSelection
+              <>
+                <Grid xs={12} p={1} align="center">
+                  <div style={{ height: 400, width: '100%' }}>
+                    <DataGrid
+                      rows={Items}
+                      getRowId={Items.id}
+                      id={Items.id}
+                      columns={ItemColomns}
+                      initialState={{
+                        pagination: {
+                          paginationModel: { page: 0, pageSize: 5 },
+                        },
+                      }}
+                      pageSizeOptions={[5, 10]}
+                      //  checkboxSelection
 
-                    components={
-                      <Chip label='active_status' color="success" variant="outlined" />
-                    }
-                  />
-                </div>
-              </Grid>
-              <Typography sx={{ ml: '10px' }} variant="h5" fontWeight={750} fontSize="20px"  color="#404040">
-              Orders
-            </Typography>
-            <Grid xs={12} p={1} align="center">
-                <div style={{ height: 400, width: '100%' }}>
-                  <DataGrid
-                    rows={Orders}
-                    getRowId={Orders.id}
-                    id={Orders.id}
-                    columns={OrdersColomns}
-                    initialState={{
-                      pagination: {
-                        paginationModel: { page: 0, pageSize: 5 },
-                      },
-                    }}
-                    pageSizeOptions={[5, 10]}
-                    //  checkboxSelection
+                      components={
+                        <Chip label='active_status' color="success" variant="outlined" />
+                      }
+                    />
+                  </div>
+                </Grid>
+                <Typography sx={{ ml: '10px' }} variant="h5" fontWeight={750} fontSize="20px" color="#404040">
+                  {`Orders       ${OrderCount}`}
+                </Typography>
+                <Grid xs={12} p={1} align="center">
+                  <div style={{ height: 400, width: '100%' }}>
+                    <DataGrid
+                      rows={Orders}
+                      getRowId={Orders.id}
+                      id={Orders.id}
+                      columns={OrdersColomns}
+                      initialState={{
+                        pagination: {
+                          paginationModel: { page: 0, pageSize: 5 },
+                        },
+                      }}
+                      pageSizeOptions={[5, 10]}
+                      //  checkboxSelection
 
-                    components={
-                      <Chip label='active_status' color="success" variant="outlined" />
-                    }
-                  />
-                </div>
-              </Grid>
+                      components={
+                        <Chip label='active_status' color="success" variant="outlined" />
+                      }
+                    />
+                  </div>
+                </Grid>
 
               </>
               :
@@ -905,7 +810,7 @@ const Team = () => {
 
                           <Grid xs={6} sx={{ pb: 1 }} align="left" onClick={handleOpenmodal}>
                             <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
-                              email 
+                              email
                             </Typography>
                           </Grid>
 
@@ -917,12 +822,12 @@ const Team = () => {
 
                           <Grid xs={6} sx={{ pb: 1 }} align="left" onClick={handleOpenmodal}>
                             <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
-                              Phone 
+                              Phone
                             </Typography>
                           </Grid>
 
                           <Grid xs={6} sx={{ pb: 1 }} align="left" onClick={handleOpenmodal}>
-                            <Typography variant="h5" fontWeight={600} pb={1} fontSize="12px" sx={{ }} color="#808080">
+                            <Typography variant="h5" fontWeight={600} pb={1} fontSize="12px" sx={{}} color="#808080">
                               {`${item.country_code}:${item.phone}`}
                             </Typography>
                           </Grid>
@@ -941,71 +846,161 @@ const Team = () => {
         <Grid sx={{ mb: '13px' }} container spacing={0} pt={2} pl={2} pr={2} >
         </Grid>
 
-        {/* view */}
-        <Modal
-          open={openmodal}
-          // onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <Box width={{ xs: 400, md: 500, lg: 600, xl: 650 }} height="auto" sx={styleview}>
-            <Grid container spacing={0}>
-              <Box sx={{ borderTopLeftRadius: "20px", borderTopRightRadius: "20px", backgroundColor: "#FF6700", width: "100%", height: "70px" }}>
-                <Grid xs={12} align="right" pt={0.8} pr={1}>
-                  <Close sx={{ color: "white" }} onClick={() => setOpenmodal(false)} />
-                </Grid>
+                {/* view */}
+                <Modal
+                    open={openmodal}
+                    // onClose={handleClose}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
+                >
+                    <Box width={{ xs: 400, md: 500, lg: 600, xl: 650 }} height="auto" sx={styleview}>
+                        <Box sx={{ borderTopLeftRadius: "20px", borderTopRightRadius: "20px", backgroundColor: "#FF6700", width: "100%", height: "80px" }}>
+                            <Box xs={12} align="right" pt={0.1} pr={1}>
+                                <Close sx={{ color: "white" }} onClick={() => setOpenmodal(false)} />
+                            </Box>
+                            <Box xs={12} sx={{ mb: '20px' }} align="center">
+                                <Typography align="center" sx={{ mb: '20px', fontWeight: 600, fontSize: "24px" }} color="white">
+                                    {viewData.name}
+                                </Typography>
+                            </Box>
+                        </Box>
 
-                <Grid xs={12} align="center">
-                  <Stack align="center" >
-                    <Typography variant="paragraph" sx={{ letterSpacing: "1px", fontWeight: 600, fontSize: "30px" }} color="white">
-                      {viewData.username}
-                    </Typography>
-                  </Stack>
-                </Grid>
-              </Box>
-            </Grid>
-            <Grid xs={12} align="center" pt={3}>
-              {viewData.image !== null ?
-                <img src={`https://staging-gearone-be.mtechub.com/${viewData.image}`} style={{ bgcolor: "#FF6700", width: '175px', height: '175px' }}>
-                </img>
-                :
-                <Avatar sx={{ bgcolor: "#FF6700", width: 75, height: 75 }}>
-                  <Typography variant="paragraph" sx={{ textTransform: "uppercase", fontSize: "18px", fontWeight: 600 }} p={1} color="white">
-                  </Typography>
-                </Avatar>
-              }
-            </Grid>
+                        {viewImage !== null ?
+                            viewImage !== undefined ?
+                                <Grid xs={12} align="center" pt={3}>
+                                    <img src={`http://localhost:8082/${viewImage}`} style={{ bgcolor: "#FF6700", width: '175px', height: '175px' }}>
+                                    {/* <img src={`https://staging-gearone-be.mtechub.com/${viewImage}`} style={{ bgcolor: "#FF6700", width: '175px', height: '175px' }}> */}
+                                    </img>
+                                </Grid>
+                                :
+                                <Grid xs={12} align="center" pt={3}>
+                                    <Avatar sx={{bgcolor: "#FF6700", width: 75, height: 75 }}>
+                                    </Avatar>
+                                </Grid>
+
+                            :
+                            <Grid xs={12} align="center" pt={3}>
+                                <Avatar sx={{ width: 75, height: 75 }}>
+                                </Avatar>
+                            </Grid>
+                        }
+
+                        <Grid container spacing={0} p={2}>
+                            <Grid xs={6} align="" p={0.5}>
+                                <Typography variant="h5" fontWeight={700} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
+                                    Price :
+                                </Typography>
+                                {/* <Button variant="contained" style={btn} onClick={() => { navigate("/setnewpassword") }}>Reset Password</Button> */}
+                            </Grid>
+
+                            <Grid xs={6} align="right" p={0.5}>
+                                <Typography variant="h5" fontWeight={600} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#808080">
+                                    {viewData.price}
+                                </Typography>
+                            </Grid>
+
+                            <Grid xs={6} align="" p={0.5}>
+                                <Typography variant="h5" fontWeight={700} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
+                                    Location :
+                                </Typography>
+                            </Grid>
+
+                            <Grid xs={6} align="right" p={0.5}>
+                                <Typography variant="h5" fontWeight={600} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#808080">
+                                    {viewData.location}
+                                </Typography>
+                            </Grid>
 
 
-            <Grid container spacing={0} p={2}>
-              <Grid xs={6} align="" p={0.5}>
-                <Typography variant="h5" fontWeight={700} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
-                  Email :
-                </Typography>
-                {/* <Button variant="contained" style={btn} onClick={() => { navigate("/setnewpassword") }}>Reset Password</Button> */}
-              </Grid>
+                            <Grid xs={6} align="" p={0.5}>
+                                <Typography variant="h5" fontWeight={700} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
+                                    Promoted :
+                                </Typography>
+                            </Grid>
 
-              <Grid xs={6} align="right" p={0.5}>
-                <a href={viewData.link} sx={{ cursor: 'pointer' }} variant="h6" fontWeight={300} pb={1} fontSize="12px" color='#007FFF'>
-                  {viewData.email}
-                </a>
-              </Grid>
+                            <Grid xs={6} align="right" p={0.5}>
+                                <Typography variant="h5" fontWeight={600} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#808080">
+                                    {viewData.promoted}
+                                </Typography>
+                            </Grid>
 
-              <Grid xs={6} align="" p={0.5}>
-                <Typography variant="h5" fontWeight={700} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
-                Phone :
-                </Typography>
-              </Grid>
+                            <Grid xs={6} align="" p={0.5}>
+                                <Typography variant="h5" fontWeight={700} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
+                                    Start Date :
+                                </Typography>
+                            </Grid>
 
-              <Grid xs={6} align="right" p={0.5}>
-                <Typography variant="h5" fontWeight={600} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#808080">
-                  {`${viewData.country_code}:${viewData.phone}`}
-                </Typography>
-              </Grid>
+                            <Grid xs={6} align="right" p={0.5}>
+                                <Typography variant="h5" fontWeight={600} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#808080">
+                                    {moment(viewData.start_date).format("MMMM Do, YYYY/hh:mm A")}
+                                </Typography>
+                            </Grid>
 
-            </Grid>
-          </Box>
-        </Modal>
+
+                            <Grid xs={6} align="" p={0.5}>
+                                <Typography variant="h5" fontWeight={700} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
+                                    End Date :
+                                </Typography>
+                            </Grid>
+
+                            <Grid xs={6} align="right" p={0.5}>
+                                <Typography variant="h5" fontWeight={600} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#808080">
+
+                                    <Countdown date={Date.now() + (Math.abs(viewData.end_date - Date.now()) / 1000)} />
+                                    {/* // (moment(viewData.end_date).format("MMMM Do, YYYY/hh:mm A"))} /> */}
+                                    {moment(viewData.end_date).format("MMMM Do, YYYY/hh:mm A")}
+
+                                </Typography>
+                            </Grid>
+
+
+                            <Grid xs={6} align="" p={0.5}>
+                                <Typography variant="h5" fontWeight={700} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
+                                    Remaining Time :
+                                </Typography>
+                            </Grid>
+
+                            <Grid xs={6} align="right" p={0.5}>
+
+                                {/* {StartDate ==  '0' ? <>Not Yet</> */}
+                                {/* : */}
+                                <Typography variant="h5" fontWeight={600} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#808080">
+                                    <Countdown date={Timer} renderer={renderer} />
+                                </Typography>
+                                {/* 
+                                } */}
+
+                            </Grid>
+
+
+                            <Grid xs={6} align="" p={0.5}>
+                                <Typography variant="h5" fontWeight={700} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
+                                    Added By :
+                                </Typography>
+                            </Grid>
+
+                            <Grid xs={6} align="right" p={0.5}>
+                                <Typography variant="h5" fontWeight={600} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#808080">
+                                    {viewData.added_by}
+                                </Typography>
+                            </Grid>
+
+                            <Grid xs={6} align="" p={0.5}>
+                                <Typography variant="h5" fontWeight={700} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
+                                    Description :
+                                </Typography>
+                            </Grid>
+
+                            <Grid xs={6} align="right" p={0.5}>
+                                <Typography variant="h5" fontWeight={600} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#808080">
+                                    {viewData.description}
+                                </Typography>
+                            </Grid>
+
+
+                        </Grid>
+                    </Box>
+                </Modal>
 
         {/* del */}
         <Modal

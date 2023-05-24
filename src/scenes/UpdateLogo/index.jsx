@@ -123,7 +123,12 @@ const Team = () => {
                         }
                         )
                             .catch(error => {
-                                alert(error);
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Oops...',
+                                    confirmButtonColor: "#FF6700",
+                                    text: response.message
+                                })
                             });
                     } else {
                         setIsloading(false)
@@ -142,7 +147,12 @@ const Team = () => {
             }
             )
             .catch(error => {
-                alert(error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    confirmButtonColor: "#FF6700",
+                    text: "Server Error"
+                })
             });
     }
 
@@ -179,7 +189,12 @@ const Team = () => {
             }
             )
             .catch(error => {
-                alert(error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    confirmButtonColor: "#FF6700",
+                    text: "Server Error"
+                })
             });
     }
 
@@ -357,10 +372,9 @@ const Team = () => {
                                                 backgroundColor: "#F8F8F8",
                                                 "& fieldset": { border: 'none' },
                                             }}
-                                            labelId="demo-simple-select-label"
-                                            id="demo-simple-select"
+                                            id="input-with-icon-adornment"
                                             placeholder={location.state.status}
-                                            onChange={handleChange}
+                                            onChange={(event) => { setStatus(event.target.value); }}
                                         >
                                             <MenuItem value={'active'}>Active</MenuItem>
                                             <MenuItem value={'inactive'}>InActive</MenuItem>

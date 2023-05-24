@@ -14,7 +14,7 @@ const override = {
 const btn = {
     letterSpacing: "1px",
     width: '50%',
-    marginTop: '40px',
+    marginTop: '40pxs',
     marginBottom: '40px',
     color: 'white',
     backgroundColor: '#FF6700',
@@ -118,7 +118,12 @@ const Team = () => {
                         }
                         )
                             .catch(error => {
-                                alert(error);
+                                          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            confirmButtonColor: "#FF6700",
+            text: response.message
+          })
                             });
                     } else {
                         setIsloading(false)
@@ -136,7 +141,12 @@ const Team = () => {
             }
             )
             .catch(error => {
-                alert(error);
+                          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            confirmButtonColor: "#FF6700",
+            text:  "Server error"
+                  })
             });
     }
 
@@ -168,7 +178,12 @@ const Team = () => {
             }
             )
             .catch(error => {
-                alert(error);
+                          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            confirmButtonColor: "#FF6700",
+            text:  "Server error"
+          })
             });
     }
 

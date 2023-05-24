@@ -131,7 +131,12 @@ function Profile() {
             )
             .catch(error => {
 
-                alert(error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    confirmButtonColor: "#FF6700",
+                    text: "Server Error"
+                })
             });
     }
 
@@ -199,7 +204,12 @@ function Profile() {
                         }
                         )
                         .catch(error => {
-                            alert(error);
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                confirmButtonColor: "#FF6700",
+                                text: "Server Error"
+                            })
                         });
 
                 } else if (response.message == "Image uploaded in particular folder") {
@@ -242,13 +252,23 @@ function Profile() {
                         }
                         )
                         .catch(error => {
-                            alert(error);
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                confirmButtonColor: "#FF6700",
+                                text: "Server Error"
+                            })
                         });
                 }
             }
             )
             .catch(error => {
-                alert(error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    confirmButtonColor: "#FF6700",
+                    text: "Server Error"
+                })
             });
     }
 

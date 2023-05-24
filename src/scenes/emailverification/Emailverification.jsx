@@ -5,8 +5,8 @@ import { Email, Close } from '@mui/icons-material';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2'
-import image from '../../components/Images/logo.png'
-import signinmockup from "../../components/Images/signinmockup.png"
+import image from '../../components/Images/logo.svg'
+import signinmockup from "../../components/Images/signinmockup.jpeg"
 import Avatar from '@mui/material/Avatar';
 import url from '../url'
 import { NavLink } from 'react-router-dom';
@@ -148,7 +148,12 @@ function Emailverification() {
                 }
                 )
                 .catch(error => {
-                    alert(error);
+                              Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            confirmButtonColor: "#FF6700",
+            text:  "Server error"
+          })
                 });
         }
         // setEmailmessage(true);
@@ -227,7 +232,12 @@ function Emailverification() {
                 }
                 )
                 .catch(error => {
-                    alert(error);
+                              Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            confirmButtonColor: "#FF6700",
+            text:  "Server error"
+          })
                 });
         }
 
@@ -281,7 +291,7 @@ function Emailverification() {
                 <Grid xs={12} md={6} lg={6} xl={6} align="">
                     <Container>
                         <Box sx={{ pt: { xs: 0, sm: 0, md: 0, lg: 12, xl: 30 } }} p={{ lg: 10, xl: 15 }}>
-                            <Avatar src={image} sx={{ width: 100, height: 100 }} />
+                            <img src={image} sx={{ width: 100, height: 100 }} />
 
                             {hide ?
                                 <Stack pt={5}>
@@ -406,7 +416,7 @@ function Emailverification() {
                             <Grid xs={12} p={10}>
                                 <Box pt={{ lg: 20, xl: 30 }}>
                                     <Typography variant="h5" fontWeight={600} fontSize="30px" color="white">
-                                        Welcome to Gym App
+                                        Welcome to Gear One
                                     </Typography>
 
                                     <Divider sx={{ height: "0.2vh", mt: 3, mb: 3, backgroundColor: "white", width: "15vh" }} />
