@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../../App.css"
 import { Avatar, Box, Typography, Button, Stack, useTheme, Divider, Card, CardContent, Toolbar, TableSortLabel, TableCell, Checkbox, TableHead, TableRow, FormControlLabel, Switch, Paper, TableContainer, Table, TableBody, TablePagination, ToggleButton, ToggleButtonGroup } from "@mui/material";
 import { tokens } from "../../theme";
+import Select from '@mui/material/Select';
 import totalusers from '../../components/Images/totalusers.png'
 import categoriesofworkout from '../../components/Images/categoriesofworkout.png'
 import totalworkoutplans from '../../components/Images/totalworkoutplans.png'
@@ -31,6 +32,7 @@ import {
   Bar,
   XAxis,
   LineChart,
+  YAxis,
   Line,
   CartesianGrid
 } from "recharts";
@@ -56,7 +58,7 @@ const Dashboard = () => {
   const [allItems, setAllItems] = useState('');
   const [allMerchandise, setAllMerchandise] = useState('');
   const [Items, setItems] = useState([]);
-  const [Years, setYears] = useState('');
+  const [Years, setYears] = useState([]);
   const [MonthUser, setMonthUser] = useState([]);
 
   const colors = tokens(theme.palette.mode);
@@ -106,7 +108,12 @@ const Dashboard = () => {
       }
       )
       .catch(error => {
-        alert(error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          confirmButtonColor: "#FF6700",
+          text: 'server error'
+        })
       });
   }
 
@@ -124,7 +131,7 @@ const Dashboard = () => {
       .then(response => {
         console.log(response);
         if (response.message == `user table's years`) {
-          setYears(response.count);
+          setYears(response.result);
         } else {
           Swal.fire({
             icon: 'error',
@@ -136,7 +143,12 @@ const Dashboard = () => {
       }
       )
       .catch(error => {
-        alert(error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          confirmButtonColor: "#FF6700",
+          text: 'server error'
+        })
       });
   }
 
@@ -168,7 +180,12 @@ const Dashboard = () => {
       }
       )
       .catch(error => {
-        alert(error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          confirmButtonColor: "#FF6700",
+          text: 'server error'
+        })
       });
   }
 
@@ -199,9 +216,22 @@ const Dashboard = () => {
       }
       )
       .catch(error => {
-        alert(error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          confirmButtonColor: "#FF6700",
+          text: 'server error'
+        })
       });
   }
+
+
+  const [year, setYear] = React.useState('');
+  const handleChange = (event) => {
+    setYear(event.target.value);
+    getAllUserMonth(event.target.value);
+  };
+
 
   const getAllUserMonth = async (year) => {
     var InsertAPIURL = `${url}auth/get_monthwise_users`
@@ -233,7 +263,12 @@ const Dashboard = () => {
       }
       )
       .catch(error => {
-        alert(error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          confirmButtonColor: "#FF6700",
+          text: 'server error'
+        })
       });
   }
 
@@ -353,7 +388,12 @@ const Dashboard = () => {
       }
       )
       .catch(error => {
-        alert(error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          confirmButtonColor: "#FF6700",
+          text: 'server error'
+        })
       });
   }
 
@@ -574,13 +614,7 @@ const Dashboard = () => {
           //     <Delete />
           //   </IconButton>
           // </Tooltip>
-        ) : (
-          <Tooltip title="Filter list">
-            <IconButton>
-              <FilterList />
-            </IconButton>
-          </Tooltip>
-        )}
+        ) : ""}
       </Toolbar>
     );
   }
@@ -866,11 +900,24 @@ const Dashboard = () => {
                     fontSize="15px" sx={{ font: "normal normal medium 16px/21px Roboto", letterSpacing: "1px" }} color="#1F1F1F">
                     Total User
                   </Typography>
-                  {/* name: "Jan",
-      uv: 4000,
-      pv: 2400,
-      amt: 2400 */}
+                  <Typography>Year </Typography>
+                  <Select sx={{ mb: '25px' }}
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={year}
+                    defaultValue='2023'
+                    label="Select A Year"
 
+                    onChange={handleChange}
+                  >
+                    <MenuItem value="Year " disabled>
+                      <em>select a Year</em>
+                    </MenuItem>
+
+                    {Years.map((data) => (
+                      <MenuItem key={data.id} value={data.year}>{`${data.year}`}</MenuItem>
+                    ))}
+                  </Select>
                   <LineChart
                     width={600}
                     height={150}
@@ -882,14 +929,15 @@ const Dashboard = () => {
                       bottom: 5
                     }}
                   >
-                    {" "}
+                    {"1 "}
                     <XAxis dataKey="month" />
-                    {/* <CartesianGrid strokeDasharray="3 3" /> */}
+                    <YAxis dataKey="count" />
+                    <CartesianGrid strokeDasharray="3 3" />
                     <Line
                       type="monotone"
                       dataKey="count"
                       stroke="black"
-                      dot={{ r: 4, stroke: "#FF6700", fill: '#FF6700' }}
+                      dot={{ r: 9, stroke: "#FF6700", fill: '#FF6700' }}
                     />
                   </LineChart>
                 </CardContent>

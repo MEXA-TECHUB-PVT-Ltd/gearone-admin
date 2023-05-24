@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { Box, Container, Divider, FormControl, Modal, Grid, IconButton, InputAdornment, OutlinedInput, Stack, Typography } from '@mui/material'
 import Button from '@mui/material/Button';
 import Swal from 'sweetalert2'
-import image from '../../components/Images/logo.png'
-import signinmockup from "../../components/Images/signinmockup.png"
+import image from '../../components/Images/logo.svg'
+import signinmockup from "../../components/Images/signinmockup.jpeg"
 import Avatar from '@mui/material/Avatar';
 import url from '../url'
 import { useNavigate, NavLink } from 'react-router-dom';
@@ -170,7 +170,6 @@ function Setnewpassword() {
                             localStorage.setItem("password", JSON.stringify(password));
                             setIsloading(true);
                             handleOpen();
-                            setTimeout(() => {
                                 Swal.fire({
                                     title: "Success",
                                     text: "Password Updated Succesfully",
@@ -180,7 +179,6 @@ function Setnewpassword() {
                                 });
                                 navigate("/");
                                 setIsloading(false);
-                            }, 3000)
                         } else {
                             setIsloading(true);
                             setTimeout(() => {
@@ -198,7 +196,12 @@ function Setnewpassword() {
                     )
                     .catch(error => {
 
-                        alert(error);
+                                  Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            confirmButtonColor: "#FF6700",
+            text: 'Error Server'
+          })
                     });
             }
     }
@@ -211,13 +214,25 @@ function Setnewpassword() {
         event.preventDefault();
     };
 
+
+    const [showPasswordConfirm, setShowPasswordConfirm] = React.useState(false);
+
+    const handleClickShowPasswordConfirm = () => setShowPasswordConfirm((show) => !show);
+
+    const handleMouseDownPasswordConfirm = (event) => {
+        event.preventDefault();
+    };
+
+
+
+
     return (
         <>
             <Grid container spacig={0}>
                 <Grid xs={12} md={6} lg={6} xl={6} align="">
                     <Container>
                         <Box sx={{ pt: { xs: 0, sm: 0, md: 0, lg: 7, xl: 25 } }} p={{ lg: 10, xl: 15 }}>
-                            <Avatar src={image} sx={{ width: 100, height: 100 }} />
+                            <img src={image} sx={{ width: 100, height: 100 }} />
                             <Stack pt={5}>
                                 <Typography variant="paragraph" fontSize="20px" sx={{ letterSpacing: "1px", font: "normal normal bold 32px/32px Roboto" }} fontWeight="bold" color="#404040">
                                     Reset Password
@@ -282,16 +297,16 @@ function Setnewpassword() {
                                                 setConfirmPassword(event.target.value);
                                             }}
 
-                                            type={showPassword ? 'text' : 'password'}
+                                            type={showPasswordConfirm ? 'text' : 'password'}
                                             endAdornment={
                                                 <InputAdornment position="end">
                                                     <IconButton
                                                         aria-label="toggle password visibility"
-                                                        onClick={handleClickShowPassword}
-                                                        onMouseDown={handleMouseDownPassword}
+                                                        onClick={handleClickShowPasswordConfirm}
+                                                        onMouseDown={handleMouseDownPasswordConfirm}
                                                         edge="end"
                                                     >
-                                                        {showPassword ? <VisibilityOff sx={{ color: "#808080" }} /> : <Visibility sx={{ color: "#808080" }} />}
+                                                        {showPasswordConfirm ? <VisibilityOff sx={{ color: "#808080" }} /> : <Visibility sx={{ color: "#808080" }} />}
                                                     </IconButton>
                                                 </InputAdornment>
                                             }
@@ -335,7 +350,7 @@ function Setnewpassword() {
                             <Grid xs={12} p={10}>
                                 <Box pt={{ lg: 20, xl: 30 }}>
                                     <Typography variant="h5" fontWeight={600} fontSize="30px" color="white">
-                                        Welcome to Gym App
+                                        Welcome to Gear One
                                     </Typography>
 
                                     <Divider sx={{ height: "0.2vh", mt: 3, mb: 3, backgroundColor: "white", width: "15vh" }} />

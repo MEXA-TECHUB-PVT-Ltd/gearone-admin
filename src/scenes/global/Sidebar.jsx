@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
-import { Avatar, Box, Grid, IconButton, Typography, useTheme } from "@mui/material";
+import {  Box, Typography, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
 import "react-pro-sidebar/dist/css/styles.css";
 import { tokens } from "../../theme";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
-import {
-  AccountBalance, AccountBalanceWallet, Apps,
-  Assignment, CalendarViewMonthRounded, Cancel, CardGiftcard, Category, Chair, ContentCut, Dashboard, FitnessCenter, Help, Money, MonitorWeight, Payment, People, Person4, PrivacyTip, Receipt, Remove, Subscriptions, ThumbDown, Visibility
-} from "@mui/icons-material";
-import logo from '../../components/Images/logo.png'
+import StorefrontIcon from '@mui/icons-material/Storefront';
+import PasswordIcon from '@mui/icons-material/Password';
+import GavelIcon from '@mui/icons-material/Gavel';
+import ManageHistoryIcon from '@mui/icons-material/ManageHistory';
+import { Apps,Dashboard, People, PrivacyTip} from "@mui/icons-material";
+import logo from '../../components/Images/logo.svg'
+import ViewCarouselIcon from '@mui/icons-material/ViewCarousel';
+import CategoryIcon from '@mui/icons-material/Category';
 
 const logoStyle = {
   paddingTop: 5,
@@ -98,7 +101,7 @@ const Sidebar = () => {
                   // ml="15px"
                   >
                     <div style={{ display: "flex", alignContent: "center", justifyContent: "center" }}>
-                      <Avatar src={logo} sx={{ width: 80, height: 80, alignSelf: "center" }} />
+                      <img src={logo} style={{ width: '120px', height: '120px' }} />
                     </div>
                     {/* <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
                       <MenuOutlinedIcon />
@@ -125,7 +128,7 @@ const Sidebar = () => {
             <Item
               title="Manage Users"
               to="/ManageUsers"
-              icon={<Help />}
+              icon={<People />}
               selected={selected}
               setSelected={setSelected}
             />
@@ -133,63 +136,63 @@ const Sidebar = () => {
             <Item
               title="Manage Logos"
               to="/ManageLogos"
-              icon={<Assignment />}
+              icon={<ViewCarouselIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
               title="Manage Banners Ads "
               to="/manage_banners_ads"
-              icon={<FitnessCenter />}
+              icon={<ViewCarouselIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
               title="Manage Items"
               to="/dietplan"
-              icon={<MonitorWeight />}
+              icon={<Apps />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
               title="Categories"
               to="/categories"
-              icon={<Apps />}
+              icon={<CategoryIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
               title="Manage Merchandise"
               to="/users"
-              icon={<People />}
+              icon={<StorefrontIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
               title="Manage Daily Deals"
               to="/subscription"
-              icon={<Subscriptions />}
+              icon={<ManageHistoryIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
               title="Terms And Conditions"
               to="/Terms"
-              icon={<Subscriptions />}
+              icon={<GavelIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
               title="Privacy Policy"
               to="/Privacy"
-              icon={<Subscriptions />}
+              icon={<PrivacyTip />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
               title="Change Password"
               to="/updatepassword"
-              icon={<Subscriptions />}
+              icon={<PasswordIcon />}
               selected={selected}
               setSelected={setSelected}
             />

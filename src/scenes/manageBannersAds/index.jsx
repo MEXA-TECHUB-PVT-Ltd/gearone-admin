@@ -239,7 +239,12 @@ const Team = () => {
       }
       )
       .catch(error => {
-        alert(error);
+                  Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            confirmButtonColor: "#FF6700",
+            text:  "Server error"
+          })
       });
   }
 
@@ -281,7 +286,12 @@ const Team = () => {
       }
       )
       .catch(error => {
-        alert(error);
+                  Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            confirmButtonColor: "#FF6700",
+            text:  "Server error"
+          })
       });
   }
 
@@ -394,7 +404,12 @@ const Team = () => {
       }
       )
       .catch(error => {
-        alert(error);
+                  Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            confirmButtonColor: "#FF6700",
+            text:  "Server error"
+          })
       });
   }
 
@@ -622,29 +637,22 @@ const Team = () => {
           aria-describedby="modal-modal-description"
         >
           <Box width={{ xs: 400, md: 500, lg: 600, xl: 650 }} height="auto" sx={styleview}>
-            <Grid container spacing={0}>
-              <Box sx={{ borderTopLeftRadius: "20px", borderTopRightRadius: "20px", backgroundColor: "#FF6700", width: "100%", height: "70px" }}>
-                <Grid xs={12} align="right" pt={0.8} pr={1}>
-                  <Close sx={{ color: "white" }} onClick={() => setOpenmodal(false)} />
-                </Grid>
-
-                <Grid xs={12} align="center">
-                  <Stack align="center" >
-                    <Typography variant="paragraph" sx={{ letterSpacing: "1px", fontWeight: 600, fontSize: "30px" }} color="white">
-                      {viewData.screen_name}
-                    </Typography>
-                  </Stack>
-                </Grid>
+            <Box sx={{ borderTopLeftRadius: "20px", borderTopRightRadius: "20px", backgroundColor: "#FF6700", width: "100%", height: "80px" }}>
+              <Box xs={12} align="right" pt={0.1} pr={1}>
+                <Close sx={{ color: "white" }} onClick={() => setOpenmodal(false)} />
               </Box>
-            </Grid>
+              <Box xs={12} sx={{ mb: '20px' }} align="center">
+                <Typography align="center" sx={{ mb: '20px', fontWeight: 600, fontSize: "24px" }} color="white">
+                  {viewData.screen_name}
+                </Typography>
+              </Box>
+            </Box>
             <Grid xs={12} align="center" pt={3}>
               {viewData.image !== null ?
                 <img src={`http://localhost:8082/${viewData.image}`} style={{ bgcolor: "#FF6700", width: '175px', height: '175px' }}>
                 </img>
                 :
                 <Avatar sx={{ bgcolor: "#FF6700", width: 75, height: 75 }}>
-                  <Typography variant="paragraph" sx={{ textTransform: "uppercase", fontSize: "18px", fontWeight: 600 }} p={1} color="white">
-                  </Typography>
                 </Avatar>
               }
             </Grid>
@@ -659,7 +667,7 @@ const Team = () => {
               </Grid>
 
               <Grid sx={{ pb: 1, width: '100px', height: '50px' }} xs={6} align="left" onClick={handleOpenmodal}>
-              <a href={viewData.link} sx={{ cursor: 'pointer' }} variant="h6" fontWeight={300} pb={1} fontSize="12px" color='#007FFF'>
+                <a href={viewData.link} sx={{ cursor: 'pointer' }} variant="h6" fontWeight={300} pb={1} fontSize="12px" color='#007FFF'>
                   {viewData.link}
                 </a>
               </Grid>

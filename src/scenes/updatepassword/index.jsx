@@ -12,8 +12,8 @@ const override = {
     display: ' block',
     margin: '0 auto',
     borderColor: 'red',
-  }
-  
+}
+
 
 const style = {
     position: 'absolute',
@@ -161,7 +161,12 @@ const Team = () => {
                 }
                 )
                 .catch(error => {
-                    alert(error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        confirmButtonColor: "#FF6700",
+                        text: "Server Error"
+                    })
                 });
         }
 
@@ -260,7 +265,7 @@ const Team = () => {
                             icon: "error",
                             confirmButtonText: "OK",
                         });
-            });
+                    });
             }
     }
 

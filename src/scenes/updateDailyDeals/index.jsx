@@ -91,26 +91,6 @@ const Team = () => {
                             }
                         }).then((response) => {
                             setIsloading(false);
-
-
-                            // var InsertAPIURL = `${url}logos/add_logos_image`
-                            // var headers = {
-                            //     // 'Accept': 'application/json',
-                            //     // 'Content-Type': 'application/json',
-                            //     "Content-Type": "multipart/form-data"
-
-                            // };
-                            // var Data = {
-                            //     "id": response.result[0].id,
-                            //     "image": selectedFile,
-                            // };
-                            // await fetch(InsertAPIURL, {
-                            //     method: 'PUT',
-                            //     headers: headers,
-                            //     body: JSON.stringify(Data),
-                            // })
-                            //     .then(response => response.json())
-                            //     .then(response => {
                             console.log(response.data);
                             if (response.data.message == `Deal Image Added Successfully!`) {
                                 navigate("/subscription")
@@ -128,7 +108,12 @@ const Team = () => {
                         )
                             .catch(error => {
                                 setIsloading(false);
-                                alert(error);
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Oops...',
+                                    confirmButtonColor: "#FF6700",
+                                    text: "Server Error",
+                                })
                             });
                     } else {
                         setIsloading(false);
@@ -147,7 +132,12 @@ const Team = () => {
             )
             .catch(error => {
                 setIsloading(false);
-                alert(error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    confirmButtonColor: "#FF6700",
+                    text: "Srever Error"
+                })
             });
     }
 
@@ -182,7 +172,12 @@ const Team = () => {
             }
             )
             .catch(error => {
-                alert(error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    confirmButtonColor: "#FF6700",
+                    text: "Server Error"
+                })
             });
     }
 
@@ -237,7 +232,7 @@ const Team = () => {
                         <Grid container spacing={0}>
                             <Grid xs={12} align="center" p={1}>
 
-                                
+
                                 <Box pt={2} pb={2}>
                                     <Box sx={{ pt: 2, width: "300px", height: "200px", p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
                                         {hidelabel ?
