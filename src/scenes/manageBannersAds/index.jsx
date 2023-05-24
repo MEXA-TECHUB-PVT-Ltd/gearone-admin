@@ -649,7 +649,7 @@ const Team = () => {
             </Box>
             <Grid xs={12} align="center" pt={3}>
               {viewData.image !== null ?
-                <img src={`http://localhost:8082/${viewData.image}`} style={{ bgcolor: "#FF6700", width: '175px', height: '175px' }}>
+                <img src={`https://staging-gearone-be.mtechub.com/${viewData.image}`} style={{ bgcolor: "#FF6700", width: '175px', height: '175px' }}>
                 </img>
                 :
                 <Avatar sx={{ bgcolor: "#FF6700", width: 75, height: 75 }}>

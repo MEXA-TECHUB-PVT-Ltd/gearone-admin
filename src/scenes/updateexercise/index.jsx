@@ -273,7 +273,7 @@ const Team = () => {
                                         }
                                         {selectedFile ? <img src={URL.createObjectURL(selectedFile)} alt="Preview" style={{ width: "300px", height: "200px" }} />
                                             :
-                                            location.state.image && <img src={`http://localhost:8082/${location.state.image}`} alt="Preview" style={{ width: "300px", height: "200px" }} />
+                                            location.state.image && <img src={`https://staging-gearone-be.mtechub.com/${location.state.image}`} alt="Preview" style={{ width: "300px", height: "200px" }} />
                                         }
                                     </Box>
 
