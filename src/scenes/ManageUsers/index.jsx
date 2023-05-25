@@ -298,7 +298,7 @@ const Team = () => {
         return (
           <>
             {row.row.image !== null ?
-              // <img src={`http://localhost:8082/${row.row.image}`} style={{ bgcolor: "#FF6700", width: '45px', height: '45px' }}>
+              // <img src={`https://staging-gearone-be.mtechub.com/${row.row.image}`} style={{ bgcolor: "#FF6700", width: '45px', height: '45px' }}>
                 <Avatar src={`https://staging-gearone-be.mtechub.com/${row.row.image}`} style={{ bgcolor: "#FF6700", width: '45px', height: '45px' }}> 
               </Avatar>
               :

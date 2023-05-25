@@ -591,7 +591,7 @@ const Team = () => {
 
             {viewImage !== 'undefined' ?
               <Grid xs={12} align="center" pt={3}>
-                <img src={`http://localhost:8082/${viewImage}`} style={{ bgcolor: "#FF6700", width: '175px', height: '175px' }}>
+                <img src={`https://staging-gearone-be.mtechub.com/${viewImage}`} style={{ bgcolor: "#FF6700", width: '175px', height: '175px' }}>
                 </img>
               </Grid>
               :

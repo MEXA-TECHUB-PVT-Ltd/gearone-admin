@@ -390,7 +390,7 @@ const Team = () => {
 
                                         {selectedFile ? <img src={URL.createObjectURL(selectedFile)} alt="Preview" style={{ width: "200px", height: "200px" }} />
                                             :
-                                            location.state.images[0] && <img src={`http://localhost:8082/${location.state.images[0]}`} alt="Preview" style={{ width: "200px", height: "200px" }} />
+                                            location.state.images[0] && <img src={`https://staging-gearone-be.mtechub.com/${location.state.images[0]}`} alt="Preview" style={{ width: "200px", height: "200px" }} />
                                         }
                                     </Box>
 
@@ -451,7 +451,7 @@ const Team = () => {
 
                                         {selectedFile1 ? <img src={URL.createObjectURL(selectedFile1)} alt="Preview" style={{ width: "200px", height: "200px" }} />
                                             :
-                                            location.state.images[1] && <img src={`http://localhost:8082/${location.state.images[1]}`} alt="Preview" style={{ width: "200px", height: "200px" }} />
+                                            location.state.images[1] && <img src={`https://staging-gearone-be.mtechub.com/${location.state.images[1]}`} alt="Preview" style={{ width: "200px", height: "200px" }} />
                                         }
                                     </Box>
 
@@ -504,7 +504,7 @@ const Team = () => {
 
                                         {selectedFile2 ? <img src={URL.createObjectURL(selectedFile2)} alt="Preview" style={{ width: "200px", height: "200px" }} />
                                             :
-                                            location.state.images[2] && <img src={`http://localhost:8082/${location.state.images[2]}`} alt="Preview" style={{ width: "200px", height: "200px" }} />
+                                            location.state.images[2] && <img src={`https://staging-gearone-be.mtechub.com/${location.state.images[2]}`} alt="Preview" style={{ width: "200px", height: "200px" }} />
                                         }
                                     </Box>
 
@@ -556,7 +556,7 @@ const Team = () => {
 
                                         {selectedFile3 ? <img src={URL.createObjectURL(selectedFile3)} alt="Preview" style={{ width: "200px", height: "200px" }} />
                                             :
-                                            location.state.images[3] && <img src={`http://localhost:8082/${location.state.images[3]}`} alt="Preview" style={{ width: "200px", height: "200px" }} />
+                                            location.state.images[3] && <img src={`https://staging-gearone-be.mtechub.com/${location.state.images[3]}`} alt="Preview" style={{ width: "200px", height: "200px" }} />
                                         }
                                     </Box>
 
@@ -608,7 +608,7 @@ const Team = () => {
 
                                         {selectedFile4 ? <img src={URL.createObjectURL(selectedFile4)} alt="Preview" style={{ width: "200px", height: "200px" }} />
                                             :
-                                            location.state.images[4] && <img src={`http://localhost:8082/${location.state.images[4]}`} alt="Preview" style={{ width: "200px", height: "200px" }} />
+                                            location.state.images[4] && <img src={`https://staging-gearone-be.mtechub.com/${location.state.images[4]}`} alt="Preview" style={{ width: "200px", height: "200px" }} />
                                         }
                                     </Box>
 
