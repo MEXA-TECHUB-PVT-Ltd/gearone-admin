@@ -243,7 +243,7 @@ const Team = () => {
             icon: 'error',
             title: 'Oops...',
             confirmButtonColor: "#FF6700",
-            text:  "Server error"
+            text:  "Server Down!"
           })
       });
   }
@@ -290,7 +290,7 @@ const Team = () => {
             icon: 'error',
             title: 'Oops...',
             confirmButtonColor: "#FF6700",
-            text:  "Server error"
+            text:  "Server Down!"
           })
       });
   }
@@ -408,7 +408,7 @@ const Team = () => {
             icon: 'error',
             title: 'Oops...',
             confirmButtonColor: "#FF6700",
-            text:  "Server error"
+            text:  "Server Down!"
           })
       });
   }
@@ -448,7 +448,7 @@ const Team = () => {
 
           <Grid item xs={1.5} align="center">
             <div>
-              <Box sx={{ width: { lg: "11vh", xl: "7vh" }, borderRadius: "5px", border: "1px solid #D8D8D8" }}>
+              <Box sx={{ width: { lg: "13vh", xl: "7vh" }, borderRadius: "5px", border: "1px solid #D8D8D8" }}>
                 <Box >
                   <div style={{ padding: "5px", paddingBottom: "0px", display: "flex", justifyContent: "center", alignContent: "center", gap: "3px" }}>
                     {
@@ -501,11 +501,11 @@ const Team = () => {
 
         <Divider sx={{ pb: 2 }} />
 
-        <Grid container spacing={0} pt={2} pl={2} pr={2} >
+        <Grid container spacing={0} pt={2}  >
           {
             showtable ?
               <Grid xs={12} p={1} align="center">
-                <div style={{ height: 400, width: '100%' }}>
+                <div style={{ height: 600, width: '100%' }}>
                   <DataGrid
                     rows={Logos}
                     getRowId={Logos.id}
@@ -638,9 +638,9 @@ const Team = () => {
         >
           <Box width={{ xs: 400, md: 500, lg: 600, xl: 650 }} height="auto" sx={styleview}>
             <Box sx={{ borderTopLeftRadius: "20px", borderTopRightRadius: "20px", backgroundColor: "#FF6700", width: "100%", height: "80px" }}>
-              <Box xs={12} align="right" pt={0.1} pr={1}>
-                <Close sx={{ color: "white" }} onClick={() => setOpenmodal(false)} />
-              </Box>
+            <div xs={12} align="right" pt={0.6} pr={3}>
+                <Close  sx={{marginRight:'10px', marginTop:"5px", color: "white" }} onClick={() => setOpenmodal(false)} />
+              </div>
               <Box xs={12} sx={{ mb: '20px' }} align="center">
                 <Typography align="center" sx={{ mb: '20px', fontWeight: 600, fontSize: "24px" }} color="white">
                   {viewData.screen_name}
@@ -704,7 +704,7 @@ const Team = () => {
               <Grid xs={12} align="center" p={{ xs: 2, md: 5, lg: 1, xl: 1 }}>
                 <Typography variant="h4" sx={{ letterSpacing: "3px" }} fontWeight={600} fontSize="x-large" color="#FF6700">Confirmation</Typography>
 
-                <Typography variant="h5" sx={{ letterSpacing: "3px" }} pt={7} pb={0} fontWeight={600} color="#1F1F1F">Do you want to delete this Diet Plan ?</Typography>  </Grid>
+                <Typography variant="h5" sx={{ letterSpacing: "3px" }} pt={7} pb={0} fontWeight={600} color="#1F1F1F">Do you want to delete this Ad ?</Typography>  </Grid>
             </Grid>
 
             <Grid container spacing={0} pt={7}>

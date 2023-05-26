@@ -133,25 +133,10 @@ function Login() {
             icon: 'error',
             title: 'Oops...',
             confirmButtonColor: "#FF6700",
-            text: "Server Error"
+            text: "Server Down!"
           })
         });
     }
-
-    // } else {
-    //     setLoading(true);
-    //     setTimeout(() => {
-    //         Swal.fire({
-    //             title: "Error",
-    //             text: "OTP Not Matched",
-    //             confirmButtonColor: "#FF6700",
-    //             icon: "error",
-    //             confirmButtonText: "OK",
-    //         });
-    //         setOpen(false);
-    //         setLoading(false);
-    //     }, 3000)
-    // }
   }
 
 
@@ -213,7 +198,7 @@ function Login() {
             icon: 'error',
             title: 'Oops...',
             confirmButtonColor: "#FF6700",
-            text: "Server error"
+            text: "Server Down!"
           })
         });
     }
@@ -363,8 +348,14 @@ function Login() {
                       />
                       <br />
                       <div style={{ display: "flex", justifyContent: "right", alignContent: "right" }}>
-                        <Box width={{ lg: "30%", xl: "17vh" }}>
-                          <NavLink to="/emailverification" style={{ color: "#404040", textDecoration: "none", fontWeight: "bold", fontSize: "13px", font: "normal normal normal 17px/26px Roboto" }}>Forgot Password?</NavLink>
+                        <Box width={{ lg: "40%", xl: "12vh" }}>
+                          <NavLink to="/emailverification"
+                            style={{
+                              color: "#404040", textDecoration: "none",
+                              fontWeight: "bold", fontSize: "13px",
+                              font: "normal normal normal 17px/26px Roboto"
+                            }}>
+                            Forgot Password?</NavLink>
                         </Box>
                       </div>
 

@@ -78,6 +78,7 @@ const Team = () => {
     useEffect(() => {
         getAllScreens();
     }, [])
+    function isNumber(n) { return /^-?[\d.]+(?:e-?\d+)?$/.test(n); }
 
     const handleAdd = async (e) => {
         e.preventDefault();
@@ -92,85 +93,95 @@ const Team = () => {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
         };
-        var Data = {
-            "user_ID": localStorage.getItem('adminID'),
-            "name": Name,
-            "price": Price,
-            "category_id": Category_id,
-            "description": Description,
-            "location": location,
-            "promoted": promoted,
-            "start_date": startTime,
-            "end_date": endTime,
-            "added_by": 'admin'
-        };
-        console.log(Data)
-        await fetch(InsertAPIURL, {
-            method: 'POST',
-            headers: headers,
-            body: JSON.stringify(Data),
-        })
-            .then(response => response.json())
-            .then(async response => {
-                console.log(response);
-                console.log(selectedFile)
-                if (response.message == `product added Successfully!`) {
-                    if (selectedFile !== null && selectedFile !== undefined) {
-                        formData.append("id", response.result[0].id)
-                        await axios.put(url + "items/add_item_images", formData, {
-                            headers: {
-                                "Content-Type": "multipart/form-data"
+        if (!isNumber(Price)) {
+            setIsloading(false);
+            Swal.fire({
+                icon: 'warning',
+                title: 'Oops',
+                confirmButtonColor: "#FF6700",
+                text: 'Price must be a number'
+            })
+        } else {
+            var Data = {
+                "user_ID": localStorage.getItem('adminID'),
+                "name": Name,
+                "price": Price,
+                "category_id": Category_id,
+                "description": Description,
+                "location": location,
+                "promoted": promoted,
+                "start_date": startTime,
+                "end_date": endTime,
+                "added_by": 'admin'
+            };
+            console.log(Data)
+            await fetch(InsertAPIURL, {
+                method: 'POST',
+                headers: headers,
+                body: JSON.stringify(Data),
+            })
+                .then(response => response.json())
+                .then(async response => {
+                    console.log(response);
+                    console.log(selectedFile)
+                    if (response.message == `product added Successfully!`) {
+                        if (selectedFile !== null && selectedFile !== undefined) {
+                            formData.append("id", response.result[0].id)
+                            await axios.put(url + "items/add_item_images", formData, {
+                                headers: {
+                                    "Content-Type": "multipart/form-data"
+                                }
+                            }).then((response) => {
+                                setIsloading(false);
+
+                                console.log(response.data);
+                                if (response.data.message == `items Images added Successfully!`) {
+                                    navigate("/dietplan")
+                                    setIsloading(false);
+
+                                } else {
+                                    setIsloading(false);
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Oops2...',
+                                        confirmButtonColor: "#FF6700",
+                                        text: ''
+                                    })
+                                }
                             }
-                        }).then((response) => {
+                            )
+                                .catch(error => {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Oops...',
+                                        confirmButtonColor: "#FF6700",
+                                        text: response.message
+                                    })
+                                });
+                        } else {
                             setIsloading(false);
-
-                            console.log(response.data);
-                            if (response.data.message == `items Images added Successfully!`) {
-                                navigate("/dietplan")
-                                setIsloading(false);
-
-                            } else {
-                                setIsloading(false);
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Oops2...',
-                                    confirmButtonColor: "#FF6700",
-                                    text: ''
-                                })
-                            }
+                            navigate("/dietplan")
                         }
-                        )
-                            .catch(error => {
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Oops...',
-                                    confirmButtonColor: "#FF6700",
-                                    text: response.message
-                                })
-                            });
                     } else {
                         setIsloading(false);
-                        navigate("/dietplan")
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops',
+                            confirmButtonColor: "#FF6700",
+                            text: ''
+                        })
                     }
-                } else {
-                    setIsloading(false);
+                }
+                )
+                .catch(error => {
                     Swal.fire({
                         icon: 'error',
-                        title: 'Oops',
+                        title: 'Oops...',
                         confirmButtonColor: "#FF6700",
-                        text: ''
+                        text: "Server Down!"
                     })
-                }
-            }
-            )
-            .catch(error => {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    confirmButtonColor: "#FF6700",
-                    text:  "Server error"
-                })
-            });
+                });
+        }
     }
 
 
@@ -205,7 +216,7 @@ const Team = () => {
                     icon: 'error',
                     title: 'Oops...',
                     confirmButtonColor: "#FF6700",
-                    text:  "Server error"
+                    text: "Server Down!"
                 })
             });
     }
@@ -348,23 +359,25 @@ const Team = () => {
                                                 <Grid container spacing={0} pt={5}>
                                                     <Grid xs={12} align="">
                                                         <Stack align="">
-                                                            <label htmlFor="fileInput" style={{ display: "flex", justifyContent: "center", alignContent: "center", color: "#808080" }}>
-                                                                <Stack direction="column" spacing={1} >
-                                                                    <Upload sx={{ fontSize: "50px", color: "#808080", ml: 1.8, pb: 1 }} />
-                                                                    {/* <span style={{ paddingBottom: "2vh", font: "normal normal normal 16px/26px Arial" }}>Upload Image</span> */}
-                                                                </Stack>
-                                                            </label>
-                                                            {/* <input multiple type="file" onChange={''} /> */}
-                                                            <input
-                                                                style={{ display: "flex", justifyContent: "center", alignContent: "center", color: "#808080" }}
-                                                                // style={{ display: "none" }}
-                                                                id="fileInput"
-                                                                type="file"
-                                                                multiple
-                                                                onChange={onChange}
-                                                                accept="image/*"
-                                                            >
-                                                            </input>
+                                                            <Stack align="">
+                                                                <label htmlFor="fileInput" style={{ display: "flex", justifyContent: "center", alignContent: "center", color: "#808080" }}>
+                                                                    <Stack direction="column" spacing={1} >
+                                                                        <Upload sx={{ fontSize: "50px", color: "#808080", ml: 3, pb: 1 }} />
+                                                                        <span style={{ paddingBottom: "2vh", font: "normal normal normal 16px/26px Arial" }}>Upload Images</span>
+                                                                        <span style={{ paddingBottom: "2vh", font: "normal normal normal 16px/26px Arial" }}>Max 5</span>
+
+                                                                    </Stack>
+                                                                </label>
+                                                                <input
+                                                                    multiple
+                                                                    style={{ display: "none" }}
+                                                                    id="fileInput"
+                                                                    type="file"
+                                                                    onChange={onChange}
+                                                                    accept="image/*"
+                                                                />
+                                                            </Stack>
+
                                                         </Stack>
                                                     </Grid>
                                                 </Grid>
@@ -373,8 +386,8 @@ const Team = () => {
 
                                         {
                                             hidecrossicon ?
-                                                <Box sx={{ display: "flex", justifyContent: "center", alignContent: "center" }}>
-                                                    <Close sx={{ padding: 0.2, backgroundColor: "#FF6700", borderRadius: "50px", color: "white", ml: '900px', mt: -26 }} onClick={() => clearpreviewimage()} />
+                                                <Box sx={{ display: "flex", justifyContent: "left", alignContent: "left" }}>
+                                                    <Close sx={{ padding: 0.2, backgroundColor: "#FF6700", borderRadius: "50px", color: "white", ml: '150px', mt: -26 }} onClick={() => clearpreviewimage()} />
                                                 </Box>
                                                 :
                                                 null

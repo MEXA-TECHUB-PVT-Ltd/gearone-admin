@@ -237,7 +237,7 @@ const Team = () => {
           icon: 'error',
           title: 'Oops...',
           confirmButtonColor: "#FF6700",
-          text: "Server Error"
+          text: "Server Down!"
         })
       });
   }
@@ -282,7 +282,7 @@ const Team = () => {
           icon: 'error',
           title: 'Oops...',
           confirmButtonColor: "#FF6700",
-          text: "Server Error"
+          text: "Server Down!"
         })
       });
   }
@@ -433,7 +433,7 @@ const Team = () => {
           icon: 'error',
           title: 'Oops...',
           confirmButtonColor: "#FF6700",
-          text: "Server Error"
+          text: "Server Down!"
         })
       });
   }
@@ -477,17 +477,17 @@ const Team = () => {
 
           <Grid item xs={1.5} align="center">
             <div>
-              <Box sx={{ width: { lg: "11vh", xl: "7vh" }, borderRadius: "5px", border: "1px solid #D8D8D8" }}>
+              <Box sx={{ width: { lg: "13vh", xl: "7vh" }, borderRadius: "5px", border: "1px solid #D8D8D8" }}>
                 <Box >
                   <div style={{ padding: "5px", paddingBottom: "0px", display: "flex", justifyContent: "center", alignContent: "center", gap: "3px" }}>
                     {
                       showtable ?
                         <>
                           <Box sx={{ pl: 1 }}>
-                            <List fontSize="large" sx={{ color: "white", backgroundColor: "#FF6700", borderRadius: "5px" }} onClick={() => { setShowtable(true) }} />
+                            <List fontSize="large" sx={{ lg: "13vh", xl: "7vh", color: "white", backgroundColor: "#FF6700", borderRadius: "5px" }} onClick={() => { setShowtable(true) }} />
                           </Box>
                           <Box sx={{ pr: 1 }}>
-                            <Apps fontSize="large" sx={{ color: "#9B9B9B", backgroundColor: "transparent", borderRadius: "5px" }} onClick={() => setShowtable(false)} />
+                            <Apps fontSize="large" sx={{ lg: "13vh", xl: "7vh", color: "#9B9B9B", backgroundColor: "transparent", borderRadius: "5px" }} onClick={() => setShowtable(false)} />
                           </Box>
                         </>
                         :
@@ -510,11 +510,11 @@ const Team = () => {
 
         <Divider sx={{ pb: 2 }} />
 
-        <Grid sx={{ mb: '23px' }} container spacing={0} pt={2} pl={2} pr={2} >
+        <Grid sx={{ mb: '15px' }} container spacing={0} pt={2} >
           {
             showtable ?
               <Grid xs={12} p={1} align="center">
-                <div style={{ height: 400, width: '100%' }}>
+                <div style={{ height: 600, width: '100%' }}>
                   <DataGrid
                     rows={Logos}
                     getRowId={Logos.id}
@@ -522,7 +522,7 @@ const Team = () => {
                     columns={columns}
                     initialState={{
                       pagination: {
-                        paginationModel: { page: 0, pageSize: 5 },
+                        paginationModel: { page: 0, pageSize: 10 },
                       },
                     }}
                     pageSizeOptions={[5, 10]}

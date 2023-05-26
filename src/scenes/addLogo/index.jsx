@@ -81,27 +81,7 @@ const Team = () => {
                                 "Content-Type": "multipart/form-data"
                             }
                         }).then((response) => {
-                            setIsloading(false)
-
-
-                            // var InsertAPIURL = `${url}logos/add_logos_image`
-                            // var headers = {
-                            //     // 'Accept': 'application/json',
-                            //     // 'Content-Type': 'application/json',
-                            //     "Content-Type": "multipart/form-data"
-
-                            // };
-                            // var Data = {
-                            //     "id": response.result[0].id,
-                            //     "image": selectedFile,
-                            // };
-                            // await fetch(InsertAPIURL, {
-                            //     method: 'PUT',
-                            //     headers: headers,
-                            //     body: JSON.stringify(Data),
-                            // })
-                            //     .then(response => response.json())
-                            //     .then(response => {
+                            setIsloading(false)                            
                             console.log(response.data);
                             if (response.data.message == `Logo Image added Successfully!`) {
                                 navigate("/ManageLogos")
@@ -145,7 +125,7 @@ const Team = () => {
             icon: 'error',
             title: 'Oops...',
             confirmButtonColor: "#FF6700",
-            text:  "Server error"
+            text:  "Server Down!"
                   })
             });
     }
@@ -182,7 +162,7 @@ const Team = () => {
             icon: 'error',
             title: 'Oops...',
             confirmButtonColor: "#FF6700",
-            text:  "Server error"
+            text:  "Server Down!"
           })
             });
     }

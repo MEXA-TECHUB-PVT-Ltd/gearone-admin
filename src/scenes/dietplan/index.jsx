@@ -261,7 +261,7 @@ const Team = () => {
                     icon: 'error',
                     title: 'Oops...',
                     confirmButtonColor: "#FF6700",
-                    text: 'server error'
+                    text: 'Server Down!'
                 })
             });
     }
@@ -432,7 +432,7 @@ const Team = () => {
                     icon: 'error',
                     title: 'Oops...',
                     confirmButtonColor: "#FF6700",
-                    text: "Server error"
+                    text: "Server Down!"
                 })
             });
     }
@@ -472,7 +472,7 @@ const Team = () => {
 
                     <Grid item xs={1.5} align="center">
                         <div>
-                            <Box sx={{ width: { lg: "11vh", xl: "7vh" }, borderRadius: "5px", border: "1px solid #D8D8D8" }}>
+                            <Box sx={{ width: { lg: "13vh", xl: "7vh" }, borderRadius: "5px", border: "1px solid #D8D8D8" }}>
                                 <Box >
                                     <div style={{ padding: "5px", paddingBottom: "0px", display: "flex", justifyContent: "center", alignContent: "center", gap: "3px" }}>
                                         {
@@ -525,11 +525,11 @@ const Team = () => {
 
                 <Divider sx={{ pb: 2 }} />
 
-                <Grid container spacing={0} pt={2} pl={2} pr={2} >
+                <Grid container spacing={0} pt={2} >
                     {
                         showtable ?
                             <Grid xs={12} p={1} align="center">
-                                <div style={{ height: 400, width: '100%' }}>
+                                <div style={{ height: 600, width: '100%' }}>
                                     <DataGrid
                                         rows={Logos}
                                         getRowId={Logos.id}
@@ -661,9 +661,9 @@ const Team = () => {
                 >
                     <Box width={{ xs: 400, md: 500, lg: 600, xl: 650 }} height="auto" sx={styleview}>
                         <Box sx={{ borderTopLeftRadius: "20px", borderTopRightRadius: "20px", backgroundColor: "#FF6700", width: "100%", height: "80px" }}>
-                            <Box xs={12} align="right" pt={0.1} pr={1}>
-                                <Close sx={{ color: "white" }} onClick={() => setOpenmodal(false)} />
-                            </Box>
+                            <div xs={12} align="right" pt={0.6} pr={3}>
+                                <Close sx={{ marginRight: '10px', marginTop: "5px", color: "white" }} onClick={() => setOpenmodal(false)} />
+                            </div>
                             <Box xs={12} sx={{ mb: '20px' }} align="center">
                                 <Typography align="center" sx={{ mb: '20px', fontWeight: 600, fontSize: "24px" }} color="white">
                                     {viewData.name}
@@ -675,12 +675,12 @@ const Team = () => {
                             viewImage !== undefined ?
                                 <Grid xs={12} align="center" pt={3}>
                                     <img src={`https://staging-gearone-be.mtechub.com/${viewImage}`} style={{ bgcolor: "#FF6700", width: '175px', height: '175px' }}>
-                                    {/* <img src={`https://staging-gearone-be.mtechub.com/${viewImage}`} style={{ bgcolor: "#FF6700", width: '175px', height: '175px' }}> */}
+                                        {/* <img src={`https://staging-gearone-be.mtechub.com/${viewImage}`} style={{ bgcolor: "#FF6700", width: '175px', height: '175px' }}> */}
                                     </img>
                                 </Grid>
                                 :
                                 <Grid xs={12} align="center" pt={3}>
-                                    <Avatar sx={{bgcolor: "#FF6700", width: 75, height: 75 }}>
+                                    <Avatar sx={{ bgcolor: "#FF6700", width: 75, height: 75 }}>
                                     </Avatar>
                                 </Grid>
 

@@ -135,7 +135,7 @@ function Profile() {
                     icon: 'error',
                     title: 'Oops...',
                     confirmButtonColor: "#FF6700",
-                    text: "Server Error"
+                    text: "Server Down!"
                 })
             });
     }
@@ -208,7 +208,7 @@ function Profile() {
                                 icon: 'error',
                                 title: 'Oops...',
                                 confirmButtonColor: "#FF6700",
-                                text: "Server Error"
+                                text: "Server Down!"
                             })
                         });
 
@@ -256,7 +256,7 @@ function Profile() {
                                 icon: 'error',
                                 title: 'Oops...',
                                 confirmButtonColor: "#FF6700",
-                                text: "Server Error"
+                                text: "Server Down!"
                             })
                         });
                 }
@@ -267,7 +267,7 @@ function Profile() {
                     icon: 'error',
                     title: 'Oops...',
                     confirmButtonColor: "#FF6700",
-                    text: "Server Error"
+                    text: "Server Down!"
                 })
             });
     }
