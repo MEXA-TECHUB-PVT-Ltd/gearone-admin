@@ -74,7 +74,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     getAllUsers();
-    getAllItems();
+    // getAllItems();
     getAllUserMonth(2023);
     getAllYears();
     getAllMerchandise();
@@ -112,7 +112,7 @@ const Dashboard = () => {
           icon: 'error',
           title: 'Oops...',
           confirmButtonColor: "#FF6700",
-          text: 'server error'
+          text: 'Server Down!'
         })
       });
   }
@@ -147,51 +147,51 @@ const Dashboard = () => {
           icon: 'error',
           title: 'Oops...',
           confirmButtonColor: "#FF6700",
-          text: 'server error'
+          text: 'Server Down!'
         })
       });
   }
 
 
-  const getAllItems = async () => {
-    var InsertAPIURL = `${url}items/get_all_items`
-    var headers = {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-    };
-    await fetch(InsertAPIURL, {
-      method: 'POST',
-      headers: headers,
-    })
-      .then(response => response.json())
-      .then(response => {
-        console.log(response);
-        if (response.message == `User's items data`) {
-          setAllItems(response.count);
-          setItems(response.result);
-        } else {
-          Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            confirmButtonColor: "#FF6700",
-            text: ''
-          })
-        }
-      }
-      )
-      .catch(error => {
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          confirmButtonColor: "#FF6700",
-          text: 'server error'
-        })
-      });
-  }
+  // const getAllItems = async () => {
+  //   var InsertAPIURL = `${url}items/get_all_items`
+  //   var headers = {
+  //     'Accept': 'application/json',
+  //     'Content-Type': 'application/json',
+  //   };
+  //   await fetch(InsertAPIURL, {
+  //     method: 'POST',
+  //     headers: headers,
+  //   })
+  //     .then(response => response.json())
+  //     .then(response => {
+  //       console.log(response);
+  //       if (response.message == `User's items data`) {
+  //         setAllItems(response.count);
+  //         setItems(response.result);
+  //       } else {
+  //         Swal.fire({
+  //           icon: 'error',
+  //           title: 'Oops...',
+  //           confirmButtonColor: "#FF6700",
+  //           text: ''
+  //         })
+  //       }
+  //     }
+  //     )
+  //     .catch(error => {
+  //       Swal.fire({
+  //         icon: 'error',
+  //         title: 'Oops...',
+  //         confirmButtonColor: "#FF6700",
+  //         text: 'Server Down!'
+  //       })
+  //     });
+  // }
 
 
   const getAllItem = async () => {
-    var InsertAPIURL = `${url}items/get_all_items`
+    var InsertAPIURL = `${url}ads/get_all_ads`
     var headers = {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
@@ -203,8 +203,9 @@ const Dashboard = () => {
       .then(response => response.json())
       .then(response => {
         console.log(response);
-        if (response.message == `User's items data`) {
+        if (response.message == `Ad's Data`) {
           setItems(response.result);
+          setAllItems(response.count)
         } else {
           Swal.fire({
             icon: 'error',
@@ -220,7 +221,7 @@ const Dashboard = () => {
           icon: 'error',
           title: 'Oops...',
           confirmButtonColor: "#FF6700",
-          text: 'server error'
+          text: 'Server Down!'
         })
       });
   }
@@ -267,7 +268,7 @@ const Dashboard = () => {
           icon: 'error',
           title: 'Oops...',
           confirmButtonColor: "#FF6700",
-          text: 'server error'
+          text: 'Server Down!'
         })
       });
   }
@@ -303,67 +304,40 @@ const Dashboard = () => {
 
 
   const columns = [
-    { field: 'name', headerName: <span style={{ color: "black", fontWeight: 600 }}>name</span>, flex: 1 },
-    { field: 'price', headerName: <span style={{ color: "black", fontWeight: 600 }}>price</span>, flex: 1 },
+    { field: 'screen_name', headerName: <span style={{ color: "black", fontWeight: 600 }}>Screen</span>, flex: 1 },
     {
-      field: 'description',
-      headerName: <span style={{ color: "black", fontWeight: 600 }}>description</span>,
+      field: 'image', headerName: <span style={{ color: "black", fontWeight: 600 }}>Image</span>,
       flex: 1,
-    },
-    {
-      field: 'location',
-      headerName: <span style={{ color: "black", fontWeight: 600 }}>location</span>,
-      flex: 1,
-    },
-    {
-      field: 'promoted',
-      headerName: <span style={{ color: "black", fontWeight: 600 }}>promoted</span>,
-      flex: 1,
-    },
-    {
-      field: 'added_by',
-      headerName: <span style={{ color: "black", fontWeight: 600 }}>added_by</span>,
-      flex: 1,
+      renderCell: (row) => {
+        return (
+          <>
+            {row.row.image !== null ?
+              // <img src={`https://staging-gearone-be.mtechub.com/${row.row.image}`} style={{ bgcolor: "#FF6700", width: '45px', height: '45px' }}>
+                <Avatar src={`https://staging-gearone-be.mtechub.com/${row.row.image}`} style={{ bgcolor: "#FF6700", width: '45px', height: '45px' }}> 
+              </Avatar>
+              :
+              <Avatar sx={{ width: '45px', height: '45px' }}>
+              </Avatar>
+
+            }
+          </>
+
+        );
+      },
+
     },
 
-    // {
-    //   field: 'id',
-    //   headerName: <span style={{ color: "black", fontWeight: 600 }}>Actions</span>,
-    //   flex: 1,
-    //   renderCell: (row) => {
-    //     return (
-    //       <>
-    //         <div>
-    //           <IconButton  >
-    //             <Tooltip title="view" >
-    //               <Visibility sx={{ color: "#3FC0FF" }} onClick={() => {
-    //                 // setViewData(row.row); console.log(row.row);
-    //                 // handleOpenmodal()
-    //               }} />
-    //             </Tooltip>
-    //           </IconButton>
-
-    //           <IconButton  >
-    //             <Tooltip title="edit" >
-    //               <Edit sx={{ color: "#40E0D0" }} onClick={() => navigate("/updatedietplan")} />
-    //             </Tooltip>
-    //           </IconButton>
-
-    //           <IconButton >
-    //             <Tooltip title="Delete">
-    //               {/* <Delete sx={{ color: "#E10006" }} onClick={() =>handleOpendelmodal()} /> */}
-    //             </Tooltip>
-    //           </IconButton>
-    //         </div>
-    //       </>
-    //     );
-    //   },
-    // },
+    { field: 'active_status', headerName: <span style={{ color: "black", fontWeight: 600 }}>status</span>, flex: 1 },
+    {
+      field: 'link',
+      headerName: <span style={{ color: "black", fontWeight: 600 }}>Link</span>,
+      flex: 1,
+    },
   ];
 
 
   const getAllUsers = async () => {
-    var InsertAPIURL = `${url}auth/all_users`
+    var InsertAPIURL = `${url}category/get_all_category`
     var headers = {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
@@ -375,7 +349,7 @@ const Dashboard = () => {
       .then(response => response.json())
       .then(response => {
         console.log(response);
-        if (response.message == `All User Details`) {
+        if (response.message == `All categories Details`) {
           setAllUsers(response.count);
         } else {
           Swal.fire({
@@ -392,7 +366,7 @@ const Dashboard = () => {
           icon: 'error',
           title: 'Oops...',
           confirmButtonColor: "#FF6700",
-          text: 'server error'
+          text: 'Server Down!'
         })
       });
   }
@@ -709,13 +683,14 @@ const Dashboard = () => {
         <Divider sx={{ pb: 2 }} />
 
         <Grid container spacing={0} mt={2} p={2} >
+
           <Grid xs={12} md={4} lg={4} xl={4} p={1} align="center">
             <Card sx={{ width: "99%", height: "auto", boxShadow: "0px 3px 6px #00000029" }}>
               <CardContent>
                 <Grid container spacing={0} mt={1}>
                   <Grid xs={6} md={8} lg={8} xl={8} pt={0.5} align="left" >
                     <Stack direction="column" spacing={1}>
-                      <Typography variant="paragraph" fontWeight={750} sx={{ font: "normal normal normal 18px/32px Roboto", letterSpacing: "1px" }} fontSize="15px" color="#808080" >Total Users</Typography>
+                      <Typography variant="paragraph" fontWeight={750} sx={{ font: "normal normal normal 18px/32px Roboto", letterSpacing: "1px" }} fontSize="15px" color="#808080" >Total Categories</Typography>
 
                       <Typography variant="h6" fontWeight={850} fontSize="18px" color="#1F1F1F" sx={{ letterSpacing: "2px" }}>{allUsers}</Typography>
 
@@ -730,20 +705,21 @@ const Dashboard = () => {
             </Card>
           </Grid>
 
-          <Grid xs={12} md={4} lg={4} xl={4} p={1} align="left">
+
+          <Grid xs={12} md={4} lg={4} xl={4} p={1} align="center">
             <Card sx={{ width: "99%", height: "auto", boxShadow: "0px 3px 6px #00000029" }}>
               <CardContent>
                 <Grid container spacing={0} mt={1}>
-                  <Grid xs={6} md={8} lg={9} xl={8} pt={0.5} align="left" >
+                  <Grid xs={6} md={8} lg={8} xl={8} pt={0.5} align="left" >
                     <Stack direction="column" spacing={1}>
-                      <Typography variant="paragraph" fontWeight={750} sx={{ font: "normal normal normal 18px/32px Roboto", letterSpacing: "1px" }} fontSize="15px" color="#808080" >Total Items</Typography>
+                      <Typography variant="paragraph" fontWeight={750} sx={{ font: "normal normal normal 18px/32px Roboto", letterSpacing: "1px" }} fontSize="15px" color="#808080" >Total Ads</Typography>
 
-                      <Typography variant="h6" fontWeight={850} fontSize="18px" color="#1F1F1F" pt={0.7} sx={{ letterSpacing: "2px" }}>{allItems}</Typography>
+                      <Typography variant="h6" fontWeight={850} fontSize="18px" color="#1F1F1F" sx={{ letterSpacing: "2px" }}>{allItems}</Typography>
 
                     </Stack>
                   </Grid>
 
-                  <Grid xs={6} md={4} lg={3} xl={4} p={0.5} align="right" >
+                  <Grid xs={6} md={4} lg={4} xl={4} p={1} align="right" >
                     <img src={categoriesofworkout} alt="..." style={{ width: "10vh" }} />
                   </Grid>
                 </Grid>
@@ -751,13 +727,16 @@ const Dashboard = () => {
             </Card>
           </Grid>
 
+
+
+
           <Grid xs={12} md={4} lg={4} xl={4} p={1} align="left">
             <Card sx={{ width: "99%", height: "auto", boxShadow: "0px 3px 6px #00000029" }}>
               <CardContent>
                 <Grid container spacing={0} mt={1}>
                   <Grid xs={6} md={8} lg={8} xl={8} pt={0.5} align="left" >
                     <Stack direction="column" spacing={1}>
-                      <Typography variant="paragraph" fontWeight={750} sx={{ font: "normal normal normal 18px/32px Roboto", letterSpacing: "1px" }} fontSize="15px" color="#808080" >Merchandise</Typography>
+                      <Typography variant="paragraph" fontWeight={750} sx={{ font: "normal normal normal 18px/32px Roboto", letterSpacing: "1px" }} fontSize="15px" color="#808080" >Total Merchandise</Typography>
 
                       <Typography variant="h6" fontWeight={850} fontSize="18px" color="#1F1F1F" sx={{ letterSpacing: "2px" }}>{allMerchandise}</Typography>
                     </Stack>
@@ -773,7 +752,7 @@ const Dashboard = () => {
 
           <Grid xs={7} md={7} lg={6} xl={7} p={1} align="">
             <Typography variant="h5" fontWeight={750} fontSize="20px" sx={{ font: "normal normal bold 22px/32px Roboto", letterSpacing: "1px" }} color="#1F1F1F">
-              Items
+              Recent Ads
             </Typography>
           </Grid>
 

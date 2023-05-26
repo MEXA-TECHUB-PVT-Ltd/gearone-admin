@@ -1,5 +1,6 @@
 import { Box, Tooltip, Typography, useTheme, IconButton, FormControl, OutlinedInput, Grid, Modal, Button, Stack, Card, CardContent, MenuItem, Menu, Paper, Divider, Avatar } from "@mui/material";
 import Swal from 'sweetalert2'
+import axios from 'axios';
 
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
@@ -163,12 +164,44 @@ const Team = () => {
     const [EditName, setEditName] = React.useState('');
     const [addName, setAddName] = React.useState('');
     const [DeleteID, setDeleteID] = React.useState('');
+    const [hidecrossicon, setHidecrossicon] = useState(false);
+    const [selectedFile, setSelectedFile] = useState(null);
+    const [hidelabel, setHidelabel] = useState(false);
+
+    const [hidecrossiconUpload, setHidecrossiconUpload] = useState(false);
+    const [selectedFileUpload, setSelectedFileUpload] = useState(null);
+    const [hidelabelUpload, setHidelabelUpload] = useState(false);
+
 
     const [value, setValue] = React.useState(0);
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
+    const clearpreviewimage = () => {
+        setSelectedFile(null);
+        setHidecrossicon(false);
+        setHidelabel(false);
+    }
+    const handleImageChange = (e) => {
+        setSelectedFile(e.target.files[0]);
+        setHidecrossicon(true);
+        setHidelabel(true);
+    };
+
+
+    const clearpreviewimageUpload= () => {
+        setSelectedFileUpload(null);
+        ActionData.image = null;
+        setHidecrossiconUpload(false);
+        setHidelabelUpload(false);
+    }
+    const handleImageChangeUpload = (e) => {
+        setSelectedFileUpload(e.target.files[0]);
+        setHidecrossiconUpload(true);
+        setHidelabelUpload(true);
+    };
+
 
     const [openaddsuccess, setOpenaddsuccess] = useState(false);
     const handleOpenaddsuccess = () => setOpenaddsuccess(true);
@@ -243,15 +276,51 @@ const Team = () => {
             body: JSON.stringify(Data),
         })
             .then(response => response.json())
-            .then(response => {
+            .then(async response => {
                 console.log(response);
                 if (response.message == `Category Added Successfully!`) {
-                    // setLogos(response.count);
-                    getAllCatagory();
-                    setIsloading(false);
-                    setOpenaddmodal(false);
-                    //   console.log(response.result);
-                    //   setCatagory(response.result);
+                    if (selectedFile !== null && selectedFile !== undefined) {
+                        var Data = {
+                            "id": response.result[0].id,
+                            "image": selectedFile,
+                        };
+                        await axios.put(url + "category/add_category_image", Data, {
+                            headers: {
+                                "Content-Type": "multipart/form-data"
+                            }
+                        }).then((response) => {
+                            setIsloading(false)
+                            console.log(response.data);
+                            if (response.data.message == `categories Image added Successfully!`) {
+                                navigate("/categories")
+                                setOpenaddmodal(false);
+                                setIsloading(false)
+                            } else {
+                                setOpenaddmodal(false);
+                                setIsloading(false)
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Oops2...',
+                                    confirmButtonColor: "#FF6700",
+                                    text: ''
+                                })
+                            }
+                        }
+                        )
+                            .catch(error => {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Oops...',
+                                    confirmButtonColor: "#FF6700",
+                                    text: response.message
+                                })
+                            });
+                    } else {
+                        setOpenaddmodal(false);
+                        setIsloading(false)
+                        navigate("/categories")
+                    }
+
                 } else if (response.message == `Please Enter Category name`) {
                     setOpenaddmodal(false);
                     setIsloading(false);
@@ -275,12 +344,12 @@ const Team = () => {
             )
             .catch(error => {
                 setIsloading(false);
-                          Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            confirmButtonColor: "#FF6700",
-            text:  "Server error"
-          })
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    confirmButtonColor: "#FF6700",
+                    text: "Server Down!"
+                })
             });
     }
 
@@ -302,13 +371,67 @@ const Team = () => {
             body: JSON.stringify(Data),
         })
             .then(response => response.json())
-            .then(response => {
+            .then(async response => {
                 console.log(response);
                 if (response.message == `Category Updated Successfully!`) {
+                    if (selectedFileUpload !== null && selectedFileUpload !== undefined) {
+                        var Data = {
+                            "id": response.result[0].id,
+                            "image": selectedFileUpload,
+                        };
+                        await axios.put(url + "category/add_category_image", Data, {
+                            headers: {
+                                "Content-Type": "multipart/form-data"
+                            }
+                        }).then((response) => {
+                            setIsloading(false)
+                            console.log(response.data);
+                            if (response.data.message == `categories Image added Successfully!`) {
+                                navigate("/categories");
+                                setSelectedFileUpload(null);
+                                setHidecrossiconUpload(false);
+                                setHidelabelUpload(false);
+                                ActionData.image = null;
+                                setOpeneditmodal(false);
+                                setIsloading(false)
+                            } else {
+                                setSelectedFileUpload(null);
+                                ActionData.image = null;
+                                setOpeneditmodal(false);
+                                setHidelabelUpload(false);
+                                setHidecrossiconUpload(false);
+                                setIsloading(false)
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Oops2...',
+                                    confirmButtonColor: "#FF6700",
+                                    text: ''
+                                })
+                            }
+                        }
+                        )
+                            .catch(error => {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Oops...',
+                                    confirmButtonColor: "#FF6700",
+                                    text: response.message
+                                })
+                            });
+                    } else {
+                        setHidecrossiconUpload(false);
+                        setHidelabelUpload(false);
+                        setSelectedFileUpload(null);
+                        ActionData.image = null;
+                        setOpeneditmodal(false);
+                        setIsloading(false)
+                        navigate("/categories")
+                    }
+
                     // setLogos(response.count);
                     getAllCatagory();
-                    setIsloading(false);
-                    setOpeneditmodal(false);
+                    // setIsloading(false);
+                    // setOpeneditmodal(false);
                     //   console.log(response.result);
                     //   setCatagory(response.result);
                 } else {
@@ -324,12 +447,12 @@ const Team = () => {
             )
             .catch(error => {
                 setIsloading(false);
-                          Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            confirmButtonColor: "#FF6700",
-            text:  "Server error"
-          })
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    confirmButtonColor: "#FF6700",
+                    text: "Server Down!"
+                })
             });
     }
 
@@ -368,12 +491,12 @@ const Team = () => {
             }
             )
             .catch(error => {
-                          Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            confirmButtonColor: "#FF6700",
-            text:  "Server error"
-          })
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    confirmButtonColor: "#FF6700",
+                    text: "Server Down!"
+                })
             });
     }
 
@@ -406,18 +529,40 @@ const Team = () => {
             }
             )
             .catch(error => {
-                          Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            confirmButtonColor: "#FF6700",
-            text:  "Server error"
-          })
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    confirmButtonColor: "#FF6700",
+                    text: "Server Down!"
+                })
             });
     }
 
 
     const columns = [
         { field: 'name', headerName: <span style={{ color: "black", fontWeight: 600 }}>Category Name</span>, flex: 1 },
+        {
+            field: 'image', headerName: <span style={{ color: "black", fontWeight: 600 }}>Profile</span>,
+            flex: 1,
+            renderCell: (row) => {
+              return (
+                <>
+                  {row.row.image !== null ?
+                    // <img src={`https://staging-gearone-be.mtechub.com/${row.row.image}`} style={{ bgcolor: "#FF6700", width: '45px', height: '45px' }}>
+                      <Avatar src={`https://staging-gearone-be.mtechub.com/${row.row.image}`} style={{ bgcolor: "#FF6700", width: '45px', height: '45px' }}> 
+                    </Avatar>
+                    :
+                    <Avatar sx={{ width: '45px', height: '45px' }}>
+                    </Avatar>
+      
+                  }
+                </>
+      
+              );
+            },
+      
+          },
+      
         {
             field: 'id',
             headerName: <Stack sx={{ pl: { xs: 0, md: 15, lg: 17 }, color: "black", fontWeight: 600 }}>Actions</Stack>,
@@ -432,6 +577,9 @@ const Team = () => {
                                         <Edit sx={{ color: "#40E0D0" }} onClick={() => {
                                             console.log(row.row);
                                             setActionData(row.row);
+                                            if(row.row.image !== null) {
+                                                setHidelabelUpload(true);
+                                            }
                                             handleOpenedit();
                                         }} />
                                     </Tooltip>
@@ -489,7 +637,7 @@ const Team = () => {
 
                     <Grid item xs={1.5} align="center">
                         <div>
-                            <Box sx={{ width: { lg: "11vh", xl: "7vh" }, borderRadius: "5px", border: "1px solid #D8D8D8" }}>
+                            <Box sx={{ width: { lg: "13vh", xl: "7vh" }, borderRadius: "5px", border: "1px solid #D8D8D8" }}>
                                 <Box >
                                     <div style={{ padding: "5px", paddingBottom: "0px", display: "flex", justifyContent: "center", alignContent: "center", gap: "3px" }}>
                                         {
@@ -542,11 +690,11 @@ const Team = () => {
 
                 <Divider sx={{ pb: 2 }} />
 
-                <Grid container spacing={0} pt={2} pl={2} pr={2} >
+                <Grid container spacing={0} pt={2}  >
                     {
                         showtable ?
                             <Grid xs={12} p={1} align="center">
-                                <div style={{ height: 400, width: '100%' }}>
+                                <div style={{ height: 600, width: '100%' }}>
                                     <DataGrid
                                         rows={Catagory}
                                         columns={columns}
@@ -671,6 +819,53 @@ const Team = () => {
 
                             <Grid xs={12} align="center" pt={7}>
                                 <FormControl fullWidth>
+
+
+                                    <Box pt={2} pb={2}>
+                                        <Box sx={{ width: '300px', height: '200px', pt: 2, p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
+                                            {hidelabel ?
+                                                null
+                                                :
+                                                <Grid container spacing={0} pt={5}>
+                                                    <Grid xs={12} align="">
+                                                        <Stack align="">
+                                                            <label htmlFor="fileInput" style={{ display: "flex", justifyContent: "center", alignContent: "center", color: "#808080" }}>
+                                                                <Stack direction="column" spacing={1} >
+                                                                    <Upload sx={{ fontSize: "50px", color: "#808080", ml: 1.8, pb: 1 }} />
+                                                                    <span style={{ paddingBottom: "2vh", font: "normal normal normal 16px/26px Arial" }}>Upload Image</span>
+                                                                </Stack>
+                                                            </label>
+                                                            <input
+                                                                style={{ display: "none" }}
+                                                                id="fileInput"
+                                                                type="file"
+                                                                onChange={handleImageChange}
+                                                                accept="image/*"
+                                                            />
+                                                        </Stack>
+                                                    </Grid>
+                                                </Grid>
+                                            }
+
+                                            {selectedFile && <img src={URL.createObjectURL(selectedFile)} alt="Preview" style={{ width: "300px", height: "200px" }} />}
+                                        </Box>
+
+                                        {
+                                            hidecrossicon ?
+                                                <Box sx={{ display: "flex", justifyContent: "center", alignContent: "center" }}>
+                                                    <Close sx={{
+                                                        padding: 0.2, backgroundColor: "#FF6700", borderRadius: "50px",
+                                                        color: "white", ml: 32, mt: -24
+                                                    }} onClick={() => clearpreviewimage()} />
+                                                </Box>
+                                                :
+                                                null
+                                        }
+                                    </Box>
+
+
+
+
                                     <OutlinedInput
                                         id="input-with-icon-adornment"
                                         placeholder="Category Name"
@@ -762,6 +957,62 @@ const Team = () => {
 
                             <Grid xs={12} align="center" pt={7}>
                                 <FormControl fullWidth>
+
+                                <Box pt={2} pb={2}>
+                                    <Box sx={{ pt: 2, width: "300px", height: "200px", p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
+                                        {hidelabelUpload ?
+                                            null
+                                            :
+                                            <Grid container spacing={0} pt={5}>
+                                                <Grid xs={12} align="">
+                                                    <Stack align="">
+                                                        <label htmlFor="fileInput" style={{ display: "flex", justifyContent: "center", alignContent: "center", color: "#808080" }}>
+                                                            <Stack direction="column" spacing={1} >
+                                                                <Upload sx={{ fontSize: "50px", color: "#808080", ml: 1.8, pb: 1 }} />
+                                                                <span style={{ paddingBottom: "2vh", font: "normal normal normal 16px/26px Arial" }}>Upload Image</span>
+                                                            </Stack>
+                                                        </label>
+                                                        <input
+                                                            style={{ display: "none" }}
+                                                            id="fileInput"
+                                                            type="file"
+                                                            onChange={handleImageChangeUpload}
+                                                            accept="image/*"
+                                                        />
+                                                    </Stack>
+                                                </Grid>
+                                            </Grid>
+                                        }
+
+                                        {selectedFileUpload ||  selectedFileUpload  !== null ? <img src={URL.createObjectURL(selectedFileUpload)} alt="Preview" style={{ width: "300px", height: "200px" }} />
+                                            :
+                                            ActionData.image && <img src={`https://staging-gearone-be.mtechub.com/${ActionData.image}`} alt="Preview" style={{ width: "300px", height: "200px" }} />
+                                        }
+                                    </Box>
+
+                                    {
+                                        hidecrossiconUpload ?
+                                            <Box sx={{ display: "flex", justifyContent: "center", alignContent: "center" }}>
+                                                <Close sx={{
+                                                    padding: 0.2, backgroundColor: "#FF6700", borderRadius: "50px",
+                                                    color: "white", ml: 32, mt: -24
+                                                }} onClick={() => clearpreviewimageUpload()} />
+                                            </Box>
+                                            :
+                                            ActionData.image ||  ActionData.image  !== null ?
+                                                <Box sx={{ display: "flex", justifyContent: "center", alignContent: "center" }}>
+                                                    <Close sx={{
+                                                        padding: 0.2, backgroundColor: "#FF6700", borderRadius: "50px",
+                                                        color: "white", ml: 32, mt: -24
+                                                    }} onClick={() => clearpreviewimageUpload()} />
+                                                </Box>
+                                                : null
+                                    }
+                                </Box>
+
+
+
+
                                     <Typography variant="h4" sx={{ letterSpacing: "2px" }} pb={0.7} fontWeight={700} align="left" fontSize="14px" color="#1F1F1F">Category Name</Typography>
                                     <OutlinedInput
                                         id={ActionData.id}

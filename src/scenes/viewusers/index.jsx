@@ -228,12 +228,12 @@ const Team = () => {
       }
       )
       .catch(error => {
-                  Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            confirmButtonColor: "#FF6700",
-            text: "Server Error"
-          })
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          confirmButtonColor: "#FF6700",
+          text: "Server Down!"
+        })
       });
   }
 
@@ -286,11 +286,11 @@ const Team = () => {
                         images: row.row.images,
                         name: row.row.name,
                         row: row.row,
-                        category_id:row.row.category_id,
+                        category_id: row.row.category_id,
                         catagory_name: row.row.catagory_name,
                         price: row.row.price,
                         description: row.row.description,
-                        location:row.row.location
+                        location: row.row.location
                       },
                     })
                   }
@@ -346,12 +346,12 @@ const Team = () => {
       }
       )
       .catch(error => {
-                  Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            confirmButtonColor: "#FF6700",
-            text: "Server Error"
-          })
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          confirmButtonColor: "#FF6700",
+          text: "Server Down!"
+        })
       });
   }
 
@@ -390,7 +390,7 @@ const Team = () => {
 
           <Grid item xs={1.5} align="center">
             <div>
-              <Box sx={{ width: { lg: "11vh", xl: "7vh" }, borderRadius: "5px", border: "1px solid #D8D8D8" }}>
+              <Box sx={{ width: { lg: "13vh", xl: "7vh" }, borderRadius: "5px", border: "1px solid #D8D8D8" }}>
                 <Box >
                   <div style={{ padding: "5px", paddingBottom: "0px", display: "flex", justifyContent: "center", alignContent: "center", gap: "3px" }}>
                     {
@@ -443,11 +443,11 @@ const Team = () => {
 
         <Divider sx={{ pb: 2 }} />
 
-        <Grid container spacing={0} pt={2} pl={2} pr={2} >
+        <Grid container spacing={0} pt={2} >
           {
             showtable ?
               <Grid xs={12} p={1} align="center">
-                <div style={{ height: 400, width: '100%' }}>
+                <div style={{ height: 600, width: '100%' }}>
                   <DataGrid
                     rows={Logos}
                     getRowId={Logos.id}
@@ -471,11 +471,11 @@ const Team = () => {
               :
               <>
                 {Logos.map((item, index) => (
-                  <Grid sx={{mb:'20px'}} xs={12} md={3} lg={3} align="center" p={1}>
+                  <Grid sx={{ mb: '20px' }} xs={12} md={3} lg={3} align="center" p={1}>
                     <Card width="95%" sx={{ padding: 0, boxShadow: "none", borderRadius: "10px", border: "1px solid #D8D8D8" }}>
                       <CardContent>
                         <Grid onClick={() => { setViewData(item); setViewImage(item.images[0]); handleOpenmodal(); }} container spacing={0} >
-                          <Grid sx={{  width: '100px', height: '50px' }}  xs={6} align="left" onClick={() => { setViewData(item); handleOpenmodal(); }}>
+                          <Grid sx={{ width: '100px', height: '50px' }} xs={6} align="left" onClick={() => { setViewData(item); handleOpenmodal(); }}>
                             <Typography variant="h5" pb={1} fontWeight={750} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#FF6700">
                               {item.name}
                             </Typography>
@@ -543,7 +543,7 @@ const Team = () => {
                             </Typography>
                           </Grid>
 
-                          <Grid xs={6} sx={{ pb: 1,width: '100px', height: '50px' }} align="right" onClick={handleOpenmodal}>
+                          <Grid xs={6} sx={{ pb: 1, width: '100px', height: '50px' }} align="right" onClick={handleOpenmodal}>
                             <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#808080">
                               {item.price}
                             </Typography>
@@ -555,7 +555,7 @@ const Team = () => {
                             </Typography>
                           </Grid>
 
-                          <Grid xs={6} sx={{ pb: 1,width: '100px', height: '50px' }} align="right" onClick={handleOpenmodal}>
+                          <Grid xs={6} sx={{ pb: 1, width: '100px', height: '50px' }} align="right" onClick={handleOpenmodal}>
                             <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#808080">
                               {item.catagory_name}
                             </Typography>
@@ -578,16 +578,16 @@ const Team = () => {
           aria-describedby="modal-modal-description"
         >
           <Box width={{ xs: 400, md: 500, lg: 600, xl: 650 }} height="auto" sx={styleview}>
-          <Box sx={{ borderTopLeftRadius: "20px", borderTopRightRadius: "20px", backgroundColor: "#FF6700", width: "100%", height: "80px" }}>
-                <Box xs={12} align="right" pt={0.1} pr={1}>
-                  <Close sx={{ color: "white" }} onClick={() => setOpenmodal(false)} />
-                </Box>
-                <Box xs={12}  sx={{mb:'20px'}} align="center">
-                    <Typography align="center" sx={{mb:'20px', fontWeight: 600, fontSize: "24px" }} color="white">
-                      {viewData.name}
-                    </Typography>
-                </Box>
+            <Box sx={{ borderTopLeftRadius: "20px", borderTopRightRadius: "20px", backgroundColor: "#FF6700", width: "100%", height: "80px" }}>
+              <div xs={12} align="right" pt={0.6} pr={3}>
+                <Close sx={{ marginRight: '10px', marginTop: "5px", color: "white" }} onClick={() => setOpenmodal(false)} />
+              </div>
+              <Box xs={12} sx={{ mb: '20px' }} align="center">
+                <Typography align="center" sx={{ mb: '20px', fontWeight: 600, fontSize: "24px" }} color="white">
+                  {viewData.name}
+                </Typography>
               </Box>
+            </Box>
 
             {viewImage !== 'undefined' ?
               <Grid xs={12} align="center" pt={3}>

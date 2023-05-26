@@ -195,7 +195,7 @@ const Team = () => {
                     icon: 'error',
                     title: 'Oops...',
                     confirmButtonColor: "#FF6700",
-                    text: "Server error"
+                    text: "Server Down!"
                 })
             });
     }

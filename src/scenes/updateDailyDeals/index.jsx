@@ -112,7 +112,7 @@ const Team = () => {
                                     icon: 'error',
                                     title: 'Oops...',
                                     confirmButtonColor: "#FF6700",
-                                    text: "Server Error",
+                                    text: "Server Down!",
                                 })
                             });
                     } else {
@@ -176,7 +176,7 @@ const Team = () => {
                     icon: 'error',
                     title: 'Oops...',
                     confirmButtonColor: "#FF6700",
-                    text: "Server Error"
+                    text: "Server Down!"
                 })
             });
     }
