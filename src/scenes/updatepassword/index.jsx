@@ -95,21 +95,7 @@ const Team = () => {
                 text: 'Enter OTP For Verification'
             })
             setOpen(false);
-            // setLoading(true);
-            // setTimeout(() => {
-            //     Swal.fire({
-            //         title: "Success",
-            //         text: "User Found , OTP Successfully Matched",
-            //         confirmButtonColor: "#FF6700",
-            //         icon: "success",
-            //         confirmButtonText: "OK",
-            //     });
-            //     setEnteredotp('');
-            //     navigate("/setnewpassword");
-            //     setOpen(false);
-            //     setLoading(false);
-            // }, 3000)
-        } else {
+       } else {
             var InsertAPIURL = `${url}admin/verify_OTP_change_password`
             var headers = {
                 'Accept': 'application/json',
@@ -137,16 +123,6 @@ const Team = () => {
                             confirmButtonColor: "#FF6700",
                             text: 'Password Changed Successfully'
                         })
-                        //   setTimeout(() => {
-                        // localStorage.setItem("jwtoken", JSON.stringify(response.token));
-                        // localStorage.setItem("verifiedEmail", email);
-                        // localStorage.setItem("adminname", 'admin');
-                        // localStorage.setItem("adminimageurl", 'admin');
-                        // localStorage.setItem("adminID", JSON.stringify(response.result[0].id));
-                        // localStorage.setItem("password", JSON.stringify(password));
-                        // navigate("/setnewpassword");
-                        // setIsloading(false);
-                        //   }, 3000)
                     } else {
                         setEnteredotp('');
                         handleCloseedit();
@@ -239,11 +215,20 @@ const Team = () => {
                             localStorage.setItem("password", JSON.stringify(password));
                             setIsloading(false);
                             handleOpenedit(true);
+                        } else if (response.message == `Incorrect password`) {
+                            setIsloading(true);
+                            setIsloading(false);
+                            setTimeout(() => {
+                                Swal.fire({
+                                    title: "Error",
+                                    text: "Incorrect Password",
+                                    confirmButtonColor: "#FF6700",
+                                    icon: "error",
+                                    confirmButtonText: "OK",
+                                });
+                            }, 3000)
                         } else {
                             setIsloading(true);
-                            setOldPassword('');
-                            setPassword('');
-                            setConfirmPassword('');
                             setIsloading(false);
                             setTimeout(() => {
                                 Swal.fire({
@@ -330,7 +315,7 @@ const Team = () => {
                 <Grid container spacing={0}>
                     <Grid xs={12} aign="center">
                         <div style={{ display: "flex", justifyContent: "center", alignContent: "center" }}>
-                            <FormControl className='form' sx={{ width: { lg: "50%", xl: "80%" } }}>
+                            <FormControl className='form' sx={{ width: { lg: "80%", xl: "100%" } }}>
                                 <Stack direction="column" spacing={0} pt={{ lg: 4, xl: 9 }}>
 
                                     <Typography variant="paragraph" fontWeight="medium" pl={1} pb={1} fontSize="13px" sx={{ font: "normal normal normal 17px/26px Roboto" }} color="#1F1F1F">

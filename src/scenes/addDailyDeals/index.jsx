@@ -230,7 +230,7 @@ const Team = () => {
                 <Grid container spacing={0} pt={{ lg: 2, xl: 1 }} p={2} >
                     <Grid item xs={6} align="" pt={3} >
                         <Breadcrumbs separator=">" >
-                            <Typography variant="h5" fontWeight={550} pl={3} fontSize="15px" sx={{ letterSpacing: "2px", cursor: "pointer" }} color="#808080" onClick={() => navigate("/workoutplans")} >
+                            <Typography variant="h5" fontWeight={550} pl={3} fontSize="15px" sx={{ letterSpacing: "2px", cursor: "pointer" }} color="#808080" onClick={() => navigate("/subscription")} >
                                 Daily Deal
                             </Typography>
 

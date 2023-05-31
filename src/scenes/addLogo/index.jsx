@@ -81,7 +81,7 @@ const Team = () => {
                                 "Content-Type": "multipart/form-data"
                             }
                         }).then((response) => {
-                            setIsloading(false)                            
+                            setIsloading(false)
                             console.log(response.data);
                             if (response.data.message == `Logo Image added Successfully!`) {
                                 navigate("/ManageLogos")
@@ -98,35 +98,44 @@ const Team = () => {
                         }
                         )
                             .catch(error => {
-                                          Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            confirmButtonColor: "#FF6700",
-            text: response.message
-          })
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Oops...',
+                                    confirmButtonColor: "#FF6700",
+                                    text: response.message
+                                })
                             });
                     } else {
                         setIsloading(false)
                         navigate("/ManageLogos")
                     }
+                } else if (response.message == 'Please Enter screen ID') {
+                    setIsloading(false)
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        confirmButtonColor: "#FF6700",
+                        text: 'Please Enter screen ID'
+                    })
                 } else {
                     setIsloading(false)
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
                         confirmButtonColor: "#FF6700",
-                        text: ''
+                        text: 'Try Again'
                     })
                 }
             }
             )
             .catch(error => {
-                          Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            confirmButtonColor: "#FF6700",
-            text:  "Server Down!"
-                  })
+                setIsloading(false)
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    confirmButtonColor: "#FF6700",
+                    text: "Server Down!"
+                })
             });
     }
 
@@ -158,12 +167,12 @@ const Team = () => {
             }
             )
             .catch(error => {
-                          Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            confirmButtonColor: "#FF6700",
-            text:  "Server Down!"
-          })
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    confirmButtonColor: "#FF6700",
+                    text: "Server Down!"
+                })
             });
     }
 
@@ -197,7 +206,7 @@ const Team = () => {
                 <Grid container spacing={0} pt={{ lg: 2, xl: 1 }} p={2} >
                     <Grid item xs={6} align="" pt={3} >
                         <Breadcrumbs separator=">" >
-                            <Typography variant="h5" fontWeight={550} pl={3} fontSize="15px" sx={{ letterSpacing: "2px", cursor: "pointer" }} color="#808080" onClick={() => navigate("/workoutplans")} >
+                            <Typography variant="h5" fontWeight={550} pl={3} fontSize="15px" sx={{ letterSpacing: "2px", cursor: "pointer" }} color="#808080" onClick={() => navigate("/ManageLogos")} >
                                 Logo
                             </Typography>
 

@@ -347,8 +347,9 @@ function Login() {
                         }
                       />
                       <br />
-                      <div style={{ display: "flex", justifyContent: "right", alignContent: "right" }}>
-                        <Box width={{ lg: "40%", xl: "12vh" }}>
+                      <div 
+                        style={{ display: "flex", justifyContent: "right", alignContent: "right" }}>
+                        <Box>
                           <NavLink to="/emailverification"
                             style={{
                               color: "#404040", textDecoration: "none",
@@ -406,7 +407,7 @@ function Login() {
             </Grid>
           </Box>
         </Grid>
-      </Grid>
+      </Grid >
     </>
   )
 }
