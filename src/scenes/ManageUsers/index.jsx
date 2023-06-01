@@ -168,6 +168,17 @@ const Team = () => {
       </GridToolbarContainer>
     );
   }
+  const [AnchorElStatus, setAnchorElStatus] = React.useState(null);
+  const [Data, setData] = React.useState([]);
+
+  const [opendelmodalStatus, setOpendelmodalStatus] = useState(false);
+  const handleOpendelmodalStatus = (row) => {
+    setData(row);
+    setOpendelmodalStatus(true);
+    setAnchorElStatus(null);
+  };
+  const handleClosedelmodalStatus = () => setOpendelmodalStatus(false);
+
 
   const [openmodal, setOpenmodal] = useState(false);
   const handleOpenmodal = () => setOpenmodal(true);
@@ -192,32 +203,26 @@ const Team = () => {
 
   const [showtable, setShowtable] = useState(true);
 
-  const changeStatus = async (data) => {
-    Swal.fire({
-      icon: 'wait',
-      title: 'Wait...',
-      confirmButtonColor: "#FF6700",
-      text: 'please wait...',
-    })
-
+  const changeStatus = async () => {
     var InsertAPIURL = `${url}admin/block_unblock_user`
     var headers = {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
     };
-    var Data = {
-      "id": data.id,
+    var DataFinal = {
+      "id": Data.id,
     };
     await fetch(InsertAPIURL, {
       method: 'POST',
       headers: headers,
-      body: JSON.stringify(Data),
+      body: JSON.stringify(DataFinal),
     })
       .then(response => response.json())
       .then(response => {
         console.log(response);
         if (response.message == `User Updated Successfully!`) {
           // setLogos(response.count);
+          handleClosedelmodalStatus();
           getAllLogos();
           // setOpendelmodal(false);
           //   console.log(response.result);
@@ -324,12 +329,12 @@ const Team = () => {
         return (
           <>
             {row.row.status === 'unblock' ?
-              < Chip onClick={() => { changeStatus(row.row) }} sx={{ cursor: 'pointer' }} label={row.row.status} color="success" variant="outlined" />
+              < Chip onClick={() => { handleOpendelmodalStatus(row.row) }} sx={{ cursor: 'pointer' }} label={row.row.status} color="success" variant="outlined" />
               :
               row.row.status === null ?
-                < Chip onClick={() => { changeStatus(row.row) }} sx={{ cursor: 'pointer' }} label='unblock' color="success" variant="outlined" />
+                < Chip onClick={() => { handleOpendelmodalStatus(row.row) }} sx={{ cursor: 'pointer' }} label='unblock' color="success" variant="outlined" />
                 :
-                <Chip onClick={() => { changeStatus(row.row) }} sx={{ cursor: 'pointer' }} label={row.row.status} color="primary" variant="outlined" />
+                <Chip onClick={() => { handleOpendelmodalStatus(row.row) }} sx={{ cursor: 'pointer' }} label={row.row.status} color="primary" variant="outlined" />
 
             }
           </>
@@ -717,6 +722,39 @@ const Team = () => {
             </Grid>
           </Box>
         </Modal>
+
+        {/* Change */}
+        <Modal
+          open={opendelmodalStatus}
+          // onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box width={{ xs: 400, md: 500, lg: 500, xl: 600 }} height="auto" sx={style}>
+            <Grid container spacing={0}>
+              <Grid xs={12} align="right">
+                <Close onClick={() => setOpendelmodalStatus(false)} />
+              </Grid>
+
+              <Grid xs={12} align="center" p={{ xs: 2, md: 5, lg: 1, xl: 1 }}>
+                <Typography variant="h4" sx={{ letterSpacing: "3px" }} fontWeight={600} fontSize="x-large" color="#FF6700">Confirmation</Typography>
+
+                <Typography variant="h5" sx={{ letterSpacing: "3px" }} pt={7} pb={0} fontWeight={600} color="#1F1F1F">Do you want to Change Status?</Typography>  </Grid>
+            </Grid>
+
+            <Grid container spacing={0} pt={7}>
+              <Grid xs={6} align="">
+                <Button variant="contained" style={btncancel} onClick={() => { setOpendelmodalStatus(false) }}>Cancel</Button>
+              </Grid>
+
+              <Grid xs={6} align="right">
+                <Button variant="contained" style={btn} onClick={() => { changeStatus() }}>Change</Button>
+              </Grid>
+            </Grid>
+
+          </Box>
+        </Modal>
+
 
         {/* del */}
         <Modal
