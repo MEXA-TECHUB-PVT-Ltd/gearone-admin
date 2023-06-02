@@ -231,7 +231,7 @@ function Login() {
                     Enter code that you received on your mail
                   </Typography>
 
-                  <FormControl className='form' sx={{ width: { lg: "90%", xl: "80%" } }}>
+                  <FormControl  allign='center' className='form' sx={{ width: { lg: "90%", xl: "80%" } }}>
                     <Stack direction="column" spacing="3" pt={8} sx={{ pb: 8 }} >
                       <Stack direction="row" spacing="3" sx={{ display: { xs: "block", sm: "block", md: "block", lg: "block", xl: "none" } }}>
                         <OtpInput
@@ -257,8 +257,8 @@ function Login() {
                             // separator={<span>&nbsp;  
                             // </span>}
                             containerStyle={{ width: "100%" }}
-                            inputStyle={{ width: "40%", height: "5vh", backgroundColor: "#EEEEEE", borderColor: "lightgray", border: "none", borderRadius: "5px" }}
-                            focusStyle={{ width: "40%", height: "5vh", backgroundColor: "#EEEEEE", borderColor: "lightgray", border: "none", borderRadius: "5px" }}
+                            inputStyle={{ width: "50%", height: "5vh", backgroundColor: "#EEEEEE", borderColor: "lightgray", border: "none", borderRadius: "5px" }}
+                            focusStyle={{ width: "50%", height: "5vh", backgroundColor: "#EEEEEE", borderColor: "lightgray", border: "none", borderRadius: "5px" }}
                           />
                         </Stack>
                       </div>
@@ -271,7 +271,7 @@ function Login() {
                           />
                         </Button>
                         :
-                        <Button variant="contained" style={btn} onClick={verifyotp}>Verify</Button>
+                        <Button sx={{mr:'300px'}} variant="contained" style={btn} onClick={verifyotp}>Verify</Button>
                       }
 
                     </Stack>

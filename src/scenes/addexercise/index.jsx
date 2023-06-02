@@ -65,13 +65,13 @@ const Team = () => {
         };
         console.log(Data);
         if (Screen === '') {
+            setIsloading(false);
             Swal.fire({
                 icon: 'warning',
                 title: 'Oops...',
                 confirmButtonColor: "#FF6700",
                 text: 'Please Select Screen '
             })
-
         } else {
             await fetch(InsertAPIURL, {
                 method: 'POST',
@@ -405,11 +405,20 @@ const Team = () => {
                                 </FormControl>
 
                             </Grid>
-
-                            <Grid xs={12} align="center">
-                                <Button variant="contained" style={btn} onClick={() => { handleAdd() }} >Add</Button>
-                            </Grid>
-
+                            {isloading ?
+                                <Grid xs={12} align="center">
+                                    <Button variant="contained" style={btn}>
+                                        <ClipLoader loading={isloading}
+                                            css={override}
+                                            size={10}
+                                        />
+                                    </Button>
+                                </Grid>
+                                :
+                                <Grid xs={12} align="center">
+                                    <Button variant="contained" style={btn} onClick={() => { handleAdd() }} >Add</Button>
+                                </Grid>
+                            }
                         </Grid>
                     </Container>
                 </Container>
