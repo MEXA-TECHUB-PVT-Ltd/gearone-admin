@@ -315,7 +315,7 @@ const Team = () => {
                 <Grid container spacing={0}>
                     <Grid xs={12} aign="center">
                         <div style={{ display: "flex", justifyContent: "center", alignContent: "center" }}>
-                            <FormControl className='form' sx={{ width: { lg: "80%", xl: "100%" } }}>
+                            <FormControl className='form' sx={{ width: { lg: "80%", xl: "70%" } }}>
                                 <Stack direction="column" spacing={0} pt={{ lg: 4, xl: 9 }}>
 
                                     <Typography variant="paragraph" fontWeight="medium" pl={1} pb={1} fontSize="13px" sx={{ font: "normal normal normal 17px/26px Roboto" }} color="#1F1F1F">

@@ -193,12 +193,6 @@ const Team = () => {
   const [showtable, setShowtable] = useState(true);
 
   const changeStatus = async (data) => {
-    Swal.fire({
-      icon: 'wait',
-      title: 'Wait...',
-      confirmButtonColor: "#FF6700",
-      text: 'please wait...',
-    })
 
     var InsertAPIURL = `${url}logos/update_logo_status`
     var headers = {
@@ -446,7 +440,7 @@ const Team = () => {
 
           <Grid item xs={1.5} align="center">
             <div>
-              <Box sx={{ width: { lg: "13vh", xl: "7vh" }, borderRadius: "5px", border: "1px solid #D8D8D8" }}>
+              <Box sx={{ width:'90px', borderRadius: "5px", border: "1px solid #D8D8D8" }}>
                 <Box >
                   <div style={{ padding: "5px", paddingBottom: "0px", display: "flex", justifyContent: "center", alignContent: "center", gap: "3px" }}>
                     {
@@ -529,7 +523,7 @@ const Team = () => {
                   <Grid xs={12} md={3} lg={3} align="center" p={1}>
                     <Card width="95%" sx={{ padding: 0, boxShadow: "none", borderRadius: "10px", border: "1px solid #D8D8D8" }}>
                       <CardContent>
-                        <Grid onClick={() => { setViewData(item); handleOpenmodal(); }} container spacing={0} >
+                        <Grid container spacing={0} >
                           <Grid xs={6} align="left" onClick={() => { setViewData(item); handleOpenmodal(); }}>
                             <Typography variant="h5" pb={1} fontWeight={750} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#FF6700">
                               {item.screen_name}
@@ -538,15 +532,15 @@ const Team = () => {
 
                           <Grid xs={6} align="right">
                             <div>
-                              {/* <MoreVert
+                              <MoreVert
                                 id="basic-button"
                                 aria-controls={open ? 'basic-menu' : undefined}
                                 aria-haspopup="true"
                                 aria-expanded={open ? 'true' : undefined}
-                                onClick={handleClick} sx={{ color: "#1F1F1F" }} /> */}
+                                onClick={handleClick} sx={{ color: "#1F1F1F" }} />
                             </div>
 
-                            {/* <Menu
+                            <Menu
                               id="basic-menu"
                               anchorEl={anchorEl}
                               open={open}
@@ -583,22 +577,33 @@ const Team = () => {
                               transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                               anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                             >
-                              <MenuItem onClick={() => navigate("/updatedietplan")}>
-                                <Edit sx={{ color: "gray" }} /><span style={{ marginLeft: 10 }}>Edit Diet Plan</span>
+                              <MenuItem onClick={() => navigate('/UpdateLogo', {
+                                state: {
+                                  id: item.id,
+                                  image: item.image,
+                                  link: item.link,
+                                  status: item.active_status,
+                                  screen: item.screen_name,
+                                  screen_id: item.screen_id
+
+                                }
+                              })
+                              }>
+                                <Edit sx={{ color: "gray" }} /><span style={{ marginLeft: 10 }}>Edit</span>
                               </MenuItem>
-                              <MenuItem onClick={() => handleOpendelmodal()}>
-                                <Delete sx={{ color: "gray" }} /><span style={{ marginLeft: 10 }}>Delete Diet Plan</span>
+                              <MenuItem onClick={() => { setDeleteID(item.id); handleOpendelmodal() }}>
+                                <Delete sx={{ color: "gray" }} /><span style={{ marginLeft: 10 }}>Delete</span>
                               </MenuItem>
-                            </Menu> */}
+                            </Menu>
                           </Grid>
 
-                          <Grid xs={6} sx={{ pb: 1 }} align="left" onClick={handleOpenmodal}>
+                          <Grid onClick={() => { setViewData(item); handleOpenmodal(); }} xs={6} sx={{ pb: 1 }} align="left" >
                             <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
                               Status :
                             </Typography>
                           </Grid>
 
-                          <Grid xs={6} sx={{ pb: 1 }} align="left" onClick={handleOpenmodal}>
+                          <Grid onClick={() => { setViewData(item); handleOpenmodal(); }} xs={6} sx={{ pb: 1 }} align="left" >
                             <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#808080">
                               {item.active_status}
                             </Typography>
@@ -641,7 +646,7 @@ const Team = () => {
           <Box width={{ xs: 400, md: 500, lg: 600, xl: 650 }} height="auto" sx={styleview}>
             <Box sx={{ borderTopLeftRadius: "20px", borderTopRightRadius: "20px", backgroundColor: "#FF6700", width: "100%", height: "80px" }}>
               <div xs={12} align="right" pt={0.6} pr={3}>
-                <Close  sx={{marginRight:'10px', marginTop:"5px", color: "white" }} onClick={() => setOpenmodal(false)} />
+                <Close sx={{ marginRight: '10px', marginTop: "5px", color: "white" }} onClick={() => setOpenmodal(false)} />
               </div>
               <Box xs={12} sx={{ mb: '20px' }} align="center">
                 <Typography align="center" sx={{ mb: '20px', fontWeight: 600, fontSize: "24px" }} color="white">
@@ -650,7 +655,7 @@ const Team = () => {
               </Box>
             </Box>
             <Grid xs={12} align="center" pt={3}>
-              {viewData.image !== null  ?
+              {viewData.image !== null ?
                 <img src={`https://staging-gearone-be.mtechub.com/${viewData.image}`} style={{ bgcolor: "#FF6700", width: '175px', height: '175px' }}>
                 </img>
                 :
@@ -668,7 +673,7 @@ const Team = () => {
                 {/* <Button variant="contained" style={btn} onClick={() => { navigate("/setnewpassword") }}>Reset Password</Button> */}
               </Grid>
 
-              <Grid xs={6} align="right" p={0.5}>
+              <Grid sx={{ overflow:'hidden', width: '30px', height: '50px' }} xs={6} align="right">
                 <a href={viewData.link} sx={{ cursor: 'pointer' }} variant="h6" fontWeight={300} pb={1} fontSize="12px" color='#007FFF'>
                   {viewData.link}
                 </a>

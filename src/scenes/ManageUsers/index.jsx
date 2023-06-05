@@ -304,7 +304,7 @@ const Team = () => {
           <>
             {row.row.image !== null ?
               // <img src={`https://staging-gearone-be.mtechub.com/${row.row.image}`} style={{ bgcolor: "#FF6700", width: '45px', height: '45px' }}>
-                <Avatar src={`https://staging-gearone-be.mtechub.com/${row.row.image}`} style={{ bgcolor: "#FF6700", width: '45px', height: '45px' }}> 
+              <Avatar src={`https://staging-gearone-be.mtechub.com/${row.row.image}`} style={{ bgcolor: "#FF6700", width: '45px', height: '45px' }}>
               </Avatar>
               :
               <Avatar sx={{ width: '45px', height: '45px' }}>
@@ -349,54 +349,17 @@ const Team = () => {
       flex: 1,
       renderCell: (row) => {
         return (
-          <>
-            <div>
-              <IconButton  >
+              <IconButton style={{cursor:'pointer'}} onClick={() => {
+                navigate('/UserDetails', {
+                  state: {
+                    id: row.row.id,
+                  }
+                })
+              }}>
                 <Tooltip title="view" >
-                  <Visibility sx={{ color: "#3FC0FF" }} onClick={() => {
-                    // setViewData(row.row); console.log(row.row);
-                    // handleOpenmodal()
-                    navigate('/UserDetails', {
-                      state: {
-                        id: row.row.id,
-                      }
-                    })
-
-                  }} />
+                  <Visibility sx={{ color: "#3FC0FF" }} />
                 </Tooltip>
               </IconButton>
-
-              {/* <IconButton  >
-                <Tooltip title="edit" >
-                  <Edit sx={{ color: "#40E0D0" }} onClick={() => {
-                    console.log(row.row);
-                    navigate('/UpdateLogo', {
-                      state: {
-                        id: row.row.id,
-                        image: row.row.image,
-                        link: row.row.link,
-                        status: row.row.active_status,
-                        screen: row.row.screen_name,
-                        screen_id: row.row.screen_id
-
-                      }
-                    })
-                  }
-                  }
-                  />
-                </Tooltip>
-              </IconButton>
-
-              <IconButton >
-                <Tooltip title="Delete">
-                  <Delete sx={{ color: "#E10006" }} onClick={() => {
-                    setDeleteID(row.row.id);
-                    handleOpendelmodal();
-                  }} />
-                </Tooltip>
-              </IconButton> */}
-            </div>
-          </>
         );
       },
     },
@@ -458,31 +421,11 @@ const Team = () => {
           </Grid>
 
           <Grid item xs={3} align="center">
-            {/* <Stack direction="row" spacing={0}>
-              <div>
-                <Box sx={{ width: "100%", border: "1px solid lightgray", borderRadius: "50px" }}>
-                  <Stack p={0.5}>
-                    <Grid container spacing={0} >
-                      <Grid xs={2} md={2} lg={2} sx={{ pl: 1 }}>
-                        <Search sx={{ color: "lightgray" }} />
-                      </Grid>
-
-                      <Grid xs={10} md={10} lg={10} sx={{ pr: 1 }}>
-                        <Typography variant="paragraph" fontWeight={500} fontSize="13px" color="lightgray">
-                          Search Here
-                        </Typography>
-                      </Grid>
-                    </Grid>
-                  </Stack>
-                </Box>
-              </div>
-
-            </Stack> */}
           </Grid>
 
           <Grid item xs={1.5} align="center">
             <div>
-              <Box sx={{ width: { lg: "13vh", xl: "7vh" }, borderRadius: "5px", border: "1px solid #D8D8D8" }}>
+              <Box sx={{ width:'90px' , borderRadius: "5px", border: "1px solid #D8D8D8" }}>
                 <Box >
                   <div style={{ padding: "5px", paddingBottom: "0px", display: "flex", justifyContent: "center", alignContent: "center", gap: "3px" }}>
                     {
@@ -739,7 +682,7 @@ const Team = () => {
               <Grid xs={12} align="center" p={{ xs: 2, md: 5, lg: 1, xl: 1 }}>
                 <Typography variant="h4" sx={{ letterSpacing: "3px" }} fontWeight={600} fontSize="x-large" color="#FF6700">Confirmation</Typography>
 
-                <Typography variant="h5" sx={{ letterSpacing: "3px" }} pt={7} pb={0} fontWeight={600} color="#1F1F1F">Do you want to Change Status?</Typography>  </Grid>
+                <Typography variant="h5" sx={{ letterSpacing: "3px" }} pt={7} pb={0} fontWeight={600} color="#1F1F1F">Do you want to block/unblock user?</Typography>  </Grid>
             </Grid>
 
             <Grid container spacing={0} pt={7}>

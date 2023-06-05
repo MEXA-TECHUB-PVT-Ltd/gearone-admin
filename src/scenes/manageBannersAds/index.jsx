@@ -448,7 +448,7 @@ const Team = () => {
 
           <Grid item xs={1.5} align="center">
             <div>
-              <Box sx={{ width: { lg: "13vh", xl: "7vh" }, borderRadius: "5px", border: "1px solid #D8D8D8" }}>
+              <Box sx={{  width:'90px', borderRadius: "5px", border: "1px solid #D8D8D8" }}>
                 <Box >
                   <div style={{ padding: "5px", paddingBottom: "0px", display: "flex", justifyContent: "center", alignContent: "center", gap: "3px" }}>
                     {
@@ -666,7 +666,7 @@ const Team = () => {
                 {/* <Button variant="contained" style={btn} onClick={() => { navigate("/setnewpassword") }}>Reset Password</Button> */}
               </Grid>
 
-              <Grid sx={{ pb: 1, width: '100px', height: '50px' }} xs={6} align="left" onClick={handleOpenmodal}>
+              <Grid sx={{ overflow:'hidden', pb: 1, width: '100px', height: '50px' }} xs={6} align="left" onClick={handleOpenmodal}>
                 <a href={viewData.link} sx={{ cursor: 'pointer' }} variant="h6" fontWeight={300} pb={1} fontSize="12px" color='#007FFF'>
                   {viewData.link}
                 </a>

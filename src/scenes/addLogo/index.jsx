@@ -115,7 +115,7 @@ const Team = () => {
                         icon: 'error',
                         title: 'Oops...',
                         confirmButtonColor: "#FF6700",
-                        text: 'Please Enter screen ID'
+                        text: 'Please Select Screen'
                     })
                 } else {
                     setIsloading(false)
