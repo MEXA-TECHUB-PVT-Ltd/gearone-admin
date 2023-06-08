@@ -502,19 +502,19 @@ const Team = () => {
 
 
     const getAllCatagory = async () => {
-        var InsertAPIURL = `${url}category/get_all_category`
+        var InsertAPIURL = `${url}category/GetAll_only_Categories`
         var headers = {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
         };
         await fetch(InsertAPIURL, {
-            method: 'GET',
+            method: 'POST',
             headers: headers,
         })
             .then(response => response.json())
             .then(response => {
                 console.log(response);
-                if (response.message == `All categories Details`) {
+                if (response.message == `categories Details`) {
                     // setLogos(response.count);
                     console.log(response.result);
                     setCatagory(response.result);

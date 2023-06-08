@@ -230,6 +230,13 @@ const Team = () => {
                                             null
                                             :
                                             <Grid container spacing={0} pt={5}>
+                                                <input
+                                                    style={{  display: "none" }}
+                                                    id="fileInput"
+                                                    type="file"
+                                                    onChange={handleImageChange}
+                                                    accept="image/*"
+                                                />
                                                 <Grid xs={12} align="">
                                                     <Stack align="">
                                                         <label htmlFor="fileInput" style={{ display: "flex", justifyContent: "center", alignContent: "center", color: "#808080" }}>
@@ -239,7 +246,7 @@ const Team = () => {
                                                             </Stack>
                                                         </label>
                                                         <input
-                                                            style={{ display: "none" }}
+                                                            style={{ width: "300px", height: '400px', display: "none" }}
                                                             id="fileInput"
                                                             type="file"
                                                             onChange={handleImageChange}

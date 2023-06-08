@@ -268,10 +268,11 @@ function Login() {
                           <ClipLoader color={color} loading={isloading}
                             css={override}
                             size={10}
+                            sx={{ mb: "10px" }}
                           />
                         </Button>
                         :
-                        <Button sx={{mr:'300px'}} variant="contained" style={btn} onClick={verifyotp}>Verify</Button>
+                        <Button sx={{mb: "10px" ,mr:'300px'}} variant="contained" style={btn} onClick={verifyotp}>Verify</Button>
                       }
 
                     </Stack>
