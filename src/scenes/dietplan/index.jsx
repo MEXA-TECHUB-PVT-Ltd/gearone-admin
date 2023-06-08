@@ -401,14 +401,18 @@ const Team = () => {
     }, [])
 
     const getAllLogos = async () => {
-        var InsertAPIURL = `${url}items/get_all_items`
+        var InsertAPIURL = `${url}items/get_all_items_admin`
         var headers = {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
-        };
+        };      
+        // var Data = {
+        //     "page": '1'        };
+
         await fetch(InsertAPIURL, {
             method: 'POST',
             headers: headers,
+            // body: JSON.stringify(Data),
         })
             .then(response => response.json())
             .then(response => {

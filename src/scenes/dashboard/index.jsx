@@ -205,7 +205,7 @@ const Dashboard = () => {
         console.log(response);
         if (response.message == `Ad's Data`) {
           setItems(response.result);
-          setAllItems(response.count)
+          setAllItems(response.result.length)
         } else {
           Swal.fire({
             icon: 'error',
@@ -337,26 +337,26 @@ const Dashboard = () => {
 
 
   const getAllUsers = async () => {
-    var InsertAPIURL = `${url}category/get_all_category`
+    var InsertAPIURL = `${url}category/GetAll_only_Categories`
     var headers = {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
     };
     await fetch(InsertAPIURL, {
-      method: 'GET',
+      method: 'POST',
       headers: headers,
     })
       .then(response => response.json())
       .then(response => {
         console.log(response);
-        if (response.message == `All categories Details`) {
+        if (response.message == `categories Details`) {
           setAllUsers(response.count);
         } else {
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
             confirmButtonColor: "#FF6700",
-            text: 'Email or Password wrong!'
+            text: 'Server ERROR'
           })
         }
       }
