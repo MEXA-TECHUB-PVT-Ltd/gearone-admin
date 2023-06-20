@@ -422,6 +422,7 @@ const Team = () => {
           </Grid>
 
           <Grid item xs={3} align="center">
+            
           </Grid>
 
           <Grid item xs={3} align="right">

@@ -137,8 +137,80 @@ const Team = () => {
                                 <Stack sx={{ height: "360px", display: "flex", justifyContent: "start", alignContent: "start" }} className="scrollbar">
                                     <Typography variant="paragraph" fontSize="12px" pb={1} sx={{ letterSpacing: "1px", fontWeight: "" }} align="left" lineHeight="25px" color="#1F1F1F">
                                         <span style={{ fontWeight: "medium" }}>
-                                            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At
+                                            Privacy Policy Sample Template Download this template as a PDF and edit it
+                                            with your business’s information. Replace or edit this text with your company’s
+                                            privacy policies as well as replacing or changing the choices in blue
+                                            bracketed text. Gear one values the privacy of our users.
+                                            Therefore, this privacy policy explains in detail how we use and protect
+                                            the information we collect when you visit our [website/mobile app],
+                                            as well as our [media channel/other applications]. Read this privacy policy
+                                            completely. Please refrain from visiting the site if the terms outlined below
+                                            are not satisfactory to you. We reserve the right to change this policy at any
+                                            time and will list these changes in the updates section of the policy. By
+                                            reading this notice and visiting the site, you agree that you understand that
+                                            customers will not be personally notified when this policy changes.
+                                            Therefore, we advise our customers to frequently review our privacy policy
+                                            so that they remain aware of its updates. By using the site, you accept that
+                                            the posted policy and all its changes apply to your interaction with
+                                            Gear one. Information Collected by Gear one Personal
+                                            information may be collected by this site in many ways.
                                         </span>
+                                        <br />
+                                        <br />
+                                        <span style={{ fontWeight: "medium" }}>
+                                            This information includes:
+                                        </span>
+                                        <br />
+                                        <span style={{ fontWeight: "medium" }}>
+                                            1. Personal identifying information like your name, address, email, phone
+                                            number, age, gender, and other personal data
+                                        </span>
+                                        <br />
+                                        <span style={{ fontWeight: "medium" }}>
+
+                                            2. Server data related to the IP address you used to visit our
+                                            [website/mobile app], which includes your address, browser,
+                                            OS, access time, and site activity.
+                                        </span>
+                                        <br />
+                                        <span style={{ fontWeight: "medium" }}>
+
+                                            3. Financial information
+                                            related to your orders including your payment method and identifying
+                                            payment information. We rarely store financial information collected
+                                            on our site for transaction purposes. That information gets sent
+                                            directly to our payment processor, [List your company’s payment
+                                            processors such as Amazon or PayPal and link to their privacy policies]
+                                        </span>
+                                        <br />
+                                        <span style={{ fontWeight: "medium" }}>
+                                            4. Social network data including Facebook permissions
+                                            and user information from other networks, provided you
+                                            log onto our site using one of these media sites.
+                                        </span>
+                                        <br />
+                                        <span style={{ fontWeight: "medium" }}>
+                                            5. Mobile device information such as your device ID,
+                                            model, and location, if you use our site by accessing it
+                                            through our mobile app.
+                                        </span>
+                                        <br />
+                                        <br />
+
+
+                                        <span style={{ fontWeight: "medium" }}>
+                                            How We Use This Information Our [website/mobile app] uses information collected to:                                        </span>
+                                        <br />
+                                        <span style={{ fontWeight: "medium" }}>
+                                        Manage your account information • Customize ads • Deliver promotions • Email your account confirmation • Manage purchases and payments • Increase site efficiency • Notify you of updates • Offer new products • Monitor and prevent theft • Request your customer feedback • Resolve account disputes • Respond to your service requests • [Other functions] Information Disclosure Normally, your information stays on our site. However, below we have listed the situations that may require us to share the information we collect from you: • When required by law, such as for fraud protection • With our third-party providers for payment processing and hosting • With your consent for marketing purposes • When you post comments on the site • To our advertisers, affiliates, and partners
+                                         • If this site goes bankrupt and data must be transferred 
+                                         
+                                        <br />
+                                        <span style={{ fontWeight: "medium" }}>
+                                        •  Cookies, Trackers, and Online Ads We may use cookies, trackers, web beacons, and other technology to customize our [website/mobile app] to improve your experience. We may customize the site using this information. These trackers do not have access to your personal information and can be removed from your browser options. In addition, third-party software provides ads for our site for marketing campaigns. These programs have access to tracking technology to optimize your ad experience. For more information about these ads, visit [link to the privacy policies of affiliate advertisers]. Website analytics such as through [list vendors and link to their policies] may also be used to track users and remarket our [website/mobile application]. We do not give these vendors access to your personal information. Other Sites Our website may contain links to third-party websites in the form of policies, ads, and other nonaffiliated links. Once you leave our site, we are no longer responsible for how your information is collected and disclosed. Please refer to the privacy policies of those third-party sites for more information                                        </span>
+                                        </span>
+
+
                                     </Typography>
                                 </Stack>
 
