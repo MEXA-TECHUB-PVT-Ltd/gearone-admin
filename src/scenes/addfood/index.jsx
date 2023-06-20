@@ -51,8 +51,6 @@ const Team = () => {
     }
 
     const onChange = e => {
-        console.log("e.target.Files");
-        console.log(e.target.files);
         setFiles(e.target.files)
         setHidecrossicon(true);
         setHidelabel(true);
@@ -289,13 +287,38 @@ const Team = () => {
                             <Grid container spacing={0}>
                                 <Grid xs={12} p={1}>
                                     <Box align='center' pt={2} pb={2}>
+                                        {
+                                            Files.length < 5 ?
+                                                <Box align='center' sx={{ pt: 2, width: "300px", height: "200px", p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
+                                                    <Grid container spacing={0} pt={5}>
+                                                        <Grid xs={12} align="">
+                                                            <Stack align="">
+                                                                <label htmlFor="fileInput" style={{ display: "flex", justifyContent: "center", alignContent: "center", color: "#808080" }}>
+                                                                    <Stack direction="column" spacing={1} >
+                                                                        <Upload sx={{ fontSize: "50px", color: "#808080", ml: 3, pb: 1 }} />
+                                                                        <span style={{ paddingBottom: "2vh", font: "normal normal normal 16px/26px Arial" }}>Upload Images</span>
+                                                                        <span style={{ paddingBottom: "2vh", font: "normal normal normal 16px/26px Arial" }}>Max 5</span>
 
-                                        {hidelabel ?
-                                            Files &&
+                                                                    </Stack>
+                                                                </label>
+                                                                <input
+                                                                    multiple
+                                                                    style={{ display: "none" }}
+                                                                    id="fileInput"
+                                                                    type="file"
+                                                                    onChange={onChange}
+                                                                    accept="image/*"
+                                                                />
+                                                            </Stack>
+                                                        </Grid>
+                                                    </Grid>
+                                                </Box>
+                                                : null
+
+                                        }
+                                        {Files.length > 0 ?
                                             <ImageList align="left" sx={{ width: '700px', height: "200px" }} cols={5} rowHeight={"200px"}>
-                                                {/* { Files.length(item) => ( */}
                                                 <>
-                                                    {/* <img key={item} src={URL.createObjectURL(item[0])} alt="Preview" style={{ width: "300px", height: "200px" }} /> */}
                                                     {Files.length > 0 &&
                                                         <ImageListItem key={Files.name}>
                                                             <img
@@ -347,42 +370,12 @@ const Team = () => {
                                                         </ImageListItem>
                                                     }
 
-
                                                 </>
-                                                {/* ))
-                                                                                                    } */}
+
                                             </ImageList>
-
-
-                                            :
-                                            <Box align='center' sx={{ pt: 2, width: "300px", height: "200px", p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
-                                                <Grid container spacing={0} pt={5}>
-                                                    <Grid xs={12} align="">
-                                                        <Stack align="">
-                                                            <Stack align="">
-                                                                <label htmlFor="fileInput" style={{ display: "flex", justifyContent: "center", alignContent: "center", color: "#808080" }}>
-                                                                    <Stack direction="column" spacing={1} >
-                                                                        <Upload sx={{ fontSize: "50px", color: "#808080", ml: 3, pb: 1 }} />
-                                                                        <span style={{ paddingBottom: "2vh", font: "normal normal normal 16px/26px Arial" }}>Upload Images</span>
-                                                                        <span style={{ paddingBottom: "2vh", font: "normal normal normal 16px/26px Arial" }}>Max 5</span>
-
-                                                                    </Stack>
-                                                                </label>
-                                                                <input
-                                                                    multiple
-                                                                    style={{ display: "none" }}
-                                                                    id="fileInput"
-                                                                    type="file"
-                                                                    onChange={onChange}
-                                                                    accept="image/*"
-                                                                />
-                                                            </Stack>
-
-                                                        </Stack>
-                                                    </Grid>
-                                                </Grid>
-                                            </Box>
+                                            : null
                                         }
+
 
                                         {
                                             hidecrossicon ?
