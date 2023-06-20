@@ -168,6 +168,8 @@ const Team = () => {
     );
   }
   const [viewImage, setViewImage] = useState([]);
+  const [idData, setIdData] = useState([]);
+  const [ActionData, setActionData] = React.useState({});
 
   const [openmodal, setOpenmodal] = useState(false);
   const handleOpenmodal = () => setOpenmodal(true);
@@ -267,7 +269,10 @@ const Team = () => {
         return (
           <>
             <div>
-              <IconButton  >
+              <IconButton  onClick={() => {
+                    setViewData(row.row); setViewImage(row.row.images[0]); console.log(row.row);
+                    handleOpenmodal()
+                  }} >
                 <Tooltip title="view" >
                   <Visibility sx={{ color: "#3FC0FF" }} onClick={() => {
                     setViewData(row.row); setViewImage(row.row.images[0]); console.log(row.row);
@@ -276,7 +281,23 @@ const Team = () => {
                 </Tooltip>
               </IconButton>
 
-              <IconButton  >
+              <IconButton  onClick={() => {
+                    console.log(row.row);
+                    navigate('/EditMerchandise', {
+                      state: {
+                        id: row.row.id,
+                        images: row.row.images,
+                        name: row.row.name,
+                        row: row.row,
+                        category_id: row.row.category_id,
+                        catagory_name: row.row.catagory_name,
+                        price: row.row.price,
+                        description: row.row.description,
+                        location: row.row.location
+                      },
+                    })
+                  }
+                  }>
                 <Tooltip title="edit" >
                   <Edit sx={{ color: "#40E0D0" }} onClick={() => {
                     console.log(row.row);
@@ -299,7 +320,10 @@ const Team = () => {
                 </Tooltip>
               </IconButton>
 
-              <IconButton >
+              <IconButton onClick={() => {
+                    setDeleteID(row.row.id);
+                    handleOpendelmodal();
+                  }}>
                 <Tooltip title="Delete">
                   <Delete sx={{ color: "#E10006" }} onClick={() => {
                     setDeleteID(row.row.id);
@@ -474,7 +498,7 @@ const Team = () => {
                   <Grid sx={{ mb: '20px' }} xs={12} md={3} lg={3} align="center" p={1}>
                     <Card width="95%" sx={{ padding: 0, boxShadow: "none", borderRadius: "10px", border: "1px solid #D8D8D8" }}>
                       <CardContent>
-                        <Grid onClick={() => { setViewData(item); setViewImage(item.images[0]); handleOpenmodal(); }} container spacing={0} >
+                        <Grid  container spacing={0} >
                           <Grid sx={{ width: '100px', height: '50px' }} xs={6} align="left" onClick={() => { setViewData(item); handleOpenmodal(); }}>
                             <Typography variant="h5" pb={1} fontWeight={750} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#FF6700">
                               {item.name}
@@ -483,15 +507,19 @@ const Team = () => {
 
                           <Grid xs={6} align="right">
                             <div>
-                              {/* <MoreVert
+                              <MoreVert
                                 id="basic-button"
                                 aria-controls={open ? 'basic-menu' : undefined}
                                 aria-haspopup="true"
                                 aria-expanded={open ? 'true' : undefined}
-                                onClick={handleClick} sx={{ color: "#1F1F1F" }} /> */}
+                                // onClick={handleClick} 
+                                onClick={(event) => {
+                                  setIdData(item)
+                                  setAnchorEl(event.currentTarget)
+                                }}
+                                sx={{ color: "#1F1F1F" }} />
                             </div>
-
-                            {/* <Menu
+                            <Menu
                               id="basic-menu"
                               anchorEl={anchorEl}
                               open={open}
@@ -502,8 +530,8 @@ const Team = () => {
                               PaperProps={{
 
                                 sx: {
-                                  overflow: 'visible',
-                                  filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.22))',
+                                  // overflow: 'visible',
+                                  // filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.22))',
                                   mt: 1.5,
                                   '& .MuiAvatar-root': {
                                     width: 32,
@@ -516,7 +544,7 @@ const Team = () => {
                                     display: 'block',
                                     position: 'absolute',
                                     top: 0,
-                                    right: 23,
+                                    right: 5,
                                     width: 10,
                                     height: 10,
                                     bgcolor: 'background.paper',
@@ -528,13 +556,46 @@ const Team = () => {
                               transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                               anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                             >
-                              <MenuItem onClick={() => navigate("/updatedietplan")}>
-                                <Edit sx={{ color: "gray" }} /><span style={{ marginLeft: 10 }}>Edit Diet Plan</span>
+                              <MenuItem
+                                onClick={() => {
+                                  console.log(idData);
+                                  setActionData(idData);
+                                  // if (idData.image !== null) {
+                                  //   setHidelabelUpload(true);
+                                  // }
+                                  navigate('/EditMerchandise', {
+                                    state: {
+                                      id: idData.id,
+                                      images: idData.images,
+                                      name: idData.pushname,
+                                      row: idData,
+                                      category_id: idData.category_id,
+                                      catagory_name: idData.catagory_name,
+                                      price: idData.price,
+                                      description: idData.description,
+                                      location: idData.location
+              
+                                    }
+                                  })
+
+                                }
+                                }
+                              >
+                                <Edit sx={{ color: "#40E0D0" }} /><span style={{ marginLeft: 10 }}>Update</span>
                               </MenuItem>
-                              <MenuItem onClick={() => handleOpendelmodal()}>
-                                <Delete sx={{ color: "gray" }} /><span style={{ marginLeft: 10 }}>Delete Diet Plan</span>
+                              <Grid container spacing={0}>
+                                <Grid xs={12} align="center">
+                                  <Divider sx={{ width: "80%" }} />
+                                </Grid>
+                              </Grid>
+                              <MenuItem onClick={() => {
+                                setDeleteID(idData.id);
+                                handleOpendelmodal();
+                              }}>
+                                <Delete sx={{ color: "#E10006" }} /><span style={{ marginLeft: 10 }}>Delete</span>
                               </MenuItem>
-                            </Menu> */}
+                            </Menu>
+
                           </Grid>
 
                           <Grid xs={6} sx={{ pb: 1, width: '100px', height: '50px' }} align="left" onClick={handleOpenmodal}>

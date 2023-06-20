@@ -47,9 +47,6 @@ const Team = () => {
     const [hidecrossicon, setHidecrossicon] = useState(false);
     const [selectedFile, setSelectedFile] = useState(null);
     const [Screens, setScreens] = useState([]);
-    useEffect(() => {
-        // getAllScreens();
-    }, [])
     const [isloading, setIsloading] = useState(false);
 
     const handleAdd = async () => {
@@ -162,6 +159,9 @@ const Team = () => {
             });
     }
 
+    useEffect(() => {
+        // getAllScreens();
+    }, [])
 
     // const getAllScreens = async () => {
     //     var InsertAPIURL = `${url}screen/get_all_screen`

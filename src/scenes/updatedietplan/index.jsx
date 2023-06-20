@@ -191,6 +191,7 @@ const Team = () => {
         }
     }
 
+    const [catagory_name, setCatagory_name] = useState('');
 
 
     const getAllScreens = async () => {
@@ -355,7 +356,7 @@ const Team = () => {
                     <Container>
                         <form onSubmit={handleAdd}>
 
-                        <Grid style={{
+                            <Grid style={{
                                 display: 'flex',
                                 align: 'left',
                                 justifyContent: 'left',
@@ -380,7 +381,7 @@ const Team = () => {
                                                             style={{ display: "none" }}
                                                             id="fileInput"
                                                             type="file"
-                                                            onChange={(e)=>{handleImageChange(e, 0)}}
+                                                            onChange={(e) => { handleImageChange(e, 0) }}
                                                             accept="image/*"
                                                         />
                                                     </Stack>
@@ -698,11 +699,14 @@ const Team = () => {
                                                 }}
                                                 labelId="demo-simple-select-label"
                                                 id="demo-simple-select"
-                                                label={Screen}
+                                                // label={Screen}
                                                 onChange={handleChangeScreen}
+                                                displayEmpty
+                                                defaultValue={catagory_name}
                                             >
-                                                <MenuItem value="Image Aspects " disabled>
-                                                    <em>select Category</em>
+
+                                                <MenuItem value="" >
+                                                    <em>{location.state.category_name}</em>
                                                 </MenuItem>
 
                                                 {Screens.map((data) => (
@@ -809,11 +813,15 @@ const Team = () => {
                                                 }}
                                                 labelId="demo-simple-select-label"
                                                 id="demo-simple-select"
-                                                placeholder={location.state.promoted} label={promoted}
+                                                placeholder={location.state.promoted}
+                                                 label={promoted}
                                                 onChange={handleChangePromoted}
+                                                displayEmpty
+                                                defaultValue={location.state.promoted}
                                             >
-                                                <MenuItem value="Image Aspects " disabled>
-                                                    <em>Promoted status</em>
+
+                                                <MenuItem value="" >
+                                                    <em>{location.state.promoted}</em>
                                                 </MenuItem>
                                                 <MenuItem key={true} value={true}>True</MenuItem>
 

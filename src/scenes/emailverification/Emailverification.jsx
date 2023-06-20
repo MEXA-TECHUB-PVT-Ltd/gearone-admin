@@ -86,6 +86,7 @@ function Emailverification() {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         const isValidEmail = emailRegex.test(email);
         if (email.length == 0) {
+            setIsloading(false);
             Swal.fire({
                 icon: 'warning',
                 title: 'warning',
@@ -138,6 +139,7 @@ function Emailverification() {
                         //   setIsloading(false);
                         // }, 3000)
                     } else {
+                        setIsloading(false);
                         Swal.fire({
                             icon: 'error',
                             title: 'Oops...',
@@ -148,12 +150,13 @@ function Emailverification() {
                 }
                 )
                 .catch(error => {
-                              Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            confirmButtonColor: "#FF6700",
-            text:  "Server Down!"
-          })
+                    setIsloading(false);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        confirmButtonColor: "#FF6700",
+                        text: "Server Down!"
+                    })
                 });
         }
         // setEmailmessage(true);
@@ -232,12 +235,12 @@ function Emailverification() {
                 }
                 )
                 .catch(error => {
-                              Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            confirmButtonColor: "#FF6700",
-            text:  "Server Down!"
-          })
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        confirmButtonColor: "#FF6700",
+                        text: "Server Down!"
+                    })
                 });
         }
 
@@ -290,8 +293,8 @@ function Emailverification() {
             <Grid container spacig={0}>
                 <Grid xs={12} md={6} lg={6} xl={6} align="">
                     <Container>
-                        <Box sx={{ pt: { xs: 0, sm: 0, md: 0, lg: 12, xl: 30 } }} p={{ lg: 10, xl: 15 }}>
-                            <img src={image} sx={{ width: 100, height: 100 }} />
+                    <Box sx={{ pt: { xs: 0, sm: 0, md: 0, lg: 7, xl: 25 } }} p={{ lg: 8, xl: 13 }}>
+                    <img src={image} sx={{ width: 120, height: 120 }} />
 
                             {hide ?
                                 <Stack pt={5}>

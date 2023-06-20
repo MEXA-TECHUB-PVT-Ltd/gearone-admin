@@ -46,6 +46,7 @@ const Team = () => {
     }
     const [Name, setName] = useState('');
     const [Price, setPrice] = useState('');
+    const [catagory_name, setCatagory_name] = useState('');
     const [Category_id, setCategory_id] = useState('');
     const [Description, setDescription] = useState('');
     const [Location, setLocation] = useState('');
@@ -409,7 +410,7 @@ const Team = () => {
                                                             style={{ display: "none" }}
                                                             id="fileInput"
                                                             type="file"
-                                                            onChange={(e)=>{handleImageChange(e, 0)}}
+                                                            onChange={(e) => { handleImageChange(e, 0) }}
                                                             accept="image/*"
                                                         />
                                                     </Stack>
@@ -702,41 +703,6 @@ const Team = () => {
                                                     "& fieldset": { border: 'none' },
                                                 }}
                                             />
-                                            {/* <Typography variant="paragraph" pl={1} pb={1} sx={{ font: "normal normal normal 17px/26px Roboto", fontSize: "12px", fontWeight: "medium" }} color="#1F1F1F">
-                                            Screen
-                                        </Typography>
-                                        <Select
-                                            sx={{
-                                                borderRadius: "50px",
-                                                backgroundColor: "#F8F8F8",
-                                                "& fieldset": { border: 'none' },
-                                            }}
-                                            labelId="demo-simple-select-label"
-                                            id="demo-simple-select"
-                                            placeholder={Screen}
-                                            label={Screen}
-                                            onChange={handleChangeScreen}
-                                        >
-                                            <MenuItem value="Image Aspects " disabled>
-                                                <em>select Screen</em>
-                                            </MenuItem>
-
-                                            {Screens.map((data) => (
-                                                <MenuItem key={data.id} value={data.id}>{`${data.name}`}</MenuItem>
-                                            ))}
-                                        </Select> */}
-
-                                            {/* <TextField
-                                            id="outlined-multiline-static"
-                                            multiline
-                                            rows={4}
-                                            sx={{
-                                                borderRadius: "20px",
-                                                backgroundColor: "#F8F8F8",
-                                                "& fieldset": { border: 'none' },
-                                            }}
-                                        /> */}
-
                                         </Stack>
 
                                     </FormControl>
@@ -751,6 +717,28 @@ const Team = () => {
                                                 Category
                                             </Typography>
                                             <Select
+                                                labelId="demo-simple-select-label"
+                                                id="demo-simple-select"
+                                                displayEmpty
+                                                defaultValue={catagory_name}
+                                                // input={<Input name="circle" id="demo-simple-select" />}
+                                                onChange={(e) => { setCategory_id(e.target.value) }}
+                                                sx={{
+                                                    borderRadius: "50px",
+                                                    backgroundColor: "#F8F8F8", height: "35px",
+                                                    "& fieldset": { border: 'none' },
+                                                }}
+                                            >
+                                                <MenuItem  value="" >
+                                                    <em>{location.state.catagory_name}</em>
+                                                </MenuItem>
+
+                                                {Screens.map((data) => (
+                                                    <MenuItem key={data.id} value={data.id}>{`${data.name}`}</MenuItem>
+                                                ))}
+                                            </Select>
+
+                                            {/* <Select
                                                 sx={{
                                                     borderRadius: "50px",
                                                     backgroundColor: "#F8F8F8",
@@ -769,7 +757,7 @@ const Team = () => {
                                                 {Screens.map((data) => (
                                                     <MenuItem key={data.id} value={data.id}>{`${data.name}`}</MenuItem>
                                                 ))}
-                                            </Select>
+                                            </Select> */}
 
                                             <br />
                                             <Typography variant="paragraph" pl={1} pb={1} sx={{ font: "normal normal normal 17px/26px Roboto", fontSize: "12px", fontWeight: "medium" }} color="#1F1F1F">

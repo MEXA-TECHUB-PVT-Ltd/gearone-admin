@@ -212,7 +212,9 @@ const Team = () => {
     const handleClose = () => {
         setAnchorEl(null);
     };
-
+    const [idData, setIdData] = useState([]);
+    const [ActionData, setActionData] = React.useState({});
+  
     const [showtable, setShowtable] = useState(true);
 
 
@@ -316,7 +318,21 @@ const Team = () => {
                     <>
 
                         <div>
-                            <IconButton  >
+                            <IconButton onClick={() => {
+                                setViewData(row.row); setViewImage(row.row.images[0]); console.log(row.row);
+                                var myDate = new Date(row.row.end_date);
+                                var result = myDate.getTime();
+                                console.log(result);
+                                setTimer(result)
+
+                                var myDate1 = new Date(row.row.start_date);
+                                var result1 = myDate1.getTime();
+                                console.log(result1);
+                                setStartDate(result1)
+
+
+                                handleOpenmodal();
+                            }} >
                                 <Tooltip title="view" >
                                     <Visibility sx={{ color: "#3FC0FF" }} onClick={() => {
                                         setViewData(row.row); setViewImage(row.row.images[0]); console.log(row.row);
@@ -339,7 +355,28 @@ const Team = () => {
 
                             {row.row.added_by === 'admin' ?
                                 <>
-                                    <IconButton  >
+                                    <IconButton onClick={() => {
+                                        console.log(row.row);
+                                        navigate('/updatedietplan', {
+                                            state: {
+                                                id: row.row.id,
+                                                images: row.row.images,
+                                                name: row.row.name,
+                                                price: row.row.price,
+                                                category_id: row.row.category_id,
+
+                                                description: row.row.description,
+                                                locations: row.row.location,
+                                                promoted: row.row.promoted,
+                                                start_date: row.row.start_date,
+                                                end_date: row.row.end_date,
+                                                added_by: row.row.added_by,
+
+
+                                            }
+                                        })
+                                    }
+                                    }>
                                         < Tooltip title="edit" >
                                             <Edit sx={{ color: "#40E0D0" }} onClick={() => {
                                                 console.log(row.row);
@@ -367,7 +404,10 @@ const Team = () => {
                                         </Tooltip>
                                     </IconButton>
 
-                                    <IconButton >
+                                    <IconButton onClick={() => {
+                                        setDeleteID(row.row.id);
+                                        handleOpendelmodal();
+                                    }} >
                                         <Tooltip title="Delete">
                                             <Delete sx={{ color: "#E10006" }} onClick={() => {
                                                 setDeleteID(row.row.id);
@@ -405,7 +445,7 @@ const Team = () => {
         var headers = {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
-        };      
+        };
         // var Data = {
         //     "page": '1'        };
 
@@ -476,7 +516,7 @@ const Team = () => {
 
                     <Grid item xs={1.5} align="center">
                         <div>
-                            <Box sx={{ width:'90px', borderRadius: "5px", border: "1px solid #D8D8D8" }}>
+                            <Box sx={{ width: '90px', borderRadius: "5px", border: "1px solid #D8D8D8" }}>
                                 <Box >
                                     <div style={{ padding: "5px", paddingBottom: "0px", display: "flex", justifyContent: "center", alignContent: "center", gap: "3px" }}>
                                         {
@@ -560,67 +600,108 @@ const Team = () => {
                                     <Grid sx={{ mb: '20px' }} xs={12} md={3} lg={3} align="center" p={1}>
                                         <Card width="100%" sx={{ padding: 0, boxShadow: "none", borderRadius: "10px", border: "1px solid #D8D8D8" }}>
                                             <CardContent>
-                                                <Grid onClick={() => { setViewData(item); setViewImage(item.images[0]); handleOpenmodal(); }} container spacing={0} >
+                                                <Grid container spacing={0} >
                                                     <Grid sx={{ width: '100px', height: '50px' }} xs={6} align="left" onClick={() => { setViewImage(item.images[0]); setViewData(item); handleOpenmodal(); }}>
                                                         <Typography variant="h5" pb={1} fontWeight={750} fontSize="16px" color="#FF6700">
                                                             {item.name}
                                                         </Typography>
                                                     </Grid>
 
+
                                                     <Grid xs={6} align="right">
                                                         <div>
-                                                            {/* <MoreVert
-                                id="basic-button"
-                                aria-controls={open ? 'basic-menu' : undefined}
-                                aria-haspopup="true"
-                                aria-expanded={open ? 'true' : undefined}
-                                onClick={handleClick} sx={{ color: "#1F1F1F" }} /> */}
+                                                            <MoreVert
+                                                                id="basic-button"
+                                                                aria-controls={open ? 'basic-menu' : undefined}
+                                                                aria-haspopup="true"
+                                                                aria-expanded={open ? 'true' : undefined}
+                                                                // onClick={handleClick} 
+                                                                onClick={(event) => {
+                                                                    setIdData(item)
+                                                                    setAnchorEl(event.currentTarget)
+                                                                }}
+                                                                sx={{ color: "#1F1F1F" }} />
                                                         </div>
+                                                        <Menu
+                                                            id="basic-menu"
+                                                            anchorEl={anchorEl}
+                                                            open={open}
+                                                            onClose={handleClose}
+                                                            MenuListProps={{
+                                                                'aria-labelledby': 'basic-button',
+                                                            }}
+                                                            PaperProps={{
 
-                                                        {/* <Menu
-                              id="basic-menu"
-                              anchorEl={anchorEl}
-                              open={open}
-                              onClose={handleClose}
-                              MenuListProps={{
-                                'aria-labelledby': 'basic-button',
-                              }}
-                              PaperProps={{
+                                                                sx: {
+                                                                    // overflow: 'visible',
+                                                                    // filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.22))',
+                                                                    mt: 1.5,
+                                                                    '& .MuiAvatar-root': {
+                                                                        width: 32,
+                                                                        height: 32,
+                                                                        ml: -0.5,
+                                                                        mr: 1,
+                                                                    },
+                                                                    '&:before': {
+                                                                        content: '""',
+                                                                        display: 'block',
+                                                                        position: 'absolute',
+                                                                        top: 0,
+                                                                        right: 5,
+                                                                        width: 10,
+                                                                        height: 10,
+                                                                        bgcolor: 'background.paper',
+                                                                        transform: 'translateY(-50%) rotate(45deg)',
+                                                                        zIndex: 0,
+                                                                    },
+                                                                },
+                                                            }}
+                                                            transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+                                                            anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+                                                        >
+                                                            <MenuItem
+                                                                onClick={() => {
+                                                                    console.log(idData);
+                                                                    setActionData(idData);
+                                                                    // if (idData.image !== null) {
+                                                                    //   setHidelabelUpload(true);
+                                                                    // }
+                                                                    navigate('/updatedietplan', {
+                                                                        state: {
+                                                                            id: idData.id,
+                                                                            images: idData.images,
+                                                                            name: idData.name,
+                                                                            price: idData.price,
+                                                                            category_id: idData.category_id,
+                    
+                                                                            description: idData.description,
+                                                                            locations: idData.location,
+                                                                            promoted: idData.promoted,
+                                                                            start_date: idData.start_date,
+                                                                            end_date: idData.end_date,
+                                                                            added_by: idData.added_by,
+                    
+                                                                                            }
+                                                                    })
 
-                                sx: {
-                                  overflow: 'visible',
-                                  filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.22))',
-                                  mt: 1.5,
-                                  '& .MuiAvatar-root': {
-                                    width: 32,
-                                    height: 32,
-                                    ml: -0.5,
-                                    mr: 1,
-                                  },
-                                  '&:before': {
-                                    content: '""',
-                                    display: 'block',
-                                    position: 'absolute',
-                                    top: 0,
-                                    right: 23,
-                                    width: 10,
-                                    height: 10,
-                                    bgcolor: 'background.paper',
-                                    transform: 'translateY(-50%) rotate(45deg)',
-                                    zIndex: 0,
-                                  },
-                                },
-                              }}
-                              transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-                              anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-                            >
-                              <MenuItem onClick={() => navigate("/updatedietplan")}>
-                                <Edit sx={{ color: "gray" }} /><span style={{ marginLeft: 10 }}>Edit Diet Plan</span>
-                              </MenuItem>
-                              <MenuItem onClick={() => handleOpendelmodal()}>
-                                <Delete sx={{ color: "gray" }} /><span style={{ marginLeft: 10 }}>Delete Diet Plan</span>
-                              </MenuItem>
-                            </Menu> */}
+                                                                }
+                                                                }
+                                                            >
+                                                                <Edit sx={{ color: "#40E0D0" }} /><span style={{ marginLeft: 10 }}>Update</span>
+                                                            </MenuItem>
+                                                            <Grid container spacing={0}>
+                                                                <Grid xs={12} align="center">
+                                                                    <Divider sx={{ width: "80%" }} />
+                                                                </Grid>
+                                                            </Grid>
+                                                            <MenuItem onClick={() => {
+                                                                setDeleteID(idData.id);
+                                                                handleOpendelmodal();
+                                                            }}>
+                                                                <Delete sx={{ color: "#E10006" }} /><span style={{ marginLeft: 10 }}>Delete</span>
+                                                            </MenuItem>
+                                                        </Menu>
+
                                                     </Grid>
 
                                                     <Grid xs={6} sx={{ pb: 1 }} align="left" onClick={handleOpenmodal}>

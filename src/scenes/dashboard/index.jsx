@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "../../App.css"
+import Chart from "./Chart.js";
+// import LineChart from 'react-linechart';
+// import '../node_modules/react-linechart/dist/styles.css';
+
 import { Avatar, Box, Typography, Button, Stack, useTheme, Divider, Card, CardContent, Toolbar, TableSortLabel, TableCell, Checkbox, TableHead, TableRow, FormControlLabel, Switch, Paper, TableContainer, Table, TableBody, TablePagination, ToggleButton, ToggleButtonGroup } from "@mui/material";
 import { tokens } from "../../theme";
 import Select from '@mui/material/Select';
@@ -8,19 +12,11 @@ import categoriesofworkout from '../../components/Images/categoriesofworkout.png
 import totalworkoutplans from '../../components/Images/totalworkoutplans.png'
 import { useNavigate } from 'react-router-dom';
 import Grid from "@mui/material/Grid";
-import workout1 from '../../components/Images/workout1.png'
-import workout2 from '../../components/Images/workout2.png'
-import workout3 from '../../components/Images/workout3.png'
-import workout4 from '../../components/Images/workout4.png'
-import workout5 from '../../components/Images/workout5.png'
-import workout6 from '../../components/Images/workout6.png'
-import workout7 from '../../components/Images/workout7.png'
-import workout8 from '../../components/Images/workout8.png'
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import IconButton from '@mui/material/IconButton';
-import Tooltip from '@mui/material/Tooltip';
+import Tooltips from '@mui/material/Tooltip';
 import PersonAdd from '@mui/icons-material/PersonAdd';
 import Logout from '@mui/icons-material/Logout';
 import url from "../url"
@@ -33,6 +29,7 @@ import {
   XAxis,
   LineChart,
   YAxis,
+  Tooltip,
   Line,
   CartesianGrid
 } from "recharts";
@@ -60,6 +57,7 @@ const Dashboard = () => {
   const [Items, setItems] = useState([]);
   const [Years, setYears] = useState([]);
   const [MonthUser, setMonthUser] = useState([]);
+  const [count, setcount] = useState(0);
 
   const colors = tokens(theme.palette.mode);
 
@@ -94,7 +92,6 @@ const Dashboard = () => {
     })
       .then(response => response.json())
       .then(response => {
-        console.log(response);
         if (response.message == `All Merchandise list`) {
           setAllMerchandise(response.count);
         } else {
@@ -129,7 +126,6 @@ const Dashboard = () => {
     })
       .then(response => response.json())
       .then(response => {
-        console.log(response);
         if (response.message == `user table's years`) {
           setYears(response.result);
         } else {
@@ -165,7 +161,6 @@ const Dashboard = () => {
   //   })
   //     .then(response => response.json())
   //     .then(response => {
-  //       console.log(response);
   //       if (response.message == `User's items data`) {
   //         setAllItems(response.count);
   //         setItems(response.result);
@@ -202,7 +197,6 @@ const Dashboard = () => {
     })
       .then(response => response.json())
       .then(response => {
-        console.log(response);
         if (response.message == `Ad's Data`) {
           setItems(response.result);
           setAllItems(response.result.length)
@@ -250,9 +244,19 @@ const Dashboard = () => {
     })
       .then(response => response.json())
       .then(response => {
-        console.log(response);
         if (response.message == `Monthly added Users`) {
           setMonthUser(response.result);
+            let counts = parseInt(response.result[0].count);
+          for(let i = 0; i < response.result.length; i++) {
+            if(parseInt(counts) < parseInt(response.result[i].count)){
+
+                counts = parseInt(response.result[i].count)
+            }
+          }
+          setcount(counts);
+
+          console.log(counts);
+
         } else {
           Swal.fire({
             icon: 'error',
@@ -274,32 +278,25 @@ const Dashboard = () => {
   }
 
 
-
-  const data = [
-    {
-      "month": "1",
-      "count": "10"
-    },
-    {
-      "month": "2",
-      "count": "40"
-    },
-    {
-      "month": "3",
-      "count": "60"
-    },
-
-    {
-      "month": "4",
-      "count": "50"
-    },
-
-    {
-      "month": "6",
-      "count": "20"
-    }
-  ]
-
+  // const data = [
+  //   {
+  //     color: "steelblue",
+  //     points: [
+  //     { x: MonthUser[0].month, y: MonthUser[0].count },
+  //     { x: MonthUser[1].month, y: MonthUser[1].count },
+  //     { x: MonthUser[2].month, y: MonthUser[2].count },
+  //     { x: MonthUser[3].month, y: MonthUser[3].count },
+  //     { x: MonthUser[4].month, y: MonthUser[4].count },
+  //     { x: MonthUser[5].month, y: MonthUser[5].count },
+  //     { x: MonthUser[6].month, y: MonthUser[6].count },
+  //     { x: MonthUser[7].month, y: MonthUser[7].count },
+  //     { x: MonthUser[8].month, y: MonthUser[8].count },
+  //     { x: MonthUser[9].month, y: MonthUser[9].count },
+  //     { x: MonthUser[10].month, y: MonthUser[10].count },
+  //     { x: MonthUser[11].month, y: MonthUser[11].count },
+  //     ],
+  //   }
+  // ];
 
 
 
@@ -313,7 +310,7 @@ const Dashboard = () => {
           <>
             {row.row.image !== null ?
               // <img src={`https://staging-gearone-be.mtechub.com/${row.row.image}`} style={{ bgcolor: "#FF6700", width: '45px', height: '45px' }}>
-                <Avatar src={`https://staging-gearone-be.mtechub.com/${row.row.image}`} style={{ bgcolor: "#FF6700", width: '45px', height: '45px' }}> 
+              <Avatar src={`https://staging-gearone-be.mtechub.com/${row.row.image}`} style={{ bgcolor: "#FF6700", width: '45px', height: '45px' }}>
               </Avatar>
               :
               <Avatar sx={{ width: '45px', height: '45px' }}>
@@ -348,7 +345,6 @@ const Dashboard = () => {
     })
       .then(response => response.json())
       .then(response => {
-        console.log(response);
         if (response.message == `categories Details`) {
           setAllUsers(response.count);
         } else {
@@ -440,11 +436,11 @@ const Dashboard = () => {
         return (
           <>
             <div style={{ display: "flex", justifyContent: "start", alignContent: "start", gap: "5px" }}>
-              <Tooltip title="View">
+              <Tooltips title="View">
                 <IconButton>
                   <Visibility />
                 </IconButton>
-              </Tooltip>
+              </Tooltips>
             </div>
           </>
         );
@@ -583,11 +579,11 @@ const Dashboard = () => {
               color: "white"
             }
           }}  >Delete All</Button>
-          // <Tooltip title="Delete">
+          // <Tooltips title="Delete">
           //   <IconButton>
           //     <Delete />
           //   </IconButton>
-          // </Tooltip>
+          // </Tooltips>
         ) : ""}
       </Toolbar>
     );
@@ -817,23 +813,23 @@ const Dashboard = () => {
                                   <TableCell align="right">{row.location}</TableCell>
                                   <TableCell align="right">
                                     <div style={{ display: "flex", justifyContent: "right", alignContent: "right", gap: "2px" }}>
-                                      <Tooltip title="View">
+                                      <Tooltips title="View">
                                         <IconButton>
                                           <Visibility sx={{ color: "#3FC0FF" }} />
                                         </IconButton>
-                                      </Tooltip>
+                                      </Tooltips>
 
-                                      <Tooltip title="Edit">
+                                      <Tooltips title="Edit">
                                         <IconButton>
                                           <Edit sx={{ color: "#40E0D0" }} />
                                         </IconButton>
-                                      </Tooltip>
+                                      </Tooltips>
 
-                                      <Tooltip title="Delete">
+                                      <Tooltips title="Delete">
                                         <IconButton>
                                           <Delete sx={{ color: "#E10006" }} />
                                         </IconButton>
-                                      </Tooltip>
+                                      </Tooltips>
                                     </div>
                                   </TableCell>
                                 </TableRow>
@@ -897,9 +893,16 @@ const Dashboard = () => {
                       <MenuItem key={data.id} value={data.year}>{`${data.year}`}</MenuItem>
                     ))}
                   </Select>
+
+                  {/* <LineChart
+                    width={400}
+                    height={400}
+                    data={data}
+                  /> */}
+                  {/* <Chart /> */}
                   <LineChart
                     width={600}
-                    height={150}
+                    height={300}
                     data={MonthUser}
                     margin={{
                       top: 5,
@@ -908,15 +911,17 @@ const Dashboard = () => {
                       bottom: 5
                     }}
                   >
-                    {"1 "}
+                    {""}
                     <XAxis dataKey="month" />
-                    <YAxis dataKey="count" />
-                    <CartesianGrid strokeDasharray="3 3" />
+                    <YAxis type="number" domain={[0,count]}/>
+                    {/* <YAxis dataKey="count" /> */}
+                    <Tooltip />
+                    <CartesianGrid strokeDasharray="1 1" />
                     <Line
                       type="monotone"
                       dataKey="count"
                       stroke="black"
-                      dot={{ r: 9, stroke: "#FF6700", fill: '#FF6700' }}
+                      dot={{ r: 3, stroke: "#FF6700", fill: '#FF6700' }}
                     />
                   </LineChart>
                 </CardContent>
