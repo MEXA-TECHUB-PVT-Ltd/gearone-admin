@@ -1,4 +1,3 @@
-import { Box, Tooltip, Typography, useTheme, IconButton, FormControl, OutlinedInput, Grid, Modal, Button, Stack, Card, CardContent, MenuItem, Menu, Paper, Divider, Avatar } from "@mui/material";
 import Swal from 'sweetalert2'
 import axios from 'axios';
 
@@ -10,6 +9,7 @@ import { tokens } from "../../theme";
 import { Add, List, Apps, MoreVert, } from '@mui/icons-material';
 import React, { useState, useEffect } from "react";
 import ClipLoader from "react-spinners/ClipLoader";
+import { Box, Tooltip, Typography, useTheme, IconButton, FormControl, OutlinedInput, Grid, Modal, Button, Stack, Card, CardContent, MenuItem, Menu, Paper, Divider, Avatar } from "@mui/material";
 import { Checkbox } from '@mui/material';
 import {
     DataGrid,
@@ -190,7 +190,7 @@ const Team = () => {
     };
 
 
-    const clearpreviewimageUpload= () => {
+    const clearpreviewimageUpload = () => {
         setSelectedFileUpload(null);
         ActionData.image = null;
         setHidecrossiconUpload(false);
@@ -242,6 +242,7 @@ const Team = () => {
             </GridToolbarContainer>
         );
     }
+    const [idData, setIdData] = useState([]);
 
 
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -545,24 +546,24 @@ const Team = () => {
             field: 'image', headerName: <span style={{ color: "black", fontWeight: 600 }}>Profile</span>,
             flex: 1,
             renderCell: (row) => {
-              return (
-                <>
-                  {row.row.image !== null ?
-                    // <img src={`https://staging-gearone-be.mtechub.com/${row.row.image}`} style={{ bgcolor: "#FF6700", width: '45px', height: '45px' }}>
-                      <Avatar src={`https://staging-gearone-be.mtechub.com/${row.row.image}`} style={{ bgcolor: "#FF6700", width: '45px', height: '45px' }}> 
-                    </Avatar>
-                    :
-                    <Avatar sx={{ width: '45px', height: '45px' }}>
-                    </Avatar>
-      
-                  }
-                </>
-      
-              );
+                return (
+                    <>
+                        {row.row.image !== null ?
+                            // <img src={`https://staging-gearone-be.mtechub.com/${row.row.image}`} style={{ bgcolor: "#FF6700", width: '45px', height: '45px' }}>
+                            <Avatar src={`https://staging-gearone-be.mtechub.com/${row.row.image}`} style={{ bgcolor: "#FF6700", width: '45px', height: '45px' }}>
+                            </Avatar>
+                            :
+                            <Avatar sx={{ width: '45px', height: '45px' }}>
+                            </Avatar>
+
+                        }
+                    </>
+
+                );
             },
-      
-          },
-      
+
+        },
+
         {
             field: 'id',
             headerName: <Stack sx={{ pl: { xs: 0, md: 15, lg: 17 }, color: "black", fontWeight: 600 }}>Actions</Stack>,
@@ -572,12 +573,19 @@ const Team = () => {
                     <>
                         <Stack pl={15} >
                             <div style={{ display: "flex", justifyContent: "center", alignContent: "center" }}>
-                                <IconButton  >
+                                <IconButton onClick={() => {
+                                    console.log(row.row);
+                                    setActionData(row.row);
+                                    if (row.row.image !== null) {
+                                        setHidelabelUpload(true);
+                                    }
+                                    handleOpenedit();
+                                }}>
                                     <Tooltip title="edit" >
                                         <Edit sx={{ color: "#40E0D0" }} onClick={() => {
                                             console.log(row.row);
                                             setActionData(row.row);
-                                            if(row.row.image !== null) {
+                                            if (row.row.image !== null) {
                                                 setHidelabelUpload(true);
                                             }
                                             handleOpenedit();
@@ -585,7 +593,10 @@ const Team = () => {
                                     </Tooltip>
                                 </IconButton>
 
-                                <IconButton >
+                                <IconButton onClick={() => {
+                                    handleOpendel();
+                                    setDeleteID(row.row.id);
+                                }} >
                                     <Tooltip title="Delete">
                                         <Delete sx={{ color: "#E10006" }} onClick={() => {
                                             handleOpendel();
@@ -637,7 +648,7 @@ const Team = () => {
 
                     <Grid item xs={1.5} align="center">
                         <div>
-                            <Box sx={{ width:'90px', borderRadius: "5px", border: "1px solid #D8D8D8" }}>
+                            <Box sx={{ width: '90px', borderRadius: "5px", border: "1px solid #D8D8D8" }}>
                                 <Box >
                                     <div style={{ padding: "5px", paddingBottom: "0px", display: "flex", justifyContent: "center", alignContent: "center", gap: "3px" }}>
                                         {
@@ -723,16 +734,19 @@ const Team = () => {
 
                                                     <Grid key={index} xs={12} align="right">
                                                         <div>
-                                                            {/* <MoreVert
+                                                            <MoreVert
                                                                 id="basic-button"
                                                                 aria-controls={open ? 'basic-menu' : undefined}
                                                                 aria-haspopup="true"
                                                                 aria-expanded={open ? 'true' : undefined}
-                                                                onClick={handleClick}
-                                                                sx={{ fontSize: "30px", pb: 1, color: "#1F1F1F" }} /> */}
+                                                                // onClick={handleClick} 
+                                                                onClick={(event) => {
+                                                                    setIdData(item)
+                                                                    setAnchorEl(event.currentTarget)
+                                                                }}
+                                                                sx={{ color: "#1F1F1F" }} />
                                                         </div>
-
-                                                        {/* <Menu
+                                                        <Menu
                                                             id="basic-menu"
                                                             anchorEl={anchorEl}
                                                             open={open}
@@ -743,8 +757,8 @@ const Team = () => {
                                                             PaperProps={{
 
                                                                 sx: {
-                                                                    overflow: 'visible',
-                                                                    filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.22))',
+                                                                    // overflow: 'visible',
+                                                                    // filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.22))',
                                                                     mt: 1.5,
                                                                     '& .MuiAvatar-root': {
                                                                         width: 32,
@@ -757,7 +771,7 @@ const Team = () => {
                                                                         display: 'block',
                                                                         position: 'absolute',
                                                                         top: 0,
-                                                                        right: 23,
+                                                                        right: 5,
                                                                         width: 10,
                                                                         height: 10,
                                                                         bgcolor: 'background.paper',
@@ -769,24 +783,43 @@ const Team = () => {
                                                             transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                                                             anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                                                         >
-                                                            <MenuItem onClick={() => {
-                                                                console.log(item);
-                                                                console.log(Catagory)
-                                                                setActionData(item);
-                                                                handleOpenedit();
-                                                            }} >
-                                                                <Edit sx={{ color: "gray" }} /><span style={{ marginLeft: 10 }}>Edit Category</span>
+                                                            <MenuItem
+                                                                onClick={() => {
+                                                                    console.log(idData);
+                                                                    setActionData(idData);
+                                                                    if (idData.image !== null) {
+                                                                        setHidelabelUpload(true);
+                                                                    }
+                                                                    handleOpenedit();
+
+                                                                }
+                                                                }
+                                                            >
+                                                                <Edit sx={{ color: "#40E0D0" }} /><span style={{ marginLeft: 10 }}>Update</span>
                                                             </MenuItem>
+                                                            <Grid container spacing={0}>
+                                                                <Grid xs={12} align="center">
+                                                                    <Divider sx={{ width: "80%" }} />
+                                                                </Grid>
+                                                            </Grid>
                                                             <MenuItem onClick={() => {
-                                                                setDeleteID(item.id)
-                                                                handleOpendel()
-                                                            }} >
-                                                                <Delete sx={{ color: "gray" }} /><span style={{ marginLeft: 10 }}>Delete Category</span>
+                                                                setDeleteID(idData.id);
+                                                                handleOpendel();
+                                                            }}>
+                                                                <Delete sx={{ color: "#E10006" }} /><span style={{ marginLeft: 10 }}>Delete</span>
                                                             </MenuItem>
-                                                        </Menu> */}
+                                                        </Menu>
+
                                                     </Grid>
 
                                                     <Grid xs={12} align="left">
+                                                    {ActionData.image !== null ? 
+                                                    <img src={`${url}${item.image}`}
+                                                     alt="" style={{ width: "200px", height: "200px" }} />
+                                                        :
+                                                        <Card  sx={{ width: "200px", height: "200px" }} />
+                                                       }
+
                                                         <Typography variant="h5" pb={1} fontWeight={750} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#FF6700">
                                                             {item.name}
                                                         </Typography>
@@ -800,6 +833,7 @@ const Team = () => {
                             </>
                     }
                 </Grid>
+
                 {/* addmodal */}
                 <Modal
                     open={openaddmodal}
@@ -958,57 +992,57 @@ const Team = () => {
                             <Grid xs={12} align="center" pt={7}>
                                 <FormControl fullWidth>
 
-                                <Box pt={2} pb={2}>
-                                    <Box sx={{ pt: 2, width: "300px", height: "200px", p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
-                                        {hidelabelUpload ?
-                                            null
-                                            :
-                                            <Grid container spacing={0} pt={5}>
-                                                <Grid xs={12} align="">
-                                                    <Stack align="">
-                                                        <label htmlFor="fileInput" style={{ display: "flex", justifyContent: "center", alignContent: "center", color: "#808080" }}>
-                                                            <Stack direction="column" spacing={1} >
-                                                                <Upload sx={{ fontSize: "50px", color: "#808080", ml: 1.8, pb: 1 }} />
-                                                                <span style={{ paddingBottom: "2vh", font: "normal normal normal 16px/26px Arial" }}>Upload Image</span>
-                                                            </Stack>
-                                                        </label>
-                                                        <input
-                                                            style={{ display: "none" }}
-                                                            id="fileInput"
-                                                            type="file"
-                                                            onChange={handleImageChangeUpload}
-                                                            accept="image/*"
-                                                        />
-                                                    </Stack>
+                                    <Box pt={2} pb={2}>
+                                        <Box sx={{ pt: 2, width: "300px", height: "200px", p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
+                                            {hidelabelUpload ?
+                                                null
+                                                :
+                                                <Grid container spacing={0} pt={5}>
+                                                    <Grid xs={12} align="">
+                                                        <Stack align="">
+                                                            <label htmlFor="fileInput" style={{ display: "flex", justifyContent: "center", alignContent: "center", color: "#808080" }}>
+                                                                <Stack direction="column" spacing={1} >
+                                                                    <Upload sx={{ fontSize: "50px", color: "#808080", ml: 1.8, pb: 1 }} />
+                                                                    <span style={{ paddingBottom: "2vh", font: "normal normal normal 16px/26px Arial" }}>Upload Image</span>
+                                                                </Stack>
+                                                            </label>
+                                                            <input
+                                                                style={{ display: "none" }}
+                                                                id="fileInput"
+                                                                type="file"
+                                                                onChange={handleImageChangeUpload}
+                                                                accept="image/*"
+                                                            />
+                                                        </Stack>
+                                                    </Grid>
                                                 </Grid>
-                                            </Grid>
-                                        }
+                                            }
 
-                                        {selectedFileUpload ||  selectedFileUpload  !== null ? <img src={URL.createObjectURL(selectedFileUpload)} alt="Preview" style={{ width: "300px", height: "200px" }} />
-                                            :
-                                            ActionData.image && <img src={`https://staging-gearone-be.mtechub.com/${ActionData.image}`} alt="Preview" style={{ width: "300px", height: "200px" }} />
-                                        }
-                                    </Box>
+                                            {selectedFileUpload || selectedFileUpload !== null ? <img src={URL.createObjectURL(selectedFileUpload)} alt="Preview" style={{ width: "300px", height: "200px" }} />
+                                                :
+                                                ActionData.image && <img src={`https://staging-gearone-be.mtechub.com/${ActionData.image}`} alt="Preview" style={{ width: "300px", height: "200px" }} />
+                                            }
+                                        </Box>
 
-                                    {
-                                        hidecrossiconUpload ?
-                                            <Box sx={{ display: "flex", justifyContent: "center", alignContent: "center" }}>
-                                                <Close sx={{
-                                                    padding: 0.2, backgroundColor: "#FF6700", borderRadius: "50px",
-                                                    color: "white", ml: 32, mt: -24
-                                                }} onClick={() => clearpreviewimageUpload()} />
-                                            </Box>
-                                            :
-                                            ActionData.image ||  ActionData.image  !== null ?
+                                        {
+                                            hidecrossiconUpload ?
                                                 <Box sx={{ display: "flex", justifyContent: "center", alignContent: "center" }}>
                                                     <Close sx={{
                                                         padding: 0.2, backgroundColor: "#FF6700", borderRadius: "50px",
                                                         color: "white", ml: 32, mt: -24
                                                     }} onClick={() => clearpreviewimageUpload()} />
                                                 </Box>
-                                                : null
-                                    }
-                                </Box>
+                                                :
+                                                ActionData.image || ActionData.image !== null ?
+                                                    <Box sx={{ display: "flex", justifyContent: "center", alignContent: "center" }}>
+                                                        <Close sx={{
+                                                            padding: 0.2, backgroundColor: "#FF6700", borderRadius: "50px",
+                                                            color: "white", ml: 32, mt: -24
+                                                        }} onClick={() => clearpreviewimageUpload()} />
+                                                    </Box>
+                                                    : null
+                                        }
+                                    </Box>
 
 
 

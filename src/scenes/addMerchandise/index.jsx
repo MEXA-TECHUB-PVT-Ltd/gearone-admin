@@ -52,15 +52,14 @@ const Team = () => {
     const [Location, setLocation] = useState('');
     const [Files, setFiles] = useState([]);
     const onChange = e => {
-        console.log("e.target.Files");
-        console.log(e.target.files);
-        setFiles(e.target.files)
+        // arrayvar: [...this.state.arrayvar, newelement]
+
+        setFiles( e.target.files)
         setHidecrossicon(true);
         setHidelabel(true);
+
     };
 
-    const [hidelabel, setHidelabel] = useState(false);
-    const [hidecrossicon, setHidecrossicon] = useState(false);
     // const [selectedFile, setSelectedFile] = useState([]);
     let selectedFile = [];
     const [Screens, setScreens] = useState([]);
@@ -70,6 +69,16 @@ const Team = () => {
     const [isloading, setIsloading] = useState(false);
 
     function isNumber(n) { return /^-?[\d.]+(?:e-?\d+)?$/.test(n); }
+    const [hidelabel, setHidelabel] = useState(false);
+    const [hidelabel1, setHidelabel1] = useState(false);
+    const [hidelabel2, setHidelabel2] = useState(false);
+    const [hidelabel3, setHidelabel3] = useState(false);
+    const [hidelabel4, setHidelabel4] = useState(false);
+    const [hidecrossicon, setHidecrossicon] = useState(false);
+    const [hidecrossicon1, setHidecrossicon1] = useState(false);
+    const [hidecrossicon2, setHidecrossicon2] = useState(false);
+    const [hidecrossicon3, setHidecrossicon3] = useState(false);
+    const [hidecrossicon4, setHidecrossicon4] = useState(false);
 
     const handleAdd = async (e) => {
         e.preventDefault();
@@ -93,95 +102,122 @@ const Team = () => {
                 text: 'Price must be a number'
             })
         } else if (Category_id === '') {
-                setIsloading(false);
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'Oops',
-                    confirmButtonColor: "#FF6700",
-                    text: 'Please Select a Category'
-                })
-            } else {
-                var Data = {
-                    "adminID": localStorage.getItem('adminID'),
-                    "name": Name,
-                    "price": Price,
-                    "category_id": Category_id,
-                    "description": Description,
-                    "location": Location
-                };
-                console.log(Data)
-                await fetch(InsertAPIURL, {
-                    method: 'POST',
-                    headers: headers,
-                    body: JSON.stringify(Data),
-                })
-                    .then(response => response.json())
-                    .then(async response => {
-                        console.log(response);
-                        console.log(selectedFile)
-                        if (response.message == `Merchandise added Successfully!`) {
-                            if (selectedFile !== null && selectedFile !== undefined) {
-                                var Data = {
-                                    "id": response.result[0].id,
-                                    "images": selectedFile,
-                                };
-                                formData.append("id", response.result[0].id)
+            setIsloading(false);
+            Swal.fire({
+                icon: 'warning',
+                title: 'Oops',
+                confirmButtonColor: "#FF6700",
+                text: 'Please Select a Category'
+            })
+        }
+        else if (Name === '') {
+            setIsloading(false);
+            Swal.fire({
+                icon: 'warning',
+                title: 'Oops',
+                confirmButtonColor: "#FF6700",
+                text: 'Please Enter Name'
+            })
+        }
+        else if (Description === '') {
+            setIsloading(false);
+            Swal.fire({
+                icon: 'warning',
+                title: 'Oops',
+                confirmButtonColor: "#FF6700",
+                text: 'Please Enter Description'
+            })
+        }
+        else if (Location === '') {
+            setIsloading(false);
+            Swal.fire({
+                icon: 'warning',
+                title: 'Oops',
+                confirmButtonColor: "#FF6700",
+                text: 'Please Enter Location'
+            })
+        } else {
+            var Data = {
+                "adminID": localStorage.getItem('adminID'),
+                "name": Name,
+                "price": Price,
+                "category_id": Category_id,
+                "description": Description,
+                "location": Location
+            };
+            console.log(Data)
+            await fetch(InsertAPIURL, {
+                method: 'POST',
+                headers: headers,
+                body: JSON.stringify(Data),
+            })
+                .then(response => response.json())
+                .then(async response => {
+                    console.log(response);
+                    console.log(selectedFile)
+                    if (response.message == `Merchandise added Successfully!`) {
+                        if (selectedFile !== null && selectedFile !== undefined) {
+                            var Data = {
+                                "id": response.result[0].id,
+                                "images": selectedFile,
+                            };
+                            formData.append("id", response.result[0].id)
 
 
-                                await axios.put(url + "merchandise/add_merchandise_images", formData, {
-                                    headers: {
-                                        "Content-Type": "multipart/form-data"
-                                    }
-                                }).then((response) => {
-                                    if (response.data.message == `Merchandise Images added Successfully!`) {
-                                        navigate("/users")
-                                        setIsloading(false);
-                                    } else {
-                                        setIsloading(false);
-                                        Swal.fire({
-                                            icon: 'error',
-                                            title: 'Oops...',
-                                            confirmButtonColor: "#FF6700",
-                                            text: 'Try Again'
-                                        })
-                                    }
+                            await axios.put(url + "merchandise/add_merchandise_images", formData, {
+                                headers: {
+                                    "Content-Type": "multipart/form-data"
                                 }
-                                )
-                                    .catch(error => {
-                                        setIsloading(false);
-                                        Swal.fire({
-                                            icon: 'error',
-                                            title: 'Oops...',
-                                            confirmButtonColor: "#FF6700",
-                                            text: "Server Issue! Try again"
-                                        })
-                                    });
-                            } else {
-                                setIsloading(false);
-                                navigate("/users")
+                            }).then((response) => {
+                                if (response.data.message == `Merchandise Images added Successfully!`) {
+                                    navigate("/users")
+                                    setIsloading(false);
+                                } else {
+                                    setIsloading(false);
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Oops...',
+                                        confirmButtonColor: "#FF6700",
+                                        text: 'Try Again'
+                                    })
+                                }
                             }
+                            )
+                                .catch(error => {
+                                    setIsloading(false);
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Oops...',
+                                        confirmButtonColor: "#FF6700",
+                                        text: "Server Issue! Try again"
+                                    })
+                                });
                         } else {
                             setIsloading(false);
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Oops',
-                                confirmButtonColor: "#FF6700",
-                                text: ''
-                            })
+                            navigate("/users")
                         }
-                    }
-
-                    )
-                    .catch(error => {
+                    } else {
                         setIsloading(false);
                         Swal.fire({
                             icon: 'error',
-                            title: 'Oops...',
+                            title: 'Oops',
                             confirmButtonColor: "#FF6700",
-                            text: "Server Down!"
+                            text: ''
                         })
-                    });
-            }
+                    }
+                }
+
+                )
+                .catch(error => {
+                    setIsloading(false);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        confirmButtonColor: "#FF6700",
+                        text: "Server Down!"
+                    })
+                });
+        }
     }
 
 
@@ -232,11 +268,40 @@ const Team = () => {
         setHidelabel(true);
     };
 
-    const clearpreviewimage = () => {
+    const clearpreviewimage = (num) => {
         // setSelectedFile(null);
         selectedFile = []
+        setFiles([]);
         setHidecrossicon(false);
         setHidelabel(false);
+        if (num === 0) {
+            selectedFile[0] = null;
+            setHidecrossicon(false);
+            setHidelabel(false);
+
+        } else if (num === 1) {
+            selectedFile[1] = null;
+            setHidecrossicon1(false);
+            setHidelabel1(false);
+
+        }
+        else if (num === 2) {
+            selectedFile[2] = null;
+            setHidecrossicon2(false);
+            setHidelabel2(false);
+
+        }
+        else if (num === 3) {
+            selectedFile[3] = null;
+            setHidecrossicon3(false);
+            setHidelabel3(false);
+
+        }
+        else if (num === 4) {
+            selectedFile[4] = null;
+            setHidecrossicon4(false);
+            setHidelabel4(false);
+        }
     }
 
     const [Status, setStatus] = React.useState('');
@@ -278,106 +343,159 @@ const Team = () => {
                             <Grid container spacing={0}>
                                 <Grid xs={12} align="center" p={1}>
                                     <Box align='center' pt={2} pb={2}>
+                                        {
+                                            Files.length < 5 ?
+                                                <Box align='center' sx={{ pt: 2, width: "300px", height: "200px", p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
+                                                    <Grid container spacing={0} pt={5}>
+                                                        <Grid xs={12} align="">
+                                                            <Stack align="">
+                                                                <label htmlFor="fileInput" style={{ display: "flex", justifyContent: "center", alignContent: "center", color: "#808080" }}>
+                                                                    <Stack direction="column" spacing={1} >
+                                                                        <Upload sx={{ fontSize: "50px", color: "#808080", ml: 3, pb: 1 }} />
+                                                                        <span style={{ paddingBottom: "2vh", font: "normal normal normal 16px/26px Arial" }}>Upload Images</span>
+                                                                        <span style={{ paddingBottom: "2vh", font: "normal normal normal 16px/26px Arial" }}>Max 5</span>
 
-                                        {hidelabel ?
-                                            Files &&
-                                            <ImageList align="left" sx={{ width: '700px', height: "200px" }} cols={5} rowHeight={"200px"}>
-                                                {/* { Files.length(item) => ( */}
-                                                <>
-                                                    {/* <img key={item} src={URL.createObjectURL(item[0])} alt="Preview" style={{ width: "300px", height: "200px" }} /> */}
-                                                    {Files.length > 0 &&
-                                                        <ImageListItem key={Files.name}>
-                                                            <img
-                                                                src={URL.createObjectURL(Files[0])}
-                                                                srcSet={URL.createObjectURL(Files[0])}
-                                                                alt={Files.name}
-                                                                loading="lazy"
-                                                            />
-                                                        </ImageListItem>
-                                                    }
-                                                    {Files.length > 1 &&
-                                                        <ImageListItem key={Files.name}>
-                                                            <img
-                                                                src={URL.createObjectURL(Files[1])}
-                                                                srcSet={URL.createObjectURL(Files[1])}
-                                                                alt={Files.name}
-                                                                loading="lazy"
-                                                            />
-                                                        </ImageListItem>
-                                                    }
-                                                    {Files.length > 2 &&
-                                                        <ImageListItem key={Files.name}>
-                                                            <img
-                                                                src={URL.createObjectURL(Files[2])}
-                                                                srcSet={URL.createObjectURL(Files[2])}
-                                                                alt={Files.name}
-                                                                loading="lazy"
-                                                            />
-                                                        </ImageListItem>
-                                                    }
-                                                    {Files.length > 3 &&
-                                                        <ImageListItem key={Files.name}>
-                                                            <img
-                                                                src={URL.createObjectURL(Files[3])}
-                                                                srcSet={URL.createObjectURL(Files[3])}
-                                                                alt={Files.name}
-                                                                loading="lazy"
-                                                            />
-                                                        </ImageListItem>
-                                                    }
-                                                    {Files.length > 4 &&
-                                                        <ImageListItem key={Files.name}>
-                                                            <img
-                                                                src={URL.createObjectURL(Files[4])}
-                                                                srcSet={URL.createObjectURL(Files[4])}
-                                                                alt={Files.name}
-                                                                loading="lazy"
-                                                            />
-                                                        </ImageListItem>
-                                                    }
-
-
-                                                </>
-                                                {/* ))
-                                                            } */}
-                                            </ImageList>
-
-
-                                            :
-                                            <Box align='center' sx={{ pt: 2, width: "300px", height: "200px", p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
-                                                <Grid container spacing={0} pt={5}>
-                                                    <Grid xs={12} align="">
-                                                        <Stack align="">
-                                                            <label htmlFor="fileInput" style={{ display: "flex", justifyContent: "center", alignContent: "center", color: "#808080" }}>
-                                                                <Stack direction="column" spacing={1} >
-                                                                    <Upload sx={{ fontSize: "50px", color: "#808080", ml: 3, pb: 1 }} />
-                                                                    <span style={{ paddingBottom: "2vh", font: "normal normal normal 16px/26px Arial" }}>Upload Images</span>
-                                                                    <span style={{ paddingBottom: "2vh", font: "normal normal normal 16px/26px Arial" }}>Max 5</span>
-
-                                                                </Stack>
-                                                            </label>
-                                                            <input
-                                                                multiple
-                                                                style={{ display: "none" }}
-                                                                id="fileInput"
-                                                                type="file"
-                                                                onChange={onChange}
-                                                                accept="image/*"
-                                                            />
-                                                        </Stack>
+                                                                    </Stack>
+                                                                </label>
+                                                                <input
+                                                                    multiple
+                                                                    style={{ display: "none" }}
+                                                                    id="fileInput"
+                                                                    type="file"
+                                                                    onChange={onChange}
+                                                                    accept="image/*"
+                                                                />
+                                                            </Stack>
+                                                        </Grid>
                                                     </Grid>
-                                                </Grid>
-                                            </Box>
-                                        }
+                                                </Box>
+                                                : null
 
+                                        }
+                                        {
+                                            Files.length > 0?
+                                                <ImageList align="left" sx={{ width: '700px', height: "200px" }} cols={5} rowHeight={"200px"}>
+                                                    {/* { Files.length(item) => ( */}
+                                                    <>
+                                                        {/* <img key={item} src={URL.createObjectURL(item[0])} alt="Preview" style={{ width: "300px", height: "200px" }} /> */}
+                                                        {Files.length > 0 &&
+                                                            <ImageListItem key={Files.name}>
+                                                                <img
+                                                                    src={URL.createObjectURL(Files[0])}
+                                                                    srcSet={URL.createObjectURL(Files[0])}
+                                                                    alt={Files.name}
+                                                                    loading="lazy"
+                                                                />
+                                                            </ImageListItem>
+                                                        }
+                                                        {Files.length > 1 &&
+                                                            <ImageListItem key={Files.name}>
+                                                                <img
+                                                                    src={URL.createObjectURL(Files[1])}
+                                                                    srcSet={URL.createObjectURL(Files[1])}
+                                                                    alt={Files.name}
+                                                                    loading="lazy"
+                                                                />
+                                                            </ImageListItem>
+                                                        }
+                                                        {Files.length > 2 &&
+                                                            <ImageListItem key={Files.name}>
+                                                                <img
+                                                                    src={URL.createObjectURL(Files[2])}
+                                                                    srcSet={URL.createObjectURL(Files[2])}
+                                                                    alt={Files.name}
+                                                                    loading="lazy"
+                                                                />
+                                                            </ImageListItem>
+                                                        }
+                                                        {Files.length > 3 &&
+                                                            <ImageListItem key={Files.name}>
+                                                                <img
+                                                                    src={URL.createObjectURL(Files[3])}
+                                                                    srcSet={URL.createObjectURL(Files[3])}
+                                                                    alt={Files.name}
+                                                                    loading="lazy"
+                                                                />
+                                                            </ImageListItem>
+                                                        }
+                                                        {Files.length > 4 &&
+                                                            <ImageListItem key={Files.name}>
+                                                                <img
+                                                                    src={URL.createObjectURL(Files[4])}
+                                                                    srcSet={URL.createObjectURL(Files[4])}
+                                                                    alt={Files.name}
+                                                                    loading="lazy"
+                                                                />
+                                                            </ImageListItem>
+                                                        }
+
+
+                                                    </>
+                                                    {/* ))
+                                                            } */}
+                                                </ImageList>
+                                                : null
+                                        }
                                         {
                                             hidecrossicon ?
                                                 <Box sx={{ display: "flex", justifyContent: "left", alignContent: "left" }}>
-                                                    <Close sx={{ padding: 0.2, backgroundColor: "#FF6700", borderRadius: "50px", color: "white", ml: '150px', mt: -26 }} onClick={() => clearpreviewimage()} />
+                                                    <Close sx={{
+                                                        padding: 0.2, backgroundColor: "#FF6700", borderRadius: "50px",
+                                                        color: "white", ml: '170px', mt: -30
+                                                    }} onClick={() => clearpreviewimage(0)} />
                                                 </Box>
                                                 :
                                                 null
                                         }
+
+                                        {
+                                            hidecrossicon1 ?
+                                                <Box sx={{ display: "flex", justifyContent: "center", alignContent: "center" }}>
+                                                    <Close sx={{
+                                                        padding: 0.2, backgroundColor: "#FF6700", borderRadius: "50px",
+                                                        color: "white", ml: 22, mt: -30
+                                                    }} onClick={() => clearpreviewimage(1)} />
+                                                </Box>
+                                                : null
+
+                                        }
+
+                                        {
+                                            hidecrossicon2 ?
+                                                <Box sx={{ display: "flex", justifyContent: "center", alignContent: "center" }}>
+                                                    <Close sx={{
+                                                        padding: 0.2, backgroundColor: "#FF6700", borderRadius: "50px",
+                                                        color: "white", ml: -15, mt: -30
+                                                    }} onClick={() => clearpreviewimage(2)} />
+                                                </Box>
+                                                : null
+
+                                        }
+
+                                        {
+                                            hidecrossicon3 ?
+                                                <Box sx={{ display: "flex", justifyContent: "center", alignContent: "center" }}>
+                                                    <Close sx={{
+                                                        padding: 0.2, backgroundColor: "#FF6700", borderRadius: "50px",
+                                                        color: "white", ml: -50, mt: -30
+                                                    }} onClick={() => clearpreviewimage(3)} />
+                                                </Box>
+                                                : null
+
+                                        }
+
+                                        {
+                                            hidecrossicon4 ?
+                                                <Box sx={{ display: "flex", justifyContent: "center", alignContent: "center" }}>
+                                                    <Close sx={{
+                                                        padding: 0.2, backgroundColor: "#FF6700", borderRadius: "50px",
+                                                        color: "white", ml: 55, mt: -30
+                                                    }} onClick={() => clearpreviewimage(4)} />
+                                                </Box>
+                                                : null
+
+                                        }
+
                                     </Box>
                                 </Grid>
 

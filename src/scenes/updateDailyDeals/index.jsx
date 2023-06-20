@@ -352,11 +352,20 @@ const Team = () => {
                                                 backgroundColor: "#F8F8F8",
                                                 "& fieldset": { border: 'none' },
                                             }}
+                                            // input={<Input name="circle" id="demo-simple-select" />}
+                                            // onChange={(e) => { setCategory_id(e.target.value) }}
+
                                             labelId="demo-simple-select-label"
                                             id="demo-simple-select"
                                             placeholder={location.state.status}
                                             onChange={handleChange}
+                                            displayEmpty
+                                            defaultValue={location.state.status}
                                         >
+
+                                            <MenuItem value="" >
+                                                <em>{location.state.status}</em>
+                                            </MenuItem>
                                             <MenuItem value={'active'}>Active</MenuItem>
                                             <MenuItem value={'inactive'}>InActive</MenuItem>
                                         </Select>

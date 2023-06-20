@@ -147,6 +147,7 @@ const Team = () => {
   let [loading, setLoading] = useState(true);
   let [color, setColor] = useState("#ffffff");
   const [viewData, setViewData] = useState([]);
+  const [DeleteData, setDeleteData] = useState([]);
 
   const [value, setValue] = React.useState(0);
 
@@ -329,12 +330,12 @@ const Team = () => {
         return (
           <>
             {row.row.status === 'unblock' ?
-              < Chip onClick={() => { handleOpendelmodalStatus(row.row) }} sx={{ cursor: 'pointer' }} label={row.row.status} color="success" variant="outlined" />
+              < Chip onClick={() => { handleOpendelmodalStatus(row.row); setDeleteData(row.row); }} sx={{ cursor: 'pointer' }} label={row.row.status} color="success" variant="outlined" />
               :
               row.row.status === null ?
-                < Chip onClick={() => { handleOpendelmodalStatus(row.row) }} sx={{ cursor: 'pointer' }} label='unblock' color="success" variant="outlined" />
+                < Chip onClick={() => { handleOpendelmodalStatus(row.row); setDeleteData(row.row); }} sx={{ cursor: 'pointer' }} label='unblock' color="success" variant="outlined" />
                 :
-                <Chip onClick={() => { handleOpendelmodalStatus(row.row) }} sx={{ cursor: 'pointer' }} label={row.row.status} color="primary" variant="outlined" />
+                <Chip onClick={() => { handleOpendelmodalStatus(row.row); setDeleteData(row.row); }} sx={{ cursor: 'pointer' }} label={row.row.status} color="primary" variant="outlined" />
 
             }
           </>
@@ -349,17 +350,17 @@ const Team = () => {
       flex: 1,
       renderCell: (row) => {
         return (
-              <IconButton style={{cursor:'pointer'}} onClick={() => {
-                navigate('/UserDetails', {
-                  state: {
-                    id: row.row.id,
-                  }
-                })
-              }}>
-                <Tooltip title="view" >
-                  <Visibility sx={{ color: "#3FC0FF" }} />
-                </Tooltip>
-              </IconButton>
+          <IconButton style={{ cursor: 'pointer' }} onClick={() => {
+            navigate('/UserDetails', {
+              state: {
+                id: row.row.id,
+              }
+            })
+          }}>
+            <Tooltip title="view" >
+              <Visibility sx={{ color: "#3FC0FF" }} />
+            </Tooltip>
+          </IconButton>
         );
       },
     },
@@ -423,11 +424,14 @@ const Team = () => {
           <Grid item xs={3} align="center">
           </Grid>
 
-          <Grid item xs={1.5} align="center">
-            <div>
-              <Box sx={{ width:'90px' , borderRadius: "5px", border: "1px solid #D8D8D8" }}>
+          <Grid item xs={3} align="right">
+            <div >
+              <Box sx={{ width: '90px', borderRadius: "5px", border: "1px solid #D8D8D8" }}>
                 <Box >
-                  <div style={{ padding: "5px", paddingBottom: "0px", display: "flex", justifyContent: "center", alignContent: "center", gap: "3px" }}>
+                  <div style={{
+                    padding: "5px", paddingBottom: "0px",
+                    display: "flex", justifyContent: "center", alignContent: "center", gap: "3px"
+                  }}>
                     {
                       showtable ?
                         <>
@@ -666,6 +670,9 @@ const Team = () => {
           </Box>
         </Modal>
 
+
+
+
         {/* Change */}
         <Modal
           open={opendelmodalStatus}
@@ -681,8 +688,17 @@ const Team = () => {
 
               <Grid xs={12} align="center" p={{ xs: 2, md: 5, lg: 1, xl: 1 }}>
                 <Typography variant="h4" sx={{ letterSpacing: "3px" }} fontWeight={600} fontSize="x-large" color="#FF6700">Confirmation</Typography>
+                {DeleteData.status === 'block' ?
+                  <Typography variant="h5" sx={{ letterSpacing: "3px" }} pt={7}
+                    pb={0} fontWeight={600} color="#1F1F1F">{`Do you want to unblock user?`}
+                  </Typography>
+                  :
+                  <Typography variant="h5" sx={{ letterSpacing: "3px" }} pt={7}
+                    pb={0} fontWeight={600} color="#1F1F1F">{`Do you want to block user?`}
+                  </Typography>
 
-                <Typography variant="h5" sx={{ letterSpacing: "3px" }} pt={7} pb={0} fontWeight={600} color="#1F1F1F">Do you want to block/unblock user?</Typography>  </Grid>
+                }
+              </Grid>
             </Grid>
 
             <Grid container spacing={0} pt={7}>
@@ -691,7 +707,11 @@ const Team = () => {
               </Grid>
 
               <Grid xs={6} align="right">
-                <Button variant="contained" style={btn} onClick={() => { changeStatus() }}>Change</Button>
+                {DeleteData.status === 'block' ?
+                  <Button variant="contained" style={btn} onClick={() => { changeStatus() }}>unblock</Button>
+                  :
+                  <Button variant="contained" style={btn} onClick={() => { changeStatus() }}>block</Button>
+                }
               </Grid>
             </Grid>
 

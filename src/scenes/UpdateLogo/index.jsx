@@ -52,6 +52,7 @@ const Team = () => {
         getAllScreens();
     }, [])
     const [isloading, setIsloading] = useState(false);
+    const [catagory_name, setCatagory_name] = useState('');
 
     const handleAdd = async () => {
         setIsloading(true)
@@ -229,7 +230,7 @@ const Team = () => {
                 <Grid container spacing={0} pt={{ lg: 2, xl: 1 }} p={2} >
                     <Grid item xs={6} align="" pt={3} >
                         <Breadcrumbs separator=">" >
-                            <Typography variant="h5" fontWeight={550} pl={3} fontSize="15px" sx={{ letterSpacing: "2px", cursor: "pointer" }} color="#808080" onClick={() => navigate("/workoutplans")} >
+                            <Typography variant="h5" fontWeight={550} pl={3} fontSize="15px" sx={{ letterSpacing: "2px", cursor: "pointer" }} color="#808080" onClick={() => navigate("/ManageLogos")} >
                                 Logo
                             </Typography>
 
@@ -335,8 +336,13 @@ const Team = () => {
                                             // className={classes.inner}
                                             // input={<BootstrapInput name="currency" id="currency-customized-select" />}                                         
                                             onChange={handleChangeScreen}
+                                            displayEmpty
+                                            defaultValue={catagory_name}
                                         >
-                                            <MenuItem value={location.state.screen_id}>{location.state.screen}</MenuItem>
+
+                                            <MenuItem value="" >
+                                                <em>{location.state.screen}</em>
+                                            </MenuItem>
                                             {Screens.map((data) => (
                                                 <MenuItem key={data.id} value={data.id}>{`${data.name}`}</MenuItem>
                                             ))}
@@ -375,7 +381,14 @@ const Team = () => {
                                             id="input-with-icon-adornment"
                                             placeholder={location.state.status}
                                             onChange={(event) => { setStatus(event.target.value); }}
-                                        >
+                                            displayEmpty
+                                            defaultValue={location.state.status}
+                                            >
+
+                                            <MenuItem value="" >
+                                                <em>{location.state.status}</em>
+                                            </MenuItem>
+
                                             <MenuItem value={'active'}>Active</MenuItem>
                                             <MenuItem value={'inactive'}>InActive</MenuItem>
                                         </Select>

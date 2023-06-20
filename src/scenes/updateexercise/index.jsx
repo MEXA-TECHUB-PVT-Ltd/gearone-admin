@@ -53,6 +53,7 @@ const Team = () => {
     }, [])
     const [isloading, setIsloading] = useState(false);
 
+    const [catagory_name, setCatagory_name] = useState('');
 
     const handleAdd = async () => {
         setIsloading(true)
@@ -124,12 +125,12 @@ const Team = () => {
                         }
                         )
                             .catch(error => {
-                                          Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            confirmButtonColor: "#FF6700",
-            text: "Server Error"
-          })
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Oops...',
+                                    confirmButtonColor: "#FF6700",
+                                    text: "Server Error"
+                                })
                             });
                     } else {
                         setIsloading(false)
@@ -147,12 +148,12 @@ const Team = () => {
             }
             )
             .catch(error => {
-                          Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            confirmButtonColor: "#FF6700",
-            text: "Server Error"
-          })
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    confirmButtonColor: "#FF6700",
+                    text: "Server Error"
+                })
             });
     }
 
@@ -188,12 +189,12 @@ const Team = () => {
             }
             )
             .catch(error => {
-                          Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            confirmButtonColor: "#FF6700",
-            text: "Server Error"
-          })
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    confirmButtonColor: "#FF6700",
+                    text: "Server Error"
+                })
             });
     }
 
@@ -329,13 +330,15 @@ const Team = () => {
                                             }}
                                             labelId="demo-simple-select-label"
                                             id="demo-simple-select"
-                                            placeholder={location.state.Screen}
+                                            placeholder={location.state.screen}
                                             onChange={handleChangeScreen}
-                                        >
-                                            <MenuItem value="Image Aspects " disabled>
-                                                <em>select Screen</em>
-                                            </MenuItem>
+                                            displayEmpty
+                                            defaultValue={catagory_name}
+                                            >
 
+                                            <MenuItem value="" >
+                                                <em>{location.state.screen}</em>
+                                            </MenuItem>
                                             {Screens.map((data) => (
                                                 <MenuItem key={data.id} value={data.id}>{`${data.name}`}</MenuItem>
                                             ))}
@@ -373,9 +376,14 @@ const Team = () => {
                                             }}
                                             labelId="demo-simple-select-label"
                                             id="demo-simple-select"
-                                            placeholder={location.state.status}
                                             onChange={handleChange}
+                                            displayEmpty
+                                            defaultValue={location.state.status}
                                         >
+
+                                            <MenuItem value="" >
+                                                <em>{location.state.status}</em>
+                                            </MenuItem>
                                             <MenuItem value={'active'}>Active</MenuItem>
                                             <MenuItem value={'inactive'}>InActive</MenuItem>
                                         </Select>

@@ -142,17 +142,28 @@ const TabsStyle = {
 const Team = () => {
 
   const navigate = useNavigate();
+  const [AnchorElStatus, setAnchorElStatus] = React.useState(null);
+  const [Data, setData] = React.useState([]);
 
   const [isloading, setIsloading] = useState(false);
   let [loading, setLoading] = useState(true);
   let [color, setColor] = useState("#ffffff");
   const [viewData, setViewData] = useState([]);
+  const [opendelmodalStatus, setOpendelmodalStatus] = useState(false);
+  const handleOpendelmodalStatus = (row) => {
+    setData(row);
+    setOpendelmodalStatus(true);
+    setAnchorElStatus(null);
+  };
+  const handleClosedelmodalStatus = () => setOpendelmodalStatus(false);
 
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+  const [DeleteData, setDeleteData] = useState([]);
+  const [idData, setIdData] = useState([]);
 
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -218,7 +229,7 @@ const Team = () => {
       .then(response => {
         console.log(response);
         if (response.message == `Logo Updated Successfully!`) {
-          // setLogos(response.count);
+          setOpendelmodalStatus(false);
           getAllLogos();
           // setOpendelmodal(false);
           //   console.log(response.result);
@@ -301,9 +312,13 @@ const Team = () => {
         return (
           <>
             {row.row.active_status === 'active' ?
-              < Chip onClick={() => { changeStatus(row.row) }} sx={{ cursor: 'pointer' }} label={row.row.active_status} color="success" variant="outlined" />
+              < Chip onClick={() => { handleOpendelmodalStatus(row.row); setDeleteData(row.row); }}
+                sx={{ cursor: 'pointer' }} label={row.row.active_status}
+                color="success" variant="outlined" />
               :
-              <Chip onClick={() => { changeStatus(row.row) }} sx={{ cursor: 'pointer' }} label={row.row.active_status} color="primary" variant="outlined" />
+              <Chip onClick={() => { handleOpendelmodalStatus(row.row); setDeleteData(row.row); }}
+                sx={{ cursor: 'pointer' }} label={row.row.active_status}
+                color="primary" variant="outlined" />
 
             }
           </>
@@ -320,7 +335,10 @@ const Team = () => {
         return (
           <>
             <div>
-              <IconButton  >
+              <IconButton onClick={() => {
+                setViewData(row.row); console.log(row.row);
+                handleOpenmodal()
+              }} >
                 <Tooltip title="view" >
                   <Visibility sx={{ color: "#3FC0FF" }} onClick={() => {
                     setViewData(row.row); console.log(row.row);
@@ -329,7 +347,21 @@ const Team = () => {
                 </Tooltip>
               </IconButton>
 
-              <IconButton  >
+              <IconButton onClick={() => {
+                console.log(row.row);
+                navigate('/UpdateLogo', {
+                  state: {
+                    id: row.row.id,
+                    image: row.row.image,
+                    link: row.row.link,
+                    status: row.row.active_status,
+                    screen: row.row.screen_name,
+                    screen_id: row.row.screen_id
+
+                  }
+                })
+              }
+              } >
                 <Tooltip title="edit" >
                   <Edit sx={{ color: "#40E0D0" }} onClick={() => {
                     console.log(row.row);
@@ -350,8 +382,11 @@ const Team = () => {
                 </Tooltip>
               </IconButton>
 
-              <IconButton >
-                <Tooltip title="Delete">
+              <IconButton onClick={() => {
+                setDeleteID(row.row.id);
+                handleOpendelmodal();
+              }} >
+                <Tooltip title="Delete" >
                   <Delete sx={{ color: "#E10006" }} onClick={() => {
                     setDeleteID(row.row.id);
                     handleOpendelmodal();
@@ -440,7 +475,7 @@ const Team = () => {
 
           <Grid item xs={1.5} align="center">
             <div>
-              <Box sx={{ width:'90px', borderRadius: "5px", border: "1px solid #D8D8D8" }}>
+              <Box sx={{ width: '90px', borderRadius: "5px", border: "1px solid #D8D8D8" }}>
                 <Box >
                   <div style={{ padding: "5px", paddingBottom: "0px", display: "flex", justifyContent: "center", alignContent: "center", gap: "3px" }}>
                     {
@@ -537,10 +572,89 @@ const Team = () => {
                                 aria-controls={open ? 'basic-menu' : undefined}
                                 aria-haspopup="true"
                                 aria-expanded={open ? 'true' : undefined}
-                                onClick={handleClick} sx={{ color: "#1F1F1F" }} />
+                                // onClick={handleClick} 
+                                onClick={(event) => {
+                                  setIdData(item)
+                                  setAnchorEl(event.currentTarget)
+                                }}
+                                sx={{ color: "#1F1F1F" }} />
+                              {/* <MoreVert
+                                id="basic-button"
+                                aria-controls={open ? 'basic-menu' : undefined}
+                                aria-haspopup="true"
+                                aria-expanded={open ? 'true' : undefined}
+                                onClick={handleClick} sx={{ color: "#1F1F1F" }} /> */}
                             </div>
-
                             <Menu
+                              id="basic-menu"
+                              anchorEl={anchorEl}
+                              open={open}
+                              onClose={handleClose}
+                              MenuListProps={{
+                                'aria-labelledby': 'basic-button',
+                              }}
+                              PaperProps={{
+
+                                sx: {
+                                  // overflow: 'visible',
+                                  // filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.22))',
+                                  mt: 1.5,
+                                  '& .MuiAvatar-root': {
+                                    width: 32,
+                                    height: 32,
+                                    ml: -0.5,
+                                    mr: 1,
+                                  },
+                                  '&:before': {
+                                    content: '""',
+                                    display: 'block',
+                                    position: 'absolute',
+                                    top: 0,
+                                    right: 5,
+                                    width: 10,
+                                    height: 10,
+                                    bgcolor: 'background.paper',
+                                    transform: 'translateY(-50%) rotate(45deg)',
+                                    zIndex: 0,
+                                  },
+                                },
+                              }}
+                              transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+                              anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+                            >
+                              <MenuItem
+                                onClick={() => {
+                                  console.log(idData);
+                                  navigate('/UpdateLogo', {
+                                    state: {
+                                      id: idData.id,
+                                      image: idData.image,
+                                      link: idData.link,
+                                      status: idData.active_status,
+                                      screen: idData.screen_name,
+                                      screen_id: idData.screen_id
+
+                                    }
+                                  })
+                                }
+                                }
+
+                              // onClick={() => updatefood(idData.food_id)}
+                              >
+                                <Edit sx={{ color: "#40E0D0" }} /><span style={{ marginLeft: 10 }}>Update</span>
+                              </MenuItem>
+                              <Grid container spacing={0}>
+                                <Grid xs={12} align="center">
+                                  <Divider sx={{ width: "80%" }} />
+                                </Grid>
+                              </Grid>
+                              <MenuItem onClick={() =>{ setDeleteID(idData.id);
+                              handleOpendelmodal();}}>
+                              <Delete sx={{ color: "#E10006" }} /><span style={{ marginLeft: 10 }}>Delete</span>
+                            </MenuItem>
+                          </Menu>
+
+                          {/* <Menu
                               id="basic-menu"
                               anchorEl={anchorEl}
                               open={open}
@@ -594,140 +708,185 @@ const Team = () => {
                               <MenuItem onClick={() => { setDeleteID(item.id); handleOpendelmodal() }}>
                                 <Delete sx={{ color: "gray" }} /><span style={{ marginLeft: 10 }}>Delete</span>
                               </MenuItem>
-                            </Menu>
-                          </Grid>
-
-                          <Grid onClick={() => { setViewData(item); handleOpenmodal(); }} xs={6} sx={{ pb: 1 }} align="left" >
-                            <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
-                              Status :
-                            </Typography>
-                          </Grid>
-
-                          <Grid onClick={() => { setViewData(item); handleOpenmodal(); }} xs={6} sx={{ pb: 1 }} align="left" >
-                            <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#808080">
-                              {item.active_status}
-                            </Typography>
-                          </Grid>
-
-
-                          <Grid xs={6} sx={{ pb: 1 }} align="left" onClick={handleOpenmodal}>
-                            <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
-                              Link :
-                            </Typography>
-                          </Grid>
-
-                          <Grid sx={{ pb: 1, width: '100px', height: '50px' }} xs={6} align="left" onClick={handleOpenmodal}>
-                            <Link style={{ width: '30px', height: '10px' }} variant="h6" fontWeight={300} fontSize="12px" color='#007FFF'>
-                              {item.link}
-                            </Link>
-                          </Grid>
-
+                            </Menu> */}
                         </Grid>
-                      </CardContent>
-                    </Card>
+
+                        <Grid onClick={() => { setViewData(item); handleOpenmodal(); }} xs={6} sx={{ pb: 1 }} align="left" >
+                          <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
+                            Status :
+                          </Typography>
+                        </Grid>
+
+                        <Grid onClick={() => { setViewData(item); handleOpenmodal(); }} xs={6} sx={{ pb: 1 }} align="left" >
+                          <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#808080">
+                            {item.active_status}
+                          </Typography>
+                        </Grid>
+
+
+                        <Grid xs={6} sx={{ pb: 1 }} align="left" onClick={handleOpenmodal}>
+                          <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
+                            Link :
+                          </Typography>
+                        </Grid>
+
+                        <Grid sx={{ pb: 1, width: '100px', height: '50px' }} xs={6} align="left" onClick={handleOpenmodal}>
+                          <Link style={{ width: '30px', height: '10px' }} variant="h6" fontWeight={300} fontSize="12px" color='#007FFF'>
+                            {item.link}
+                          </Link>
+                        </Grid>
+
+                      </Grid>
+                    </CardContent>
+                  </Card>
                   </Grid>
                 ))}
 
-              </>
+        </>
           }
-        </Grid>
+      </Grid>
 
 
-        <Grid sx={{ mb: '13px' }} container spacing={0} pt={2} pl={2} pr={2} >
-        </Grid>
+      <Grid sx={{ mb: '13px' }} container spacing={0} pt={2} pl={2} pr={2} >
+      </Grid>
 
-        {/* view */}
-        <Modal
-          open={openmodal}
-          // onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <Box width={{ xs: 400, md: 500, lg: 600, xl: 650 }} height="auto" sx={styleview}>
-            <Box sx={{ borderTopLeftRadius: "20px", borderTopRightRadius: "20px", backgroundColor: "#FF6700", width: "100%", height: "80px" }}>
-              <div xs={12} align="right" pt={0.6} pr={3}>
-                <Close sx={{ marginRight: '10px', marginTop: "5px", color: "white" }} onClick={() => setOpenmodal(false)} />
-              </div>
-              <Box xs={12} sx={{ mb: '20px' }} align="center">
-                <Typography align="center" sx={{ mb: '20px', fontWeight: 600, fontSize: "24px" }} color="white">
-                  {viewData.screen_name}
-                </Typography>
-              </Box>
+      {/* view */}
+      <Modal
+        open={openmodal}
+        // onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box width={{ xs: 400, md: 500, lg: 600, xl: 650 }} height="auto" sx={styleview}>
+          <Box sx={{ borderTopLeftRadius: "20px", borderTopRightRadius: "20px", backgroundColor: "#FF6700", width: "100%", height: "80px" }}>
+            <div xs={12} align="right" pt={0.6} pr={3}>
+              <Close sx={{ marginRight: '10px', marginTop: "5px", color: "white" }} onClick={() => setOpenmodal(false)} />
+            </div>
+            <Box xs={12} sx={{ mb: '20px' }} align="center">
+              <Typography align="center" sx={{ mb: '20px', fontWeight: 600, fontSize: "24px" }} color="white">
+                {viewData.screen_name}
+              </Typography>
             </Box>
-            <Grid xs={12} align="center" pt={3}>
-              {viewData.image !== null ?
-                <img src={`https://staging-gearone-be.mtechub.com/${viewData.image}`} style={{ bgcolor: "#FF6700", width: '175px', height: '175px' }}>
-                </img>
+          </Box>
+          <Grid xs={12} align="center" pt={3}>
+            {viewData.image !== null ?
+              <img src={`https://staging-gearone-be.mtechub.com/${viewData.image}`} style={{ bgcolor: "#FF6700", width: '175px', height: '175px' }}>
+              </img>
+              :
+              <Avatar sx={{ bgcolor: "#FF6700", width: 75, height: 75 }}>
+              </Avatar>
+            }
+          </Grid>
+
+
+          <Grid container spacing={0} p={2}>
+            <Grid xs={6} align="" p={0.5}>
+              <Typography variant="h5" fontWeight={700} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
+                Link :
+              </Typography>
+              {/* <Button variant="contained" style={btn} onClick={() => { navigate("/setnewpassword") }}>Reset Password</Button> */}
+            </Grid>
+
+            <Grid sx={{ overflow: 'hidden', width: '30px', height: '50px' }} xs={6} align="right">
+              <a href={viewData.link} sx={{ cursor: 'pointer' }} variant="h6" fontWeight={300} pb={1} fontSize="12px" color='#007FFF'>
+                {viewData.link}
+              </a>
+            </Grid>
+
+            <Grid xs={6} align="" p={0.5}>
+              <Typography variant="h5" fontWeight={700} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
+                Status :
+              </Typography>
+            </Grid>
+
+            <Grid xs={6} align="right" p={0.5}>
+              <Typography variant="h5" fontWeight={600} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#808080">
+                {viewData.active_status}
+              </Typography>
+            </Grid>
+
+          </Grid>
+        </Box>
+      </Modal>
+
+      {/* del */}
+      <Modal
+        open={opendelmodal}
+        // onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box width={{ xs: 400, md: 500, lg: 500, xl: 600 }} height="auto" sx={style}>
+          <Grid container spacing={0}>
+            <Grid xs={12} align="right">
+              <Close onClick={() => setOpendelmodal(false)} />
+            </Grid>
+
+            <Grid xs={12} align="center" p={{ xs: 2, md: 5, lg: 1, xl: 1 }}>
+              <Typography variant="h4" sx={{ letterSpacing: "3px" }} fontWeight={600} fontSize="x-large" color="#FF6700">Confirmation</Typography>
+
+              <Typography variant="h5" sx={{ letterSpacing: "3px" }} pt={7} pb={0} fontWeight={600} color="#1F1F1F">Do you want to delete this Logo ?</Typography>  </Grid>
+          </Grid>
+
+          <Grid container spacing={0} pt={7}>
+            <Grid xs={6} align="">
+              <Button variant="contained" style={btncancel} onClick={() => { setOpendelmodal(false) }}>Cancel</Button>
+            </Grid>
+
+            <Grid xs={6} align="right">
+              <Button variant="contained" style={btn} onClick={() => { handleDelete() }}>Delete</Button>
+            </Grid>
+          </Grid>
+
+        </Box>
+      </Modal>
+      {/* Change */}
+      <Modal
+        open={opendelmodalStatus}
+        // onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box width={{ xs: 400, md: 500, lg: 500, xl: 600 }} height="auto" sx={style}>
+          <Grid container spacing={0}>
+            <Grid xs={12} align="right">
+              <Close onClick={() => setOpendelmodalStatus(false)} />
+            </Grid>
+
+            <Grid xs={12} align="center" p={{ xs: 2, md: 5, lg: 1, xl: 1 }}>
+              <Typography variant="h4" sx={{ letterSpacing: "3px" }} fontWeight={600} fontSize="x-large" color="#FF6700">Confirmation</Typography>
+              {DeleteData.active_status === 'active' ?
+                <Typography variant="h5" sx={{ letterSpacing: "3px" }} pt={7}
+                  pb={0} fontWeight={600} color="#1F1F1F">{`Do you want to Inactive logo?`}
+                </Typography>
                 :
-                <Avatar sx={{ bgcolor: "#FF6700", width: 75, height: 75 }}>
-                </Avatar>
+                <Typography variant="h5" sx={{ letterSpacing: "3px" }} pt={7}
+                  pb={0} fontWeight={600} color="#1F1F1F">{`Do you want to Active Logo?`}
+                </Typography>
+
               }
             </Grid>
+          </Grid>
 
-
-            <Grid container spacing={0} p={2}>
-              <Grid xs={6} align="" p={0.5}>
-                <Typography variant="h5" fontWeight={700} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
-                  Link :
-                </Typography>
-                {/* <Button variant="contained" style={btn} onClick={() => { navigate("/setnewpassword") }}>Reset Password</Button> */}
-              </Grid>
-
-              <Grid sx={{ overflow:'hidden', width: '30px', height: '50px' }} xs={6} align="right">
-                <a href={viewData.link} sx={{ cursor: 'pointer' }} variant="h6" fontWeight={300} pb={1} fontSize="12px" color='#007FFF'>
-                  {viewData.link}
-                </a>
-              </Grid>
-
-              <Grid xs={6} align="" p={0.5}>
-                <Typography variant="h5" fontWeight={700} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
-                  Status :
-                </Typography>
-              </Grid>
-
-              <Grid xs={6} align="right" p={0.5}>
-                <Typography variant="h5" fontWeight={600} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#808080">
-                  {viewData.active_status}
-                </Typography>
-              </Grid>
-
-            </Grid>
-          </Box>
-        </Modal>
-
-        {/* del */}
-        <Modal
-          open={opendelmodal}
-          // onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <Box width={{ xs: 400, md: 500, lg: 500, xl: 600 }} height="auto" sx={style}>
-            <Grid container spacing={0}>
-              <Grid xs={12} align="right">
-                <Close onClick={() => setOpendelmodal(false)} />
-              </Grid>
-
-              <Grid xs={12} align="center" p={{ xs: 2, md: 5, lg: 1, xl: 1 }}>
-                <Typography variant="h4" sx={{ letterSpacing: "3px" }} fontWeight={600} fontSize="x-large" color="#FF6700">Confirmation</Typography>
-
-                <Typography variant="h5" sx={{ letterSpacing: "3px" }} pt={7} pb={0} fontWeight={600} color="#1F1F1F">Do you want to delete this Logo ?</Typography>  </Grid>
+          <Grid container spacing={0} pt={7}>
+            <Grid xs={6} align="">
+              <Button variant="contained" style={btncancel} onClick={() => { setOpendelmodalStatus(false) }}>Cancel</Button>
             </Grid>
 
-            <Grid container spacing={0} pt={7}>
-              <Grid xs={6} align="">
-                <Button variant="contained" style={btncancel} onClick={() => { setOpendelmodal(false) }}>Cancel</Button>
-              </Grid>
-
-              <Grid xs={6} align="right">
-                <Button variant="contained" style={btn} onClick={() => { handleDelete() }}>Delete</Button>
-              </Grid>
+            <Grid xs={6} align="right">
+              {DeleteData.active_status === 'active' ?
+                <Button variant="contained" style={btn} onClick={() => { changeStatus(DeleteData) }}>Inactive</Button>
+                :
+                <Button variant="contained" style={btn} onClick={() => { changeStatus(DeleteData) }}>Active</Button>
+              }
             </Grid>
+          </Grid>
 
-          </Box>
-        </Modal>
+        </Box>
+      </Modal>
 
-      </Box>
+
+    </Box>
     </>
   );
 };
