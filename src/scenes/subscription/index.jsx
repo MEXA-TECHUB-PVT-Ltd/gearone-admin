@@ -197,6 +197,7 @@ const Team = () => {
   };
   const handleClosedelmodalStatus = () => setOpendelmodalStatus(false);
 
+  const [DeleteData, setDeleteData] = useState([]);
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -339,9 +340,9 @@ const Team = () => {
         return (
           <>
             {row.row.status === 'active' ?
-              < Chip onClick={() => { handleOpendelmodalStatus(row.row) }} sx={{ cursor: 'pointer' }} label={row.row.status} color="success" variant="outlined" />
+              < Chip onClick={() => { handleOpendelmodalStatus(row.row); setDeleteData(row.row); }} sx={{ cursor: 'pointer' }} label={row.row.status} color="success" variant="outlined" />
               :
-              <Chip onClick={() => { handleOpendelmodalStatus(row.row) }} sx={{ cursor: 'pointer' }} label={row.row.status} color="primary" variant="outlined" />
+              <Chip onClick={() => { handleOpendelmodalStatus(row.row); setDeleteData(row.row); }} sx={{ cursor: 'pointer' }} label={row.row.status} color="primary" variant="outlined" />
 
             }
           </>
@@ -607,7 +608,7 @@ const Team = () => {
                   <Grid xs={12} md={3} lg={3} align="center" p={1}>
                     <Card width="95%" sx={{ padding: 0, boxShadow: "none", borderRadius: "10px", border: "1px solid #D8D8D8" }}>
                       <CardContent>
-                        <Grid  container spacing={0} >
+                        <Grid container spacing={0} >
                           <Grid xs={6} align="left" onClick={() => { setViewData(item); handleOpenmodal(); }}>
                             <Typography variant="h5" pb={1} fontWeight={750} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#FF6700">
                               {item.title}
@@ -850,7 +851,9 @@ const Team = () => {
               </Grid>
 
               <Grid xs={6} align="left" p={0.5}>
-                <Typography variant="h5" fontWeight={600} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#808080">
+                <Typography variant="h5" 
+                 fontWeight={600} fontSize="14px" sx={{overflowX:'scroll', height:'100px'}}
+                  color="#808080">
                   {viewData.description}
 
                 </Typography>
@@ -878,7 +881,18 @@ const Team = () => {
               <Grid xs={12} align="center" p={{ xs: 2, md: 5, lg: 1, xl: 1 }}>
                 <Typography variant="h4" sx={{ letterSpacing: "3px" }} fontWeight={600} fontSize="x-large" color="#FF6700">Confirmation</Typography>
 
-                <Typography variant="h5" sx={{ letterSpacing: "3px" }} pt={7} pb={0} fontWeight={600} color="#1F1F1F">Do you want to Change Status?</Typography>  </Grid>
+                {DeleteData.status === 'active' ?
+                  <Typography variant="h5" sx={{ letterSpacing: "3px" }} pt={7}
+                    pb={0} fontWeight={600} color="#1F1F1F">{`Do you want to Inactive Daily Deal?`}
+                  </Typography>
+                  :
+                  <Typography variant="h5" sx={{ letterSpacing: "3px" }} pt={7}
+                    pb={0} fontWeight={600} color="#1F1F1F">{`Do you want to active Daily Deal?`}
+                  </Typography>
+
+                }
+
+              </Grid>
             </Grid>
 
             <Grid container spacing={0} pt={7}>
@@ -887,8 +901,12 @@ const Team = () => {
               </Grid>
 
               <Grid xs={6} align="right">
-                <Button variant="contained" style={btn} onClick={() => { changeStatus() }}>Change</Button>
-              </Grid>
+              {DeleteData.status === 'active' ?
+                <Button variant="contained" style={btn} onClick={() => { changeStatus() }}>Inactive</Button>
+              :
+              <Button variant="contained" style={btn} onClick={() => { changeStatus() }}>Active</Button>
+              }
+                </Grid>
             </Grid>
 
           </Box>

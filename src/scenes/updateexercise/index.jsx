@@ -381,9 +381,6 @@ const Team = () => {
                                             defaultValue={location.state.status}
                                         >
 
-                                            <MenuItem value="" >
-                                                <em>{location.state.status}</em>
-                                            </MenuItem>
                                             <MenuItem value={'active'}>Active</MenuItem>
                                             <MenuItem value={'inactive'}>InActive</MenuItem>
                                         </Select>

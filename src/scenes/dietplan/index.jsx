@@ -353,7 +353,7 @@ const Team = () => {
                             </IconButton>
 
 
-                            {row.row.added_by === 'admin' ?
+                            {/* {row.row.added_by === 'admin' ?
                                 <>
                                     <IconButton onClick={() => {
                                         console.log(row.row);
@@ -427,7 +427,7 @@ const Team = () => {
                                 </>
 
                             }
-
+ */}
                         </div>
                     </>
 
@@ -514,7 +514,7 @@ const Team = () => {
             </Stack> */}
                     </Grid>
 
-                    <Grid item xs={1.5} align="center">
+                    <Grid item xs={3} align="right">
                         <div>
                             <Box sx={{ width: '90px', borderRadius: "5px", border: "1px solid #D8D8D8" }}>
                                 <Box >
@@ -545,7 +545,7 @@ const Team = () => {
                         </div>
                     </Grid>
 
-                    <Grid item xs={1.5} align="center">
+                    {/* <Grid item xs={1.5} align="center">
                         <div style={{ display: "flex", justifyContent: "right", alignContent: "right", gap: "30px" }}>
                             <div>
                                 <button onClick={() => navigate("/addfood")} style={{ marginTop: "2%", padding: "10px", display: "flex", justifyContent: "center", alignContent: "center", alignSelf: "center", border: "none", borderRadius: "50px", backgroundColor: "#FF6700", color: "white" }}>
@@ -564,7 +564,7 @@ const Team = () => {
                                 </button>
                             </div>
                         </div>
-                    </Grid>
+                    </Grid> */}
                 </Grid>
 
                 <Divider sx={{ pb: 2 }} />
