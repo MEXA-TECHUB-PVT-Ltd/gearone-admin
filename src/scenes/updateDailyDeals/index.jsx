@@ -119,6 +119,15 @@ const Team = () => {
                         setIsloading(false);
                         navigate("/subscription")
                     }
+                    setIsloading(false);
+                    navigate("/subscription")
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success!',
+                        confirmButtonColor: "#FF6700",
+                        text: 'Daily Deal Updated Successfully!',
+                    })
+            
                 } else {
                     setIsloading(false);
                     Swal.fire({
@@ -299,6 +308,7 @@ const Team = () => {
                                                 setTitle(event.target.value);
                                             }}
                                             id="input-with-icon-adornment"
+                                            defaultValue={location.state.title}
                                             placeholder={location.state.title}
                                             sx={{
                                                 borderRadius: "50px",
@@ -315,7 +325,7 @@ const Team = () => {
                                                 setDescription(event.target.value);
                                             }}
                                             id="input-with-icon-adornment"
-                                            placeholder={location.state.description}
+                                            defaultValue={location.state.description}
                                             sx={{
                                                 borderRadius: "50px",
                                                 backgroundColor: "#F8F8F8",

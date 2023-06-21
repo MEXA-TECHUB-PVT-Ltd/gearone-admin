@@ -18,7 +18,7 @@ const override = {
 const style = {
     position: 'absolute',
     top: '50%',
-    left: '50%',
+    left: '57%',
     transform: 'translate(-50%, -50%)',
     bgcolor: '#FFFFFF',
     outline: "none",
@@ -265,17 +265,18 @@ const Team = () => {
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >
-                <Box width={{ xs: 400, md: 500, lg: 500, xl: 600 }} height="auto" sx={style}>
+                <Box width={{ xs: 400,md: 500, lg: 500, xl: 600 }} height="auto" sx={style}>
                     <Grid container spacing={0}>
                         <Grid xs={6} align="left" >
-                            <Typography variant="h4" sx={{ letterSpacing: "3px" }} fontWeight={800} fontSize="large" color="#1F1F1F">Enter OTP</Typography>
+                            <Typography variant="h4" sx={{ letterSpacing: "3px" }} fontWeight={800}
+                             fontSize="large" color="#1F1F1F">Enter OTP</Typography>
                         </Grid>
 
                         <Grid xs={6} align="right">
                             <Close onClick={() => setOpeneditmodal(false)} />
                         </Grid>
 
-                        <Grid xs={12} align="center" pt={7}>
+                        <Grid xs={12} sx={{ml:'60px'}} align="center" pt={7}>
                             <FormControl fullWidth>
                                 <OtpInput
                                     value={enteredotp}
@@ -284,14 +285,14 @@ const Team = () => {
                                     // separator={<span>&nbsp;  
                                     // </span>}
                                     containerStyle={{ align: 'center', width: "100%" }}
-                                    inputStyle={{ width: "40%", height: "5vh", backgroundColor: "#EEEEEE", borderColor: "lightgray", border: "none", borderRadius: "5px" }}
-                                    focusStyle={{ width: "40%", height: "5vh", backgroundColor: "#EEEEEE", borderColor: "lightgray", border: "none", borderRadius: "5px" }}
+                                    inputStyle={{ width: "50%", height: "5vh", backgroundColor: "#EEEEEE", borderColor: "lightgray", border: "none", borderRadius: "5px" }}
+                                    focusStyle={{ width: "50%", height: "5vh", backgroundColor: "#EEEEEE", borderColor: "lightgray", border: "none", borderRadius: "5px" }}
                                 />
                             </FormControl>
                         </Grid>
                     </Grid>
 
-                    <Grid container spacing={0} pt={7}>
+                    <Grid container spacing={0} pt={6}>
 
                         <Grid xs={12} align="center">
                             <Button variant="contained" style={btn} onClick={verifyotp}>Check</Button>

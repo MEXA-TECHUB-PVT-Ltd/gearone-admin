@@ -232,6 +232,12 @@ const Team = () => {
           // setLogos(response.count);
           getAllLogos();
           setOpendelmodal(false);
+          Swal.fire({
+            icon: 'success',
+            title: 'Success!',
+            confirmButtonColor: "#FF6700",
+            text: 'Daily Deal Deleted Successfully!',
+        })
           //   console.log(response.result);
           //   setCatagory(response.result);
         } else {
@@ -304,6 +310,13 @@ const Team = () => {
         console.log(response);
         if (response.message == `Daily Deal Updated Successfully!`) {
           // setLogos(response.count);
+          Swal.fire({
+            icon: 'success',
+            title: 'Success!',
+            confirmButtonColor: "#FF6700",
+            text: 'Daily Deal Status Updated Successfully!',
+        })
+
           handleClosedelmodalStatus();
           getAllLogos();
           // setOpendelmodal(false);
@@ -704,25 +717,25 @@ const Team = () => {
 
                           </Grid>
 
-                          <Grid xs={6} sx={{ pb: 1 }} align="left" onClick={handleOpenmodal}>
+                          <Grid xs={6} sx={{ pb: 1 }} align="left" onClick={() => { setViewData(item); handleOpenmodal(); }}>
                             <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
                               status :
                             </Typography>
                           </Grid>
 
-                          <Grid xs={6} sx={{ pb: 1, width: '100px', height: '50px' }} align="right" onClick={handleOpenmodal}>
+                          <Grid xs={6} sx={{ pb: 1, width: '100px', height: '50px' }} align="right" onClick={() => { setViewData(item); handleOpenmodal(); }}>
                             <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#808080">
                               {item.status}
                             </Typography>
                           </Grid>
 
-                          <Grid xs={6} sx={{ pb: 1 }} align="left" onClick={handleOpenmodal}>
+                          <Grid xs={6} sx={{ pb: 1 }} align="left" onClick={() => { setViewData(item); handleOpenmodal(); }}>
                             <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
                               Description :
                             </Typography>
                           </Grid>
 
-                          <Grid xs={6} sx={{ pb: 1, width: '100px', height: '50px' }} align="right" onClick={handleOpenmodal}>
+                          <Grid xs={6} sx={{ pb: 1, width: '100px', height: '50px' }} align="right" onClick={() => { setViewData(item); handleOpenmodal(); }}>
                             <Typography variant="h6" fontWeight={600} pb={1} fontSize="12px" sx={{ letterSpacing: "2px" }} color="#808080">
                               {item.description}
                             </Typography>

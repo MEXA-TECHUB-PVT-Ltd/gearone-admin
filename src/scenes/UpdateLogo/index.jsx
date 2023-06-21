@@ -76,6 +76,12 @@ const Team = () => {
             .then(async response => {
                 console.log(response);
                 if (response.message == `Logo Updated Successfully!`) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success!',
+                        confirmButtonColor: "#FF6700",
+                        text: 'Logo Updated Successfully!',
+                      })                    
                     if (selectedFile !== null && selectedFile !== undefined) {
                         var Data = {
                             "id": response.result[0].id,
@@ -88,26 +94,6 @@ const Team = () => {
                             }
                         }).then((response) => {
                             setIsloading(false)
-
-
-                            // var InsertAPIURL = `${url}logos/add_logos_image`
-                            // var headers = {
-                            //     // 'Accept': 'application/json',
-                            //     // 'Content-Type': 'application/json',
-                            //     "Content-Type": "multipart/form-data"
-
-                            // };
-                            // var Data = {
-                            //     "id": response.result[0].id,
-                            //     "image": selectedFile,
-                            // };
-                            // await fetch(InsertAPIURL, {
-                            //     method: 'PUT',
-                            //     headers: headers,
-                            //     body: JSON.stringify(Data),
-                            // })
-                            //     .then(response => response.json())
-                            //     .then(response => {
                             console.log(response.data);
                             if (response.data.message == `Logo Image added Successfully!`) {
                                 navigate("/ManageLogos")
@@ -313,6 +299,7 @@ const Team = () => {
                                                 setLink(event.target.value);
                                             }}
                                             id="input-with-icon-adornment"
+                                            defaultValue={location.state.link}
                                             placeholder={location.state.link}
                                             sx={{
                                                 borderRadius: "50px",

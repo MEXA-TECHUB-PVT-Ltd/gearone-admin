@@ -82,6 +82,12 @@ const Team = () => {
                 .then(async response => {
                     console.log(response);
                     if (response.message == `Ad's added Successfully!`) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success!',
+                            confirmButtonColor: "#FF6700",
+                            text: 'Banner Added Successfully!',
+                          })                    
                         if (selectedFile !== null && selectedFile !== undefined) {
                             var Data = {
                                 "id": response.result[0].id,

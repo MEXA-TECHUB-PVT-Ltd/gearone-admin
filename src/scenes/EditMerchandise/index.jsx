@@ -123,8 +123,7 @@ const Team = () => {
             });
     }
 
-
-
+    function isNumber(n) { return /^-?[\d.]+(?:e-?\d+)?$/.test(n); }
 
     const handleAdd = async (e) => {
         e.preventDefault();
@@ -140,51 +139,71 @@ const Team = () => {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
         };
-        var Data = {
-            "Merchandise_ID": location.state.id,
-            "name": Name,
-            "price": Price,
-            "category_id": Category_id,
-            "description": Description,
-            "location": Location
-        };
-        console.log(Data)
-        await fetch(InsertAPIURL, {
-            method: 'PUT',
-            headers: headers,
-            body: JSON.stringify(Data),
-        })
-            .then(response => response.json())
-            .then(async response => {
-                console.log(response);
-                console.log(selectedFile)
-                if (response.message == `Merchandise Updated Successfully!`) {
-                    setIsloading(false);
-                    navigate("/users")
-                } else {
+        if(Price === ''){
+            Price = location.state.price ; 
+        }
+        if (!isNumber(Price)) {
+            setIsloading(false);
+            Swal.fire({
+                icon: 'warning',
+                title: 'Oops',
+                confirmButtonColor: "#FF6700",
+                text: 'Price must be a number'
+            })
+        } else {
+            var Data = {
+                "Merchandise_ID": location.state.id,
+                "name": Name,
+                "price": Price,
+                "category_id": Category_id,
+                "description": Description,
+                "location": Location
+            };
+            console.log(Data)
+            await fetch(InsertAPIURL, {
+                method: 'PUT',
+                headers: headers,
+                body: JSON.stringify(Data),
+            })
+                .then(response => response.json())
+                .then(async response => {
+                    console.log(response);
+                    console.log(selectedFile)
+                    if (response.message == `Merchandise Updated Successfully!`) {
+                        setIsloading(false);
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success!',
+                            confirmButtonColor: "#FF6700",
+                            text: 'Merchandise Updated Successfully!',
+                        })
+                        navigate("/users")
+                    } else {
+                        setIsloading(false);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops',
+                            confirmButtonColor: "#FF6700",
+                            text: 'Try Again'
+                        })
+                    }
+                }
+                )
+                .catch(error => {
                     setIsloading(false);
                     Swal.fire({
                         icon: 'error',
-                        title: 'Oops',
+                        title: 'Oops...',
                         confirmButtonColor: "#FF6700",
-                        text: 'Try Again'
+                        text: "Server Down!"
                     })
-                }
-            }
-            )
-            .catch(error => {
-                setIsloading(false);
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    confirmButtonColor: "#FF6700",
-                    text: "Server Down!"
-                })
-            });
+                });
+        }
     }
 
     const uploadImage = async (e, num) => {
         console.log("uploadImage");
+        console.log(e);
         e.preventDefault();
         setIsloading(true);
         const formData = new FormData();
@@ -229,6 +248,43 @@ const Team = () => {
                 });
         }
     }
+    // const DeleteImage = async (num) => {
+    //     setIsloading(true);
+    //         var Data = {
+    //             "id": location.state.id,
+    //             "location":num
+    //         };
+    //         console.log(Data);
+    //         await axios.put(url + "merchandise/edit_merchandise_image", Data, {
+    //             headers: {
+    //                 "Content-Type": "multipart/form-data"
+    //             }
+    //         }).then((response) => {
+    //             setIsloading(false);
+    //             console.log(response.data);
+    //             if (response.data.message == `merchandise Images Updated Successfully!`) {
+    //                 setIsloading(false);
+    //             } else {
+    //                 setIsloading(false);
+    //                 Swal.fire({
+    //                     icon: 'error',
+    //                     title: 'Oops2...',
+    //                     confirmButtonColor: "#FF6700",
+    //                     text: ''
+    //                 })
+    //             }
+    //         }
+    //         )
+    //             .catch(error => {
+    //                 setIsloading(false);
+    //                 Swal.fire({
+    //                     icon: 'error',
+    //                     title: 'Oops...',
+    //                     confirmButtonColor: "#FF6700",
+    //                     text: "Server Down!"
+    //                 })
+    //             });
+    // }
 
     const getAllScreens = async () => {
         if (location.state.images[0] !== undefined && location.state.images[0] !== null && location.state.images[0] !== '') {
@@ -238,12 +294,15 @@ const Team = () => {
             setHidelabel1(true)
         }
         if (location.state.images[2] !== undefined && location.state.images[2] !== null && location.state.images[2] !== '') {
+            console.log(location.state.images[2]);
             setHidelabel2(true)
         }
         if (location.state.images[3] !== undefined && location.state.images[3] !== null && location.state.images[3] !== '') {
+            console.log(location.state.images[3]);
             setHidelabel3(true)
         }
         if (location.state.images[4] !== undefined && location.state.images[4] !== null && location.state.images[4] !== '') {
+            console.log(location.state.images[4]);
             setHidelabel4(true)
         }
 
@@ -312,35 +371,40 @@ const Team = () => {
 
     };
 
-    const clearpreviewimage = (num) => {
+    const clearpreviewimage = (e, num) => {
         location.state.images[num] = null
         if (num === 0) {
             setSelectedFile(null);
             setHidecrossicon(false);
             setHidelabel(false);
+            // DeleteImage( num);
 
         } else if (num === 1) {
             setSelectedFile1(null);
             setHidecrossicon1(false);
             setHidelabel1(false);
+            // DeleteImage( num);
 
         }
         else if (num === 2) {
             setSelectedFile2(null);
             setHidecrossicon2(false);
             setHidelabel2(false);
+            // DeleteImage(num);
 
         }
         else if (num === 3) {
             setSelectedFile3(null);
             setHidecrossicon3(false);
             setHidelabel3(false);
+            // DeleteImage( num);
 
         }
         else if (num === 4) {
             setSelectedFile4(null);
             setHidecrossicon4(false);
             setHidelabel4(false);
+            // DeleteImage( num);
 
         }
 
@@ -392,37 +456,72 @@ const Team = () => {
 
                             }}
                                 p={1}>
-                                <Grid pt={2} pb={2}>
-                                    <Box sx={{ pt: 2, width: "200px", height: "200px", p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
-                                        {hidelabel ?
-                                            null
-                                            :
-                                            <Grid container spacing={0} pt={5}>
-                                                <Grid xs={12} align="">
-                                                    <Stack align="">
-                                                        <label htmlFor="fileInput" style={{ display: "flex", justifyContent: "center", alignContent: "center", color: "#808080" }}>
-                                                            <Stack direction="column" spacing={1} >
-                                                                <Upload sx={{ fontSize: "50px", color: "#808080", ml: 1.8, pb: 1 }} />
-                                                                <span style={{ paddingBottom: "2vh", font: "normal normal normal 16px/26px Arial" }}>Upload Image</span>
-                                                            </Stack>
-                                                        </label>
-                                                        <input
-                                                            style={{ display: "none" }}
-                                                            id="fileInput"
-                                                            type="file"
-                                                            onChange={(e) => { handleImageChange(e, 0) }}
-                                                            accept="image/*"
-                                                        />
-                                                    </Stack>
-                                                </Grid>
-                                            </Grid>
-                                        }
 
-                                        {selectedFile ? <img src={URL.createObjectURL(selectedFile)} alt="Preview" style={{ width: "200px", height: "200px" }} />
+
+
+                                <Grid pt={2} pb={2}>
+
+                                    {hidelabel ?
+                                        null
+                                        :
+                                        hidelabel || hidelabel1 || hidelabel2 || hidelabel3 ?
+                                            <Box sx={{ pt: 2, width: "200px", height: "200px", p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
+                                                <Grid container spacing={0} pt={5}>
+                                                    <Grid xs={12} align="">
+                                                        <Stack align="">
+                                                            <label htmlFor="fileInput" style={{ display: "flex", justifyContent: "center", alignContent: "center", color: "#808080" }}>
+                                                                <Stack direction="column" spacing={1} >
+                                                                    <Upload sx={{ fontSize: "50px", color: "#808080", ml: 1.8, pb: 1 }} />
+                                                                    <span style={{ paddingBottom: "2vh", font: "normal normal normal 16px/26px Arial" }}>Upload Image</span>
+                                                                </Stack>
+                                                            </label>
+                                                            <input
+                                                                style={{ display: "none" }}
+                                                                id="fileInput"
+                                                                type="file"
+                                                                onChange={(e) => { handleImageChange(e, 0) }}
+                                                                accept="image/*"
+                                                            />
+                                                        </Stack>
+                                                    </Grid>
+                                                </Grid>
+                                            </Box>
                                             :
-                                            location.state.images[0] && <img src={`https://staging-gearone-be.mtechub.com/${location.state.images[0]}`} alt="Preview" style={{ width: "200px", height: "200px" }} />
-                                        }
-                                    </Box>
+                                            <Box sx={{ ml: '400px', pt: 2, width: "200px", height: "200px", p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
+                                                <Grid container spacing={0} pt={5}>
+                                                    <Grid xs={12} align="">
+                                                        <Stack align="">
+                                                            <label htmlFor="fileInput" style={{ display: "flex", justifyContent: "center", alignContent: "center", color: "#808080" }}>
+                                                                <Stack direction="column" spacing={1} >
+                                                                    <Upload sx={{ fontSize: "50px", color: "#808080", ml: 1.8, pb: 1 }} />
+                                                                    <span style={{ paddingBottom: "2vh", font: "normal normal normal 16px/26px Arial" }}>Upload Image</span>
+                                                                </Stack>
+                                                            </label>
+                                                            <input
+                                                                style={{ display: "none" }}
+                                                                id="fileInput"
+                                                                type="file"
+                                                                onChange={(e) => { handleImageChange(e, 0) }}
+                                                                accept="image/*"
+                                                            />
+                                                        </Stack>
+                                                    </Grid>
+                                                </Grid>
+                                            </Box>
+
+                                    }
+
+                                    {selectedFile ?
+                                        <Box sx={{ pt: 2, width: "200px", height: "200px", p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
+                                            <img src={URL.createObjectURL(selectedFile)} alt="Preview" style={{ width: "200px", height: "200px" }} />
+                                        </Box>
+                                        :
+
+                                        location.state.images[0] &&
+                                        <Box sx={{ pt: 2, width: "200px", height: "200px", p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
+                                            <img src={`${url}${location.state.images[0]}`} alt="Preview" style={{ width: "200px", height: "200px" }} />
+                                        </Box>
+                                    }
 
                                     {
                                         hidecrossicon ?
@@ -430,7 +529,7 @@ const Team = () => {
                                                 <Close sx={{
                                                     padding: 0.2, backgroundColor: "#FF6700", borderRadius: "50px",
                                                     color: "white", ml: 22, mt: -24
-                                                }} onClick={() => clearpreviewimage(0)} />
+                                                }} onClick={(e) => clearpreviewimage(e, 0)} />
                                             </Box>
                                             :
                                             location.state.images[0] ?
@@ -438,7 +537,7 @@ const Team = () => {
                                                     <Close sx={{
                                                         padding: 0.2, backgroundColor: "#FF6700", borderRadius: "50px",
                                                         color: "white", ml: 22, mt: -24
-                                                    }} onClick={() => clearpreviewimage(0)} />
+                                                    }} onClick={(e) => clearpreviewimage(e, 0)} />
                                                 </Box>
                                                 :
                                                 selectedFile ?
@@ -446,7 +545,7 @@ const Team = () => {
                                                         <Close sx={{
                                                             padding: 0.2, backgroundColor: "#FF6700", borderRadius: "50px",
                                                             color: "white", ml: 22, mt: -24
-                                                        }} onClick={() => clearpreviewimage(0)} />
+                                                        }} onClick={(e) => clearpreviewimage(e, 0)} />
                                                     </Box>
                                                     : null
                                     }
@@ -454,36 +553,48 @@ const Team = () => {
 
 
                                 <Grid pt={2} pb={2}>
-                                    <Box sx={{ pt: 2, width: "200px", height: "200px", p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
-                                        {hidelabel1 ?
+                                    {hidelabel ?
+                                        hidelabel1 ?
                                             null
                                             :
-                                            <Grid container spacing={0} pt={5}>
-                                                <Grid xs={12} align="">
-                                                    <Stack align="">
-                                                        <label htmlFor="fileInput" style={{ display: "flex", justifyContent: "center", alignContent: "center", color: "#808080" }}>
-                                                            <Stack direction="column" spacing={1} >
-                                                                <Upload sx={{ fontSize: "50px", color: "#808080", ml: 1.8, pb: 1 }} />
-                                                                <span style={{ paddingBottom: "2vh", font: "normal normal normal 16px/26px Arial" }}>Upload Image</span>
-                                                            </Stack>
-                                                        </label>
-                                                        <input
-                                                            style={{ display: "none" }}
-                                                            id="fileInput"
-                                                            type="file"
-                                                            onChange={(e) => { handleImageChange(e, 1) }}
-                                                            accept="image/*"
-                                                        />
-                                                    </Stack>
+                                            <Box sx={{ pt: 2, width: "200px", height: "200px", p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
+                                                <Grid container spacing={0} pt={5}>
+                                                    <Grid xs={12} align="">
+                                                        <Stack align="">
+                                                            <label htmlFor="fileInput" style={{ display: "flex", justifyContent: "center", alignContent: "center", color: "#808080" }}>
+                                                                <Stack direction="column" spacing={1} >
+                                                                    <Upload sx={{ fontSize: "50px", color: "#808080", ml: 1.8, pb: 1 }} />
+                                                                    <span style={{ paddingBottom: "2vh", font: "normal normal normal 16px/26px Arial" }}>Upload Image</span>
+                                                                </Stack>
+                                                            </label>
+                                                            <input
+                                                                style={{ display: "none" }}
+                                                                id="fileInput"
+                                                                type="file"
+                                                                onChange={(e) => { handleImageChange(e, 1) }}
+                                                                accept="image/*"
+                                                            />
+                                                        </Stack>
+                                                    </Grid>
                                                 </Grid>
-                                            </Grid>
-                                        }
+                                            </Box>
+                                        :
+                                        null
+                                    }
 
-                                        {selectedFile1 ? <img src={URL.createObjectURL(selectedFile1)} alt="Preview" style={{ width: "200px", height: "200px" }} />
-                                            :
-                                            location.state.images[1] && <img src={`https://staging-gearone-be.mtechub.com/${location.state.images[1]}`} alt="Preview" style={{ width: "200px", height: "200px" }} />
-                                        }
-                                    </Box>
+                                    {selectedFile1 ?
+                                        <Box sx={{ pt: 2, width: "200px", height: "200px", p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
+
+                                            <img src={URL.createObjectURL(selectedFile1)} alt="Preview" style={{ width: "200px", height: "200px" }} />
+                                        </Box>
+                                        :
+                                        location.state.images[1] &&
+                                        <Box sx={{ pt: 2, width: "200px", height: "200px", p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
+
+                                            <img src={`${url}${location.state.images[1]}`} alt="Preview" style={{ width: "200px", height: "200px" }} />
+                                        </Box>
+
+                                    }
 
                                     {
                                         hidecrossicon1 ?
@@ -491,7 +602,7 @@ const Team = () => {
                                                 <Close sx={{
                                                     padding: 0.2, backgroundColor: "#FF6700", borderRadius: "50px",
                                                     color: "white", ml: 22, mt: -24
-                                                }} onClick={() => clearpreviewimage(1)} />
+                                                }} onClick={(e) => clearpreviewimage(e, 1)} />
                                             </Box>
                                             :
                                             location.state.images[1] ?
@@ -499,7 +610,7 @@ const Team = () => {
                                                     <Close sx={{
                                                         padding: 0.2, backgroundColor: "#FF6700", borderRadius: "50px",
                                                         color: "white", ml: 22, mt: -24
-                                                    }} onClick={() => clearpreviewimage(1)} />
+                                                    }} onClick={(e) => clearpreviewimage(e, 1)} />
                                                 </Box>
                                                 : null
                                     }
@@ -507,36 +618,46 @@ const Team = () => {
 
 
                                 <Grid pt={2} pb={2}>
-                                    <Box sx={{ pt: 2, width: "200px", height: "200px", p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
-                                        {hidelabel2 ?
+                                    {hidelabel && hidelabel1 ?
+                                        hidelabel2 ?
                                             null
                                             :
-                                            <Grid container spacing={0} pt={5}>
-                                                <Grid xs={12} align="">
-                                                    <Stack align="">
-                                                        <label htmlFor="fileInput" style={{ display: "flex", justifyContent: "center", alignContent: "center", color: "#808080" }}>
-                                                            <Stack direction="column" spacing={1} >
-                                                                <Upload sx={{ fontSize: "50px", color: "#808080", ml: 1.8, pb: 1 }} />
-                                                                <span style={{ paddingBottom: "2vh", font: "normal normal normal 16px/26px Arial" }}>Upload Image</span>
-                                                            </Stack>
-                                                        </label>
-                                                        <input
-                                                            style={{ display: "none" }}
-                                                            id="fileInput"
-                                                            type="file"
-                                                            onChange={(e) => { handleImageChange(e, 2) }}
-                                                            accept="image/*"
-                                                        />
-                                                    </Stack>
+                                            <Box sx={{ pt: 2, width: "200px", height: "200px", p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
+                                                <Grid container spacing={0} pt={5}>
+                                                    <Grid xs={12} align="">
+                                                        <Stack align="">
+                                                            <label htmlFor="fileInput" style={{ display: "flex", justifyContent: "center", alignContent: "center", color: "#808080" }}>
+                                                                <Stack direction="column" spacing={1} >
+                                                                    <Upload sx={{ fontSize: "50px", color: "#808080", ml: 1.8, pb: 1 }} />
+                                                                    <span style={{ paddingBottom: "2vh", font: "normal normal normal 16px/26px Arial" }}>Upload Image</span>
+                                                                </Stack>
+                                                            </label>
+                                                            <input
+                                                                style={{ display: "none" }}
+                                                                id="fileInput"
+                                                                type="file"
+                                                                onChange={(e) => { handleImageChange(e, 2) }}
+                                                                accept="image/*"
+                                                            />
+                                                        </Stack>
+                                                    </Grid>
                                                 </Grid>
-                                            </Grid>
-                                        }
+                                            </Box>
+                                        :
+                                        null
+                                    }
 
-                                        {selectedFile2 ? <img src={URL.createObjectURL(selectedFile2)} alt="Preview" style={{ width: "200px", height: "200px" }} />
-                                            :
-                                            location.state.images[2] && <img src={`https://staging-gearone-be.mtechub.com/${location.state.images[2]}`} alt="Preview" style={{ width: "200px", height: "200px" }} />
-                                        }
-                                    </Box>
+                                    {selectedFile2 ?
+                                        <Box sx={{ pt: 2, width: "200px", height: "200px", p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
+                                            <img src={URL.createObjectURL(selectedFile2)} alt="Preview" style={{ width: "200px", height: "200px" }} />
+
+                                        </Box>
+                                        :
+                                        location.state.images[2] &&
+                                        <Box sx={{ pt: 2, width: "200px", height: "200px", p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
+                                            <img src={`${url}${location.state.images[2]}`} alt="Preview" style={{ width: "200px", height: "200px" }} />
+                                        </Box>
+                                    }
 
                                     {
                                         hidecrossicon2 ?
@@ -544,7 +665,7 @@ const Team = () => {
                                                 <Close sx={{
                                                     padding: 0.2, backgroundColor: "#FF6700", borderRadius: "50px",
                                                     color: "white", ml: 22, mt: -24
-                                                }} onClick={() => clearpreviewimage(2)} />
+                                                }} onClick={(e) => clearpreviewimage(e, 2)} />
                                             </Box>
                                             :
                                             location.state.images[2] ?
@@ -552,43 +673,57 @@ const Team = () => {
                                                     <Close sx={{
                                                         padding: 0.2, backgroundColor: "#FF6700", borderRadius: "50px",
                                                         color: "white", ml: 22, mt: -24
-                                                    }} onClick={() => clearpreviewimage(2)} />
+                                                    }} onClick={(e) => clearpreviewimage(e, 2)} />
                                                 </Box>
                                                 : null
                                     }
                                 </Grid>
 
                                 <Grid pt={2} pb={2}>
-                                    <Box sx={{ pt: 2, width: "200px", height: "200px", p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
-                                        {hidelabel3 ?
+                                    {hidelabel && hidelabel1 && hidelabel2 ?
+                                        hidelabel3 ?
                                             null
                                             :
-                                            <Grid container spacing={0} pt={5}>
-                                                <Grid xs={12} align="">
-                                                    <Stack align="">
-                                                        <label htmlFor="fileInput" style={{ display: "flex", justifyContent: "center", alignContent: "center", color: "#808080" }}>
-                                                            <Stack direction="column" spacing={1} >
-                                                                <Upload sx={{ fontSize: "50px", color: "#808080", ml: 1.8, pb: 1 }} />
-                                                                <span style={{ paddingBottom: "2vh", font: "normal normal normal 16px/26px Arial" }}>Upload Image</span>
-                                                            </Stack>
-                                                        </label>
-                                                        <input
-                                                            style={{ display: "none" }}
-                                                            id="fileInput"
-                                                            type="file"
-                                                            onChange={(e) => { handleImageChange(e, 3) }}
-                                                            accept="image/*"
-                                                        />
-                                                    </Stack>
+                                            <Box sx={{ pt: 2, width: "200px", height: "200px", p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
+                                                <Grid container spacing={0} pt={5}>
+                                                    <Grid xs={12} align="">
+                                                        <Stack align="">
+                                                            <label htmlFor="fileInput" style={{ display: "flex", justifyContent: "center", alignContent: "center", color: "#808080" }}>
+                                                                <Stack direction="column" spacing={1} >
+                                                                    <Upload sx={{ fontSize: "50px", color: "#808080", ml: 1.8, pb: 1 }} />
+                                                                    <span style={{ paddingBottom: "2vh", font: "normal normal normal 16px/26px Arial" }}>Upload Image</span>
+                                                                </Stack>
+                                                            </label>
+                                                            <input
+                                                                style={{ display: "none" }}
+                                                                id="fileInput"
+                                                                type="file"
+                                                                onChange={(e) => { handleImageChange(e, 3) }}
+                                                                accept="image/*"
+                                                            />
+                                                        </Stack>
+                                                    </Grid>
                                                 </Grid>
-                                            </Grid>
-                                        }
+                                            </Box>
 
-                                        {selectedFile3 ? <img src={URL.createObjectURL(selectedFile3)} alt="Preview" style={{ width: "200px", height: "200px" }} />
-                                            :
-                                            location.state.images[3] && <img src={`https://staging-gearone-be.mtechub.com/${location.state.images[3]}`} alt="Preview" style={{ width: "200px", height: "200px" }} />
-                                        }
-                                    </Box>
+                                        :
+                                        null
+                                    }
+
+                                    {selectedFile3 ?
+                                        <Box sx={{ pt: 2, width: "200px", height: "200px", p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
+
+                                            <img src={URL.createObjectURL(selectedFile3)} alt="Preview" style={{ width: "200px", height: "200px" }} />
+                                        </Box>
+
+                                        :
+                                        location.state.images[3] &&
+                                        <Box sx={{ pt: 2, width: "200px", height: "200px", p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
+
+                                            <img src={`${url}${location.state.images[3]}`} alt="Preview" style={{ width: "200px", height: "200px" }} />
+                                        </Box>
+
+                                    }
 
                                     {
                                         hidecrossicon3 ?
@@ -596,7 +731,7 @@ const Team = () => {
                                                 <Close sx={{
                                                     padding: 0.2, backgroundColor: "#FF6700", borderRadius: "50px",
                                                     color: "white", ml: 22, mt: -24
-                                                }} onClick={() => clearpreviewimage(3)} />
+                                                }} onClick={(e) => clearpreviewimage(e, 3)} />
                                             </Box>
                                             :
                                             location.state.images[3] ?
@@ -604,43 +739,55 @@ const Team = () => {
                                                     <Close sx={{
                                                         padding: 0.2, backgroundColor: "#FF6700", borderRadius: "50px",
                                                         color: "white", ml: 22, mt: -24
-                                                    }} onClick={() => clearpreviewimage(3)} />
+                                                    }} onClick={(e) => clearpreviewimage(e, 3)} />
                                                 </Box>
                                                 : null
                                     }
                                 </Grid>
 
                                 <Grid pt={2} pb={2}>
-                                    <Box sx={{ pt: 2, width: "200px", height: "200px", p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
-                                        {hidelabel4 ?
+                                    {hidelabel && hidelabel1 && hidelabel2 && hidelabel3 ?
+                                        hidelabel4 ?
                                             null
                                             :
-                                            <Grid container spacing={0} pt={5}>
-                                                <Grid xs={12} align="">
-                                                    <Stack align="">
-                                                        <label htmlFor="fileInput" style={{ display: "flex", justifyContent: "center", alignContent: "center", color: "#808080" }}>
-                                                            <Stack direction="column" spacing={1} >
-                                                                <Upload sx={{ fontSize: "50px", color: "#808080", ml: 1.8, pb: 1 }} />
-                                                                <span style={{ paddingBottom: "2vh", font: "normal normal normal 16px/26px Arial" }}>Upload Image</span>
-                                                            </Stack>
-                                                        </label>
-                                                        <input
-                                                            style={{ display: "none" }}
-                                                            id="fileInput"
-                                                            type="file"
-                                                            onChange={(e) => { handleImageChange(e, 4) }}
-                                                            accept="image/*"
-                                                        />
-                                                    </Stack>
+                                            <Box sx={{ pt: 2, width: "200px", height: "200px", p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
+                                                <Grid container spacing={0} pt={5}>
+                                                    <Grid xs={12} align="">
+                                                        <Stack align="">
+                                                            <label htmlFor="fileInput" style={{ display: "flex", justifyContent: "center", alignContent: "center", color: "#808080" }}>
+                                                                <Stack direction="column" spacing={1} >
+                                                                    <Upload sx={{ fontSize: "50px", color: "#808080", ml: 1.8, pb: 1 }} />
+                                                                    <span style={{ paddingBottom: "2vh", font: "normal normal normal 16px/26px Arial" }}>Upload Image</span>
+                                                                </Stack>
+                                                            </label>
+                                                            <input
+                                                                style={{ display: "none" }}
+                                                                id="fileInput"
+                                                                type="file"
+                                                                onChange={(e) => { handleImageChange(e, 4) }}
+                                                                accept="image/*"
+                                                            />
+                                                        </Stack>
+                                                    </Grid>
                                                 </Grid>
-                                            </Grid>
-                                        }
+                                            </Box>
 
-                                        {selectedFile4 ? <img src={URL.createObjectURL(selectedFile4)} alt="Preview" style={{ width: "200px", height: "200px" }} />
-                                            :
-                                            location.state.images[4] && <img src={`https://staging-gearone-be.mtechub.com/${location.state.images[4]}`} alt="Preview" style={{ width: "200px", height: "200px" }} />
-                                        }
-                                    </Box>
+                                        : null
+                                    }
+
+                                    {selectedFile4 ?
+                                        <Box sx={{ pt: 2, width: "200px", height: "200px", p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
+
+                                            <img src={URL.createObjectURL(selectedFile4)} alt="Preview" style={{ width: "200px", height: "200px" }} />
+                                        </Box>
+
+                                        :
+                                        location.state.images[4] &&
+                                        <Box sx={{ pt: 2, width: "200px", height: "200px", p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
+                                            <img src={`${url}${location.state.images[4]}`} alt="Preview" style={{ width: "200px", height: "200px" }} />
+                                        </Box>
+
+                                    }
 
                                     {
                                         hidecrossicon4 ?
@@ -648,7 +795,7 @@ const Team = () => {
                                                 <Close sx={{
                                                     padding: 0.2, backgroundColor: "#FF6700", borderRadius: "50px",
                                                     color: "white", ml: 22, mt: -24
-                                                }} onClick={() => clearpreviewimage(4)} />
+                                                }} onClick={(e) => clearpreviewimage(e, 4)} />
                                             </Box>
                                             :
                                             location.state.images[4] ?
@@ -656,7 +803,7 @@ const Team = () => {
                                                     <Close sx={{
                                                         padding: 0.2, backgroundColor: "#FF6700", borderRadius: "50px",
                                                         color: "white", ml: 22, mt: -24
-                                                    }} onClick={() => clearpreviewimage(4)} />
+                                                    }} onClick={(e) => clearpreviewimage(e, 4)} />
                                                 </Box>
                                                 : null
                                     }
@@ -676,7 +823,7 @@ const Team = () => {
                                                 Name
                                             </Typography>
                                             <OutlinedInput
-                                                placeholder={location.state.name}
+                                                defaultValue={location.state.name}
                                                 onChange={(event) => {
                                                     setName(event.target.value);
                                                 }}
@@ -692,7 +839,7 @@ const Team = () => {
                                                 Price
                                             </Typography>
                                             <OutlinedInput
-                                                placeholder={location.state.price}
+                                                defaultValue={location.state.price}
                                                 onChange={(event) => {
                                                     setPrice(event.target.value);
                                                 }}
@@ -729,7 +876,7 @@ const Team = () => {
                                                     "& fieldset": { border: 'none' },
                                                 }}
                                             >
-                                                <MenuItem  value="" >
+                                                <MenuItem value="" >
                                                     <em>{location.state.catagory_name}</em>
                                                 </MenuItem>
 
@@ -764,7 +911,7 @@ const Team = () => {
                                                 Description
                                             </Typography>
                                             <OutlinedInput
-                                                placeholder={location.state.description}
+                                                defaultValue={location.state.description}
                                                 onChange={(event) => {
                                                     setDescription(event.target.value);
                                                 }}
@@ -792,7 +939,7 @@ const Team = () => {
                                                 location
                                             </Typography>
                                             <OutlinedInput
-                                                placeholder={location.state.location}
+                                                defaultValue={location.state.location}
                                                 onChange={(event) => {
                                                     setLocation(event.target.value);
                                                 }}
@@ -1177,7 +1324,7 @@ export default Team
 {/* {
     hidecrossicon ?
         <Box sx={{ display: "flex", justifyContent: "center", alignContent: "center" }}>
-            <Close sx={{ padding: 0.2, backgroundColor: "#FF6700", borderRadius: "50px", color: "white", ml: 38, mt: -22 }} onClick={() => clearpreviewimage()} />
+            <Close sx={{ padding: 0.2, backgroundColor: "#FF6700", borderRadius: "50px", color: "white", ml: 38, mt: -22 }} onClick={(e) => clearpreviewimage(e,)} />
         </Box>
         :
         null

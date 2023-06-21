@@ -6,6 +6,8 @@ import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from '@mui/material/Link';
 import HomeIcon from '@mui/icons-material/Home';
 import Swal from 'sweetalert2'
+import ImageList from '@mui/material/ImageList';
+import ImageListItem from '@mui/material/ImageListItem';
 import moment from 'moment'
 import PropTypes from 'prop-types';
 import Countdown from "react-countdown";
@@ -150,7 +152,6 @@ const Team = () => {
     let [loading, setLoading] = useState(true);
     let [color, setColor] = useState("#ffffff");
     const [viewData, setViewData] = useState([]);
-    const [viewImage, setViewImage] = useState([]);
     const [Timer, setTimer] = useState('');
     const [StartDate, setStartDate] = useState('');
 
@@ -191,6 +192,7 @@ const Team = () => {
             </GridToolbarContainer>
         );
     }
+    const [viewImage, setViewImage] = useState([]);
 
     const [openmodal, setOpenmodal] = useState(false);
     const handleOpenmodal = () => setOpenmodal(true);
@@ -214,7 +216,7 @@ const Team = () => {
     };
     const [idData, setIdData] = useState([]);
     const [ActionData, setActionData] = React.useState({});
-  
+
     const [showtable, setShowtable] = useState(true);
 
 
@@ -319,7 +321,7 @@ const Team = () => {
 
                         <div>
                             <IconButton onClick={() => {
-                                setViewData(row.row); setViewImage(row.row.images[0]); console.log(row.row);
+                                setViewData(row.row); setViewImage(row.row.images); console.log(row.row);
                                 var myDate = new Date(row.row.end_date);
                                 var result = myDate.getTime();
                                 console.log(result);
@@ -335,7 +337,7 @@ const Team = () => {
                             }} >
                                 <Tooltip title="view" >
                                     <Visibility sx={{ color: "#3FC0FF" }} onClick={() => {
-                                        setViewData(row.row); setViewImage(row.row.images[0]); console.log(row.row);
+                                        setViewData(row.row); setViewImage(row.row.images); console.log(row.row);
                                         var myDate = new Date(row.row.end_date);
                                         var result = myDate.getTime();
                                         console.log(result);
@@ -601,7 +603,7 @@ const Team = () => {
                                         <Card width="100%" sx={{ padding: 0, boxShadow: "none", borderRadius: "10px", border: "1px solid #D8D8D8" }}>
                                             <CardContent>
                                                 <Grid container spacing={0} >
-                                                    <Grid sx={{ width: '100px', height: '50px' }} xs={6} align="left" onClick={() => { setViewImage(item.images[0]); setViewData(item); handleOpenmodal(); }}>
+                                                    <Grid sx={{ width: '100px', height: '50px' }} xs={6} align="left" onClick={() => { setViewImage(item.images); setViewData(item); handleOpenmodal(); }}>
                                                         <Typography variant="h5" pb={1} fontWeight={750} fontSize="16px" color="#FF6700">
                                                             {item.name}
                                                         </Typography>
@@ -673,15 +675,15 @@ const Team = () => {
                                                                             name: idData.name,
                                                                             price: idData.price,
                                                                             category_id: idData.category_id,
-                    
+
                                                                             description: idData.description,
                                                                             locations: idData.location,
                                                                             promoted: idData.promoted,
                                                                             start_date: idData.start_date,
                                                                             end_date: idData.end_date,
                                                                             added_by: idData.added_by,
-                    
-                                                                                            }
+
+                                                                        }
                                                                     })
 
                                                                 }
@@ -704,25 +706,25 @@ const Team = () => {
 
                                                     </Grid>
 
-                                                    <Grid xs={6} sx={{ pb: 1 }} align="left" onClick={handleOpenmodal}>
+                                                    <Grid xs={6} sx={{ pb: 1 }} align="left" onClick={() => { setViewImage(item.images); setViewData(item); handleOpenmodal(); }}>
                                                         <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
                                                             Price :
                                                         </Typography>
                                                     </Grid>
 
-                                                    <Grid sx={{ pb: 1, width: '100px', height: '50px' }} xs={6} align="right" onClick={handleOpenmodal}>
+                                                    <Grid sx={{ pb: 1, width: '100px', height: '50px' }} xs={6} align="right" onClick={() => { setViewImage(item.images); setViewData(item); handleOpenmodal(); }}>
                                                         <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#808080">
                                                             {item.price}
                                                         </Typography>
                                                     </Grid>
 
-                                                    <Grid xs={6} sx={{ pb: 1 }} align="left" onClick={handleOpenmodal}>
+                                                    <Grid xs={6} sx={{ pb: 1 }} align="left" onClick={() => { setViewImage(item.images); setViewData(item); handleOpenmodal(); }}>
                                                         <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
                                                             Location :
                                                         </Typography>
                                                     </Grid>
 
-                                                    <Grid sx={{ pb: 1, width: '100px', height: '50px' }} xs={6} align="right" onClick={handleOpenmodal}>
+                                                    <Grid sx={{ pb: 1, width: '100px', height: '50px' }} xs={6} align="right" onClick={() => { setViewImage(item.images); setViewData(item); handleOpenmodal(); }}>
                                                         <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#808080">
                                                             {item.location}
                                                         </Typography>
@@ -756,24 +758,52 @@ const Team = () => {
                             </Box>
                         </Box>
 
-                        {viewImage !== null ?
-                            viewImage !== undefined ?
-                                <Grid xs={12} align="center" pt={3}>
-                                    <img src={`https://staging-gearone-be.mtechub.com/${viewImage}`} style={{ bgcolor: "#FF6700", width: '175px', height: '175px' }}>
-                                        {/* <img src={`https://staging-gearone-be.mtechub.com/${viewImage}`} style={{ bgcolor: "#FF6700", width: '175px', height: '175px' }}> */}
-                                    </img>
-                                </Grid>
+                        {
+                            viewImage.length > 0 ?
+                                <ImageList align="center" sx={{ ml: '20px', mr: "20px", width: 'auto', height: "200px" }} cols={5} rowHeight={"200px"}>
+                                    {/* { Files.length(item) => ( */}
+                                    <>
+                                        {/* <img key={item} src={URL.createObjectURL(item[0])} alt="Preview" style={{ width: "300px", height: "200px" }} /> */}
+                                        {viewImage.length > 0 &&
+                                            <ImageListItem key={viewImage.name}>
+                                                <img src={`${url}${viewImage[0]}`} style={{ bgcolor: "#FF6700", width: '175px', height: '175px' }}>
+                                                </img>
+                                            </ImageListItem>
+                                        }
+                                        {viewImage.length > 1 &&
+                                            <ImageListItem key={viewImage.name}>
+                                                <img src={`${url}${viewImage[1]}`} style={{ bgcolor: "#FF6700", width: '175px', height: '175px' }}>
+                                                </img>
+                                            </ImageListItem>
+                                        }
+                                        {viewImage.length > 2 &&
+                                            <ImageListItem key={viewImage.name}>
+                                                <img src={`${url}${viewImage[2]}`} style={{ bgcolor: "#FF6700", width: '175px', height: '175px' }}>
+                                                </img>
+                                            </ImageListItem>
+
+                                        }
+                                        {viewImage.length > 3 &&
+                                            <ImageListItem key={viewImage.name}>
+                                                <img src={`${url}${viewImage[3]}`} style={{ bgcolor: "#FF6700", width: '175px', height: '175px' }}>
+                                                </img>
+                                            </ImageListItem>
+                                        }
+                                        {viewImage.length > 4 &&
+                                            <ImageListItem key={viewImage.name}>
+                                                <img src={`${url}${viewImage[4]}`} style={{ bgcolor: "#FF6700", width: '175px', height: '175px' }}>
+                                                </img>
+                                            </ImageListItem>
+                                        }
+
+
+                                    </>
+                                </ImageList>
                                 :
                                 <Grid xs={12} align="center" pt={3}>
                                     <Avatar sx={{ bgcolor: "#FF6700", width: 75, height: 75 }}>
                                     </Avatar>
                                 </Grid>
-
-                            :
-                            <Grid xs={12} align="center" pt={3}>
-                                <Avatar sx={{ width: 75, height: 75 }}>
-                                </Avatar>
-                            </Grid>
                         }
 
                         <Grid container spacing={0} p={2}>
@@ -883,7 +913,9 @@ const Team = () => {
                             </Grid>
 
                             <Grid xs={6} align="right" p={0.5}>
-                                <Typography variant="h5" fontWeight={600} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#808080">
+                                <Typography variant="h5"
+                                    fontWeight={600} fontSize="14px" sx={{ overflowX: 'scroll', height: '100px' }}
+                                    color="#808080">
                                     {viewData.description}
                                 </Typography>
                             </Grid>

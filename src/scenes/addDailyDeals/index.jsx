@@ -128,6 +128,14 @@ const Team = () => {
                     } else {
                         navigate("/subscription")
                     }
+                    navigate("/subscription")
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success!',
+                        confirmButtonColor: "#FF6700",
+                        text: 'Daily Deal Added Successfully!',
+                    })
+
                 } else if (response.message == "Please Enter description") {
                     setIsloading(false);
                     Swal.fire({
