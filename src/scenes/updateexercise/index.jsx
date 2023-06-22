@@ -77,6 +77,12 @@ const Team = () => {
             .then(async response => {
                 console.log(response);
                 if (response.message == `Ad Updated Successfully!`) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success!',
+                        confirmButtonColor: "#FF6700",
+                        text: 'Banner Updated Successfully!',
+                      })                    
                     if (selectedFile !== null && selectedFile !== undefined) {
                         var Data = {
                             "id": response.result[0].id,
@@ -311,6 +317,7 @@ const Team = () => {
                                                 setLink(event.target.value);
                                             }}
                                             id="input-with-icon-adornment"
+                                            defaultValue={location.state.link}
                                             placeholder={location.state.link}
                                             sx={{
                                                 borderRadius: "50px",

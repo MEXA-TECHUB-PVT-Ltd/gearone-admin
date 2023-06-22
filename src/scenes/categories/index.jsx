@@ -280,6 +280,7 @@ const Team = () => {
             .then(async response => {
                 console.log(response);
                 if (response.message == `Category Added Successfully!`) {
+                    getAllCatagory();
                     if (selectedFile !== null && selectedFile !== undefined) {
                         var Data = {
                             "id": response.result[0].id,
@@ -321,6 +322,12 @@ const Team = () => {
                         setIsloading(false)
                         navigate("/categories")
                     }
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success!',
+                        confirmButtonColor: "#FF6700",
+                        text: 'Category Added Successfully!',
+                      })                        
 
                 } else if (response.message == `Please Enter Category name`) {
                     setOpenaddmodal(false);
@@ -431,6 +438,12 @@ const Team = () => {
 
                     // setLogos(response.count);
                     getAllCatagory();
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success!',
+                        confirmButtonColor: "#FF6700",
+                        text: 'Category Updated Successfully!',
+                      })                    
                     // setIsloading(false);
                     // setOpeneditmodal(false);
                     //   console.log(response.result);
@@ -476,11 +489,18 @@ const Team = () => {
             .then(response => {
                 console.log(response);
                 if (response.message == `Categories Deleted Successfully!`) {
+
                     // setLogos(response.count);
                     getAllCatagory();
                     setOpendelmodal(false);
                     //   console.log(response.result);
                     //   setCatagory(response.result);
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success!',
+                        confirmButtonColor: "#FF6700",
+                        text: 'Category Deleted Successfully!',
+                      })                    
                 } else {
                     Swal.fire({
                         icon: 'error',

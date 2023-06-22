@@ -175,7 +175,7 @@ const Sidebar = () => {
               selected={selected}
               setSelected={setSelected}
             />
-            <Item
+            {/* <Item
               title="Terms And Conditions"
               to="/Terms"
               icon={<GavelIcon />}
@@ -188,7 +188,7 @@ const Sidebar = () => {
               icon={<PrivacyTip />}
               selected={selected}
               setSelected={setSelected}
-            />
+            /> */}
             <Item
               title="Change Password"
               to="/updatepassword"

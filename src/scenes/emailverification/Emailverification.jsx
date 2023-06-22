@@ -425,7 +425,7 @@ function Emailverification() {
                                     <Divider sx={{ height: "0.2vh", mt: 3, mb: 3, backgroundColor: "white", width: "15vh" }} />
 
                                     <Typography variant="body1" fontWeight="normal" fontSize="14px" color="white">
-                                        Lorem ipsum dolor sit amet, conset
+                                        Provide Email Address to send OTP for Password Change
                                     </Typography>
                                 </Box>
                             </Grid>

@@ -992,8 +992,10 @@ const Team = () => {
                             </Grid>
 
                             <Grid xs={6} align="right" p={0.5}>
-                                <Typography variant="h5" fontWeight={600} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#808080">
-                                    {viewData.description}
+                <Typography variant="h5" 
+                 fontWeight={600} fontSize="14px" sx={{overflowX:'scroll', height:'100px'}}
+                  color="#808080">
+                  {viewData.description}
                                 </Typography>
                             </Grid>
 

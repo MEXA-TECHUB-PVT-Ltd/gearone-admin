@@ -162,20 +162,20 @@ const Team = () => {
                                         </span>
                                         <br />
                                         <span style={{ fontWeight: "medium" }}>
-                                            1. Personal identifying information like your name, address, email, phone
+                                            &nbsp;&nbsp;  1. Personal identifying information like your name, address, email, phone
                                             number, age, gender, and other personal data
                                         </span>
                                         <br />
                                         <span style={{ fontWeight: "medium" }}>
 
-                                            2. Server data related to the IP address you used to visit our
+                                            &nbsp;&nbsp;   2. Server data related to the IP address you used to visit our
                                             [website/mobile app], which includes your address, browser,
                                             OS, access time, and site activity.
                                         </span>
                                         <br />
                                         <span style={{ fontWeight: "medium" }}>
 
-                                            3. Financial information
+                                            &nbsp;&nbsp;3. Financial information
                                             related to your orders including your payment method and identifying
                                             payment information. We rarely store financial information collected
                                             on our site for transaction purposes. That information gets sent
@@ -184,13 +184,13 @@ const Team = () => {
                                         </span>
                                         <br />
                                         <span style={{ fontWeight: "medium" }}>
-                                            4. Social network data including Facebook permissions
+                                            &nbsp;&nbsp;4. Social network data including Facebook permissions
                                             and user information from other networks, provided you
                                             log onto our site using one of these media sites.
                                         </span>
                                         <br />
                                         <span style={{ fontWeight: "medium" }}>
-                                            5. Mobile device information such as your device ID,
+                                            &nbsp;&nbsp;5. Mobile device information such as your device ID,
                                             model, and location, if you use our site by accessing it
                                             through our mobile app.
                                         </span>
@@ -202,12 +202,43 @@ const Team = () => {
                                             How We Use This Information Our [website/mobile app] uses information collected to:                                        </span>
                                         <br />
                                         <span style={{ fontWeight: "medium" }}>
-                                        Manage your account information • Customize ads • Deliver promotions • Email your account confirmation • Manage purchases and payments • Increase site efficiency • Notify you of updates • Offer new products • Monitor and prevent theft • Request your customer feedback • Resolve account disputes • Respond to your service requests • [Other functions] Information Disclosure Normally, your information stays on our site. However, below we have listed the situations that may require us to share the information we collect from you: • When required by law, such as for fraud protection • With our third-party providers for payment processing and hosting • With your consent for marketing purposes • When you post comments on the site • To our advertisers, affiliates, and partners
-                                         • If this site goes bankrupt and data must be transferred 
-                                         
+                                            &nbsp;&nbsp;Manage your account information
+
+                                            • Customize ads , Deliver promotions
+                                        </span>
                                         <br />
                                         <span style={{ fontWeight: "medium" }}>
-                                        •  Cookies, Trackers, and Online Ads We may use cookies, trackers, web beacons, and other technology to customize our [website/mobile app] to improve your experience. We may customize the site using this information. These trackers do not have access to your personal information and can be removed from your browser options. In addition, third-party software provides ads for our site for marketing campaigns. These programs have access to tracking technology to optimize your ad experience. For more information about these ads, visit [link to the privacy policies of affiliate advertisers]. Website analytics such as through [list vendors and link to their policies] may also be used to track users and remarket our [website/mobile application]. We do not give these vendors access to your personal information. Other Sites Our website may contain links to third-party websites in the form of policies, ads, and other nonaffiliated links. Once you leave our site, we are no longer responsible for how your information is collected and disclosed. Please refer to the privacy policies of those third-party sites for more information                                        </span>
+
+                                            • Email your account confirmation
+                                            Manage purchases and payments , Increase site efficiency
+                                        </span>
+                                        <br />
+                                        <span style={{ fontWeight: "medium" }}>
+                                            • Notify you of updates , Offer new products , Monitor and prevent theft ,  Request your customer feedback, Resolve account disputes
+                                        </span>
+                                        <br />
+                                        <span style={{ fontWeight: "medium" }}>
+                                            • Respond to your service requests , Information Disclosure Normally, your information stays on our site. However, below we have listed the situations that may require us to share the information we collect from you:
+                                        </span>
+                                        <br />
+                                        <span style={{ fontWeight: "medium" }}>
+                                            • When required by law, such as for fraud protection,  With our third-party providers for payment processing and hosting
+                                        </span>
+                                        <br />
+                                        <span style={{ fontWeight: "medium" }}>
+                                            • With your consent for marketing purposes
+                                        </span>
+                                        <br />
+                                        <span style={{ fontWeight: "medium" }}>
+                                            • If this site goes bankrupt and data must be transferred
+                                        </span>
+                                        <br />
+                                        <span style={{ fontWeight: "medium" }}>
+                                            • When you post comments on the site • To our advertisers, affiliates, and partners
+
+                                            <br />
+                                            <span style={{ fontWeight: "medium" }}>
+                                                &nbsp;&nbsp;•  Cookies, Trackers, and Online Ads We may use cookies, trackers, web beacons, and other technology to customize our [website/mobile app] to improve your experience. We may customize the site using this information. These trackers do not have access to your personal information and can be removed from your browser options. In addition, third-party software provides ads for our site for marketing campaigns. These programs have access to tracking technology to optimize your ad experience. For more information about these ads, visit [link to the privacy policies of affiliate advertisers]. Website analytics such as through [list vendors and link to their policies] may also be used to track users and remarket our [website/mobile application]. We do not give these vendors access to your personal information. Other Sites Our website may contain links to third-party websites in the form of policies, ads, and other nonaffiliated links. Once you leave our site, we are no longer responsible for how your information is collected and disclosed. Please refer to the privacy policies of those third-party sites for more information                                        </span>
                                         </span>
 
 

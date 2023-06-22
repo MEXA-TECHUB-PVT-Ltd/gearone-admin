@@ -231,7 +231,7 @@ function Setnewpassword() {
             <Grid container spacig={0}>
                 <Grid xs={12} md={6} lg={6} xl={6} align="">
                     <Container>
-                        <Box sx={{ pt: { xs: 0, sm: 0, md: 0, lg: 7, xl: 25 } }} p={{ lg: 10, xl: 15 }}>
+                        <Box sx={{ pt: { xs: 0, sm: 0, md: 0, lg: 7, xl: 7 } }} p={{ lg: 10, xl: 15 }}>
                             <img src={image} sx={{ width: 100, height: 100 }} />
                             <Stack pt={5}>
                                 <Typography variant="paragraph" fontSize="20px" sx={{ letterSpacing: "1px", font: "normal normal bold 32px/32px Roboto" }} fontWeight="bold" color="#404040">
@@ -356,7 +356,7 @@ function Setnewpassword() {
                                     <Divider sx={{ height: "0.2vh", mt: 3, mb: 3, backgroundColor: "white", width: "15vh" }} />
 
                                     <Typography variant="body1" fontWeight="normal" fontSize="14px" color="white">
-                                        Lorem ipsum dolor sit amet, conset
+                                    Enter New Password for your Account!
                                     </Typography>
                                 </Box>
                             </Grid>

@@ -5,6 +5,8 @@ import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from '@mui/material/Link';
 import HomeIcon from '@mui/icons-material/Home';
 import Swal from 'sweetalert2'
+import ImageList from '@mui/material/ImageList';
+import ImageListItem from '@mui/material/ImageListItem';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
@@ -213,7 +215,12 @@ const Team = () => {
       .then(response => {
         console.log(response);
         if (response.message == `Item Deleted Successfully!`) {
-          // setLogos(response.count);
+          Swal.fire({
+            icon: 'success',
+            title: 'Success!',
+            confirmButtonColor: "#FF6700",
+            text: 'Merchandise Deleted Successfully!',
+          })
           getAllLogos();
           setOpendelmodal(false);
           //   console.log(response.result);
@@ -269,35 +276,38 @@ const Team = () => {
         return (
           <>
             <div>
-              <IconButton  onClick={() => {
-                    setViewData(row.row); setViewImage(row.row.images[0]); console.log(row.row);
-                    handleOpenmodal()
-                  }} >
+              <IconButton onClick={() => {
+                setViewData(row.row);
+
+                setViewImage(row.row.images)
+                  ; console.log(row.row);
+                handleOpenmodal()
+              }} >
                 <Tooltip title="view" >
                   <Visibility sx={{ color: "#3FC0FF" }} onClick={() => {
-                    setViewData(row.row); setViewImage(row.row.images[0]); console.log(row.row);
+                    setViewData(row.row); setViewImage(row.row.images); console.log(row.row);
                     handleOpenmodal()
                   }} />
                 </Tooltip>
               </IconButton>
 
-              <IconButton  onClick={() => {
-                    console.log(row.row);
-                    navigate('/EditMerchandise', {
-                      state: {
-                        id: row.row.id,
-                        images: row.row.images,
-                        name: row.row.name,
-                        row: row.row,
-                        category_id: row.row.category_id,
-                        catagory_name: row.row.catagory_name,
-                        price: row.row.price,
-                        description: row.row.description,
-                        location: row.row.location
-                      },
-                    })
-                  }
-                  }>
+              <IconButton onClick={() => {
+                console.log(row.row);
+                navigate('/EditMerchandise', {
+                  state: {
+                    id: row.row.id,
+                    images: row.row.images,
+                    name: row.row.name,
+                    row: row.row,
+                    category_id: row.row.category_id,
+                    catagory_name: row.row.catagory_name,
+                    price: row.row.price,
+                    description: row.row.description,
+                    location: row.row.location
+                  },
+                })
+              }
+              }>
                 <Tooltip title="edit" >
                   <Edit sx={{ color: "#40E0D0" }} onClick={() => {
                     console.log(row.row);
@@ -321,9 +331,9 @@ const Team = () => {
               </IconButton>
 
               <IconButton onClick={() => {
-                    setDeleteID(row.row.id);
-                    handleOpendelmodal();
-                  }}>
+                setDeleteID(row.row.id);
+                handleOpendelmodal();
+              }}>
                 <Tooltip title="Delete">
                   <Delete sx={{ color: "#E10006" }} onClick={() => {
                     setDeleteID(row.row.id);
@@ -414,7 +424,7 @@ const Team = () => {
 
           <Grid item xs={1.5} align="center">
             <div>
-              <Box sx={{ width:'90px', borderRadius: "5px", border: "1px solid #D8D8D8" }}>
+              <Box sx={{ width: '90px', borderRadius: "5px", border: "1px solid #D8D8D8" }}>
                 <Box >
                   <div style={{ padding: "5px", paddingBottom: "0px", display: "flex", justifyContent: "center", alignContent: "center", gap: "3px" }}>
                     {
@@ -498,8 +508,8 @@ const Team = () => {
                   <Grid sx={{ mb: '20px' }} xs={12} md={3} lg={3} align="center" p={1}>
                     <Card width="95%" sx={{ padding: 0, boxShadow: "none", borderRadius: "10px", border: "1px solid #D8D8D8" }}>
                       <CardContent>
-                        <Grid  container spacing={0} >
-                          <Grid sx={{ width: '100px', height: '50px' }} xs={6} align="left" onClick={() => { setViewData(item); handleOpenmodal(); }}>
+                        <Grid container spacing={0} >
+                          <Grid sx={{ width: '100px', height: '50px' }} xs={6} align="left" onClick={() => { setViewImage(item.images); setViewData(item); handleOpenmodal(); }}>
                             <Typography variant="h5" pb={1} fontWeight={750} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#FF6700">
                               {item.name}
                             </Typography>
@@ -574,7 +584,7 @@ const Team = () => {
                                       price: idData.price,
                                       description: idData.description,
                                       location: idData.location
-              
+
                                     }
                                   })
 
@@ -598,25 +608,25 @@ const Team = () => {
 
                           </Grid>
 
-                          <Grid xs={6} sx={{ pb: 1, width: '100px', height: '50px' }} align="left" onClick={handleOpenmodal}>
+                          <Grid xs={6} sx={{ pb: 1, width: '100px', height: '50px' }} align="left" onClick={() => { setViewImage(item.images); setViewData(item); handleOpenmodal(); }}>
                             <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
                               Price :
                             </Typography>
                           </Grid>
 
-                          <Grid xs={6} sx={{ pb: 1, width: '100px', height: '50px' }} align="right" onClick={handleOpenmodal}>
+                          <Grid xs={6} sx={{ pb: 1, width: '100px', height: '50px' }} align="right" onClick={() => { setViewImage(item.images); setViewData(item); handleOpenmodal(); }}>
                             <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#808080">
                               {item.price}
                             </Typography>
                           </Grid>
 
-                          <Grid xs={6} sx={{ pb: 1 }} align="left" onClick={handleOpenmodal}>
+                          <Grid xs={6} sx={{ pb: 1 }} align="left" onClick={() => { setViewImage(item.images); setViewData(item); handleOpenmodal(); }}>
                             <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
                               category :
                             </Typography>
                           </Grid>
 
-                          <Grid xs={6} sx={{ pb: 1, width: '100px', height: '50px' }} align="right" onClick={handleOpenmodal}>
+                          <Grid xs={6} sx={{ pb: 1, width: '100px', height: '50px' }} align="right" onClick={() => { setViewImage(item.images); setViewData(item); handleOpenmodal(); }}>
                             <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#808080">
                               {item.catagory_name}
                             </Typography>
@@ -650,18 +660,59 @@ const Team = () => {
               </Box>
             </Box>
 
-            {viewImage !== 'undefined' ?
-              <Grid xs={12} align="center" pt={3}>
-                <img src={`https://staging-gearone-be.mtechub.com/${viewImage}`} style={{ bgcolor: "#FF6700", width: '175px', height: '175px' }}>
-                </img>
-              </Grid>
-              :
-              <Grid xs={12} align="center" pt={3}>
-                <Avatar sx={{ bgcolor: "#FF6700", width: 75, height: 75 }}>
-                  <Typography variant="paragraph" sx={{ textTransform: "uppercase", fontSize: "18px", fontWeight: 600 }} p={1} color="white">
-                  </Typography>
-                </Avatar>
-              </Grid>
+            {
+              // viewImage[0] !== 'undefined' ?
+              //   <Grid xs={12} align="center" pt={3}>
+              //     <img src={`${url}${viewImage[0]}`} style={{ bgcolor: "#FF6700", width: '175px', height: '175px' }}>
+              //     </img>
+              //   </Grid>
+              viewImage.length > 0 ?
+                <ImageList align="center" sx={{ ml: '20px', mr: "20px", width: 'auto', height: "200px" }} cols={5} rowHeight={"200px"}>
+                  {/* { Files.length(item) => ( */}
+                  <>
+                    {/* <img key={item} src={URL.createObjectURL(item[0])} alt="Preview" style={{ width: "300px", height: "200px" }} /> */}
+                    {viewImage.length > 0 &&
+                      <ImageListItem key={viewImage.name}>
+                        <img src={`${url}${viewImage[0]}`} style={{ bgcolor: "#FF6700", width: '175px', height: '175px' }}>
+                        </img>
+                      </ImageListItem>
+                    }
+                    {viewImage.length > 1 &&
+                      <ImageListItem key={viewImage.name}>
+                        <img src={`${url}${viewImage[1]}`} style={{ bgcolor: "#FF6700", width: '175px', height: '175px' }}>
+                        </img>
+                      </ImageListItem>
+                    }
+                    {viewImage.length > 2 &&
+                      <ImageListItem key={viewImage.name}>
+                        <img src={`${url}${viewImage[2]}`} style={{ bgcolor: "#FF6700", width: '175px', height: '175px' }}>
+                        </img>
+                      </ImageListItem>
+
+                    }
+                    {viewImage.length > 3 &&
+                      <ImageListItem key={viewImage.name}>
+                        <img src={`${url}${viewImage[3]}`} style={{ bgcolor: "#FF6700", width: '175px', height: '175px' }}>
+                        </img>
+                      </ImageListItem>
+                    }
+                    {viewImage.length > 4 &&
+                      <ImageListItem key={viewImage.name}>
+                        <img src={`${url}${viewImage[4]}`} style={{ bgcolor: "#FF6700", width: '175px', height: '175px' }}>
+                        </img>
+                      </ImageListItem>
+                    }
+
+
+                  </>
+                </ImageList>
+                :
+                <Grid xs={12} align="center" pt={3}>
+                  <Avatar sx={{ bgcolor: "#FF6700", width: 75, height: 75 }}>
+                    <Typography variant="paragraph" sx={{ textTransform: "uppercase", fontSize: "18px", fontWeight: 600 }} p={1} color="white">
+                    </Typography>
+                  </Avatar>
+                </Grid>
             }
 
 
@@ -709,8 +760,11 @@ const Team = () => {
                 </Typography>
               </Grid>
 
+
               <Grid xs={6} align="right" p={0.5}>
-                <Typography variant="h5" fontWeight={600} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#808080">
+                <Typography variant="h5"
+                  fontWeight={600} fontSize="14px" sx={{width:'250px', overflowX: 'scroll', height: '100px' }}
+                  color="#808080">
                   {viewData.description}
                 </Typography>
               </Grid>

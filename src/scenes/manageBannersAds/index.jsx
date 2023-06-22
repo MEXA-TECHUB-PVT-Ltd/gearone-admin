@@ -278,6 +278,12 @@ const Team = () => {
       .then(response => {
         console.log(response);
         if (response.message == `Ad's Deleted Successfully!`) {
+          Swal.fire({
+            icon: 'success',
+            title: 'Success!',
+            confirmButtonColor: "#FF6700",
+            text: 'Banner Deleted Successfully!',
+          })                    
           // setLogos(response.count);
           getAllLogos();
           setOpendelmodal(false);
@@ -657,26 +663,26 @@ const Team = () => {
 
                           </Grid>
 
-                          <Grid xs={6} sx={{ pb: 1 }} align="left" onClick={handleOpenmodal}>
+                          <Grid xs={6} sx={{ pb: 1 }} align="left" onClick={() => { setViewData(item); handleOpenmodal(); }}>
                             <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
                               Status :
                             </Typography>
                           </Grid>
 
-                          <Grid xs={6} sx={{ pb: 1 }} align="left" onClick={handleOpenmodal}>
+                          <Grid xs={6} sx={{ pb: 1 }} align="left" onClick={() => { setViewData(item); handleOpenmodal(); }}>
                             <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#808080">
                               {item.active_status}
                             </Typography>
                           </Grid>
 
 
-                          <Grid xs={6} sx={{ pb: 1 }} align="left" onClick={handleOpenmodal}>
+                          <Grid xs={6} sx={{ pb: 1 }} align="left" onClick={() => { setViewData(item); handleOpenmodal(); }}>
                             <Typography variant="h5" fontWeight={600} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
                               Link :
                             </Typography>
                           </Grid>
 
-                          <Grid sx={{ pb: 1, width: '100px', height: '50px' }} xs={6} align="left" onClick={handleOpenmodal}>
+                          <Grid sx={{ pb: 1, width: '100px', height: '50px' }} xs={6} align="left" onClick={() => { setViewData(item); handleOpenmodal(); }}>
                             <Link style={{ width: '30px', height: '10px' }} variant="h6" fontWeight={300} fontSize="12px" color='#007FFF'>
                               {item.link}
                             </Link>

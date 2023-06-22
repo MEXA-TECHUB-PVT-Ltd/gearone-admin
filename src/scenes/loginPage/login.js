@@ -194,6 +194,7 @@ function Login() {
         }
         )
         .catch(error => {
+          setIsloading(false);
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
