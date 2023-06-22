@@ -609,7 +609,7 @@ const Team = () => {
                           </Grid>
 
                           <Grid xs={6} sx={{ pb: 1, width: '100px', height: '50px' }} align="left" onClick={() => { setViewImage(item.images); setViewData(item); handleOpenmodal(); }}>
-                            <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
+                            <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{  }} color="#1F1F1F">
                               Price :
                             </Typography>
                           </Grid>
@@ -621,7 +621,7 @@ const Team = () => {
                           </Grid>
 
                           <Grid xs={6} sx={{ pb: 1 }} align="left" onClick={() => { setViewImage(item.images); setViewData(item); handleOpenmodal(); }}>
-                            <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
+                            <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px"  color="#1F1F1F">
                               category :
                             </Typography>
                           </Grid>
@@ -763,7 +763,7 @@ const Team = () => {
 
               <Grid xs={6} align="right" p={0.5}>
                 <Typography variant="h5"
-                  fontWeight={600} fontSize="14px" sx={{width:'250px', overflowX: 'scroll', height: '100px' }}
+                  fontWeight={600} fontSize="14px" sx={{ overflowX: 'scroll', height: '100px' }}
                   color="#808080">
                   {viewData.description}
                 </Typography>

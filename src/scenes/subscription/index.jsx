@@ -237,7 +237,7 @@ const Team = () => {
             title: 'Success!',
             confirmButtonColor: "#FF6700",
             text: 'Daily Deal Deleted Successfully!',
-        })
+          })
           //   console.log(response.result);
           //   setCatagory(response.result);
         } else {
@@ -315,7 +315,7 @@ const Team = () => {
             title: 'Success!',
             confirmButtonColor: "#FF6700",
             text: 'Daily Deal Status Updated Successfully!',
-        })
+          })
 
           handleClosedelmodalStatus();
           getAllLogos();
@@ -513,26 +513,6 @@ const Team = () => {
           </Grid>
 
           <Grid item xs={3} align="center">
-            {/* <Stack direction="row" spacing={0}>
-              <div>
-                <Box sx={{ width: "100%", border: "1px solid lightgray", borderRadius: "50px" }}>
-                  <Stack p={0.5}>
-                    <Grid container spacing={0} >
-                      <Grid xs={2} md={2} lg={2} sx={{ pl: 1 }}>
-                        <Search sx={{ color: "lightgray" }} />
-                      </Grid>
-
-                      <Grid xs={10} md={10} lg={10} sx={{ pr: 1 }}>
-                        <Typography variant="paragraph" fontWeight={500} fontSize="13px" color="lightgray">
-                          Search Here
-                        </Typography>
-                      </Grid>
-                    </Grid>
-                  </Stack>
-                </Box>
-              </div>
-
-            </Stack> */}
           </Grid>
 
           <Grid item xs={1.5} align="center">
@@ -567,28 +547,34 @@ const Team = () => {
           </Grid>
 
           <Grid item xs={1.5} align="center">
-            <div style={{ display: "flex", justifyContent: "right", alignContent: "right", gap: "30px" }}>
-              <div>
-                <button onClick={() => navigate("/addDailyDeals")} style={{ marginTop: "2%", padding: "10px", display: "flex", justifyContent: "center", alignContent: "center", alignSelf: "center", border: "none", borderRadius: "50px", backgroundColor: "#FF6700", color: "white" }}>
-                  <Stack direction="row" sx={{ display: "flex", justifyContent: "right", alignContent: "right", gap: "3px" }}>
-                    <div>
-                      <Stack sx={{ paddingLeft: "20px" }}>
-                        <Add sx={{ fontWeight: 600, width: "24dpi" }} />
-                      </Stack>
-                    </div>
+            <div>
+              <button onClick={() => navigate("/addDailyDeals")}
+                style={{
+                  marginTop: "2%", padding: "10px", display: "flex", justifyContent: "center",
+                  alignContent: "center", alignSelf: "center", border: "none", borderRadius: "50px",
+                  backgroundColor: "#FF6700", color: "white"
+                }}>
+                <Stack direction="row" sx={{ display: "flex", justifyContent: "right", alignContent: "right", gap: "3px" }}>
+                  <div>
+                    <Stack sx={{ paddingLeft: "20px" }}>
+                      <Add sx={{ fontWeight: 600, width: "24dpi" }} />
+                    </Stack>
+                  </div>
 
-                    <div>
-                      <Stack sx={{ marginLeft: "2vh", paddingTop: "0.5vh", paddingRight: "25px", fontWeight: "bold" }}>Add</Stack>
-                    </div>
-                  </Stack>
+                  <div>
+                    <Stack sx={{ marginLeft: "2vh", paddingTop: "0.5vh", paddingRight: "25px", fontWeight: "bold" }}>Add</Stack>
+                  </div>
+                </Stack>
 
-                </button>
-              </div>
+              </button>
             </div>
           </Grid>
         </Grid>
 
         <Divider sx={{ pb: 2 }} />
+
+
+
 
         <Grid container spacing={0} pt={2} >
           {
@@ -619,7 +605,7 @@ const Team = () => {
               <>
                 {Logos.map((item, index) => (
                   <Grid xs={12} md={3} lg={3} align="center" p={1}>
-                    <Card width="95%" sx={{ padding: 0, boxShadow: "none", borderRadius: "10px", border: "1px solid #D8D8D8" }}>
+                    <Card width="100%" sx={{ padding: 0, boxShadow: "none", borderRadius: "10px", border: "1px solid #D8D8D8" }}>
                       <CardContent>
                         <Grid container spacing={0} >
                           <Grid xs={6} align="left" onClick={() => { setViewData(item); handleOpenmodal(); }}>
@@ -735,8 +721,13 @@ const Team = () => {
                             </Typography>
                           </Grid>
 
-                          <Grid xs={6} sx={{ pb: 1, width: '100px', height: '50px' }} align="right" onClick={() => { setViewData(item); handleOpenmodal(); }}>
-                            <Typography variant="h6" fontWeight={600} pb={1} fontSize="12px" sx={{ letterSpacing: "2px" }} color="#808080">
+                          <Grid xs={6} sx={{ overflowX:'scroll', pb: 1, width: '150px', height: '80px' }}
+                            align="right" onClick={() => {
+                              setViewData(item);
+                              handleOpenmodal();
+                            }}>
+                            <Typography variant="h6" fontWeight={600} pb={1}
+                              fontSize="12px" color="#808080">
                               {item.description}
                             </Typography>
                           </Grid>
@@ -864,8 +855,8 @@ const Team = () => {
               </Grid>
 
               <Grid xs={6} align="left" p={0.5}>
-                <Typography variant="h5" 
-                 fontWeight={600} fontSize="14px" sx={{overflowX:'scroll', height:'100px'}}
+                <Typography variant="h5"
+                  fontWeight={600} fontSize="14px" sx={{ overflowX: 'scroll', height: '100px' }}
                   color="#808080">
                   {viewData.description}
 
@@ -914,12 +905,12 @@ const Team = () => {
               </Grid>
 
               <Grid xs={6} align="right">
-              {DeleteData.status === 'active' ?
-                <Button variant="contained" style={btn} onClick={() => { changeStatus() }}>Inactive</Button>
-              :
-              <Button variant="contained" style={btn} onClick={() => { changeStatus() }}>Active</Button>
-              }
-                </Grid>
+                {DeleteData.status === 'active' ?
+                  <Button variant="contained" style={btn} onClick={() => { changeStatus() }}>Inactive</Button>
+                  :
+                  <Button variant="contained" style={btn} onClick={() => { changeStatus() }}>Active</Button>
+                }
+              </Grid>
             </Grid>
 
           </Box>
