@@ -123,7 +123,7 @@ const Topbar = () => {
 
   const handleLogout = () => {
     window.localStorage.clear();
-    window.History.replace('/')
+    // window.History.replace('/')
     navigate('/');
 
     // window.location.reload();

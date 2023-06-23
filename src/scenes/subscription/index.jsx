@@ -17,6 +17,8 @@ import { Subscriptions, Notifications, Settings, Person, Add, List, Apps, MoreVe
 import React, { useState, useEffect } from "react";
 import ClipLoader from "react-spinners/ClipLoader";
 import { Checkbox } from '@mui/material';
+import 'react-perfect-scrollbar/dist/css/styles.css';
+import PerfectScrollbar from 'react-perfect-scrollbar'
 import {
   DataGrid,
   GridToolbarContainer,
@@ -858,7 +860,9 @@ const Team = () => {
                 <Typography variant="h5"
                   fontWeight={600} fontSize="14px" sx={{ overflowX: 'scroll', height: '100px' }}
                   color="#808080">
+                    <PerfectScrollbar>
                   {viewData.description}
+                  </PerfectScrollbar>
 
                 </Typography>
               </Grid>
