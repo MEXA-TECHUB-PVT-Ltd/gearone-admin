@@ -45,7 +45,7 @@ const Team = () => {
         setAnchorEl(null);
     }
     const [Name, setName] = useState('');
-    const [Price, setPrice] = useState('');
+    const [Price, setPrice] = useState(location.state.price);
     const [catagory_name, setCatagory_name] = useState('');
     const [Category_id, setCategory_id] = useState('');
     const [Description, setDescription] = useState('');
@@ -126,22 +126,20 @@ const Team = () => {
     function isNumber(n) { return /^-?[\d.]+(?:e-?\d+)?$/.test(n); }
 
     const handleAdd = async (e) => {
+        console.log("Data")
         e.preventDefault();
         setIsloading(true);
         const formData = new FormData();
         Object.values(files).forEach(file => {
             formData.append("images", file);
         });
-
-
+        console.log("Data1")
         var InsertAPIURL = `${url}merchandise/update_merchandise`
         var headers = {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
         };
-        if(Price === ''){
-            Price = location.state.price ; 
-        }
+        console.log("Data3")
         if (!isNumber(Price)) {
             setIsloading(false);
             Swal.fire({
@@ -159,6 +157,7 @@ const Team = () => {
                 "description": Description,
                 "location": Location
             };
+            console.log("Data4")
             console.log(Data)
             await fetch(InsertAPIURL, {
                 method: 'PUT',
@@ -171,14 +170,17 @@ const Team = () => {
                     console.log(selectedFile)
                     if (response.message == `Merchandise Updated Successfully!`) {
                         setIsloading(false);
+                        console.log("Data5")
                         Swal.fire({
                             icon: 'success',
                             title: 'Success!',
                             confirmButtonColor: "#FF6700",
                             text: 'Merchandise Updated Successfully!',
                         })
+                        setIsloading(false);
                         navigate("/users")
                     } else {
+                        console.log("Data6")
                         setIsloading(false);
                         Swal.fire({
                             icon: 'error',
@@ -907,34 +909,7 @@ const Team = () => {
                                             </Select> */}
 
                                             <br />
-                                            <Typography variant="paragraph" pl={1} pb={1} sx={{ font: "normal normal normal 17px/26px Roboto", fontSize: "12px", fontWeight: "medium" }} color="#1F1F1F">
-                                                Description
-                                            </Typography>
-                                            <OutlinedInput
-                                                defaultValue={location.state.description}
-                                                onChange={(event) => {
-                                                    setDescription(event.target.value);
-                                                }}
-                                                id="input-with-icon-adornment"
-                                                sx={{
-                                                    borderRadius: "50px",
-                                                    backgroundColor: "#F8F8F8",
-                                                    "& fieldset": { border: 'none' },
-                                                }}
-                                            />
-                                            <br />
 
-                                        </Stack>
-
-                                    </FormControl>
-
-                                </Grid>
-
-
-                                <Grid xs={12} md={6} lg={6} xl={6} p={1} align="" >
-
-                                    <FormControl sx={{ width: "90%" }} align="left">
-                                        <Stack direction="column" spacing={0} pt={2}>
                                             <Typography variant="paragraph" pl={1} pb={1} sx={{ font: "normal normal normal 17px/26px Roboto", fontSize: "12px", fontWeight: "medium" }} color="#1F1F1F">
                                                 location
                                             </Typography>
@@ -950,6 +925,40 @@ const Team = () => {
                                                     "& fieldset": { border: 'none' },
                                                 }}
                                             />
+
+
+                                            <br />
+
+                                        </Stack>
+
+                                    </FormControl>
+
+                                </Grid>
+
+
+                                <Grid xs={12} md={6} lg={6} xl={6} p={1} align="" >
+
+                                    <FormControl sx={{ width: "90%" }} align="left">
+
+                                        <Stack direction="column" spacing={0} pt={2}>
+                                            <Typography variant="paragraph" pl={1} pb={1} sx={{ font: "normal normal normal 17px/26px Roboto", fontSize: "12px", fontWeight: "medium" }} color="#1F1F1F">
+                                                Description
+                                            </Typography>
+                                            <OutlinedInput
+                                                multiline
+                                                maxRows={6}
+                                                defaultValue={location.state.description}
+                                                onChange={(event) => {
+                                                    setDescription(event.target.value);
+                                                }}
+                                                id="input-with-icon-adornment"
+                                                sx={{
+                                                    borderRadius: "50px",
+                                                    backgroundColor: "#F8F8F8",
+                                                    "& fieldset": { border: 'none' },
+                                                }}
+                                            />
+
                                             <br />
 
                                         </Stack>

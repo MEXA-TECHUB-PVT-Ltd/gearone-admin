@@ -46,7 +46,7 @@ const Sidebar = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      if (window.innerWidth < 620) {
+      if (window.innerWidth < 820) {
         // console.log(window.innerWidth)
         setIsCollapsed(true)
         setbtnHideSmall(false)

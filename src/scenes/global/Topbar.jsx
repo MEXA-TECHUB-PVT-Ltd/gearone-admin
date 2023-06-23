@@ -123,7 +123,9 @@ const Topbar = () => {
 
   const handleLogout = () => {
     window.localStorage.clear();
+    window.History.replace('/')
     navigate('/');
+
     // window.location.reload();
   }
 
@@ -140,7 +142,7 @@ const Topbar = () => {
                     <Grid item xs={7} lg={10} xl={10} align="right">
                       <div style={{ display: "flex", justifyContent: "right", alignContent: "right", gap: "8px" }}>
                         {/* <Search sx={{ color: "white" }} onClick={() => setHide(false)} /> */}
-                        <Settings sx={{ color: "white" }} onClick={() => navigate("/settings")} />
+                        {/* <Settings sx={{ color: "white" }} onClick={() => navigate("/settings")} /> */}
                         <Lock sx={{ color: "white" }} onClick={() => navigate("/updatepassword")} />
                         <Logout onClick={() => {handleLogout();}} sx={{ color: "white" }} />
                       </div>
