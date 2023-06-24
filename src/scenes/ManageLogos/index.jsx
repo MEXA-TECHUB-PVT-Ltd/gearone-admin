@@ -168,17 +168,6 @@ const Team = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
-  function CustomToolbar() {
-    return (
-      <GridToolbarContainer sx={{ marginBottom: "5px" }} >
-        <GridToolbarColumnsButton />
-        <GridToolbarFilterButton />
-        <GridToolbarDensitySelector />
-        <GridToolbarExport />
-
-      </GridToolbarContainer>
-    );
-  }
 
   const [openmodal, setOpenmodal] = useState(false);
   const handleOpenmodal = () => setOpenmodal(true);
@@ -661,61 +650,6 @@ const Team = () => {
                               </MenuItem>
                             </Menu>
 
-                            {/* <Menu
-                              id="basic-menu"
-                              anchorEl={anchorEl}
-                              open={open}
-                              onClose={handleClose}
-                              MenuListProps={{
-                                'aria-labelledby': 'basic-button',
-                              }}
-                              PaperProps={{
-
-                                sx: {
-                                  overflow: 'visible',
-                                  filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.22))',
-                                  mt: 1.5,
-                                  '& .MuiAvatar-root': {
-                                    width: 32,
-                                    height: 32,
-                                    ml: -0.5,
-                                    mr: 1,
-                                  },
-                                  '&:before': {
-                                    content: '""',
-                                    display: 'block',
-                                    position: 'absolute',
-                                    top: 0,
-                                    right: 23,
-                                    width: 10,
-                                    height: 10,
-                                    bgcolor: 'background.paper',
-                                    transform: 'translateY(-50%) rotate(45deg)',
-                                    zIndex: 0,
-                                  },
-                                },
-                              }}
-                              transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-                              anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-                            >
-                              <MenuItem onClick={() => navigate('/UpdateLogo', {
-                                state: {
-                                  id: item.id,
-                                  image: item.image,
-                                  link: item.link,
-                                  status: item.active_status,
-                                  screen: item.screen_name,
-                                  screen_id: item.screen_id
-
-                                }
-                              })
-                              }>
-                                <Edit sx={{ color: "gray" }} /><span style={{ marginLeft: 10 }}>Edit</span>
-                              </MenuItem>
-                              <MenuItem onClick={() => { setDeleteID(item.id); handleOpendelmodal() }}>
-                                <Delete sx={{ color: "gray" }} /><span style={{ marginLeft: 10 }}>Delete</span>
-                              </MenuItem>
-                            </Menu> */}
                           </Grid>
 
                           <Grid onClick={() => { setViewData(item); handleOpenmodal(); }} xs={6} sx={{ pb: 1 }} align="left" >
