@@ -181,7 +181,8 @@ function Login() {
           console.log(response);
           if (response.message == `Sent a verification email to ${email}`) {
             setIsloading(false);
-            verification();
+            // verification();
+            navigate("/dashboard");
           } else {
             setIsloading(false);
             Swal.fire({
