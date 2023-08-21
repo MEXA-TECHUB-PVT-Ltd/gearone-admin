@@ -572,12 +572,6 @@ const Team = () => {
                                   setAnchorEl(event.currentTarget)
                                 }}
                                 sx={{ color: "#1F1F1F" }} />
-                              {/* <MoreVert
-                                id="basic-button"
-                                aria-controls={open ? 'basic-menu' : undefined}
-                                aria-haspopup="true"
-                                aria-expanded={open ? 'true' : undefined}
-                                onClick={handleClick} sx={{ color: "#1F1F1F" }} /> */}
                             </div>
                             <Menu
                               id="basic-menu"
@@ -671,8 +665,10 @@ const Team = () => {
                             </Typography>
                           </Grid>
 
-                          <Grid sx={{ pb: 1, width: '100px', height: '50px' }} xs={6} align="left" onClick={() => { setViewData(item); handleOpenmodal(); }}>
-                            <Link style={{ width: '30px', height: '10px' }} variant="h6" fontWeight={300} fontSize="12px" color='#007FFF'>
+                          <Grid sx={{ pb: 1, width: '100px', height: '50px' }} xs={6} align="left"
+                            onClick={() => { setViewData(item); handleOpenmodal(); }}>
+                            <Link style={{ width: '30px', height: '10px' }} variant="h6"
+                              fontWeight={300} fontSize="12px" color='#007FFF'>
                               {item.link}
                             </Link>
                           </Grid>

@@ -1,12 +1,13 @@
 import { Box, Tooltip, Typography, useTheme, IconButton, TextField, Grid, Modal, Button, Stack, Card, CardContent, MenuItem, Menu, Paper, Divider, Avatar } from "@mui/material";
 import Chip from '@mui/material/Chip';
-
+import AutorenewIcon from '@mui/icons-material/Autorenew';
 import Header from "../../components/Header";
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from '@mui/material/Link';
 import HomeIcon from '@mui/icons-material/Home';
 import Swal from 'sweetalert2'
 import PropTypes from 'prop-types';
+import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import { useNavigate } from 'react-router-dom';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import url from "../url"
@@ -192,6 +193,7 @@ const Team = () => {
     setAnchorEl(null);
   };
   const handleClosedelmodal = () => setOpendelmodal(false);
+  const [idData, setIdData] = useState([]);
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -304,7 +306,6 @@ const Team = () => {
         return (
           <>
             {row.row.image !== null ?
-              // <img src={`https://staging-gearone-be.mtechub.com/${row.row.image}`} style={{ bgcolor: "#FF6700", width: '45px', height: '45px' }}>
               <Avatar src={`https://staging-gearone-be.mtechub.com/${row.row.image}`} style={{ bgcolor: "#FF6700", width: '45px', height: '45px' }}>
               </Avatar>
               :
@@ -322,6 +323,7 @@ const Team = () => {
 
     { field: 'country_code', headerName: <span style={{ color: "black", fontWeight: 600 }}>Code</span>, flex: 1 },
     { field: 'phone', headerName: <span style={{ color: "black", fontWeight: 600 }}>Phone</span>, flex: 1 },
+    { field: 'address', headerName: <span style={{ color: "black", fontWeight: 600 }}>Address</span>, flex: 1 },
     {
       field: `status`,
       headerName: <span style={{ color: "black", fontWeight: 600 }}>Status</span>,
@@ -422,7 +424,7 @@ const Team = () => {
           </Grid>
 
           <Grid item xs={3} align="center">
-            
+
           </Grid>
 
           <Grid item xs={3} align="right">
@@ -493,7 +495,7 @@ const Team = () => {
                   <Grid xs={12} md={3} lg={3} align="center" p={1}>
                     <Card width="95%" sx={{ padding: 0, boxShadow: "none", borderRadius: "10px", border: "1px solid #D8D8D8" }}>
                       <CardContent>
-                        <Grid onClick={() => { setViewData(item); handleOpenmodal(); }} container spacing={0} >
+                        <Grid container spacing={0} >
                           <Grid xs={6} align="left" onClick={() => { setViewData(item); handleOpenmodal(); }}>
                             <Typography variant="h5" pb={1} fontWeight={750} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#FF6700">
                               {item.screen_name}
@@ -502,15 +504,19 @@ const Team = () => {
 
                           <Grid xs={6} align="right">
                             <div>
-                              {/* <MoreVert
+                              <MoreVert
                                 id="basic-button"
                                 aria-controls={open ? 'basic-menu' : undefined}
                                 aria-haspopup="true"
                                 aria-expanded={open ? 'true' : undefined}
-                                onClick={handleClick} sx={{ color: "#1F1F1F" }} /> */}
+                                // onClick={handleClick} 
+                                onClick={(event) => {
+                                  setIdData(item)
+                                  setAnchorEl(event.currentTarget)
+                                }}
+                                sx={{ color: "#1F1F1F" }} />
                             </div>
-
-                            {/* <Menu
+                            <Menu
                               id="basic-menu"
                               anchorEl={anchorEl}
                               open={open}
@@ -521,8 +527,8 @@ const Team = () => {
                               PaperProps={{
 
                                 sx: {
-                                  overflow: 'visible',
-                                  filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.22))',
+                                  // overflow: 'visible',
+                                  // filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.22))',
                                   mt: 1.5,
                                   '& .MuiAvatar-root': {
                                     width: 32,
@@ -535,7 +541,7 @@ const Team = () => {
                                     display: 'block',
                                     position: 'absolute',
                                     top: 0,
-                                    right: 23,
+                                    right: 5,
                                     width: 10,
                                     height: 10,
                                     bgcolor: 'background.paper',
@@ -547,13 +553,48 @@ const Team = () => {
                               transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                               anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                             >
-                              <MenuItem onClick={() => navigate("/updatedietplan")}>
-                                <Edit sx={{ color: "gray" }} /><span style={{ marginLeft: 10 }}>Edit Diet Plan</span>
+                              <MenuItem
+                                onClick={() => {
+                                  setViewData(item)
+                                  handleOpenmodal();
+                                }
+                                }
+
+                              // onClick={() => updatefood(idData.food_id)}
+                              >
+                                <RemoveRedEyeIcon sx={{ color: "#40E0D0" }} /><span style={{ marginLeft: 10 }}>View</span>
                               </MenuItem>
-                              <MenuItem onClick={() => handleOpendelmodal()}>
-                                <Delete sx={{ color: "gray" }} /><span style={{ marginLeft: 10 }}>Delete Diet Plan</span>
-                              </MenuItem>
-                            </Menu> */}
+                              <Grid container spacing={0}>
+                                <Grid xs={12} align="center">
+                                  <Divider sx={{ width: "80%" }} />
+                                </Grid>
+                              </Grid>
+                              {idData.status === 'unblock' ?
+                                <MenuItem
+                                  onClick={() => { handleOpendelmodalStatus(idData); setDeleteData(idData); }}
+                                >
+                                  <AutorenewIcon sx={{ color: "#E10006" }} />
+                                  <span style={{ marginLeft: 10 }}>Change Status</span>
+                                </MenuItem>
+                                :
+                                idData.status === null ?
+                                  <MenuItem
+                                    onClick={() => { handleOpendelmodalStatus(idData); setDeleteData(idData); }}
+                                  >
+                                    <AutorenewIcon sx={{ color: "#E10006" }} />
+                                    <span style={{ marginLeft: 10 }}>Change Status</span>
+                                  </MenuItem>
+                                  :
+                                  <MenuItem
+                                    onClick={() => { handleOpendelmodalStatus(idData); setDeleteData(idData); }}
+                                  >
+                                    <AutorenewIcon sx={{ color: "#E10006" }} />
+                                    <span style={{ marginLeft: 10 }}>Change Status</span>
+                                  </MenuItem>
+
+                              }
+                            </Menu>
+
                           </Grid>
 
                           <Grid xs={6} sx={{ pb: 1 }} align="left" onClick={handleOpenmodal}>
@@ -583,7 +624,7 @@ const Team = () => {
 
                           <Grid xs={6} sx={{ pb: 1 }} align="left" onClick={handleOpenmodal}>
                             <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
-                              Phone
+                              Phone :
                             </Typography>
                           </Grid>
 
@@ -592,6 +633,32 @@ const Team = () => {
                               {`${item.country_code}:${item.phone}`}
                             </Typography>
                           </Grid>
+
+
+                          <Grid xs={6} sx={{ pb: 1 }} align="left" onClick={handleOpenmodal}>
+                            <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
+                              Address :
+                            </Typography>
+                          </Grid>
+
+                          <Grid xs={6} sx={{ pb: 1 }} align="left" onClick={handleOpenmodal}>
+                            <Typography variant="h5" fontWeight={600} pb={1} fontSize="12px" sx={{}} color="#808080">
+                              {item.address}
+                            </Typography>
+                          </Grid>
+                          <Grid xs={6} sx={{ pb: 1 }} align="left" onClick={handleOpenmodal}>
+                            <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
+                              Status :
+                            </Typography>
+                          </Grid>
+
+                          <Grid xs={6} sx={{ pb: 1 }} align="left" onClick={handleOpenmodal}>
+                            <Typography variant="h5" fontWeight={600} pb={1} fontSize="12px" sx={{}} color="#808080">
+                              {`${item.status}`}
+                            </Typography>
+                          </Grid>
+
+
 
                         </Grid>
                       </CardContent>
@@ -667,6 +734,32 @@ const Team = () => {
                 </Typography>
               </Grid>
 
+              <Grid xs={6} align="" p={0.5}>
+                <Typography variant="h5" fontWeight={700} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
+                  Address :
+                </Typography>
+                {/* <Button variant="contained" style={btn} onClick={() => { navigate("/setnewpassword") }}>Reset Password</Button> */}
+              </Grid>
+
+              <Grid xs={6} align="right" p={0.5}>
+                <a href={viewData.link} sx={{ cursor: 'pointer' }} variant="h6" fontWeight={300} pb={1} fontSize="12px" color='#007FFF'>
+                  {viewData.address}
+                </a>
+              </Grid>
+
+
+              <Grid xs={6} align="" p={0.5}>
+                <Typography variant="h5" fontWeight={700} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
+                  Status :
+                </Typography>
+                {/* <Button variant="contained" style={btn} onClick={() => { navigate("/setnewpassword") }}>Reset Password</Button> */}
+              </Grid>
+
+              <Grid xs={6} align="right" p={0.5}>
+                <a href={viewData.link} sx={{ cursor: 'pointer' }} variant="h6" fontWeight={300} pb={1} fontSize="12px" color='#007FFF'>
+                  {viewData.status}
+                </a>
+              </Grid>
             </Grid>
           </Box>
         </Modal>

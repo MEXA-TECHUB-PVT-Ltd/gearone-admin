@@ -893,12 +893,6 @@ const Dashboard = () => {
                       <MenuItem key={data.id} value={data.year}>{`${data.year}`}</MenuItem>
                     ))}
                   </Select>
-
-                  {/* <LineChart
-                    width={400}
-                    height={400}
-                    data={data}
-                  /> */}
                   {/* <Chart /> */}
                   <LineChart
                     width={600}
