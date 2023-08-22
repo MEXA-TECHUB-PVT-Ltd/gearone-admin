@@ -10,7 +10,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import url from "../url"
 import img from '../../components/Images/hairstyleimage.jpg'
 import { tokens } from "../../theme";
-import {  Settings, Person, Add, List, Apps, MoreVert, People, Lock, Search } from '@mui/icons-material';
+import { Settings, Person, Add, List, Apps, MoreVert, People, Lock, Search } from '@mui/icons-material';
 import React, { useState, useEffect } from "react";
 import {
   DataGrid,
@@ -165,9 +165,18 @@ const Team = () => {
       .then(response => {
         console.log(response);
         if (response.message == `User Updated Successfully!`) {
-          // setLogos(response.count);
+          handleClose();
+
+
           handleClosedelmodalStatus();
           getAllLogos();
+          Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            confirmButtonColor: "#FF6700",
+            text: 'Status change successfully'
+          })
+
           // setOpendelmodal(false);
           //   console.log(response.result);
           //   setCatagory(response.result);
