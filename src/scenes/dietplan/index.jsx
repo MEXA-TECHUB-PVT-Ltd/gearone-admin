@@ -2,7 +2,8 @@ import { Box, Tooltip, Typography, useTheme, IconButton, TextField, Grid, Modal,
 import Chip from '@mui/material/Chip';
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import PerfectScrollbar from 'react-perfect-scrollbar'
-
+import ReactPlayer from 'react-player'
+import VideoPlayer from 'react-video-js-player';
 import Header from "../../components/Header";
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from '@mui/material/Link';
@@ -630,7 +631,7 @@ const Team = () => {
 
 
                                                     <Grid xs={6} align="right">
-                                                        <div>
+                                                        {/* <div>
                                                             <MoreVert
                                                                 id="basic-button"
                                                                 aria-controls={open ? 'basic-menu' : undefined}
@@ -641,8 +642,8 @@ const Team = () => {
                                                                     setIdData(item)
                                                                     setAnchorEl(event.currentTarget)
                                                                 }}
-                                                                 />
-                                                        </div>
+                                                            />
+                                                        </div> */}
                                                         <Menu
                                                             id="basic-menu"
                                                             anchorEl={anchorEl}
@@ -970,12 +971,27 @@ const Team = () => {
                                     color="#808080">
                                     <PerfectScrollbar  >
                                         {viewData.description}
-                                        </PerfectScrollbar  >
-                                        </Typography>
-                                    </Grid>
-
-
+                                    </PerfectScrollbar  >
+                                </Typography>
                             </Grid>
+
+                            <Grid xs={12} align="center" pt={0}>
+                                {viewData.video_link !== null ?
+                            //       <VideoPlayer
+                            //       src={`http://localhost:3006/${viewData.video_link}`}
+                            //       width="720"
+                            //       height="420"
+                            //   />
+                                    <iframe src={`${url}${viewData.video_link}`}
+                                     style={{maxHeight:'200px', maxWidth:'400px', bgcolor: "#FF6700", width: '400px', height: '200px' }}>
+                                    </iframe>
+                                    :
+                                    <div>No video here</div>
+                                }
+                            </Grid>
+
+
+                        </Grid>
                     </Box>
                 </Modal>
 

@@ -616,6 +616,7 @@ const Team = () => {
                                                                 style={{ display: "none" }}
                                                                 id="fileInput"
                                                                 type="file"
+                                                                multiple
                                                                 onChange={(e) => { handleImageChange(e, 0) }}
                                                                 accept="image/*"
                                                             />
