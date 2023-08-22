@@ -145,7 +145,7 @@ const Team = () => {
             setIsloading(false);
             Swal.fire({
                 icon: 'warning',
-                title: 'Oops',
+                title: 'warning',
                 confirmButtonColor: "#FF6700",
                 text: 'Price must be a number'
             })
@@ -153,7 +153,7 @@ const Team = () => {
             setIsloading(false);
             Swal.fire({
                 icon: 'warning',
-                title: 'Oops',
+                title: 'warning',
                 confirmButtonColor: "#FF6700",
                 text: 'Please Select a Category'
             })
@@ -162,7 +162,7 @@ const Team = () => {
             setIsloading(false);
             Swal.fire({
                 icon: 'warning',
-                title: 'Oops',
+                title: 'warning',
                 confirmButtonColor: "#FF6700",
                 text: 'Please Enter Name'
             })
@@ -171,7 +171,7 @@ const Team = () => {
             setIsloading(false);
             Swal.fire({
                 icon: 'warning',
-                title: 'Oops',
+                title: 'warning',
                 confirmButtonColor: "#FF6700",
                 text: 'Please Enter Description'
             })
@@ -186,7 +186,7 @@ const Team = () => {
             })
         } else {
             var Data = {
-                "adminID": localStorage.getItem('adminID'),
+                "adminID": 1,
                 "name": Name,
                 "price": Price,
                 "category_id": Category_id,
@@ -201,7 +201,8 @@ const Team = () => {
             })
                 .then(response => response.json())
                 .then(async response => {
-                    if (response.message == `Merchandise added Successfully!`) {
+                    console.log(response)
+                    if (response.status == true) {
                         if (selectedFile !== null && selectedFile !== undefined) {
                             formData.append("images", selectedFile)
                             if (selectedFile1 !== null && selectedFile1 !== undefined) {
