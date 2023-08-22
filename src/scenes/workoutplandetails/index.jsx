@@ -63,34 +63,7 @@ const Team = () => {
                         </Breadcrumbs>
                     </Grid>
 
-                    {/* <Grid item xs={6} align="right">
-                        <div style={{ display: "flex", justifyContent: "right", alignContent: "right", gap: "30px" }}>
-
-
-                            <Stack pt={2} direction="row" sx={{ display: "flex", justifyContent: "right", alignContent: "right", gap: "30px" }}>
-                                <Subscriptions sx={{ color: "#808080" }} />
-                                <Notifications sx={{ color: "#808080" }} />
-                                <Settings sx={{ color: "#808080" }} />
-                            </Stack>
-
-                            <div>
-                                <Button
-                                //   id="basic-button"
-                                //   aria-controls={open ? 'basic-menu' : undefined}
-                                //   aria-haspopup="true"
-                                //   aria-expanded={open ? 'true' : undefined}
-                                //   onClick={handleClick}
-                                >
-                                    <Stack direction="column">
-                                        <Avatar sx={{ bgcolor: "#FF6700", width: 40, height: 40 }} variant="round">
-                                            <Person fontSize="large" sx={{ color: "white" }} />
-                                        </Avatar>
-                                    </Stack>
-                                </Button>
-                            </div>
-                        </div>
-
-                    </Grid> */}
+               
                 </Grid>
 
                 <Divider sx={{ pb: 2 }} />

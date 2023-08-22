@@ -644,26 +644,7 @@ const Team = () => {
                     </Grid>
 
                     <Grid item xs={3} align="center">
-                        {/* <Stack direction="row" spacing={0}>
-              <div>
-                <Box sx={{ width: "100%", border: "1px solid lightgray", borderRadius: "50px" }}>
-                  <Stack p={0.5}>
-                    <Grid container spacing={0} >
-                      <Grid xs={2} md={2} lg={2} sx={{ pl: 1 }}>
-                        <Search sx={{ color: "lightgray" }} />
-                      </Grid>
-
-                      <Grid xs={10} md={10} lg={10} sx={{ pr: 1 }}>
-                        <Typography variant="paragraph" fontWeight={500} fontSize="13px" color="lightgray">
-                          Search Here
-                        </Typography>
-                      </Grid>
-                    </Grid>
-                  </Stack>
-                </Box>
-              </div>
-
-            </Stack> */}
+              
                     </Grid>
 
                     <Grid item xs={1.5} align="center">

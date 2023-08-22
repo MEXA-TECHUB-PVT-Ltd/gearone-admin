@@ -125,19 +125,8 @@ function Emailverification() {
                 .then(response => {
                     console.log(response);
                     if (response.message == `Sent a verification email to ${email}`) {
-                        // verification();
                         setHide(true);
                         setIsloading(false);
-                        // setTimeout(() => {
-                        //   localStorage.setItem("jwtoken", JSON.stringify(response.jwt_token));
-                        //   localStorage.setItem("adminemail", JSON.stringify(response.result.email));
-                        //   localStorage.setItem("adminname", JSON.stringify(response.result.user_name));
-                        //   localStorage.setItem("adminimageurl", JSON.stringify(response.result.img));
-                        //   localStorage.setItem("adminID", JSON.stringify(response.result.id));
-                        //   localStorage.setItem("password", JSON.stringify(password));
-                        //   navigate("/dashboard");
-                        //   setIsloading(false);
-                        // }, 3000)
                     } else {
                         setIsloading(false);
                         Swal.fire({
@@ -159,13 +148,7 @@ function Emailverification() {
                     })
                 });
         }
-        // setEmailmessage(true);
-        // setIsloading(true);
-        // setTimeout(() => {
-        //     setOpen(true);
-        //     setEmailmessage(false);
-        //     setIsloading(false);
-        // }, 3000) 
+       
     }
 
     const verifyotp = async () => {
@@ -178,20 +161,7 @@ function Emailverification() {
                 text: 'Enter OTP For Verification'
             })
             setOpen(false);
-            // setLoading(true);
-            // setTimeout(() => {
-            //     Swal.fire({
-            //         title: "Success",
-            //         text: "User Found , OTP Successfully Matched",
-            //         confirmButtonColor: "#FF6700",
-            //         icon: "success",
-            //         confirmButtonText: "OK",
-            //     });
-            //     setEnteredotp('');
-            //     navigate("/setnewpassword");
-            //     setOpen(false);
-            //     setLoading(false);
-            // }, 3000)
+       
         } else {
             var InsertAPIURL = `${url}auth/verifyOTP`
             var headers = {
@@ -214,16 +184,8 @@ function Emailverification() {
                         setIsloading(true);
                         setIsloading(false);
                         handleOpen();
-                        //   setTimeout(() => {
-                        // localStorage.setItem("jwtoken", JSON.stringify(response.token));
                         localStorage.setItem("verifiedEmail", email);
-                        // localStorage.setItem("adminname", 'admin');
-                        // localStorage.setItem("adminimageurl", 'admin');
-                        // localStorage.setItem("adminID", JSON.stringify(response.result[0].id));
-                        // localStorage.setItem("password", JSON.stringify(password));
-                        // navigate("/setnewpassword");
-                        // setIsloading(false);
-                        //   }, 3000)
+                      
                     } else {
                         Swal.fire({
                             icon: 'error',
@@ -245,48 +207,6 @@ function Emailverification() {
         }
 
     }
-
-
-    // const verifyotp = async () => {
-
-    //     if (enteredotp.length == 0) {
-    //         Swal.fire({
-    //             icon: 'warning',
-    //             title: 'warning',
-    //             confirmButtonColor: "#FF6700",
-    //             text: 'Enter OTP For Verification'
-    //         })
-    //         setOpen(false);
-    //     } else if (enteredotp == responseotp) {
-    //         setLoading(true);
-    //         setTimeout(() => {
-    //             Swal.fire({
-    //                 title: "Success",
-    //                 text: "User Found , OTP Successfully Matched",
-    //                 confirmButtonColor: "#FF6700",
-    //                 icon: "success",
-    //                 confirmButtonText: "OK",
-    //             });
-    //             setEnteredotp('');
-    //             navigate("/setnewpassword");
-    //             setOpen(false);
-    //             setLoading(false);
-    //         }, 3000)
-    //     } else {
-    //         setLoading(true);
-    //         setTimeout(() => {
-    //             Swal.fire({
-    //                 title: "Error",
-    //                 text: "OTP Not Matched",
-    //                 confirmButtonColor: "#FF6700",
-    //                 icon: "error",
-    //                 confirmButtonText: "OK",
-    //             });
-    //             setOpen(false);
-    //             setLoading(false);
-    //         }, 3000)
-    //     }
-    // }
 
     return (
         <>

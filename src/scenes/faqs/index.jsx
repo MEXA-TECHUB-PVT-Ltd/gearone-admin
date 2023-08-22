@@ -247,62 +247,7 @@ const Team = () => {
                                                 </Typography>
                                             </AccordionDetails>
                                         </Accordion>
-                                        {/* <Grid xs={12} align="right">
-                                            <div>
-                                                <MoreVert
-                                                    id="basic-button"
-                                                    aria-controls={open ? 'basic-menu' : undefined}
-                                                    aria-haspopup="true"
-                                                    aria-expanded={open ? 'true' : undefined}
-                                                    onClick={handleClick}
-                                                    sx={{ fontSize: "30px", pb: 1, color: "#1F1F1F" }} />
-                                            </div>
-
-                                            <Menu
-                                                id="basic-menu"
-                                                anchorEl={anchorEl}
-                                                open={open}
-                                                onClose={handleClose}
-                                                MenuListProps={{
-                                                    'aria-labelledby': 'basic-button',
-                                                }}
-                                                PaperProps={{
-
-                                                    sx: {
-                                                        overflow: 'visible',
-                                                        filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.22))',
-                                                        mt: 1.5,
-                                                        '& .MuiAvatar-root': {
-                                                            width: 32,
-                                                            height: 32,
-                                                            ml: -0.5,
-                                                            mr: 1,
-                                                        },
-                                                        '&:before': {
-                                                            content: '""',
-                                                            display: 'block',
-                                                            position: 'absolute',
-                                                            top: 0,
-                                                            right: 23,
-                                                            width: 10,
-                                                            height: 10,
-                                                            bgcolor: 'background.paper',
-                                                            transform: 'translateY(-50%) rotate(45deg)',
-                                                            zIndex: 0,
-                                                        },
-                                                    },
-                                                }}
-                                                transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-                                                anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-                                            >
-                                                <MenuItem onClick={() => handleOpenedit()}>
-                                                    <Edit sx={{ color: "gray" }} /><span style={{ marginLeft: 10 }}>Edit Category</span>
-                                                </MenuItem>
-                                                <MenuItem onClick={() => handleOpendel()} >
-                                                    <Delete sx={{ color: "gray" }} /><span style={{ marginLeft: 10 }}>Delete Category</span>
-                                                </MenuItem>
-                                            </Menu>
-                                        </Grid> */}
+                                     
 
                                     </Grid>
                                 </CardContent>

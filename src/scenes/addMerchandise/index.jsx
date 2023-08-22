@@ -403,50 +403,9 @@ const Team = () => {
         }
     }
 
-    // const DeleteImage = async (num) => {
-    //     setIsloading(true);
-    //         var Data = {
-    //             "id": location.state.id,
-    //             "location":num
-    //         };
-    //         console.log(Data);
-    //         await axios.put(url + "merchandise/edit_merchandise_image", Data, {
-    //             headers: {
-    //                 "Content-Type": "multipart/form-data"
-    //             }
-    //         }).then((response) => {
-    //             setIsloading(false);
-    //             console.log(response.data);
-    //             if (response.data.message == `merchandise Images Updated Successfully!`) {
-    //                 setIsloading(false);
-    //             } else {
-    //                 setIsloading(false);
-    //                 Swal.fire({
-    //                     icon: 'error',
-    //                     title: 'Oops2...',
-    //                     confirmButtonColor: "#FF6700",
-    //                     text: ''
-    //                 })
-    //             }
-    //         }
-    //         )
-    //             .catch(error => {
-    //                 setIsloading(false);
-    //                 Swal.fire({
-    //                     icon: 'error',
-    //                     title: 'Oops...',
-    //                     confirmButtonColor: "#FF6700",
-    //                     text: "Server Down!"
-    //                 })
-    //             });
-    // }
+  
 
     const getAllScreens = async () => {
-        // setHidelabel(true)
-        // setHidelabel1(true)
-        // setHidelabel2(true)
-        // setHidelabel3(true)
-        // setHidelabel4(true)
         var InsertAPIURL = `${url}category/GetAll_only_Categories`
         var headers = {
             'Accept': 'application/json',
