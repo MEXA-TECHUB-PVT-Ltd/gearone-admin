@@ -445,26 +445,7 @@ const Team = () => {
           </Grid>
 
           <Grid item xs={3} align="center">
-            {/* <Stack direction="row" spacing={0}>
-              <div>
-                <Box sx={{ width: "100%", border: "1px solid lightgray", borderRadius: "50px" }}>
-                  <Stack p={0.5}>
-                    <Grid container spacing={0} >
-                      <Grid xs={2} md={2} lg={2} sx={{ pl: 1 }}>
-                        <Search sx={{ color: "lightgray" }} />
-                      </Grid>
-
-                      <Grid xs={10} md={10} lg={10} sx={{ pr: 1 }}>
-                        <Typography variant="paragraph" fontWeight={500} fontSize="13px" color="lightgray">
-                          Search Here
-                        </Typography>
-                      </Grid>
-                    </Grid>
-                  </Stack>
-                </Box>
-              </div>
-
-            </Stack> */}
+            
           </Grid>
 
           <Grid item xs={1.5} align="center">
@@ -718,14 +699,16 @@ const Team = () => {
 
             <Grid container spacing={0} p={2}>
               <Grid xs={6} align="" p={0.5}>
-                <Typography variant="h5" fontWeight={700} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
+                <Typography variant="h5" fontWeight={700} 
+                fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
                   Link :
                 </Typography>
                 {/* <Button variant="contained" style={btn} onClick={() => { navigate("/setnewpassword") }}>Reset Password</Button> */}
               </Grid>
 
-              <Grid sx={{ overflow: 'hidden', width: '30px', height: '50px' }} xs={6} align="right">
-                <a href={viewData.link} sx={{ cursor: 'pointer' }} variant="h6" fontWeight={300} pb={1} fontSize="12px" color='#007FFF'>
+              <Grid sx={{ overflow: 'hidden', width: '32px', height: '50px' }} xs={6} align="center">
+                <a href={viewData.link} sx={{ cursor: 'pointer' }} variant="h6"
+                 fontWeight={300} pb={1} fontSize="11px" color='#007FFF'>
                   {viewData.link}
                 </a>
               </Grid>
@@ -736,8 +719,9 @@ const Team = () => {
                 </Typography>
               </Grid>
 
-              <Grid xs={6} align="right" p={0.5}>
-                <Typography variant="h5" fontWeight={600} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#808080">
+              <Grid xs={6} align="center" p={0.5}>
+                <Typography variant="h5" fontWeight={600} fontSize="16px" 
+                sx={{ letterSpacing: "2px" }} color="#808080">
                   {viewData.active_status}
                 </Typography>
               </Grid>

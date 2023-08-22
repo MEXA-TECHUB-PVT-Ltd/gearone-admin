@@ -570,51 +570,7 @@ const Team = () => {
                                                     onChange={onChange2} value={endTime} />
                                             }
 
-                                            {/* <OutlinedInput
-                                            onChange={(event) => {
-                                                setPrice(event.target.value);
-                                            }}
-                                            id="input-with-icon-adornment"
-                                            sx={{
-                                                borderRadius: "50px",
-                                                backgroundColor: "#F8F8F8",
-                                                "& fieldset": { border: 'none' },
-                                            }}
-                                        /> */}
-                                            {/* <Typography variant="paragraph" pl={1} pb={1} sx={{ font: "normal normal normal 17px/26px Roboto", fontSize: "12px", fontWeight: "medium" }} color="#1F1F1F">
-                                            Screen
-                                        </Typography>
-                                        <Select
-                                            sx={{
-                                                borderRadius: "50px",
-                                                backgroundColor: "#F8F8F8",
-                                                "& fieldset": { border: 'none' },
-                                            }}
-                                            labelId="demo-simple-select-label"
-                                            id="demo-simple-select"
-                                            placeholder={Screen}
-                                            label={Screen}
-                                            onChange={handleChangeScreen}
-                                        >
-                                            <MenuItem value="Image Aspects " disabled>
-                                                <em>select Screen</em>
-                                            </MenuItem>
-
-                                            {Screens.map((data) => (
-                                                <MenuItem key={data.id} value={data.id}>{`${data.name}`}</MenuItem>
-                                            ))}
-                                        </Select> */}
-
-                                            {/* <TextField
-                                            id="outlined-multiline-static"
-                                            multiline
-                                            rows={4}
-                                            sx={{
-                                                borderRadius: "20px",
-                                                backgroundColor: "#F8F8F8",
-                                                "& fieldset": { border: 'none' },
-                                            }}
-                                        /> */}
+                    
 
                                         </Stack>
 

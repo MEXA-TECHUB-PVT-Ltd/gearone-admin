@@ -375,81 +375,7 @@ const Team = () => {
                             </IconButton>
 
 
-                            {/* {row.row.added_by === 'admin' ?
-                                <>
-                                    <IconButton onClick={() => {
-                                        console.log(row.row);
-                                        navigate('/updatedietplan', {
-                                            state: {
-                                                id: row.row.id,
-                                                images: row.row.images,
-                                                name: row.row.name,
-                                                price: row.row.price,
-                                                category_id: row.row.category_id,
-
-                                                description: row.row.description,
-                                                locations: row.row.location,
-                                                promoted: row.row.promoted,
-                                                start_date: row.row.start_date,
-                                                end_date: row.row.end_date,
-                                                added_by: row.row.added_by,
-
-
-                                            }
-                                        })
-                                    }
-                                    }>
-                                        < Tooltip title="edit" >
-                                            <Edit sx={{ color: "#40E0D0" }} onClick={() => {
-                                                console.log(row.row);
-                                                navigate('/updatedietplan', {
-                                                    state: {
-                                                        id: row.row.id,
-                                                        images: row.row.images,
-                                                        name: row.row.name,
-                                                        price: row.row.price,
-                                                        category_id: row.row.category_id,
-
-                                                        description: row.row.description,
-                                                        locations: row.row.location,
-                                                        promoted: row.row.promoted,
-                                                        start_date: row.row.start_date,
-                                                        end_date: row.row.end_date,
-                                                        added_by: row.row.added_by,
-
-
-                                                    }
-                                                })
-                                            }
-                                            }
-                                            />
-                                        </Tooltip>
-                                    </IconButton>
-
-                                    <IconButton onClick={() => {
-                                        setDeleteID(row.row.id);
-                                        handleOpendelmodal();
-                                    }} >
-                                        <Tooltip title="Delete">
-                                            <Delete sx={{ color: "#E10006" }} onClick={() => {
-                                                setDeleteID(row.row.id);
-                                                handleOpendelmodal();
-                                            }} />
-                                        </Tooltip>
-                                    </IconButton>
-                                </>
-                                :
-                                <>
-                                    <IconButton disabled  >
-                                        <Edit disabled />
-                                    </IconButton>
-                                    <IconButton disabled >
-                                        <Delete disabled />
-                                    </IconButton>
-                                </>
-
-                            }
- */}
+                        
                         </div>
                     </>
 
@@ -514,26 +440,7 @@ const Team = () => {
                     </Grid>
 
                     <Grid item xs={3} align="center">
-                        {/* <Stack direction="row" spacing={0}>
-              <div>
-                <Box sx={{ width: "100%", border: "1px solid lightgray", borderRadius: "50px" }}>
-                  <Stack p={0.5}>
-                    <Grid container spacing={0} >
-                      <Grid xs={2} md={2} lg={2} sx={{ pl: 1 }}>
-                        <Search sx={{ color: "lightgray" }} />
-                      </Grid>
-
-                      <Grid xs={10} md={10} lg={10} sx={{ pr: 1 }}>
-                        <Typography variant="paragraph" fontWeight={500} fontSize="13px" color="lightgray">
-                          Search Here
-                        </Typography>
-                      </Grid>
-                    </Grid>
-                  </Stack>
-                </Box>
-              </div>
-
-            </Stack> */}
+                        
                     </Grid>
 
                     <Grid item xs={3} align="right">
@@ -567,26 +474,7 @@ const Team = () => {
                         </div>
                     </Grid>
 
-                    {/* <Grid item xs={1.5} align="center">
-                        <div style={{ display: "flex", justifyContent: "right", alignContent: "right", gap: "30px" }}>
-                            <div>
-                                <button onClick={() => navigate("/addfood")} style={{ marginTop: "2%", padding: "10px", display: "flex", justifyContent: "center", alignContent: "center", alignSelf: "center", border: "none", borderRadius: "50px", backgroundColor: "#FF6700", color: "white" }}>
-                                    <Stack direction="row" sx={{ display: "flex", justifyContent: "right", alignContent: "right", gap: "3px" }}>
-                                        <div>
-                                            <Stack sx={{ paddingLeft: "20px" }}>
-                                                <Add sx={{ fontWeight: 600, width: "24dpi" }} />
-                                            </Stack>
-                                        </div>
-
-                                        <div>
-                                            <Stack sx={{ marginLeft: "2vh", paddingTop: "0.5vh", paddingRight: "25px", fontWeight: "bold" }}>Add</Stack>
-                                        </div>
-                                    </Stack>
-
-                                </button>
-                            </div>
-                        </div>
-                    </Grid> */}
+                
                 </Grid>
 
                 <Divider sx={{ pb: 2 }} />

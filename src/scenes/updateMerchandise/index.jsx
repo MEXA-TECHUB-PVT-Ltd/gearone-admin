@@ -80,24 +80,7 @@ const Team = () => {
                         }).then((response) => {
 
 
-                            // var InsertAPIURL = `${url}logos/add_logos_image`
-                            // var headers = {
-                            //     // 'Accept': 'application/json',
-                            //     // 'Content-Type': 'application/json',
-                            //     "Content-Type": "multipart/form-data"
-
-                            // };
-                            // var Data = {
-                            //     "id": response.result[0].id,
-                            //     "image": selectedFile,
-                            // };
-                            // await fetch(InsertAPIURL, {
-                            //     method: 'PUT',
-                            //     headers: headers,
-                            //     body: JSON.stringify(Data),
-                            // })
-                            //     .then(response => response.json())
-                            //     .then(response => {
+                           
                             console.log(response.data);
                             if (response.data.message == `Logo Image added Successfully!`) {
                                 navigate("/ManageLogos")
@@ -310,17 +293,6 @@ const Team = () => {
                                             ))}
                                         </Select>
 
-                                        {/* <TextField
-                                            id="outlined-multiline-static"
-                                            multiline
-                                            rows={4}
-                                            sx={{
-                                                borderRadius: "20px",
-                                                backgroundColor: "#F8F8F8",
-                                                "& fieldset": { border: 'none' },
-                                            }}
-                                        /> */}
-
                                     </Stack>
 
                                 </FormControl>
@@ -371,9 +343,6 @@ const Team = () => {
 }
 
 export default Team
-
-
-// import { Box, Typography, Grid, Button, Stack, Divider, Avatar, Container, InputAdornment, OutlinedInput, FormControl, Select, MenuItem, InputLabel, Input, TextField, Breadcrumbs } from "@mui/material";
 // import { Subscriptions, Notifications, Settings, Person, Close, Upload, Email } from '@mui/icons-material';
 // import React, { useState } from 'react'
 // import { useNavigate } from "react-router-dom";
