@@ -1,5 +1,7 @@
 import { Box, Tooltip, Typography, useTheme, IconButton, TextField, Grid, Modal, Button, Stack, Card, CardContent, MenuItem, Menu, Paper, Divider, Avatar } from "@mui/material";
 import Chip from '@mui/material/Chip';
+import 'react-perfect-scrollbar/dist/css/styles.css';
+import PerfectScrollbar from 'react-perfect-scrollbar'
 
 import Header from "../../components/Header";
 import Breadcrumbs from '@mui/material/Breadcrumbs';
@@ -283,7 +285,7 @@ const Team = () => {
             title: 'Success!',
             confirmButtonColor: "#FF6700",
             text: 'Banner Deleted Successfully!',
-          })                    
+          })
           // setLogos(response.count);
           getAllLogos();
           setOpendelmodal(false);
@@ -324,7 +326,7 @@ const Team = () => {
             {row.row.active_status === 'active' ?
               < Chip onClick={() => { handleOpendelmodalStatus(row.row); setDeleteData(row.row); }} sx={{ cursor: 'pointer' }} label={row.row.active_status} color="success" variant="outlined" />
               :
-              <Chip onClick={() => { handleOpendelmodalStatus(row.row);  setDeleteData(row.row); }} sx={{ cursor: 'pointer' }} label={row.row.active_status} color="primary" variant="outlined" />
+              <Chip onClick={() => { handleOpendelmodalStatus(row.row); setDeleteData(row.row); }} sx={{ cursor: 'pointer' }} label={row.row.active_status} color="primary" variant="outlined" />
 
             }
           </>
@@ -566,7 +568,7 @@ const Team = () => {
                   <Grid xs={12} md={3} lg={3} align="center" p={1}>
                     <Card width="95%" sx={{ padding: 0, boxShadow: "none", borderRadius: "10px", border: "1px solid #D8D8D8" }}>
                       <CardContent>
-                        <Grid  container spacing={0} >
+                        <Grid container spacing={0} >
                           <Grid xs={6} align="left" onClick={() => { setViewData(item); handleOpenmodal(); }}>
                             <Typography variant="h5" pb={1} fontWeight={750} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#FF6700">
                               {item.screen_name}
@@ -639,7 +641,7 @@ const Team = () => {
                                       status: idData.active_status,
                                       screen: idData.screen_name,
                                       screen_id: idData.screen_id
-                  
+
                                     }
                                   })
 
@@ -682,10 +684,12 @@ const Team = () => {
                             </Typography>
                           </Grid>
 
-                          <Grid sx={{ pb: 1, width: '100px', height: '50px' }} xs={6} align="left" onClick={() => { setViewData(item); handleOpenmodal(); }}>
-                            <Link style={{ width: '30px', height: '10px' }} variant="h6" fontWeight={300} fontSize="12px" color='#007FFF'>
-                              {item.link}
-                            </Link>
+                          <Grid sx={{ pb: 1, width: '100px', height: '50px' }} xs={6} align="left">
+                            <PerfectScrollbar  >
+                              <a href={item.link} style={{ width: '30px', height: '10px' ,fontSize:'12px',color:'#007FFF' }} variant="h6" fontWeight={300}  >
+                                {item.link}
+                              </a>
+                            </PerfectScrollbar  >
                           </Grid>
                         </Grid>
                       </CardContent>
@@ -735,9 +739,12 @@ const Team = () => {
               </Grid>
 
               <Grid sx={{ overflow: 'hidden', pb: 1, width: '100px', height: '50px' }} xs={6} align="left" onClick={handleOpenmodal}>
-                <a href={viewData.link} sx={{ cursor: 'pointer' }} variant="h6" fontWeight={300} pb={1} fontSize="12px" color='#007FFF'>
-                  {viewData.link}
-                </a>
+                <PerfectScrollbar  >
+                  <a href={viewData.link} sx={{ cursor: 'pointer' }} variant="h6" fontWeight={300} pb={1} fontSize="12px" color='#007FFF'>
+                    {viewData.link}
+                  </a>
+                </PerfectScrollbar  >
+
               </Grid>
 
               <Grid xs={6} align="" p={0.5}>

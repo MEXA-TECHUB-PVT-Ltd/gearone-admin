@@ -3,6 +3,8 @@ import Chip from '@mui/material/Chip';
 import AutorenewIcon from '@mui/icons-material/Autorenew';
 import Link from '@mui/material/Link';
 import Swal from 'sweetalert2'
+import 'react-perfect-scrollbar/dist/css/styles.css';
+import PerfectScrollbar from 'react-perfect-scrollbar'
 import PropTypes from 'prop-types';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import { useNavigate } from 'react-router-dom';
@@ -446,9 +448,9 @@ const Team = () => {
                     <Card width="95%" sx={{ padding: 0, boxShadow: "none", borderRadius: "10px", border: "1px solid #D8D8D8" }}>
                       <CardContent>
                         <Grid container spacing={0} >
-                          <Grid xs={6} align="left" onClick={() => { setViewData(item); handleOpenmodal(); }}>
+                          <Grid xs={6} align="center" onClick={() => { setViewData(item); handleOpenmodal(); }}>
                             <Typography variant="h5" pb={1} fontWeight={750} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#FF6700">
-                              {item.screen_name}
+                              {item.username}
                             </Typography>
                           </Grid>
 
@@ -505,107 +507,74 @@ const Team = () => {
                             >
                               <MenuItem
                                 onClick={() => {
-                                  setViewData(item)
-                                  handleOpenmodal();
+                                  console.log(idData);
+                                  navigate('/UserDetails', {
+                                    state: {
+                                      id: idData.id,
+                                    }
+                                  })
                                 }
                                 }
 
                               // onClick={() => updatefood(idData.food_id)}
                               >
-                                <RemoveRedEyeIcon sx={{ color: "#40E0D0" }} /><span style={{ marginLeft: 10 }}>View</span>
+                                <Visibility sx={{ color: "#40E0D0" }} /><span style={{ marginLeft: 10 }}>View</span>
                               </MenuItem>
                               <Grid container spacing={0}>
                                 <Grid xs={12} align="center">
                                   <Divider sx={{ width: "80%" }} />
                                 </Grid>
                               </Grid>
-                              {idData.status === 'unblock' ?
-                                <MenuItem
-                                  onClick={() => { handleOpendelmodalStatus(idData); setDeleteData(idData); }}
-                                >
-                                  <AutorenewIcon sx={{ color: "#E10006" }} />
-                                  <span style={{ marginLeft: 10 }}>Change Status</span>
-                                </MenuItem>
-                                :
-                                idData.status === null ?
-                                  <MenuItem
-                                    onClick={() => { handleOpendelmodalStatus(idData); setDeleteData(idData); }}
-                                  >
-                                    <AutorenewIcon sx={{ color: "#E10006" }} />
-                                    <span style={{ marginLeft: 10 }}>Change Status</span>
-                                  </MenuItem>
-                                  :
-                                  <MenuItem
-                                    onClick={() => { handleOpendelmodalStatus(idData); setDeleteData(idData); }}
-                                  >
-                                    <AutorenewIcon sx={{ color: "#E10006" }} />
-                                    <span style={{ marginLeft: 10 }}>Change Status</span>
-                                  </MenuItem>
+                              <MenuItem
 
-                              }
+                                onClick={() => {
+                                  handleOpendelmodalStatus(idData); setDeleteData(idData);
+                                }}>
+                                <AutorenewIcon sx={{ color: "#E10006" }} /><span style={{ marginLeft: 10 }}>Change Status</span>
+                              </MenuItem>
                             </Menu>
 
                           </Grid>
 
-                          <Grid xs={6} sx={{ pb: 1 }} align="left" onClick={handleOpenmodal}>
+                          <Grid onClick={() => { setViewData(item); handleOpenmodal(); }} xs={6} sx={{ mt: '4%', pb: 1 }} align="left" >
                             <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
-                              Name :
+                              email :
                             </Typography>
                           </Grid>
 
-                          <Grid xs={6} sx={{ pb: 1 }} align="left" onClick={handleOpenmodal}>
-                            <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#808080">
-                              {item.username}
-                            </Typography>
+                          <Grid onClick={() => { setViewData(item); handleOpenmodal(); }} xs={6} sx={{ mt: '4%', pb: 1 }} align="left" >
+                            <PerfectScrollbar  >
+                              <Typography variant="h6" fontWeight={600} pb={1} fontSize="12px" sx={{ letterSpacing: "1px" }} color="#808080">
+                                {item.email}
+                              </Typography>
+                            </PerfectScrollbar  >
                           </Grid>
-
-
-                          <Grid xs={6} sx={{ pb: 1 }} align="left" onClick={handleOpenmodal}>
+                          <Grid xs={6} sx={{ pb: 1 }} align="left" onClick={() => { setViewData(item); handleOpenmodal(); }}>
                             <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
-                              email
+                              Type :
                             </Typography>
                           </Grid>
 
-                          <Grid sx={{ pb: 1, width: '100px', height: '50px' }} xs={6} align="left" onClick={handleOpenmodal}>
-                            <Link style={{ width: '30px', height: '10px' }} variant="h6" fontWeight={300} fontSize="12px" color='#007FFF'>
-                              {item.email}
-                            </Link>
+                          <Grid sx={{ pb: 1, width: '100%', height: '50px' }} xs={6} align="left" onClick={() => { setViewData(item); handleOpenmodal(); }}>
+                            <PerfectScrollbar  >
+                              <Typography variant="h6" fontWeight={600} pb={1} fontSize="12px" sx={{ letterSpacing: "1px" }} color="#808080">
+                                {item.type}
+                              </Typography>
+                            </PerfectScrollbar  >
                           </Grid>
 
-                          <Grid xs={6} sx={{ pb: 1 }} align="left" onClick={handleOpenmodal}>
+                          <Grid xs={6} sx={{ pb: 1 }} align="left" onClick={() => { setViewData(item); handleOpenmodal(); }}>
                             <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
-                              Phone :
+                              status :
                             </Typography>
                           </Grid>
 
-                          <Grid xs={6} sx={{ pb: 1 }} align="left" onClick={handleOpenmodal}>
-                            <Typography variant="h5" fontWeight={600} pb={1} fontSize="12px" sx={{}} color="#808080">
-                              {`${item.country_code}:${item.phone}`}
-                            </Typography>
-                          </Grid>
-
-
-                          <Grid xs={6} sx={{ pb: 1 }} align="left" onClick={handleOpenmodal}>
-                            <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
-                              Address :
-                            </Typography>
-                          </Grid>
-
-                          <Grid xs={6} sx={{ pb: 1 }} align="left" onClick={handleOpenmodal}>
-                            <Typography variant="h5" fontWeight={600} pb={1} fontSize="12px" sx={{}} color="#808080">
-                              {item.address}
-                            </Typography>
-                          </Grid>
-                          <Grid xs={6} sx={{ pb: 1 }} align="left" onClick={handleOpenmodal}>
-                            <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
-                              Status :
-                            </Typography>
-                          </Grid>
-
-                          <Grid xs={6} sx={{ pb: 1 }} align="left" onClick={handleOpenmodal}>
-                            <Typography variant="h5" fontWeight={600} pb={1} fontSize="12px" sx={{}} color="#808080">
-                              {`${item.status}`}
-                            </Typography>
+                          <Grid sx={{ pb: 1, width: '100%', height: '50px' }} xs={6} align="left" onClick={() => { setViewData(item); handleOpenmodal(); }}>
+                            <PerfectScrollbar  >
+                              <Link style={{ width: '100', height: '10px' }} variant="h6" fontWeight={300} fontSize="12px" color='#007FFF'>
+                                {item.status}
+                              </Link>
+                            </PerfectScrollbar  >
                           </Grid>
 
 

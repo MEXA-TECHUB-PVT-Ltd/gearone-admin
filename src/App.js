@@ -31,6 +31,7 @@ import Subscription from "./scenes/subscription"
 import Faqs from "./scenes/faqs"
 import ManageUsers from "./scenes/ManageUsers"
 import UserDetails from "./scenes/UserDetails"
+import ReportItems from "./scenes/ReportItems"
 
 import PrivacyPolicy from "./scenes/privacy&policy"
 import TermConditions from "./scenes/term&conditions"
@@ -83,6 +84,7 @@ function App() {
               <Route path="/addexercises" element={<AddworkoutplanExercises />} />
               <Route path="/updateworkoutplan" element={<Updateworkoutplan />} />
               <Route path="/workoutdetail" element={<WorkoutDetail />} />
+              <Route path="/ReportItems" element={<ReportItems />} />
 
               <Route path="/Terms" element={<Terms />} />
               <Route path="/Privacy" element={<Privacy />} />

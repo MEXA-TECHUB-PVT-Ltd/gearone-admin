@@ -104,7 +104,7 @@ function Login() {
         .then(response => response.json())
         .then(response => {
           console.log(response);
-          if (response.message == `Login Successful`) {
+          if (response.status == true) {
             setIsloading(false);
             verification();
             setTimeout(() => {
@@ -181,8 +181,8 @@ function Login() {
           console.log(response);
           if (response.message == `Sent a verification email to ${email}`) {
             setIsloading(false);
-            // verification();
-            navigate("/dashboard");
+            verification();
+            // navigate("/dashboard");
           } else {
             setIsloading(false);
             Swal.fire({

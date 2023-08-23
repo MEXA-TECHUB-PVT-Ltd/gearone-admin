@@ -1,5 +1,7 @@
 import { Box, Tooltip, Typography, useTheme, IconButton, TextField, Grid, Modal, Button, Stack, Card, CardContent, MenuItem, Menu, Paper, Divider, Avatar } from "@mui/material";
 import Chip from '@mui/material/Chip';
+import 'react-perfect-scrollbar/dist/css/styles.css';
+import PerfectScrollbar from 'react-perfect-scrollbar'
 
 import Header from "../../components/Header";
 import Breadcrumbs from '@mui/material/Breadcrumbs';
@@ -445,7 +447,7 @@ const Team = () => {
           </Grid>
 
           <Grid item xs={3} align="center">
-            
+
           </Grid>
 
           <Grid item xs={1.5} align="center">
@@ -646,13 +648,15 @@ const Team = () => {
                             </Typography>
                           </Grid>
 
-                          <Grid sx={{ pb: 1, width: '100px', height: '50px' }} xs={6} align="left"
-                            onClick={() => { setViewData(item); handleOpenmodal(); }}>
-                            <Link style={{ width: '30px', height: '10px' }} variant="h6"
-                              fontWeight={300} fontSize="12px" color='#007FFF'>
-                              {item.link}
-                            </Link>
+                          <Grid sx={{ pb: 1, width: '100%', height: '50px' }} xs={6} align="left" onClick={() => { setViewData(item); handleOpenmodal(); }}>
+                            <PerfectScrollbar  >
+                              <Link style={{ width: '100', height: '10px' }} variant="h6" fontWeight={300} fontSize="12px" color='#007FFF'>
+                                {item.link}
+                              </Link>
+                            </PerfectScrollbar  >
                           </Grid>
+
+
 
                         </Grid>
                       </CardContent>
@@ -699,18 +703,23 @@ const Team = () => {
 
             <Grid container spacing={0} p={2}>
               <Grid xs={6} align="" p={0.5}>
-                <Typography variant="h5" fontWeight={700} 
-                fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
+                <Typography variant="h5" fontWeight={700}
+                  fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
                   Link :
                 </Typography>
                 {/* <Button variant="contained" style={btn} onClick={() => { navigate("/setnewpassword") }}>Reset Password</Button> */}
               </Grid>
 
-              <Grid sx={{ overflow: 'hidden', width: '32px', height: '50px' }} xs={6} align="center">
-                <a href={viewData.link} sx={{ cursor: 'pointer' }} variant="h6"
-                 fontWeight={300} pb={1} fontSize="11px" color='#007FFF'>
-                  {viewData.link}
-                </a>
+              <Grid sx={{ overflow: 'hidden', width: '32px', height: '40px' }} xs={6} align="center">
+                <PerfectScrollbar  >
+
+                  <a href={viewData.link} sx={{ cursor: 'pointer' }} variant="h6"
+                    fontWeight={300} pb={1} fontSize="11px" color='#007FFF'>
+                    {viewData.link}
+                  </a>
+                </PerfectScrollbar  >
+
+
               </Grid>
 
               <Grid xs={6} align="" p={0.5}>
@@ -720,8 +729,8 @@ const Team = () => {
               </Grid>
 
               <Grid xs={6} align="center" p={0.5}>
-                <Typography variant="h5" fontWeight={600} fontSize="16px" 
-                sx={{ letterSpacing: "2px" }} color="#808080">
+                <Typography variant="h5" fontWeight={600} fontSize="16px"
+                  sx={{ letterSpacing: "2px" }} color="#808080">
                   {viewData.active_status}
                 </Typography>
               </Grid>
