@@ -278,26 +278,6 @@ const Dashboard = () => {
   }
 
 
-  // const data = [
-  //   {
-  //     color: "steelblue",
-  //     points: [
-  //     { x: MonthUser[0].month, y: MonthUser[0].count },
-  //     { x: MonthUser[1].month, y: MonthUser[1].count },
-  //     { x: MonthUser[2].month, y: MonthUser[2].count },
-  //     { x: MonthUser[3].month, y: MonthUser[3].count },
-  //     { x: MonthUser[4].month, y: MonthUser[4].count },
-  //     { x: MonthUser[5].month, y: MonthUser[5].count },
-  //     { x: MonthUser[6].month, y: MonthUser[6].count },
-  //     { x: MonthUser[7].month, y: MonthUser[7].count },
-  //     { x: MonthUser[8].month, y: MonthUser[8].count },
-  //     { x: MonthUser[9].month, y: MonthUser[9].count },
-  //     { x: MonthUser[10].month, y: MonthUser[10].count },
-  //     { x: MonthUser[11].month, y: MonthUser[11].count },
-  //     ],
-  //   }
-  // ];
-
 
 
   const columns = [
@@ -458,7 +438,7 @@ const Dashboard = () => {
     return (
       <>
         <Grid xs={12} p={1} align="center">
-          <div style={{ height: 400, width: '100%' }}>
+          <div style={{ height: 440, width: '100%' }}>
             <DataGrid
               rows={Items}
               getRowId={Items.id}
@@ -479,42 +459,6 @@ const Dashboard = () => {
             />
           </div>
         </Grid>
-        {/* <TableHead>
-          <TableRow>
-            <TableCell padding="checkbox">
-              <Checkbox
-                style={{ color: '#FF6700' }}
-                indeterminate={numSelected > 0 && numSelected < rowCount}
-                checked={rowCount > 0 && numSelected === rowCount}
-                onChange={onSelectAllClick}
-                inputProps={{
-                  'aria-label': 'select all desserts',
-                }}
-              />
-            </TableCell>
-            {headCells.map((headCell) => (
-              <TableCell
-                key={headCell.id}
-                align={headCell.numeric ? 'right' : 'left'}
-                padding={headCell.disablePadding ? 'none' : 'normal'}
-                sortDirection={orderBy === headCell.id ? order : false}
-              >
-                <TableSortLabel
-                  active={orderBy === headCell.id}
-                  direction={orderBy === headCell.id ? order : 'asc'}
-                  onClick={createSortHandler(headCell.id)}
-                >
-                  {headCell.label}
-                  {orderBy === headCell.id ? (
-                    <Box component="span" sx={visuallyHidden}>
-                      {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
-                    </Box>
-                  ) : null}
-                </TableSortLabel>
-              </TableCell>
-            ))}
-          </TableRow>
-        </TableHead> */}
       </>
 
     );
@@ -529,69 +473,6 @@ const Dashboard = () => {
     rowCount: PropTypes.number.isRequired,
   };
 
-  function EnhancedTableToolbar(props) {
-    const { numSelected } = props;
-
-    return (
-      <Toolbar
-        sx={{
-          pl: { sm: 2 },
-          pr: { xs: 1, sm: 1 },
-          ...(numSelected > 0 && {
-            bgcolor: "white"
-            // bgcolor: (theme) =>
-            //   alpha(theme.palette.primary.main, theme.palette.action.activatedOpacity),
-          }),
-        }}
-      >
-        {numSelected > 0 ? (
-          <Typography
-            sx={{ bgcolor: "white", flex: '1 1 100%' }}
-            color="inherit"
-            variant="subtitle1"
-            component="div"
-          >
-            {numSelected} selected
-          </Typography>
-        ) : (
-          <Typography
-            sx={{ color: "transparent", flex: '1 1 100%' }}
-            variant="h6"
-            id="tableTitle"
-            component="div"
-          >
-            Nutrition
-          </Typography>
-        )}
-
-        {numSelected > 0 ? (
-          <Button variant="contained" sx={{
-            width: { lg: "16vh", xl: "13vh" },
-            bgcolor: "#FF6700",
-            boxShadow: "none",
-            borderRadius: "50px",
-            fontWeight: 600,
-            ":hover": {
-              bgcolor: "#FF6700",
-              boxShadow: "none",
-              borderRadius: "50px",
-              fontWeight: 600,
-              color: "white"
-            }
-          }}  >Delete All</Button>
-          // <Tooltips title="Delete">
-          //   <IconButton>
-          //     <Delete />
-          //   </IconButton>
-          // </Tooltips>
-        ) : ""}
-      </Toolbar>
-    );
-  }
-
-  EnhancedTableToolbar.propTypes = {
-    numSelected: PropTypes.number.isRequired,
-  };
 
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('name');
@@ -752,6 +633,8 @@ const Dashboard = () => {
             </Typography>
           </Grid>
 
+
+
           <Grid xs={12} md={7} lg={7} xl={7} p={1} align="">
             <Grid container spacing={0}>
               {/* list view */}
@@ -759,13 +642,6 @@ const Dashboard = () => {
                 <Grid xs={12} md={12} >
                   <Box sx={{ width: '100%' }}>
                     <Paper sx={{ backgroundColor: "white", width: '100%', mb: 2 }}>
-                      <EnhancedTableToolbar numSelected={selected.length} />
-                      <TableContainer>
-                        <Table
-                          sx={{ bgcolor: "white", minWidth: 750 }}
-                          aria-labelledby="tableTitle"
-                          size={dense ? 'small' : 'medium'}
-                        >
                           <EnhancedTableHead
                             numSelected={selected.length}
                             order={order}
@@ -774,88 +650,6 @@ const Dashboard = () => {
                             onRequestSort={handleRequestSort}
                             rowCount={Items.length}
                           />
-                          <TableBody>
-                            {visibleRows.map((row, index) => {
-                              const isItemSelected = isSelected(row.id);
-                              const labelId = `enhanced-table-checkbox-${index}`;
-
-                              return (
-                                <TableRow
-                                  hover
-                                  onClick={(event) => handleClick(event, row.id)}
-                                  role="checkbox"
-                                  aria-checked={isItemSelected}
-                                  tabIndex={-1}
-                                  key={row.name}
-                                  selected={isItemSelected}
-                                  sx={{ cursor: 'pointer' }}
-                                >
-                                  <TableCell padding="checkbox">
-                                    <Checkbox
-                                      style={{ color: '#FF6700' }}
-                                      checked={isItemSelected}
-                                      inputProps={{
-                                        'aria-labelledby': labelId,
-                                      }}
-                                    />
-                                  </TableCell>
-                                  <TableCell
-                                    component="th"
-                                    id={labelId}
-                                    scope="row"
-                                    padding="none"
-                                  >
-                                    {row.name}
-                                  </TableCell>
-                                  <TableCell align="right">{row.price}</TableCell>
-                                  <TableCell align="right">{row.description}</TableCell>
-                                  <TableCell align="right">{row.promoted}</TableCell>
-                                  <TableCell align="right">{row.location}</TableCell>
-                                  <TableCell align="right">
-                                    <div style={{ display: "flex", justifyContent: "right", alignContent: "right", gap: "2px" }}>
-                                      <Tooltips title="View">
-                                        <IconButton>
-                                          <Visibility sx={{ color: "#3FC0FF" }} />
-                                        </IconButton>
-                                      </Tooltips>
-
-                                      <Tooltips title="Edit">
-                                        <IconButton>
-                                          <Edit sx={{ color: "#40E0D0" }} />
-                                        </IconButton>
-                                      </Tooltips>
-
-                                      <Tooltips title="Delete">
-                                        <IconButton>
-                                          <Delete sx={{ color: "#E10006" }} />
-                                        </IconButton>
-                                      </Tooltips>
-                                    </div>
-                                  </TableCell>
-                                </TableRow>
-                              );
-                            })}
-                            {emptyRows > 0 && (
-                              <TableRow
-                                style={{
-                                  height: (dense ? 33 : 53) * emptyRows,
-                                }}
-                              >
-                                <TableCell colSpan={6} />
-                              </TableRow>
-                            )}
-                          </TableBody>
-                        </Table>
-                      </TableContainer>
-                      <TablePagination
-                        rowsPerPageOptions={[5, 10, 25]}
-                        component="div"
-                        count={Items.length}
-                        rowsPerPage={rowsPerPage}
-                        page={page}
-                        onPageChange={handleChangePage}
-                        onRowsPerPageChange={handleChangeRowsPerPage}
-                      />
                     </Paper>
                   </Box>
                 </Grid>
@@ -866,7 +660,7 @@ const Dashboard = () => {
             </Grid>
           </Grid>
 
-          <Grid xs={12} md={5} lg={5} xl={5} sx={{ pt: { xs: 1, lg: 1 } }} pl={1}>
+          <Grid xs={12} md={5} lg={5} xl={5} sx={{mb:'10%', pt: { xs: 1, lg: 1 } }} pl={1}>
 
             <Grid xs={12} >
               <Card sx={{ borderRadius: "10px", boxShadow: "0px 3px 6px #00000029" }}>
@@ -909,7 +703,6 @@ const Dashboard = () => {
                     <XAxis dataKey="month" />
                     <YAxis type="number" domain={[0,count]}/>
                     {/* <YAxis dataKey="count" /> */}
-                    <Tooltip />
                     <CartesianGrid strokeDasharray="1 1" />
                     <Line
                       type="monotone"

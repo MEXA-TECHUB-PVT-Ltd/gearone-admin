@@ -59,113 +59,123 @@ const Team = () => {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
         };
-        var Data = {
-            "link": Link,
-            "screen_id": Screen,
-        };
-        console.log(Data);
-        if (Screen === '') {
-            setIsloading(false);
+        if (Link === '' || Screen === "" || selectedFile === null || selectedFile === undefined) {
+            setIsloading(false)
             Swal.fire({
                 icon: 'warning',
-                title: 'Oops...',
+                title: 'warning',
                 confirmButtonColor: "#FF6700",
-                text: 'Please Select Screen '
+                text: 'All Fields Required',
             })
         } else {
-            await fetch(InsertAPIURL, {
-                method: 'POST',
-                headers: headers,
-                body: JSON.stringify(Data),
-            })
-                .then(response => response.json())
-                .then(async response => {
-                    console.log(response);
-                    if (response.message == `Ad's added Successfully!`) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Success!',
-                            confirmButtonColor: "#FF6700",
-                            text: 'Banner Added Successfully!',
-                          })                    
-                        if (selectedFile !== null && selectedFile !== undefined) {
-                            var Data = {
-                                "id": response.result[0].id,
-                                "image": selectedFile,
-                            };
 
-                            await axios.put(url + "ads/add_ad_image", Data, {
-                                headers: {
-                                    "Content-Type": "multipart/form-data"
+            var Data = {
+                "link": Link,
+                "screen_id": Screen,
+            };
+            if (Screen === '') {
+                setIsloading(false);
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Oops...',
+                    confirmButtonColor: "#FF6700",
+                    text: 'Please Select Screen '
+                })
+            } else {
+                await fetch(InsertAPIURL, {
+                    method: 'POST',
+                    headers: headers,
+                    body: JSON.stringify(Data),
+                })
+                    .then(response => response.json())
+                    .then(async response => {
+                        console.log(response);
+                        if (response.message == `Ad's added Successfully!`) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Success!',
+                                confirmButtonColor: "#FF6700",
+                                text: 'Banner Added Successfully!',
+                            })
+                            if (selectedFile !== null && selectedFile !== undefined) {
+                                var Data = {
+                                    "id": response.result[0].id,
+                                    "image": selectedFile,
+                                };
+
+                                await axios.put(url + "ads/add_ad_image", Data, {
+                                    headers: {
+                                        "Content-Type": "multipart/form-data"
+                                    }
+                                }).then((response) => {
+                                    setIsloading(false)
+
+
+                                    // var InsertAPIURL = `${url}logos/add_logos_image`
+                                    // var headers = {
+                                    //     // 'Accept': 'application/json',
+                                    //     // 'Content-Type': 'application/json',
+                                    //     "Content-Type": "multipart/form-data"
+
+                                    // };
+                                    // var Data = {
+                                    //     "id": response.result[0].id,
+                                    //     "image": selectedFile,
+                                    // };
+                                    // await fetch(InsertAPIURL, {
+                                    //     method: 'PUT',
+                                    //     headers: headers,
+                                    //     body: JSON.stringify(Data),
+                                    // })
+                                    //     .then(response => response.json())
+                                    //     .then(response => {
+                                    console.log(response.data);
+                                    if (response.data.message == `Ad Image added Successfully!`) {
+                                        navigate("/manage_banners_ads")
+                                        setIsloading(false)
+                                    } else {
+                                        setIsloading(false)
+                                        Swal.fire({
+                                            icon: 'error',
+                                            title: 'Oops2...',
+                                            confirmButtonColor: "#FF6700",
+                                            text: ''
+                                        })
+                                    }
                                 }
-                            }).then((response) => {
+                                )
+                                    .catch(error => {
+                                        Swal.fire({
+                                            icon: 'error',
+                                            title: 'Oops...',
+                                            confirmButtonColor: "#FF6700",
+                                            text: response.message
+                                        })
+                                    });
+                            } else {
                                 setIsloading(false)
-
-
-                                // var InsertAPIURL = `${url}logos/add_logos_image`
-                                // var headers = {
-                                //     // 'Accept': 'application/json',
-                                //     // 'Content-Type': 'application/json',
-                                //     "Content-Type": "multipart/form-data"
-
-                                // };
-                                // var Data = {
-                                //     "id": response.result[0].id,
-                                //     "image": selectedFile,
-                                // };
-                                // await fetch(InsertAPIURL, {
-                                //     method: 'PUT',
-                                //     headers: headers,
-                                //     body: JSON.stringify(Data),
-                                // })
-                                //     .then(response => response.json())
-                                //     .then(response => {
-                                console.log(response.data);
-                                if (response.data.message == `Ad Image added Successfully!`) {
-                                    navigate("/manage_banners_ads")
-                                    setIsloading(false)
-                                } else {
-                                    setIsloading(false)
-                                    Swal.fire({
-                                        icon: 'error',
-                                        title: 'Oops2...',
-                                        confirmButtonColor: "#FF6700",
-                                        text: ''
-                                    })
-                                }
+                                navigate("/manage_banners_ads")
                             }
-                            )
-                                .catch(error => {
-                                    Swal.fire({
-                                        icon: 'error',
-                                        title: 'Oops...',
-                                        confirmButtonColor: "#FF6700",
-                                        text: response.message
-                                    })
-                                });
                         } else {
                             setIsloading(false)
-                            navigate("/manage_banners_ads")
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                confirmButtonColor: "#FF6700",
+                                text: ''
+                            })
                         }
-                    } else {
-                        setIsloading(false)
+                    }
+                    )
+                    .catch(error => {
                         Swal.fire({
                             icon: 'error',
                             title: 'Oops...',
                             confirmButtonColor: "#FF6700",
-                            text: ''
+                            text: "server  error"
                         })
-                    }
-                }
-                )
-                .catch(error => {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        confirmButtonColor: "#FF6700",
-                        text: "server  error"
-                    })
-                });
+                    });
+            }
         }
     }
 

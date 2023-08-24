@@ -1,4 +1,4 @@
-import { Box, Tooltip, Typography, useTheme, IconButton, TextField, Grid, Modal, Button, Stack, Card, CardContent, MenuItem, Menu, Paper, Divider, Avatar } from "@mui/material";
+import { Box, Tooltip, Typography, Select, useTheme, IconButton, TextField, Grid, Modal, Button, Stack, Card, CardContent, MenuItem, Menu, Paper, Divider, Avatar } from "@mui/material";
 import Chip from '@mui/material/Chip';
 
 import Header from "../../components/Header";
@@ -125,36 +125,6 @@ function TabPanel(props) {
 }
 
 
-const OrdersColomns = [
-  { field: 'username', headerName: <span style={{ color: "black", fontWeight: 600 }}>Name</span>, flex: 1 },
-  { field: 'merchandise_name', headerName: <span style={{ color: "black", fontWeight: 600 }}>Item</span>, flex: 1 },
-  {
-    field: 'price',
-    headerName: <span style={{ color: "black", fontWeight: 600 }}>price</span>,
-    flex: 1,
-  },
-  {
-    field: 'merchandise_description',
-    headerName: <span style={{ color: "black", fontWeight: 600 }}>description</span>,
-    flex: 1,
-  },
-
-  {
-    field: 'status',
-    headerName: <span style={{ color: "black", fontWeight: 600 }}>status</span>,
-    flex: 1,
-  },
-
-
-  {
-    field: 'ordered_at',
-    headerName: <span style={{ color: "black", fontWeight: 600 }}>Location</span>,
-    flex: 1,
-  },
-
- 
-];
-
 
 
 
@@ -176,7 +146,7 @@ const TabsStyle = {
 
 }
 const Team = () => {
-
+  const [Status, setStatus] = useState('');
   const navigate = useNavigate();
   const location = useLocation();
   const [openmodal, setOpenmodal] = useState(false);
@@ -211,6 +181,18 @@ const Team = () => {
       </GridToolbarContainer>
     );
   }
+  const [AnchorElStatus, setAnchorElStatus] = React.useState(null);
+  const [Data, setData] = React.useState([]);
+
+  const [opendelmodalStatus, setOpendelmodalStatus] = useState(false);
+  const handleOpendelmodalStatus = (row) => {
+    setData(row);
+    setStatus(row.status);
+    setId(row.id);
+    setOpendelmodalStatus(true);
+    setAnchorElStatus(null);
+  };
+  const handleClosedelmodalStatus = () => setOpendelmodalStatus(false);
 
   const [DeleteID, setDeleteID] = React.useState('');
 
@@ -233,40 +215,46 @@ const Team = () => {
   const [ItemsCount, setItemsCount] = useState('');
   const [Items, setItems] = useState([]);
   const [Orders, setOrders] = useState([]);
+  const [id, setId] = useState([]);
 
   const [showtable, setShowtable] = useState(true);
 
   const changeStatus = async (data) => {
-    Swal.fire({
-      icon: 'wait',
-      title: 'Wait...',
-      confirmButtonColor: "#FF6700",
-      text: 'please wait...',
-    })
-
-    var InsertAPIURL = `${url}admin/block_unblock_user`
+    setIsloading(true);
+    var InsertAPIURL = `${url}orders/update_orders_status`
     var headers = {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
     };
+    console.log(Status)
     var Data = {
-      "id": data.id,
+      "Order_ID": id,
+      "status": Status
     };
     await fetch(InsertAPIURL, {
-      method: 'POST',
+      method: 'PUT',
       headers: headers,
       body: JSON.stringify(Data),
     })
       .then(response => response.json())
       .then(response => {
         console.log(response);
-        if (response.message == `User Updated Successfully!`) {
-          // setLogos(response.count);
-          getAllLogos();
-          // setOpendelmodal(false);
+        if (response.status == true) {
+          setIsloading(false);
+          getItems();
+          getOrders();
+          Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            confirmButtonColor: "#FF6700",
+            text: "Status Change Successfully"
+          })
+
+          setOpendelmodalStatus(false);
           //   console.log(response.result);
           //   setCatagory(response.result);
         } else {
+          setIsloading(false);
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
@@ -277,6 +265,7 @@ const Team = () => {
       }
       )
       .catch(error => {
+        setIsloading(false);
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
@@ -286,6 +275,50 @@ const Team = () => {
       });
   }
 
+  const OrdersColomns = [
+    { field: 'username', headerName: <span style={{ color: "black", fontWeight: 600 }}>Name</span>, flex: 1 },
+    { field: 'merchandise_name', headerName: <span style={{ color: "black", fontWeight: 600 }}>Item</span>, flex: 1 },
+    {
+      field: 'price',
+      headerName: <span style={{ color: "black", fontWeight: 600 }}>price</span>,
+      flex: 1,
+    },
+    {
+      field: 'merchandise_description',
+      headerName: <span style={{ color: "black", fontWeight: 600 }}>description</span>,
+      flex: 1,
+    },
+    {
+      field: `status`,
+      headerName: <span style={{ color: "black", fontWeight: 600 }}>Status</span>,
+      flex: 1,
+      renderCell: (row) => {
+        return (
+          <>
+            {row.row.status === 'pending' ?
+              < Chip onClick={() => { handleOpendelmodalStatus(row.row) }} sx={{ cursor: 'pointer' }} label={row.row.status} color="success" variant="outlined" />
+              :
+              row.row.status === null ?
+                < Chip onClick={() => { handleOpendelmodalStatus(row.row) }} sx={{ cursor: 'pointer' }} label={row.row.status} color="success" variant="outlined" />
+                :
+                <Chip onClick={() => { handleOpendelmodalStatus(row.row) }} sx={{ cursor: 'pointer' }} label={row.row.status} color="primary" variant="outlined" />
+
+            }
+          </>
+
+        );
+      },
+    },
+
+    {
+      field: 'ordered_at',
+      headerName: <span style={{ color: "black", fontWeight: 600 }}>Location</span>,
+      flex: 1,
+    },
+
+
+  ];
+
   const ItemColomns = [
     { field: 'name', headerName: <span style={{ color: "black", fontWeight: 600 }}>Name</span>, flex: 1 },
     { field: 'price', headerName: <span style={{ color: "black", fontWeight: 600 }}>Price</span>, flex: 1 },
@@ -294,6 +327,7 @@ const Team = () => {
       headerName: <span style={{ color: "black", fontWeight: 600 }}>Location</span>,
       flex: 1,
     },
+
     {
       field: 'promoted',
       headerName: <span style={{ color: "black", fontWeight: 600 }}>Promoted</span>,
@@ -305,14 +339,14 @@ const Team = () => {
               < Chip sx={{ cursor: 'pointer' }} label={row.row.promoted} color="success" variant="outlined" />
               :
               <Chip sx={{ cursor: 'pointer' }} label={row.row.promoted} color="primary" />
-  
+
             }
           </>
-  
+
         );
       },
     },
-  
+
     {
       field: 'added_by',
       headerName: <span style={{ color: "black", fontWeight: 600 }}>Added_by</span>,
@@ -357,17 +391,17 @@ const Team = () => {
 
   // Renderer callback with condition
   const renderer = ({ days, hours, minutes, seconds, completed }) => {
-      if (completed) {
-          // Render a complete state
-          return <Completionist />;
-      } else {
-          // Render a countdown
-          return (
-              <span>
-                  {days}:{hours}:{minutes}:{seconds}
-              </span>
-          );
-      }
+    if (completed) {
+      // Render a complete state
+      return <Completionist />;
+    } else {
+      // Render a countdown
+      return (
+        <span>
+          {days}:{hours}:{minutes}:{seconds}
+        </span>
+      );
+    }
   };
 
 
@@ -549,6 +583,78 @@ const Team = () => {
 
   return (
     <>
+      {/* Change */}
+      <Modal
+        open={opendelmodalStatus}
+        // onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box width={{ xs: 400, md: 500, lg: 500, xl: 600 }} height="auto" sx={style}>
+          <Grid container spacing={0}>
+            <Grid xs={12} align="right">
+              <Close onClick={() => setOpendelmodalStatus(false)} />
+            </Grid>
+
+            <Grid xs={12} align="center" p={{ xs: 2, md: 5, lg: 1, xl: 1 }}>
+              <Typography variant="h4" sx={{ letterSpacing: "3px" }} fontWeight={600} fontSize="x-large" color="#FF6700">Change Status</Typography>
+
+              <Select
+                sx={{
+                  mt: '10%',
+                  width: "80%",
+                  borderRadius: "50px",
+                  backgroundColor: "#F8F8F8",
+                  "& fieldset": { border: 'none' },
+                }}
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                displayEmpty
+                defaultValue={Data.status}
+                onChange={(event) => {
+                  setStatus(event.target.value);
+                }}
+              >
+                <MenuItem value="Image Aspects" disabled>
+                  <em>select Status</em>
+                </MenuItem>
+
+                <MenuItem key='Pending' value='Pending'>Pending</MenuItem>
+                <MenuItem key='in-progress' value='in-progress'>in-progress</MenuItem>
+                <MenuItem key='Confirmed' value='Confirmed'>Confirmed</MenuItem>
+                <MenuItem key='Completed' value='Completed'>Completed</MenuItem>
+
+              </Select>
+            </Grid>
+          </Grid>
+
+          <Grid container spacing={0} pt={5}>
+            <Grid xs={6} align="">
+              <Button variant="contained" style={btncancel} onClick={() => { setOpendelmodalStatus(false) }}>Cancel</Button>
+            </Grid>
+
+            <Grid xs={6} align="right">
+              {isloading ?
+                <Grid xs={12} align="center">
+                  <Button variant="contained" style={btn}>
+                    <ClipLoader loading={isloading}
+                      css={override}
+                      size={10}
+                    />
+                  </Button>
+                </Grid>
+                :
+                <Grid xs={12} align="center">
+                  <Button variant="contained" style={btn} onClick={() => { changeStatus() }} >Change</Button>
+                </Grid>
+              }
+            </Grid>
+          </Grid>
+
+        </Box>
+      </Modal>
+
+
       <Box sx={{ height: "100%", width: "100%", overflowX: "scroll" }}>
         <Grid container spacing={0} pl={3} pr={3} pt={{ lg: 2, xl: 1 }} >
           <Grid item xs={6} align="" pt={1} >
@@ -558,7 +664,7 @@ const Team = () => {
           </Grid>
 
           <Grid item xs={3} align="center">
-         
+
           </Grid>
 
 
@@ -741,163 +847,163 @@ const Team = () => {
         <Grid sx={{ mb: '13px' }} container spacing={0} pt={2} pl={2} pr={2} >
         </Grid>
 
-                {/* view */}
-                <Modal
-                    open={openmodal}
-                    // onClose={handleClose}
-                    aria-labelledby="modal-modal-title"
-                    aria-describedby="modal-modal-description"
-                >
-                    <Box width={{ xs: 400, md: 500, lg: 600, xl: 650 }} height="auto" sx={styleview}>
-                        <Box sx={{ borderTopLeftRadius: "20px", borderTopRightRadius: "20px", backgroundColor: "#FF6700", width: "100%", height: "80px" }}>
-                            <Box xs={12} align="right" pt={0.1} pr={1}>
-                                <Close sx={{ color: "white" }} onClick={() => setOpenmodal(false)} />
-                            </Box>
-                            <Box xs={12} sx={{ mb: '20px' }} align="center">
-                                <Typography align="center" sx={{ mb: '20px', fontWeight: 600, fontSize: "24px" }} color="white">
-                                    {viewData.name}
-                                </Typography>
-                            </Box>
-                        </Box>
+        {/* view */}
+        <Modal
+          open={openmodal}
+          // onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box width={{ xs: 400, md: 500, lg: 600, xl: 650 }} height="auto" sx={styleview}>
+            <Box sx={{ borderTopLeftRadius: "20px", borderTopRightRadius: "20px", backgroundColor: "#FF6700", width: "100%", height: "80px" }}>
+              <Box xs={12} align="right" pt={0.1} pr={1}>
+                <Close sx={{ color: "white" }} onClick={() => setOpenmodal(false)} />
+              </Box>
+              <Box xs={12} sx={{ mb: '20px' }} align="center">
+                <Typography align="center" sx={{ mb: '20px', fontWeight: 600, fontSize: "24px" }} color="white">
+                  {viewData.name}
+                </Typography>
+              </Box>
+            </Box>
 
-                        {viewImage !== null ?
-                            viewImage !== undefined ?
-                                <Grid xs={12} align="center" pt={3}>
-                                    <img src={`https://staging-gearone-be.mtechub.com/${viewImage}`} style={{ bgcolor: "#FF6700", width: '175px', height: '175px' }}>
-                                    {/* <img src={`https://staging-gearone-be.mtechub.com/${viewImage}`} style={{ bgcolor: "#FF6700", width: '175px', height: '175px' }}> */}
-                                    </img>
-                                </Grid>
-                                :
-                                <Grid xs={12} align="center" pt={3}>
-                                    <Avatar sx={{bgcolor: "#FF6700", width: 75, height: 75 }}>
-                                    </Avatar>
-                                </Grid>
+            {viewImage !== null ?
+              viewImage !== undefined ?
+                <Grid xs={12} align="center" pt={3}>
+                  <img src={`https://staging-gearone-be.mtechub.com/${viewImage}`} style={{ bgcolor: "#FF6700", width: '175px', height: '175px' }}>
+                    {/* <img src={`https://staging-gearone-be.mtechub.com/${viewImage}`} style={{ bgcolor: "#FF6700", width: '175px', height: '175px' }}> */}
+                  </img>
+                </Grid>
+                :
+                <Grid xs={12} align="center" pt={3}>
+                  <Avatar sx={{ bgcolor: "#FF6700", width: 75, height: 75 }}>
+                  </Avatar>
+                </Grid>
 
-                            :
-                            <Grid xs={12} align="center" pt={3}>
-                                <Avatar sx={{ width: 75, height: 75 }}>
-                                </Avatar>
-                            </Grid>
-                        }
+              :
+              <Grid xs={12} align="center" pt={3}>
+                <Avatar sx={{ width: 75, height: 75 }}>
+                </Avatar>
+              </Grid>
+            }
 
-                        <Grid container spacing={0} p={2}>
-                            <Grid xs={6} align="" p={0.5}>
-                                <Typography variant="h5" fontWeight={700} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
-                                    Price :
-                                </Typography>
-                                {/* <Button variant="contained" style={btn} onClick={() => { navigate("/setnewpassword") }}>Reset Password</Button> */}
-                            </Grid>
+            <Grid container spacing={0} p={2}>
+              <Grid xs={6} align="" p={0.5}>
+                <Typography variant="h5" fontWeight={700} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
+                  Price :
+                </Typography>
+                {/* <Button variant="contained" style={btn} onClick={() => { navigate("/setnewpassword") }}>Reset Password</Button> */}
+              </Grid>
 
-                            <Grid xs={6} align="right" p={0.5}>
-                                <Typography variant="h5" fontWeight={600} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#808080">
-                                    {viewData.price}
-                                </Typography>
-                            </Grid>
+              <Grid xs={6} align="right" p={0.5}>
+                <Typography variant="h5" fontWeight={600} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#808080">
+                  {viewData.price}
+                </Typography>
+              </Grid>
 
-                            <Grid xs={6} align="" p={0.5}>
-                                <Typography variant="h5" fontWeight={700} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
-                                    Location :
-                                </Typography>
-                            </Grid>
+              <Grid xs={6} align="" p={0.5}>
+                <Typography variant="h5" fontWeight={700} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
+                  Location :
+                </Typography>
+              </Grid>
 
-                            <Grid xs={6} align="right" p={0.5}>
-                                <Typography variant="h5" fontWeight={600} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#808080">
-                                    {viewData.location}
-                                </Typography>
-                            </Grid>
-
-
-                            <Grid xs={6} align="" p={0.5}>
-                                <Typography variant="h5" fontWeight={700} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
-                                    Promoted :
-                                </Typography>
-                            </Grid>
-
-                            <Grid xs={6} align="right" p={0.5}>
-                                <Typography variant="h5" fontWeight={600} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#808080">
-                                    {viewData.promoted}
-                                </Typography>
-                            </Grid>
-
-                            <Grid xs={6} align="" p={0.5}>
-                                <Typography variant="h5" fontWeight={700} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
-                                    Start Date :
-                                </Typography>
-                            </Grid>
-
-                            <Grid xs={6} align="right" p={0.5}>
-                                <Typography variant="h5" fontWeight={600} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#808080">
-                                    {moment(viewData.start_date).format("MMMM Do, YYYY/hh:mm A")}
-                                </Typography>
-                            </Grid>
+              <Grid xs={6} align="right" p={0.5}>
+                <Typography variant="h5" fontWeight={600} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#808080">
+                  {viewData.location}
+                </Typography>
+              </Grid>
 
 
-                            <Grid xs={6} align="" p={0.5}>
-                                <Typography variant="h5" fontWeight={700} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
-                                    End Date :
-                                </Typography>
-                            </Grid>
+              <Grid xs={6} align="" p={0.5}>
+                <Typography variant="h5" fontWeight={700} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
+                  Promoted :
+                </Typography>
+              </Grid>
 
-                            <Grid xs={6} align="right" p={0.5}>
-                                <Typography variant="h5" fontWeight={600} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#808080">
+              <Grid xs={6} align="right" p={0.5}>
+                <Typography variant="h5" fontWeight={600} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#808080">
+                  {viewData.promoted}
+                </Typography>
+              </Grid>
 
-                                    <Countdown date={Date.now() + (Math.abs(viewData.end_date - Date.now()) / 1000)} />
-                                    {/* // (moment(viewData.end_date).format("MMMM Do, YYYY/hh:mm A"))} /> */}
-                                    {moment(viewData.end_date).format("MMMM Do, YYYY/hh:mm A")}
+              <Grid xs={6} align="" p={0.5}>
+                <Typography variant="h5" fontWeight={700} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
+                  Start Date :
+                </Typography>
+              </Grid>
 
-                                </Typography>
-                            </Grid>
+              <Grid xs={6} align="right" p={0.5}>
+                <Typography variant="h5" fontWeight={600} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#808080">
+                  {moment(viewData.start_date).format("MMMM Do, YYYY/hh:mm A")}
+                </Typography>
+              </Grid>
 
 
-                            <Grid xs={6} align="" p={0.5}>
-                                <Typography variant="h5" fontWeight={700} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
-                                    Remaining Time :
-                                </Typography>
-                            </Grid>
+              <Grid xs={6} align="" p={0.5}>
+                <Typography variant="h5" fontWeight={700} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
+                  End Date :
+                </Typography>
+              </Grid>
 
-                            <Grid xs={6} align="right" p={0.5}>
+              <Grid xs={6} align="right" p={0.5}>
+                <Typography variant="h5" fontWeight={600} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#808080">
 
-                                {/* {StartDate ==  '0' ? <>Not Yet</> */}
-                                {/* : */}
-                                <Typography variant="h5" fontWeight={600} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#808080">
-                                    <Countdown date={Timer} renderer={renderer} />
-                                </Typography>
-                                {/* 
+                  <Countdown date={Date.now() + (Math.abs(viewData.end_date - Date.now()) / 1000)} />
+                  {/* // (moment(viewData.end_date).format("MMMM Do, YYYY/hh:mm A"))} /> */}
+                  {moment(viewData.end_date).format("MMMM Do, YYYY/hh:mm A")}
+
+                </Typography>
+              </Grid>
+
+
+              <Grid xs={6} align="" p={0.5}>
+                <Typography variant="h5" fontWeight={700} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
+                  Remaining Time :
+                </Typography>
+              </Grid>
+
+              <Grid xs={6} align="right" p={0.5}>
+
+                {/* {StartDate ==  '0' ? <>Not Yet</> */}
+                {/* : */}
+                <Typography variant="h5" fontWeight={600} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#808080">
+                  <Countdown date={Timer} renderer={renderer} />
+                </Typography>
+                {/* 
                                 } */}
 
-                            </Grid>
+              </Grid>
 
 
-                            <Grid xs={6} align="" p={0.5}>
-                                <Typography variant="h5" fontWeight={700} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
-                                    Added By :
-                                </Typography>
-                            </Grid>
+              <Grid xs={6} align="" p={0.5}>
+                <Typography variant="h5" fontWeight={700} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
+                  Added By :
+                </Typography>
+              </Grid>
 
-                            <Grid xs={6} align="right" p={0.5}>
-                                <Typography variant="h5" fontWeight={600} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#808080">
-                                    {viewData.added_by}
-                                </Typography>
-                            </Grid>
+              <Grid xs={6} align="right" p={0.5}>
+                <Typography variant="h5" fontWeight={600} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#808080">
+                  {viewData.added_by}
+                </Typography>
+              </Grid>
 
-                            <Grid xs={6} align="" p={0.5}>
-                                <Typography variant="h5" fontWeight={700} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
-                                    Description :
-                                </Typography>
-                            </Grid>
+              <Grid xs={6} align="" p={0.5}>
+                <Typography variant="h5" fontWeight={700} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
+                  Description :
+                </Typography>
+              </Grid>
 
-                            <Grid xs={6} align="right" p={0.5}>
-                <Typography variant="h5" 
-                 fontWeight={600} fontSize="14px" sx={{overflowX:'scroll', height:'100px'}}
+              <Grid xs={6} align="right" p={0.5}>
+                <Typography variant="h5"
+                  fontWeight={600} fontSize="14px" sx={{ overflowX: 'scroll', height: '100px' }}
                   color="#808080">
                   {viewData.description}
-                                </Typography>
-                            </Grid>
+                </Typography>
+              </Grid>
 
 
-                        </Grid>
-                    </Box>
-                </Modal>
+            </Grid>
+          </Box>
+        </Modal>
 
         {/* del */}
         <Modal

@@ -58,91 +58,103 @@ const Team = () => {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
         };
-        var Data = {
-            "link": Link,
-            "screen_id": Screen,
-        };
-        await fetch(InsertAPIURL, {
-            method: 'POST',
-            headers: headers,
-            body: JSON.stringify(Data),
-        })
-            .then(response => response.json())
-            .then(async response => {
-                console.log(response);
-                if (response.message == `Logo added Successfully!`) {
+        console.log(selectedFile)
+        if (Link === '' || Screen === "" || selectedFile === null || selectedFile === undefined) {
+            setIsloading(false)
+            Swal.fire({
+                icon: 'warning',
+                title: 'warning',
+                confirmButtonColor: "#FF6700",
+                text: 'All Fields Required',
+            })
+        } else {
+            var Data = {
+                "link": Link,
+                "screen_id": Screen,
+            };
+            await fetch(InsertAPIURL, {
+                method: 'POST',
+                headers: headers,
+                body: JSON.stringify(Data),
+            })
+                .then(response => response.json())
+                .then(async response => {
+                    if (response.status == true) {
+                        if (selectedFile !== null && selectedFile !== undefined) {
+                            var Data = {
+                                "id": response.result[0].id,
+                                "image": selectedFile,
+                            };
+                            await axios.put(url + "logos/add_logos_image", Data, {
+                                headers: {
+                                    "Content-Type": "multipart/form-data"
+                                }
+                            }).then((response) => {
+                                setIsloading(false)
+                                console.log(response.data);
+                                if (response.data.message == `Logo Image added Successfully!`) {
+                                    navigate("/ManageLogos")
+                                    setIsloading(false)
+                                } else {
+                                    setIsloading(false)
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Oops2...',
+                                        confirmButtonColor: "#FF6700",
+                                        text: ''
+                                    })
+                                }
+                            }
+                            )
+                                .catch(error => {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Oops...',
+                                        confirmButtonColor: "#FF6700",
+                                        text: response.message
+                                    })
+                                });
+                        } else {
+                            setIsloading(false)
+                            navigate("/ManageLogos")
+                        }
+                    } else if (response.message == 'Please Enter screen ID') {
+                        setIsloading(false)
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            confirmButtonColor: "#FF6700",
+                            text: 'Please Select Screen'
+                        })
+                    } else {
+                        setIsloading(false)
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            confirmButtonColor: "#FF6700",
+                            text: 'Try Again'
+                        })
+                    }
+                    setIsloading(false)
                     Swal.fire({
                         icon: 'success',
                         title: 'Success!',
                         confirmButtonColor: "#FF6700",
                         text: 'Logo Added Successfully!',
-                      })                    
-                    if (selectedFile !== null && selectedFile !== undefined) {
-                        var Data = {
-                            "id": response.result[0].id,
-                            "image": selectedFile,
-                        };
-                        await axios.put(url + "logos/add_logos_image", Data, {
-                            headers: {
-                                "Content-Type": "multipart/form-data"
-                            }
-                        }).then((response) => {
-                            setIsloading(false)
-                            console.log(response.data);
-                            if (response.data.message == `Logo Image added Successfully!`) {
-                                navigate("/ManageLogos")
-                                setIsloading(false)
-                            } else {
-                                setIsloading(false)
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Oops2...',
-                                    confirmButtonColor: "#FF6700",
-                                    text: ''
-                                })
-                            }
-                        }
-                        )
-                            .catch(error => {
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Oops...',
-                                    confirmButtonColor: "#FF6700",
-                                    text: response.message
-                                })
-                            });
-                    } else {
-                        setIsloading(false)
-                        navigate("/ManageLogos")
-                    }
-                } else if (response.message == 'Please Enter screen ID') {
-                    setIsloading(false)
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        confirmButtonColor: "#FF6700",
-                        text: 'Please Select Screen'
                     })
-                } else {
-                    setIsloading(false)
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        confirmButtonColor: "#FF6700",
-                        text: 'Try Again'
-                    })
+
                 }
-            }
-            )
-            .catch(error => {
-                setIsloading(false)
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    confirmButtonColor: "#FF6700",
-                    text: "Server Down!"
-                })
-            });
+                )
+                .catch(error => {
+                    setIsloading(false)
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        confirmButtonColor: "#FF6700",
+                        text: "Server Down!"
+                    })
+                });
+        }
     }
 
 
@@ -237,7 +249,7 @@ const Team = () => {
                                             :
                                             <Grid container spacing={0} pt={5}>
                                                 <input
-                                                    style={{  display: "none" }}
+                                                    style={{ display: "none" }}
                                                     id="fileInput"
                                                     type="file"
                                                     onChange={handleImageChange}
@@ -299,7 +311,7 @@ const Team = () => {
                                             }}
                                         />
                                         <br />
-                                       
+
 
                                     </Stack>
 
@@ -334,8 +346,6 @@ const Team = () => {
                                                 <MenuItem key={data.id} value={data.id}>{`${data.name}`}</MenuItem>
                                             ))}
                                         </Select>
-
-                                       s
                                         <br />
                                         <br />
 
