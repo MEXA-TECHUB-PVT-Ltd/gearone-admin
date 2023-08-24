@@ -1,4 +1,4 @@
-import { Box, Tooltip, Typography, useTheme, IconButton, TextField, Grid, Modal, Button, Stack, Card, CardContent, MenuItem, Menu, Paper, Divider, Avatar } from "@mui/material";
+import { Box, Tooltip, Select, Typography, useTheme, IconButton, TextField, Grid, Modal, Button, Stack, Card, CardContent, MenuItem, Menu, Paper, Divider, Avatar } from "@mui/material";
 import Chip from '@mui/material/Chip';
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import PerfectScrollbar from 'react-perfect-scrollbar'
@@ -15,7 +15,7 @@ import moment from 'moment'
 import PropTypes from 'prop-types';
 import Countdown from "react-countdown";
 
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import url from "../url"
 import img from '../../components/Images/hairstyleimage.jpg'
@@ -147,6 +147,7 @@ const TabsStyle = {
 
 }
 const Team = () => {
+    const location = useLocation();
 
     const navigate = useNavigate();
     const [ImgsWidth, setImgsWidth] = useState(900);
@@ -178,6 +179,56 @@ const Team = () => {
             );
         }
     };
+    const changeStatus = async (statusChange , order_id) => {
+        setIsloading(true);
+        var InsertAPIURL = `${url}orders/update_orders_status`
+        var headers = {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+        };
+        var Data = {
+            "Order_ID": order_id,
+            "status": statusChange
+        };
+        console.log(JSON.stringify(Data));
+        await fetch(InsertAPIURL, {
+            method: 'PUT',
+            headers: headers,
+            body: JSON.stringify(Data),
+        })
+            .then(response => response.json())
+            .then(response => {
+                console.log(response);
+                if (response.status == true) {
+                    setIsloading(false);
+                    CallData();
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        confirmButtonColor: "#FF6700",
+                        text: "Status Change Successfully"
+                    })
+                } else {
+                    setIsloading(false);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        confirmButtonColor: "#FF6700",
+                        text: response.message
+                    })
+                }
+            }
+            )
+            .catch(error => {
+                setIsloading(false);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    confirmButtonColor: "#FF6700",
+                    text: 'Server Down!'
+                })
+            });
+    }
 
 
     const theme = useTheme();
@@ -200,6 +251,7 @@ const Team = () => {
     const handleOpenmodal = () => setOpenmodal(true);
     const handleClosemodal = () => setOpenmodal(false);
     const [DeleteID, setDeleteID] = React.useState('');
+    const [id, setId] = useState([]);
 
     const [opendelmodal, setOpendelmodal] = useState(false);
     const handleOpendelmodal = () => {
@@ -222,62 +274,11 @@ const Team = () => {
     const [showtable, setShowtable] = useState(true);
 
 
-    const handleDelete = async () => {
-        var InsertAPIURL = `${url}items/delete_items`
-        var headers = {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-        };
-        var Data = {
-            "Item_ID": DeleteID,
-        };
-        await fetch(InsertAPIURL, {
-            method: 'DELETE',
-            headers: headers,
-            body: JSON.stringify(Data),
-        })
-            .then(response => response.json())
-            .then(response => {
-                console.log(response);
-                if (response.message == `Item Deleted Successfully!`) {
-                    // setLogos(response.count);
-                    getAllLogos();
-                    setOpendelmodal(false);
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'success...',
-                        confirmButtonColor: "#FF6700",
-                        text: 'Item Deleted Successfully'
-                    })
-                    //   console.log(response.result);
-                    //   setCatagory(response.result);
-                } else {
-                    setOpendelmodal(false);
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        confirmButtonColor: "#FF6700",
-                        text: ''
-                    })
-                }
-            }
-            )
-            .catch(error => {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    confirmButtonColor: "#FF6700",
-                    text: 'Server Down!'
-                })
-            });
-    }
-
-
 
     const columns = [
         {
-            field: 'user_name',
-            headerName: <span style={{ color: "black", fontWeight: 600 }}>Reported By</span>,
+            field: 'username',
+            headerName: <span style={{ color: "black", fontWeight: 600 }}>Order By</span>,
             flex: 1,
             renderCell: (row) => {
                 return (
@@ -292,7 +293,7 @@ const Team = () => {
                         }
                         }
                         variant="outlined">
-                        {row.row.user_name}
+                        {row.row.username}
                     </Button>
                 );
             },
@@ -301,23 +302,74 @@ const Team = () => {
 
         { field: 'email', headerName: <span style={{ color: "black", fontWeight: 600 }}>Email</span>, flex: 1 },
         {
-            field: 'name',
-            headerName: <span style={{ color: "black", fontWeight: 600 }}>Item</span>,
+            field: 'phone',
+            headerName: <span style={{ color: "black", fontWeight: 600 }}>Phone</span>,
             flex: 1,
         },
         {
-            field: 'promoted',
-            headerName: <span style={{ color: "black", fontWeight: 600 }}>Promoted</span>,
+            field: 'ordered_at',
+            headerName: <span style={{ color: "black", fontWeight: 600 }}>Location</span>,
+            flex: 1,
+        },
+
+        {
+            field: 'merchandise_name',
+            headerName: <span style={{ color: "black", fontWeight: 600 }}>Merchandise</span>,
+            flex: 1,
+        },
+
+        {
+            field: `status`,
+            headerName: <span style={{ color: "black", fontWeight: 600 }}>Status</span>,
+            flex: 1.5,
+            renderCell: (row) => {
+                return (
+                    <>
+                        <Select
+                            sx={{
+                                width: "100%",
+                                backgroundColor: "#F8F8F8",
+                                "& fieldset": { border: 'none' },
+                            }}
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            displayEmpty
+                            defaultValue={row.row.status}
+                            onChange={(event) => {
+                                setId(row.row.id);
+                                changeStatus(event.target.value , row.row.id);
+                            }}
+                        >
+                            <MenuItem value="" disabled>
+                                <em>select Status</em>
+                            </MenuItem>
+
+                            <MenuItem key='pending' value='pending'>pending</MenuItem>
+                            <MenuItem key='in-progress' value='in-progress'>in-progress</MenuItem>
+                            <MenuItem key='confirmed' value='confirmed'>confirmed</MenuItem>
+                            <MenuItem key='completed' value='completed'>completed</MenuItem>
+
+                        </Select>
+
+                    </>
+
+                );
+            },
+        },
+        {
+            field: 'price',
+            headerName: <span style={{ color: "black", fontWeight: 600 }}>Price</span>,
+            flex: 1,
+        },
+
+        {
+            field: 'createdat',
+            headerName: <span style={{ color: "black", fontWeight: 600 }}>Order On</span>,
             flex: 1,
             renderCell: (row) => {
                 return (
                     <>
-                        {row.row.promoted === 'true' ?
-                            < Chip sx={{ cursor: 'pointer' }} label={row.row.promoted} color="success" variant="outlined" />
-                            :
-                            <Chip sx={{ cursor: 'pointer' }} label={row.row.promoted} color="primary" />
-
-                        }
+                        {moment(row.createdat).format("MMMM Do, YYYY")}
                     </>
 
                 );
@@ -325,21 +377,7 @@ const Team = () => {
         },
 
         {
-            field: 'report_create_by',
-            headerName: <span style={{ color: "black", fontWeight: 600 }}>Promoted</span>,
-            flex: 1,
-            renderCell: (row) => {
-                return (
-                    <>
-                        {moment(row.report_create_by).format("MMMM Do, YYYY/hh:mm A")}
-                    </>
-
-                );
-            },
-        },
-
-        {
-            field: 'description',
+            field: 'merchandise_description',
             headerName: <span style={{ color: "black", fontWeight: 600 }}>Description</span>,
             flex: 1,
         },
@@ -415,12 +453,69 @@ const Team = () => {
         },
     ];
     const [Logos, setLogos] = useState([]);
+    const CallData = () => {
+        if (location !== null) {
+            if (location.state !== null) {
+                if (location.state.id) {
+                    getSpecificOrder();
+                } else {
+                    getAllOrders();
+                }
+            } else {
+                getAllOrders();
+            }
+        } else {
+            getAllOrders();
+        }
+    }
+
     useEffect(() => {
-        getAllLogos();
+        CallData();
     }, [])
 
-    const getAllLogos = async () => {
-        var InsertAPIURL = `${url}report_items/get_all_reports`
+    const getSpecificOrder = async () => {
+        var InsertAPIURL = `${url}orders/get_orders_by_marchandise_id`
+        var headers = {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+        };
+        
+        const Data = {
+            merchandise_id: location.state.id
+        }
+        await fetch(InsertAPIURL, {
+            method: 'POST',
+            headers: headers,
+            body: JSON.stringify(Data),
+        })
+            .then(response => response.json())
+            .then(response => {
+                console.log(response);
+                if (response.status == true) {
+                    setLogos(response.result);
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        confirmButtonColor: "#FF6700",
+                        text: ''
+                    })
+                }
+            }
+            )
+            .catch(error => {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    confirmButtonColor: "#FF6700",
+                    text: "Server Down!"
+                })
+            });
+    }
+
+
+    const getAllOrders = async () => {
+        var InsertAPIURL = `${url}orders/get_all_orders`
         var headers = {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
@@ -460,7 +555,7 @@ const Team = () => {
                 <Grid container spacing={0} pl={3} pr={3} pt={{ lg: 2, xl: 1 }} >
                     <Grid item xs={6} align="" pt={1} >
                         <Typography variant="h5" fontWeight={750} fontSize="20px" sx={{ letterSpacing: "2px" }} color="#404040">
-                            Items
+                            All Orders
                         </Typography>
                     </Grid>
 

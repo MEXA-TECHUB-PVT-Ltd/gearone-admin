@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Avatar, Box, Button, Grid, IconButton, Menu, MenuItem, Divider, Stack, useTheme } from "@mui/material";
+import { Avatar, Tooltip, Box, Button, Grid, IconButton, Menu, MenuItem, Divider, Stack, useTheme } from "@mui/material";
 import { useContext } from "react";
 import { ColorModeContext, tokens } from "../../theme";
 import TextField from '@mui/material/TextField';
@@ -143,8 +143,13 @@ const Topbar = () => {
                       <div style={{ display: "flex", justifyContent: "right", alignContent: "right", gap: "8px" }}>
                         {/* <Search sx={{ color: "white" }} onClick={() => setHide(false)} /> */}
                         {/* <Settings sx={{ color: "white" }} onClick={() => navigate("/settings")} /> */}
-                        <Lock sx={{ color: "white" }} onClick={() => navigate("/updatepassword")} />
-                        <Logout onClick={() => {handleLogout();}} sx={{ color: "white" }} />
+                        <Tooltip title="Password Change">
+                          <Lock sx={{ color: "white" }} onClick={() => navigate("/updatepassword")} />
+                        </Tooltip>
+                        <Tooltip title="Logout">
+                          <Logout onClick={() => { handleLogout(); }} sx={{ color: "white" }} />
+                        </Tooltip>
+
                       </div>
                     </Grid>
 

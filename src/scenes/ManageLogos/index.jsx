@@ -684,11 +684,9 @@ const Team = () => {
               <div xs={12} align="right" pt={0.6} pr={3}>
                 <Close sx={{ marginRight: '10px', marginTop: "5px", color: "white" }} onClick={() => setOpenmodal(false)} />
               </div>
-              <Box xs={12} sx={{ mb: '20px' }} align="center">
-                <Typography align="center" sx={{ mb: '20px', fontWeight: 600, fontSize: "24px" }} color="white">
+                <Typography align="center" sx={{ mb: '90px', fontWeight: 600, fontSize: "24px" }} color="white">
                   {viewData.screen_name}
                 </Typography>
-              </Box>
             </Box>
             <Grid xs={12} align="center" pt={3}>
               {viewData.image !== null ?

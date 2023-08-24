@@ -43,6 +43,7 @@ import UpdateMerchandise from "./scenes/updateMerchandise"
 import EditMerchandise from "./scenes/EditMerchandise"
 import AddLogo from "./scenes/addLogo"
 import UpdateLogo from "./scenes/UpdateLogo"
+import Orders from "./scenes/Orders"
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -85,6 +86,7 @@ function App() {
               <Route path="/updateworkoutplan" element={<Updateworkoutplan />} />
               <Route path="/workoutdetail" element={<WorkoutDetail />} />
               <Route path="/ReportItems" element={<ReportItems />} />
+              <Route path="/Orders" element={<Orders />} />
 
               <Route path="/Terms" element={<Terms />} />
               <Route path="/Privacy" element={<Privacy />} />

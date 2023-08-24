@@ -3,13 +3,14 @@ import Chip from '@mui/material/Chip';
 import AutorenewIcon from '@mui/icons-material/Autorenew';
 import Link from '@mui/material/Link';
 import Swal from 'sweetalert2'
+import url from "../url"
+
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import PerfectScrollbar from 'react-perfect-scrollbar'
 import PropTypes from 'prop-types';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import { useNavigate } from 'react-router-dom';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import url from "../url"
 import img from '../../components/Images/hairstyleimage.jpg'
 import { tokens } from "../../theme";
 import { Settings, Person, Add, List, Apps, MoreVert, People, Lock, Search } from '@mui/icons-material';
@@ -536,26 +537,54 @@ const Team = () => {
 
                           </Grid>
 
-                          <Grid onClick={() => { setViewData(item); handleOpenmodal(); }} xs={6} sx={{ mt: '4%', pb: 1 }} align="left" >
+                          <Grid onClick={() => {
+                            navigate('/UserDetails', {
+                              state: {
+                                id: item.id,
+                              }
+                            })
+                          }
+                          } xs={6} sx={{ mt: '4%', pb: 1 }} align="left" >
                             <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
                               email :
                             </Typography>
                           </Grid>
 
-                          <Grid onClick={() => { setViewData(item); handleOpenmodal(); }} xs={6} sx={{ mt: '4%', pb: 1 }} align="left" >
+                          <Grid onClick={() => {
+                            navigate('/UserDetails', {
+                              state: {
+                                id: item.id,
+                              }
+                            })
+                          }
+                          } xs={6} sx={{ mt: '4%', pb: 1 }} align="left" >
                             <PerfectScrollbar  >
                               <Typography variant="h6" fontWeight={600} pb={1} fontSize="12px" sx={{ letterSpacing: "1px" }} color="#808080">
                                 {item.email}
                               </Typography>
                             </PerfectScrollbar  >
                           </Grid>
-                          <Grid xs={6} sx={{ pb: 1 }} align="left" onClick={() => { setViewData(item); handleOpenmodal(); }}>
+                          <Grid xs={6} sx={{ pb: 1 }} align="left" onClick={() => {
+                            navigate('/UserDetails', {
+                              state: {
+                                id: item.id,
+                              }
+                            })
+                          }
+                          }>
                             <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
                               Type :
                             </Typography>
                           </Grid>
 
-                          <Grid sx={{ pb: 1, width: '100%', height: '50px' }} xs={6} align="left" onClick={() => { setViewData(item); handleOpenmodal(); }}>
+                          <Grid sx={{ pb: 1, width: '100%', height: '50px' }} xs={6} align="left" onClick={() => {
+                            navigate('/UserDetails', {
+                              state: {
+                                id: item.id,
+                              }
+                            })
+                          }
+                          } >
                             <PerfectScrollbar  >
                               <Typography variant="h6" fontWeight={600} pb={1} fontSize="12px" sx={{ letterSpacing: "1px" }} color="#808080">
                                 {item.type}
@@ -563,17 +592,31 @@ const Team = () => {
                             </PerfectScrollbar  >
                           </Grid>
 
-                          <Grid xs={6} sx={{ pb: 1 }} align="left" onClick={() => { setViewData(item); handleOpenmodal(); }}>
+                          <Grid xs={6} sx={{ pb: 1 }} align="left" onClick={() => {
+                            navigate('/UserDetails', {
+                              state: {
+                                id: item.id,
+                              }
+                            })
+                          }
+                          } >
                             <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
                               status :
                             </Typography>
                           </Grid>
 
-                          <Grid sx={{ pb: 1, width: '100%', height: '50px' }} xs={6} align="left" onClick={() => { setViewData(item); handleOpenmodal(); }}>
+                          <Grid sx={{ cursor: 'pointer', pb: 1, width: '100%', height: '50px' }} xs={6} align="left" onClick={() => { handleOpendelmodalStatus(item); setDeleteData(item); }} >
                             <PerfectScrollbar  >
-                              <Link style={{ width: '100', height: '10px' }} variant="h6" fontWeight={300} fontSize="12px" color='#007FFF'>
-                                {item.status}
-                              </Link>
+                              {item.status === 'block'
+                                ?
+                                <Chip
+                                  onClick={() => { handleOpendelmodalStatus(item); setDeleteData(item); }} sx={{ cursor: 'pointer' }}
+                                  label={item.status} color="success" variant="outlined" />
+                                :
+                                <Chip
+                                  onClick={() => { handleOpendelmodalStatus(item); setDeleteData(item); }} sx={{ cursor: 'pointer' }}
+                                  label={item.status} color='secondary' variant="outlined" />
+                              }
                             </PerfectScrollbar  >
                           </Grid>
 

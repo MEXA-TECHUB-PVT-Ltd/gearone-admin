@@ -1,4 +1,4 @@
-import { Box, Tooltip, Typography, useTheme, IconButton, TextField, Grid, Modal, Button, Stack, Card, CardContent, MenuItem, Menu, Paper, Divider, Avatar } from "@mui/material";
+import { Box, Tooltip, Typography, useTheme, Select, IconButton, FormControl, OutlinedInput, Grid, Modal, Button, Stack, Card, CardContent, MenuItem, Menu, Paper, Divider, Avatar } from "@mui/material";
 import Chip from '@mui/material/Chip';
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import PerfectScrollbar from 'react-perfect-scrollbar'
@@ -158,6 +158,7 @@ const Team = () => {
     const [StartDate, setStartDate] = useState('');
 
     const [value, setValue] = React.useState(0);
+    const [promoted_status, setPromoted_status] = React.useState('');
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -195,6 +196,7 @@ const Team = () => {
         );
     }
     const [viewImage, setViewImage] = useState([]);
+    const [addName, setAddName] = React.useState('');
 
     const [openmodal, setOpenmodal] = useState(false);
     const handleOpenmodal = () => setOpenmodal(true);
@@ -206,7 +208,17 @@ const Team = () => {
         setOpendelmodal(true);
         setAnchorEl(null);
     };
+    const [openaddsuccess, setOpenaddsuccess] = useState(false);
+    const handleOpenaddsuccess = () => setOpenaddsuccess(true);
+    const handleCloseaddsuccess = () => setOpenaddsuccess(false);
+
     const handleClosedelmodal = () => setOpendelmodal(false);
+    const [openaddmodal, setOpenaddmodal] = useState(false);
+    const handleOpenadd = () => setOpenaddmodal(true);
+    const handleCloseadd = () => {
+        setOpenaddmodal(false);
+        setOpenaddsuccess(true)
+    };
 
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
@@ -218,8 +230,76 @@ const Team = () => {
     };
     const [idData, setIdData] = useState([]);
     const [ActionData, setActionData] = React.useState({});
+    const [start_date, setStart_date] = React.useState('');
+    const [end_date, setEnd_date] = React.useState('');
+    const [ID, setID] = React.useState('');
 
     const [showtable, setShowtable] = useState(true);
+
+
+    const handleAdd = async () => {
+        setIsloading(true);
+        var InsertAPIURL = `${url}items/update_items`
+        var headers = {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+        };
+        var Data = {
+            "Item_ID": ID,
+            "promoted": promoted_status,
+            "start_date": start_date,
+            "end_date": end_date,
+        };
+        await fetch(InsertAPIURL, {
+            method: 'PUT',
+            headers: headers,
+            body: JSON.stringify(Data),
+        })
+            .then(response => response.json())
+            .then(async response => {
+                console.log(response);
+                if (response.status == true) {
+                    setIsloading(false);
+                    getAllLogos();
+                    setOpenaddmodal(false);
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success!',
+                        confirmButtonColor: "#FF6700",
+                        text: 'Status Updated Successfully',
+                    })
+
+                } else if (response.message == `Please Enter Category name`) {
+                    setOpenaddmodal(false);
+                    setIsloading(false);
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Oops...',
+                        confirmButtonColor: "#FF6700",
+                        text: 'Please Enter Name'
+                    })
+                } else {
+                    setIsloading(false);
+                    setOpenaddmodal(false);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        confirmButtonColor: "#FF6700",
+                        text: ''
+                    })
+                }
+            }
+            )
+            .catch(error => {
+                setIsloading(false);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    confirmButtonColor: "#FF6700",
+                    text: "Server Down!"
+                })
+            });
+    }
 
 
     const handleDelete = async () => {
@@ -290,9 +370,17 @@ const Team = () => {
                 return (
                     <>
                         {row.row.promoted === 'true' ?
-                            < Chip sx={{ cursor: 'pointer' }} label={row.row.promoted} color="success" variant="outlined" />
+                            < Chip onClick={() => {
+                                setID(row.row.id)
+                                setPromoted_status(row.row.promoted)
+                                handleOpenadd();
+                            }} sx={{ cursor: 'pointer' }} label={row.row.promoted} color="success" variant="outlined" />
                             :
-                            <Chip sx={{ cursor: 'pointer' }} label={row.row.promoted} color="primary" />
+                            <Chip onClick={() => {
+                                setID(row.row.id)
+                                setPromoted_status(row.row.promoted)
+                                handleOpenadd();
+                            }} sx={{ cursor: 'pointer' }} label={row.row.promoted} color="primary" />
 
                         }
                     </>
@@ -375,7 +463,7 @@ const Team = () => {
                             </IconButton>
 
 
-                        
+
                         </div>
                     </>
 
@@ -440,7 +528,7 @@ const Team = () => {
                     </Grid>
 
                     <Grid item xs={3} align="center">
-                        
+
                     </Grid>
 
                     <Grid item xs={3} align="right">
@@ -474,7 +562,7 @@ const Team = () => {
                         </div>
                     </Grid>
 
-                
+
                 </Grid>
 
                 <Divider sx={{ pb: 2 }} />
@@ -675,6 +763,117 @@ const Team = () => {
                             </>
                     }
                 </Grid>
+                {/* addmodal */}
+                <Modal
+                    open={openaddmodal}
+                    // onClose={handleClose}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
+                >
+                    <Box width={{ xs: 400, md: 500, lg: 500, xl: 600 }} height="auto" sx={style}>
+                        <Grid container spacing={0}>
+                            <Grid xs={6} align="left" >
+                                <Typography variant="h4" sx={{ letterSpacing: "1px" }} fontWeight={800} fontSize="large" color="#1F1F1F">Change Promoted Status</Typography>
+                            </Grid>
+
+                            <Grid xs={6} align="right">
+                                <Close onClick={() => setOpenaddmodal(false)} />
+                            </Grid>
+                            <Grid xs={12} align="left" pt={7}>
+                                <FormControl fullWidth>
+                                    <Typography variant="paragraph" pl={1} pb={1} sx={{ font: "normal normal normal 17px/26px Roboto", fontSize: "12px", fontWeight: "medium" }} color="#1F1F1F">
+                                        Promoted Status
+                                    </Typography>
+                                    <Select
+                                        labelId="demo-simple-select-label"
+                                        id="demo-simple-select"
+                                        displayEmpty
+                                        defaultValue={promoted_status}
+                                        // input={<Input name="circle" id="demo-simple-select" />}
+                                        onChange={(e) => { setPromoted_status(e.target.value) }}
+                                        sx={{
+                                            borderRadius: "50px",
+                                            backgroundColor: "#F8F8F8", height: "35px",
+                                            "& fieldset": { border: 'none' },
+                                        }}
+                                    >
+                                        <MenuItem value="" disabled >
+                                            <em>{"Select Type"}</em>
+                                        </MenuItem>
+
+                                        <MenuItem key='true' value='true'>True</MenuItem>
+                                        <MenuItem key='false' value='false'>False</MenuItem>
+
+                                    </Select>
+                                </FormControl>
+                            </Grid>
+
+                            <Grid xs={12} align="left" pt={1}>
+                                <FormControl fullWidth>
+                                    <Typography variant="paragraph" pl={1} pb={1} sx={{ font: "normal normal normal 17px/26px Roboto", fontSize: "12px", fontWeight: "medium" }} color="#1F1F1F">
+                                        Start Date
+                                    </Typography>
+                                    <OutlinedInput
+                                        id="input-with-icon-adornment"
+                                        disabled={promoted_status === 'false' ? true : false}
+                                        onChange={(event) => {
+                                            setStart_date(event.target.value);
+                                        }}
+                                        type="datetime-local"
+                                        sx={{
+                                            backgroundColor: "#EEEEEE",
+                                            "& fieldset": { border: 'none' },
+                                            "& ::placeholder": { ml: 1, fontWeight: 600, color: "#000000" }
+                                        }}
+                                    />
+                                </FormControl>
+                            </Grid>
+                            <Grid xs={12} align="left" pt={1}>
+                                <FormControl fullWidth>
+                                    <Typography variant="paragraph" pl={1} pb={1} sx={{ font: "normal normal normal 17px/26px Roboto", fontSize: "12px", fontWeight: "medium" }} color="#1F1F1F">
+                                        End Date
+                                    </Typography>
+
+                                    <OutlinedInput
+                                        id="input-with-icon-adornment"
+                                        onChange={(event) => {
+                                            setEnd_date(event.target.value);
+                                        }}
+                                        disabled={promoted_status === 'false' ? true : false}
+                                        type="datetime-local"
+                                        sx={{
+                                            backgroundColor: "#EEEEEE",
+                                            "& fieldset": { border: 'none' },
+                                            "& ::placeholder": { ml: 1, fontWeight: 600, color: "#000000" }
+                                        }}
+                                    />
+                                </FormControl>
+                            </Grid>
+
+                        </Grid>
+
+                        <Grid container spacing={0} pt={7}>
+
+                            {isloading ?
+                                <Grid xs={12} align="center">
+                                    <Button variant="contained" style={btn}>
+                                        <ClipLoader loading={isloading}
+                                            css={override}
+                                            size={10}
+                                        />
+                                    </Button>
+                                </Grid>
+
+                                :
+
+                                <Grid xs={12} align="center">
+                                    <Button variant="contained" style={btn} onClick={handleAdd}>Change</Button>
+                                </Grid>
+                            }
+                        </Grid>
+
+                    </Box>
+                </Modal>
 
                 {/* view */}
                 <Modal
@@ -865,13 +1064,13 @@ const Team = () => {
 
                             <Grid xs={12} align="center" pt={0}>
                                 {viewData.video_link !== null ?
-                            //       <VideoPlayer
-                            //       src={`http://localhost:3006/${viewData.video_link}`}
-                            //       width="720"
-                            //       height="420"
-                            //   />
+                                    //       <VideoPlayer
+                                    //       src={`http://localhost:3006/${viewData.video_link}`}
+                                    //       width="720"
+                                    //       height="420"
+                                    //   />
                                     <iframe src={`${url}${viewData.video_link}`}
-                                     style={{maxHeight:'200px', maxWidth:'400px', bgcolor: "#FF6700", width: '400px', height: '200px' }}>
+                                        style={{ maxHeight: '200px', maxWidth: '400px', bgcolor: "#FF6700", width: '400px', height: '200px' }}>
                                     </iframe>
                                     :
                                     <div>No video here</div>
