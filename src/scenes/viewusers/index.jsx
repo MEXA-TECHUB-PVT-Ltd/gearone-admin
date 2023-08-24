@@ -251,8 +251,29 @@ const Team = () => {
 
 
   const columns = [
-    { field: 'name', headerName: <span style={{ color: "black", fontWeight: 600 }}>Name</span>, flex: 1 },
-    { field: 'price', headerName: <span style={{ color: "black", fontWeight: 600 }}>Price</span>, flex: 1 },
+    {
+      field: 'name',
+      headerName: <span style={{ color: "black", fontWeight: 600 }}>Merchandise</span>,
+      flex: 1,
+      renderCell: (row) => {
+          return (
+              < Button sx={{ border: 'none', cursor: 'pointer' }}
+                  color="success"
+                  onClick={() => {
+                      navigate('/Orders', {
+                          state: {
+                              id: row.row.id,
+                          }
+                      })
+                  }
+                  }
+                  variant="outlined">
+                  {row.row.name}
+              </Button>
+          );
+      },
+
+  },    { field: 'price', headerName: <span style={{ color: "black", fontWeight: 600 }}>Price</span>, flex: 1 },
     {
       field: 'location',
       headerName: <span style={{ color: "black", fontWeight: 600 }}>Location</span>,

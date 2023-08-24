@@ -221,7 +221,7 @@ const Dashboard = () => {
   }
 
 
-  const [year, setYear] = React.useState('');
+  const [year, setYear] = React.useState(2023);
   const handleChange = (event) => {
     setYear(event.target.value);
     getAllUserMonth(event.target.value);
@@ -246,11 +246,11 @@ const Dashboard = () => {
       .then(response => {
         if (response.message == `Monthly added Users`) {
           setMonthUser(response.result);
-            let counts = parseInt(response.result[0].count);
-          for(let i = 0; i < response.result.length; i++) {
-            if(parseInt(counts) < parseInt(response.result[i].count)){
+          let counts = parseInt(response.result[0].count);
+          for (let i = 0; i < response.result.length; i++) {
+            if (parseInt(counts) < parseInt(response.result[i].count)) {
 
-                counts = parseInt(response.result[i].count)
+              counts = parseInt(response.result[i].count)
             }
           }
           setcount(counts);
@@ -642,14 +642,14 @@ const Dashboard = () => {
                 <Grid xs={12} md={12} >
                   <Box sx={{ width: '100%' }}>
                     <Paper sx={{ backgroundColor: "white", width: '100%', mb: 2 }}>
-                          <EnhancedTableHead
-                            numSelected={selected.length}
-                            order={order}
-                            orderBy={orderBy}
-                            onSelectAllClick={handleSelectAllClick}
-                            onRequestSort={handleRequestSort}
-                            rowCount={Items.length}
-                          />
+                      <EnhancedTableHead
+                        numSelected={selected.length}
+                        order={order}
+                        orderBy={orderBy}
+                        onSelectAllClick={handleSelectAllClick}
+                        onRequestSort={handleRequestSort}
+                        rowCount={Items.length}
+                      />
                     </Paper>
                   </Box>
                 </Grid>
@@ -660,34 +660,52 @@ const Dashboard = () => {
             </Grid>
           </Grid>
 
-          <Grid xs={12} md={5} lg={5} xl={5} sx={{mb:'10%', pt: { xs: 1, lg: 1 } }} pl={1}>
+          <Grid xs={12} md={5} lg={5} xl={5} sx={{ mb: '10%', pt: { xs: 1, lg: 1 } }} pl={1}>
 
             <Grid xs={12} >
               <Card sx={{ borderRadius: "10px", boxShadow: "0px 3px 6px #00000029" }}>
-                <CardContent>
-                  <Typography variant="h5" fontWeight={750}
-                    fontSize="15px" sx={{ font: "normal normal medium 16px/21px Roboto", letterSpacing: "1px" }} color="#1F1F1F">
-                    Total User
-                  </Typography>
-                  <Typography>Year </Typography>
-                  <Select sx={{ mb: '25px' }}
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={year}
-                    defaultValue='2023'
-                    label="Select A Year"
+                <CardContent style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                  <div>
+                    <Typography variant="h5" fontWeight={750} fontSize="15px" sx={{ font: "normal normal medium 16px/21px Roboto", letterSpacing: "1px" }} color="#1F1F1F">
+                      Total User
+                    </Typography>
+                  </div>
+                  <div style={{
+                    display: 'flex', alignItems: 'right',
+                    justifyContent: 'right'
+                  }}>
+                    <Typography variant="h5" fontWeight={750} fontSize="15px"
+                      sx={{ mt:'5px',
+                        font: "normal normal medium 16px/21px Roboto",
+                        letterSpacing: "1px"
+                      }} color="#1F1F1F">Year </Typography>
 
-                    onChange={handleChange}
-                  >
-                    <MenuItem value="Year " disabled>
-                      <em>select a Year</em>
-                    </MenuItem>
+                    <Select
+                      sx={{
+                        ml:'20px',
+                        borderRadius: "50px",
+                        backgroundColor: "#F8F8F8", height: "35px",
+                        "& fieldset": { border: 'none' },
+                      }}
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      displayEmpty
+                      defaultValue={year}
+                      onChange={handleChange}
+                    >
+                      <MenuItem value="Year " disabled>
+                        <em>select a Year</em>
+                      </MenuItem>
+                      {Years.map((data) => (
+                        <MenuItem key={data.id} value={data.year}>{`${data.year}`}</MenuItem>
+                      ))}
 
-                    {Years.map((data) => (
-                      <MenuItem key={data.id} value={data.year}>{`${data.year}`}</MenuItem>
-                    ))}
-                  </Select>
-                  {/* <Chart /> */}
+                    </Select>
+                  </div>
+
+                </CardContent>
+                <CardContent >
+
                   <LineChart
                     width={600}
                     height={300}
@@ -701,8 +719,9 @@ const Dashboard = () => {
                   >
                     {""}
                     <XAxis dataKey="month" />
-                    <YAxis type="number" domain={[0,count]}/>
+                    <YAxis type="number" domain={[0, count]} />
                     {/* <YAxis dataKey="count" /> */}
+                    <Tooltip/>
                     <CartesianGrid strokeDasharray="1 1" />
                     <Line
                       type="monotone"

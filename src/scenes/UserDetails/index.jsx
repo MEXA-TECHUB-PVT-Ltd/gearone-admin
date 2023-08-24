@@ -1,5 +1,7 @@
 import { Box, Tooltip, Typography, Select, useTheme, IconButton, TextField, Grid, Modal, Button, Stack, Card, CardContent, MenuItem, Menu, Paper, Divider, Avatar } from "@mui/material";
 import Chip from '@mui/material/Chip';
+import ProfileCard from './profileCard';
+import UserDetails from './UserDetails';
 
 import Header from "../../components/Header";
 import Breadcrumbs from '@mui/material/Breadcrumbs';
@@ -28,7 +30,6 @@ import {
 } from '@mui/x-data-grid';
 import { ImageGroup, Image } from "react-fullscreen-image";
 import { Close, Delete, Edit, Upload, Visibility } from "@mui/icons-material";
-// import "./index.css";
 
 const override = {
   display: ' block',
@@ -219,17 +220,16 @@ const Team = () => {
 
   const [showtable, setShowtable] = useState(true);
 
-  const changeStatus = async (data) => {
+  const changeStatus = async (statusChange , order_id) => {
     setIsloading(true);
     var InsertAPIURL = `${url}orders/update_orders_status`
     var headers = {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
     };
-    console.log(Status)
     var Data = {
-      "Order_ID": id,
-      "status": Status
+      "Order_ID": order_id,
+      "status": statusChange
     };
     await fetch(InsertAPIURL, {
       method: 'PUT',
@@ -295,15 +295,32 @@ const Team = () => {
       renderCell: (row) => {
         return (
           <>
-            {row.row.status === 'pending' ?
-              < Chip onClick={() => { handleOpendelmodalStatus(row.row) }} sx={{ cursor: 'pointer' }} label={row.row.status} color="success" variant="outlined" />
-              :
-              row.row.status === null ?
-                < Chip onClick={() => { handleOpendelmodalStatus(row.row) }} sx={{ cursor: 'pointer' }} label={row.row.status} color="success" variant="outlined" />
-                :
-                <Chip onClick={() => { handleOpendelmodalStatus(row.row) }} sx={{ cursor: 'pointer' }} label={row.row.status} color="primary" variant="outlined" />
+            <Select
+              sx={{
+                width: "100%",
+                backgroundColor: "#F8F8F8",
+                "& fieldset": { border: 'none' },
+              }}
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              displayEmpty
+              defaultValue={row.row.status}
+              onChange={(event) => {
+                setId(row.row.id);
+                changeStatus(event.target.value, row.row.id);
+              }}
+            >
+              <MenuItem value="" disabled>
+                <em>select Status</em>
+              </MenuItem>
 
-            }
+              <MenuItem key='pending' value='pending'>pending</MenuItem>
+              <MenuItem key='in-progress' value='in-progress'>in-progress</MenuItem>
+              <MenuItem key='confirmed' value='confirmed'>confirmed</MenuItem>
+              <MenuItem key='completed' value='completed'>completed</MenuItem>
+
+            </Select>
+
           </>
 
         );
@@ -447,12 +464,23 @@ const Team = () => {
         })
       });
   }
-  const [Logos, setLogos] = useState([]);
   useEffect(() => {
     getAllLogos();
     getItems();
     getOrders();
   }, [])
+  const [Logos, setLogos] = useState([]);
+  const [followers, setFollowers] = useState(0);
+  const [followings, setFollowing] = useState(0);
+
+  const [items, setitems] = useState(0);
+  const [likedItems, setlikedItems] = useState(0);
+  const [social_media, setsocial_media] = useState(0);
+
+  const [reported_items, setreported_items] = useState(0);
+  const [saved_items, setsaved_items] = useState(0);
+  const [shared_items, setshared_items] = useState(0);
+  const [report_ads, setreport_ads] = useState(0);
 
   const getAllLogos = async () => {
     var InsertAPIURL = `${url}auth/specific_user/${location.state.id}`
@@ -467,9 +495,31 @@ const Team = () => {
       .then(response => response.json())
       .then(response => {
         console.log(response);
-        if (response.message == `User Details`) {
-          // setLogos(response.count);
-          console.log(response.result);
+        if (response.status == true) {
+
+          setreported_items(response.reported_items);
+          setsaved_items(response.saved_items);
+          setshared_items(response.shared_items);
+          setreport_ads(response.report_ads);
+
+
+          setFollowers(response.followers);
+          setFollowing(response.followings);
+          setitems(response.items);
+          setlikedItems(response.likedItems);
+          if (response.social_media) {
+            setsocial_media(response.social_media);
+          } else {
+            setsocial_media({
+              facebook: '',
+              twitter: '',
+              instagram: '',
+              youtube: '',
+            });
+
+          }
+
+          console.log(response);
           setLogos(response.result);
         } else {
           Swal.fire({
@@ -577,7 +627,15 @@ const Team = () => {
       });
   }
 
-
+  const userList = [
+    {
+      name: 'John Doe',
+      avatarSrc: '/static/images/avatar/1.jpg',
+      primaryText: 'Brunch this weekend?',
+      secondaryText: 'Ali Connors — I\'ll be in your neighborhood doing errands this…',
+      additionalText: '',
+    },
+  ];
 
 
 
@@ -671,6 +729,50 @@ const Team = () => {
         </Grid>
 
         <Divider sx={{ pb: 2 }} />
+
+        <Grid maxHeight={'90vh'} container>
+
+          <Grid paddingTop={3} paddingRight={2} paddingLeft={3} item md={5} xs={10} className="admin-panel">
+            <ProfileCard
+              key={1}
+
+              name={Logos.length > 0 && Logos[0].username}
+              // role='admin'
+              address={Logos.length > 0 && Logos[0].address}
+              imageUrl={Logos.length > 0 && `${url}${Logos[0].image}`}
+              email={Logos.length > 0 && Logos[0].email}
+              createdat={Logos.length > 0 && Logos[0].createdat}
+              // gender={Logos[0].email}
+              blockType={Logos.length > 0 && Logos[0].status}
+              accountType={Logos.length > 0 && Logos[0].type}
+              phoneNumber={Logos.length > 0 && `${Logos[0].country_code}${Logos[0].phone}`}
+            />
+
+          </Grid>
+
+          <Grid paddingTop={3} paddingRight={3} item md={7} xs={14} >
+            <UserDetails
+              id={Logos.length > 0 && Logos[0].id}
+              block={Logos.length > 0 && Logos[0].status}
+              all_items={items}
+              liked_items={likedItems}
+              reported_items={reported_items}
+              saved_items={saved_items}
+              shared_items={shared_items}
+              report_ads={report_ads}
+              followers={followers}
+              followings={followings}
+              total_orders={OrderCount}
+              facebook={social_media.facebook}
+              twitter={social_media.twitter}
+              linked_in={social_media.linkedin}
+            />
+
+          </Grid>
+        </Grid>
+
+        <Divider sx={{ pb: 2 }} />
+
 
         <Grid sx={{ mb: '23px' }} container spacing={0} pt={2} pl={2} pr={2} >
           <Typography sx={{ ml: '10px' }} variant="h5" fontWeight={750} fontSize="20px" color="#404040">

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
-import {  Box, Typography, useTheme } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
 import "react-pro-sidebar/dist/css/styles.css";
 import { tokens } from "../../theme";
@@ -9,7 +9,7 @@ import StorefrontIcon from '@mui/icons-material/Storefront';
 import PasswordIcon from '@mui/icons-material/Password';
 import GavelIcon from '@mui/icons-material/Gavel';
 import ManageHistoryIcon from '@mui/icons-material/ManageHistory';
-import { Apps,Dashboard, People, PrivacyTip} from "@mui/icons-material";
+import { Apps, Dashboard, People, PrivacyTip } from "@mui/icons-material";
 import logo from '../../components/Images/logo.svg'
 import ViewCarouselIcon from '@mui/icons-material/ViewCarousel';
 import CategoryIcon from '@mui/icons-material/Category';
@@ -153,13 +153,22 @@ const Sidebar = () => {
               selected={selected}
               setSelected={setSelected}
             />
-                        <Item
+            <Item
               title="Reported Items"
               to="/ReportItems"
               icon={<Apps />}
               selected={selected}
               setSelected={setSelected}
             />
+            <Item
+              title="Orders"
+
+              to="/Orders"
+              icon={<CategoryIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+
             <Item
               title="Categories"
               to="/categories"
