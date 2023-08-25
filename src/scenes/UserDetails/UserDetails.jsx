@@ -1,4 +1,4 @@
-import  React, {useState} from 'react';
+import React, { useState } from 'react';
 import { styled } from '@mui/material/styles';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -8,6 +8,7 @@ import { Box, Tooltip, Typography, Grid, Modal, Button, Stack, Card, CardContent
 import Swal from 'sweetalert2'
 import url from "../url"
 import { Close } from "@mui/icons-material";
+import { useEffect } from 'react';
 
 const btncancel = {
     width: '90%',
@@ -23,9 +24,9 @@ const btncancel = {
     boxShadow: "none",
     fontSize: "large",
     textTransform: "capitalize"
-  }
-  
-  const btn = {
+}
+
+const btn = {
     width: '90%',
     letterSpacing: "2px",
     marginBottom: '40px',
@@ -39,9 +40,9 @@ const btncancel = {
     boxShadow: "none",
     fontSize: "large",
     textTransform: "capitalize"
-  }
-  
-  const style = {
+}
+
+const style = {
     position: 'absolute',
     top: '50%',
     left: '50%',
@@ -51,9 +52,9 @@ const btncancel = {
     boxShadow: 0,
     p: 4,
     borderRadius: 5
-  };
-  
-  const styleview = {
+};
+
+const styleview = {
     position: 'absolute',
     top: '50%',
     left: '50%',
@@ -62,7 +63,7 @@ const btncancel = {
     outline: "none",
     boxShadow: 0,
     borderRadius: 5
-  };
+};
 
 const StyledListItem = styled(ListItem)(({ theme }) => ({
     backgroundColor: 'white',
@@ -75,7 +76,7 @@ const StyledListItem = styled(ListItem)(({ theme }) => ({
 export default function UserDetails({
     id,
     block, all_items, reported_items, saved_items, liked_items, shared_items,
-    report_ads, total_orders, facebook, twitter, linked_in, followers, followings
+    report_ads, instagram, total_orders, facebook, twitter, linked_in, followers, followings
 }) {
     const [DeleteData, setDeleteData] = useState([]);
     const [dense, setDense] = React.useState(false);
@@ -83,63 +84,67 @@ export default function UserDetails({
     const [AnchorElStatus, setAnchorElStatus] = React.useState(null);
     const [BlockStatus, setBlockStatus] = React.useState(block);
 
+    useEffect(() => {
+        setBlockStatus(block)
+    }, [block])
+
     const [opendelmodalStatus, setOpendelmodalStatus] = useState(false);
     const handleOpendelmodalStatus = (row) => {
-      setOpendelmodalStatus(true);
-      setAnchorElStatus(null);
+        setOpendelmodalStatus(true);
+        setAnchorElStatus(null);
     };
     const handleClosedelmodalStatus = () => setOpendelmodalStatus(false);
-  
+
     const handleChipClick = async () => {
         var InsertAPIURL = `${url}admin/block_unblock_user`
         var headers = {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
         };
         var DataFinal = {
-          "id": id,
+            "id": id,
         };
         await fetch(InsertAPIURL, {
-          method: 'POST',
-          headers: headers,
-          body: JSON.stringify(DataFinal),
+            method: 'POST',
+            headers: headers,
+            body: JSON.stringify(DataFinal),
         })
-          .then(response => response.json())
-          .then(response => {
-            if (response.status == true) {
-                console.log(response.result[0].status);
-                setBlockStatus(response.result[0].status);
-              handleClosedelmodalStatus();
-              Swal.fire({
-                icon: 'success',
-                title: 'Success',
-                confirmButtonColor: "#FF6700",
-                text: 'Status change successfully'
-              })
-    
-              // setOpendelmodal(false);
-              //   console.log(response.result);
-              //   setCatagory(response.result);
-            } else {
-              Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                confirmButtonColor: "#FF6700",
-                text: ''
-              })
+            .then(response => response.json())
+            .then(response => {
+                if (response.status == true) {
+                    console.log(response.result[0].status);
+                    setBlockStatus(response.result[0].status);
+                    handleClosedelmodalStatus();
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        confirmButtonColor: "#FF6700",
+                        text: 'Status change successfully'
+                    })
+
+                    // setOpendelmodal(false);
+                    //   console.log(response.result);
+                    //   setCatagory(response.result);
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        confirmButtonColor: "#FF6700",
+                        text: ''
+                    })
+                }
             }
-          }
-          )
-          .catch(error => {
-            Swal.fire({
-              icon: 'error',
-              title: 'Oops...',
-              confirmButtonColor: "#FF6700",
-              text: "Server Down!"
-            })
-          });
-      }
-    
+            )
+            .catch(error => {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    confirmButtonColor: "#FF6700",
+                    text: "Server Down!"
+                })
+            });
+    }
+
 
 
     return (
@@ -150,15 +155,15 @@ export default function UserDetails({
                         <List dense={dense}>
                             <StyledListItem
                                 secondaryAction={
-                                    block === 'block' ?
+                                    BlockStatus === 'block' ?
                                         <Chip
-                                            label={block}
+                                            label={BlockStatus}
                                             color="primary"
                                             onClick={handleChipClick}
                                         />
                                         :
                                         <Chip
-                                            label={block}
+                                            label={BlockStatus}
                                             variant='outlined'
                                             color="secondary"
                                             onClick={handleChipClick}
@@ -333,6 +338,21 @@ export default function UserDetails({
                             >
                                 <ListItemText
                                     primary="LinkedIn"
+                                    secondary={secondary ? 'Secondary text' : null}
+                                />
+                            </StyledListItem>
+                            <StyledListItem
+                                secondaryAction={
+                                    <a href={instagram} target="_blank" rel="noopener noreferrer">
+                                        <ListItemText
+                                            primary={linked_in}
+                                            secondary={secondary ? 'Secondary text' : null}
+                                        />
+                                    </a>
+                                }
+                            >
+                                <ListItemText
+                                    primary="Instagram"
                                     secondary={secondary ? 'Secondary text' : null}
                                 />
                             </StyledListItem>

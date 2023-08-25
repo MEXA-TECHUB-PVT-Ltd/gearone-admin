@@ -18,7 +18,7 @@ import React, { useState, useEffect } from "react";
 import {
   DataGrid,
 } from '@mui/x-data-grid';
-import { Close, Delete, Edit, Upload, Visibility } from "@mui/icons-material";
+import {Close,  Cancel, Delete, Edit, Upload, Visibility } from "@mui/icons-material";
 
 
 const btncancel = {
@@ -449,7 +449,7 @@ const Team = () => {
                     <Card width="95%" sx={{ padding: 0, boxShadow: "none", borderRadius: "10px", border: "1px solid #D8D8D8" }}>
                       <CardContent>
                         <Grid container spacing={0} >
-                          <Grid xs={6} align="center" onClick={() => { setViewData(item); handleOpenmodal(); }}>
+                          <Grid xs={6} align="left" onClick={() => { setViewData(item); handleOpenmodal(); }}>
                             <Typography variant="h5" pb={1} fontWeight={750} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#FF6700">
                               {item.username}
                             </Typography>
@@ -646,7 +646,7 @@ const Team = () => {
           <Box width={{ xs: 400, md: 500, lg: 600, xl: 650 }} height="auto" sx={styleview}>
             <Box sx={{ borderTopLeftRadius: "20px", borderTopRightRadius: "20px", backgroundColor: "#FF6700", width: "100%", height: "70px" }}>
               <Box xs={12} align="right" pt={0.1} pr={1}>
-                <Close sx={{ color: "white" }} onClick={() => setOpenmodal(false)} />
+                <Cancel sx={{ color: "white" }} onClick={() => setOpenmodal(false)} />
               </Box>
               <Box xs={12} sx={{ mb: '20px' }} align="center">
                 <Typography align="center" sx={{ mb: '20px', fontWeight: 600, fontSize: "24px" }} color="white">

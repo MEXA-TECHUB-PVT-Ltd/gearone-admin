@@ -663,7 +663,7 @@ const Dashboard = () => {
           <Grid xs={12} md={5} lg={5} xl={5} sx={{ mb: '10%', pt: { xs: 1, lg: 1 } }} pl={1}>
 
             <Grid xs={12} >
-              <Card sx={{ borderRadius: "10px", boxShadow: "0px 3px 6px #00000029" }}>
+              <Card sx={{overflow: { xs: 'scroll', md: 'hidden' }, borderRadius: "10px", boxShadow: "0px 3px 6px #00000029" }}>
                 <CardContent style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                   <div>
                     <Typography variant="h5" fontWeight={750} fontSize="15px" sx={{ font: "normal normal medium 16px/21px Roboto", letterSpacing: "1px" }} color="#1F1F1F">

@@ -54,11 +54,9 @@ function Emailverification() {
     const navigate = useNavigate();
 
     const [hide, setHide] = useState(false);
-    const [emailmessage, setEmailmessage] = useState(false);
     const [email, setEmail] = useState('');
     const [adminid, setAdminid] = useState('');
     const [enteredotp, setEnteredotp] = useState('');
-    const [responseemail, setResponseemail] = useState();
     const [responseotp, setResponseotp] = useState();
     const [isloading, setIsloading] = useState(false);
     let [loading, setLoading] = useState(false);
@@ -85,7 +83,7 @@ function Emailverification() {
 
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         const isValidEmail = emailRegex.test(email);
-        if (email.length == 0) {
+        if (email.length === 0) {
             setIsloading(false);
             Swal.fire({
                 icon: 'warning',
@@ -94,6 +92,7 @@ function Emailverification() {
                 text: 'Email is Required'
             })
         } else if (!isValidEmail) {
+            setIsloading(false);
             Swal.fire({
                 icon: 'error',
                 title: 'Warning',
@@ -109,13 +108,6 @@ function Emailverification() {
             var Data = {
                 "email": email,
             };
-            Swal.fire({
-                title: 'Please Wait...',
-                text: 'An Otp is sending on your email',
-                icon: "success",
-                confirmButtonText: "OK",
-                confirmButtonColor: "#FF6700",
-            })
             await fetch(InsertAPIURL, {
                 method: 'POST',
                 headers: headers,
@@ -124,8 +116,14 @@ function Emailverification() {
                 .then(response => response.json())
                 .then(response => {
                     console.log(response);
-                    if (response.message == `Sent a verification email to ${email}`) {
+                    if (response.success === true) {
                         setHide(true);
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success...',
+                            confirmButtonColor: "#FF6700",
+                            text: 'OTP Send on your Email Address...',
+                        })
                         setIsloading(false);
                     } else {
                         setIsloading(false);
@@ -148,12 +146,12 @@ function Emailverification() {
                     })
                 });
         }
-       
+
     }
 
     const verifyotp = async () => {
 
-        if (enteredotp.length == 0) {
+        if (enteredotp.length === 0) {
             Swal.fire({
                 icon: 'warning',
                 title: 'warning',
@@ -161,7 +159,7 @@ function Emailverification() {
                 text: 'Enter OTP For Verification'
             })
             setOpen(false);
-       
+
         } else {
             var InsertAPIURL = `${url}auth/verifyOTP`
             var headers = {
@@ -180,12 +178,12 @@ function Emailverification() {
                 .then(response => response.json())
                 .then(response => {
                     console.log(response);
-                    if (response.message == `OTP verified`) {
+                    if (response.status == true) {
                         setIsloading(true);
                         setIsloading(false);
                         handleOpen();
                         localStorage.setItem("verifiedEmail", email);
-                      
+
                     } else {
                         Swal.fire({
                             icon: 'error',
@@ -213,8 +211,8 @@ function Emailverification() {
             <Grid container spacig={0}>
                 <Grid xs={12} md={6} lg={6} xl={6} align="">
                     <Container>
-                    <Box sx={{ pt: { xs: 0, sm: 0, md: 0, lg: 7, xl: 7 } }} p={{ lg: 8, xl: 13 }}>
-                    <img src={image} sx={{ width: 120, height: 120 }} />
+                        <Box sx={{ pt: { xs: 0, sm: 0, md: 0, lg: 7, xl: 7 } }} p={{ lg: 8, xl: 13 }}>
+                            <img src={image} sx={{ width: 120, height: 120 }} />
 
                             {hide ?
                                 <Stack pt={5}>

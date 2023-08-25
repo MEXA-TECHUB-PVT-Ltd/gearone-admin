@@ -9,6 +9,7 @@ import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from '@mui/material/Link';
 import HomeIcon from '@mui/icons-material/Home';
 import Swal from 'sweetalert2'
+import MyVideoPlayer from './VideoPlayer';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import moment from 'moment'
@@ -33,7 +34,7 @@ import {
     GridToolbarDensitySelector,
 } from '@mui/x-data-grid';
 import { ImageGroup, Image } from "react-fullscreen-image";
-import { Close, Delete, Edit, Upload, Visibility } from "@mui/icons-material";
+import { Cancel, Close, Delete, Edit, Upload, Visibility } from "@mui/icons-material";
 
 const override = {
     display: ' block',
@@ -150,6 +151,7 @@ const Team = () => {
 
     const navigate = useNavigate();
     const [ImgsWidth, setImgsWidth] = useState(900);
+    const [VideoWidth, setVideoWidth] = useState(300);
     const [isloading, setIsloading] = useState(false);
     let [loading, setLoading] = useState(true);
     let [color, setColor] = useState("#ffffff");
@@ -684,11 +686,14 @@ const Team = () => {
                                                             >
                                                                 <Edit sx={{ color: "#40E0D0" }} /><span style={{ marginLeft: 10 }}>Update</span>
                                                             </MenuItem>
+
                                                             <Grid container spacing={0}>
                                                                 <Grid xs={12} align="center">
                                                                     <Divider sx={{ width: "80%" }} />
                                                                 </Grid>
                                                             </Grid>
+
+
                                                             <MenuItem onClick={() => {
                                                                 setDeleteID(idData.id);
                                                                 handleOpendelmodal();
@@ -879,13 +884,14 @@ const Team = () => {
                 <Modal
                     open={openmodal}
                     // onClose={handleClose}
+                    sx={{ overflow: 'scroll', mt: '2%' }}
                     aria-labelledby="modal-modal-title"
                     aria-describedby="modal-modal-description"
                 >
                     <Box width={{ xs: 400, md: 500, lg: 600, xl: 650 }} height="auto" sx={styleview}>
                         <Box sx={{ borderTopLeftRadius: "20px", borderTopRightRadius: "20px", backgroundColor: "#FF6700", width: "100%", height: "80px" }}>
                             <div xs={12} align="right" pt={0.6} pr={3}>
-                                <Close sx={{ marginRight: '10px', marginTop: "5px", color: "white" }} onClick={() => setOpenmodal(false)} />
+                                <Cancel sx={{ marginRight: '10px', marginTop: "5px", color: "white" }} onClick={() => setOpenmodal(false)} />
                             </div>
                             <Box xs={12} sx={{ mb: '20px' }} align="center">
                                 <Typography align="center" sx={{ mb: '20px', fontWeight: 600, fontSize: "24px" }} color="white">
@@ -903,7 +909,7 @@ const Team = () => {
                                 //   }}
                                 //   cols={5} rowHeight={"200px"}>
                                 <PerfectScrollbar position="flex" >
-                                    <Grid container sx={{ width: `${ImgsWidth}px`, mt: '10px', ml: '10px', mr: '10px', height: '200px' }}>
+                                    <Grid container sx={{ width: `${ImgsWidth}px`, mt: '5px', ml: '10px', mr: '10px', height: '180px' }}>
                                         {viewImage.length > 0 &&
                                             <ImageListItem key={viewImage.name}>
                                                 <img src={`${url}${viewImage[0]}`} style={{ bgcolor: "#FF6700", width: '175px', height: '175px' }}>
@@ -938,7 +944,7 @@ const Team = () => {
                                     </Grid>
                                 </PerfectScrollbar>
                                 :
-                                <Grid xs={12} align="center" pt={3}>
+                                <Grid xs={12} align="center" pt={2}>
                                     <Avatar sx={{ bgcolor: "#FF6700", width: 75, height: 75 }}>
                                         <Typography variant="paragraph" sx={{ textTransform: "uppercase", fontSize: "18px", fontWeight: 600 }} p={1} color="white">
                                         </Typography>
@@ -946,7 +952,7 @@ const Team = () => {
                                 </Grid>
                         }
 
-                        <Grid container spacing={0} p={2}>
+                        <Grid container spacing={0} p={1}>
                             <Grid xs={6} align="" p={0.5}>
                                 <Typography variant="h5" fontWeight={700} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
                                     Price :
@@ -1034,17 +1040,6 @@ const Team = () => {
                             </Grid>
 
 
-                            <Grid xs={6} align="" p={0.5}>
-                                <Typography variant="h5" fontWeight={700} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
-                                    Added By :
-                                </Typography>
-                            </Grid>
-
-                            <Grid xs={6} align="right" p={0.5}>
-                                <Typography variant="h5" fontWeight={600} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#808080">
-                                    {viewData.added_by}
-                                </Typography>
-                            </Grid>
 
                             <Grid xs={6} align="" p={0.5}>
                                 <Typography variant="h5" fontWeight={700} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
@@ -1054,7 +1049,7 @@ const Team = () => {
 
                             <Grid xs={6} align="right" p={0.5}>
                                 <Typography variant="h5"
-                                    fontWeight={600} fontSize="14px" sx={{ overflowX: 'scroll', height: '100px' }}
+                                    fontWeight={600} fontSize="14px" sx={{ overflowX: 'scroll', height: '50px' }}
                                     color="#808080">
                                     <PerfectScrollbar  >
                                         {viewData.description}
@@ -1062,20 +1057,29 @@ const Team = () => {
                                 </Typography>
                             </Grid>
 
-                            <Grid xs={12} align="center" pt={0}>
-                                {viewData.video_link !== null ?
-                                    //       <VideoPlayer
-                                    //       src={`http://localhost:3006/${viewData.video_link}`}
-                                    //       width="720"
-                                    //       height="420"
-                                    //   />
-                                    <iframe src={`${url}${viewData.video_link}`}
-                                        style={{ maxHeight: '200px', maxWidth: '400px', bgcolor: "#FF6700", width: '400px', height: '200px' }}>
-                                    </iframe>
-                                    :
+
+                            <Grid sx={{ml:{md:'20%' , xs:'10%'}}}  xs={6}  align="center" height={'30vh'} >
+                                {viewData.video_link !== null && viewData.video_link !== '' && viewData.video_link !== undefined ? (
+                                    <Grid  sx={{align:'center', height: '50%', width: '60%', position: 'absolute' }}>
+                                        <video
+                                            autoPlay
+                                            controls
+                                            style={{
+                                                align:'center',
+                                                width: '50%',
+                                                height: '60%',
+                                                objectFit: 'contain'
+                                            }}
+                                        >
+                                            <source src={`${url}${viewData.video_link}`} type="video/mp4" />
+                                            Your browser does not support the video tag.
+                                        </video>
+                                    </Grid>
+                                ) : (
                                     <div>No video here</div>
-                                }
+                                )}
                             </Grid>
+
 
 
                         </Grid>

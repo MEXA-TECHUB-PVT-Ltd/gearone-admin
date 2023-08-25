@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
@@ -9,6 +9,11 @@ import moment from 'moment';  // Import moment
 
 const ProfileCard = ({ name, role, createdat, imageUrl, email, address, gender, blockType, accountType, phoneNumber }) => {
     const formattedDate = moment(createdat).format('MMMM Do YYYY');  // Format the date using moment
+    const [BlockStatus, setBlockStatus] = React.useState(blockType);
+
+    useEffect(() => {
+        setBlockStatus(blockType)
+    }, [blockType])
 
     return (
         <Card sx={{
@@ -53,13 +58,12 @@ const ProfileCard = ({ name, role, createdat, imageUrl, email, address, gender, 
             }}>
 
                 <div className="profile-card">
-                    <p>{role}</p>
-                    <p>details: {gender}</p>
-                    <p>Block Type: {blockType}</p>
-                    <p>Account Type: {accountType}</p>
-                    <p>Creation Date: {formattedDate}</p>
-                    
-                    <p>Phone Number: {phoneNumber}</p>
+                    <p style={{ display: 'flex', justifyContent: 'space-between' }}><span></span> {role}</p>
+                    <p style={{ display: 'flex', justifyContent: 'space-between' }}><span>Details:</span> {gender}</p>
+                    {/* <p style={{ display: 'flex', justifyContent: 'space-between' }}><span>Status:</span> {BlockStatus}</p> */}
+                    <p style={{ display: 'flex', justifyContent: 'space-between' }}><span>Account Type:</span> {accountType}</p>
+                    <p style={{ display: 'flex', justifyContent: 'space-between' }}><span>Creation Date:</span> {formattedDate}</p>
+                    <p style={{ display: 'flex', justifyContent: 'space-between' }}><span>Phone Number:</span> {phoneNumber}</p>
                 </div>
 
             </CardContent>
