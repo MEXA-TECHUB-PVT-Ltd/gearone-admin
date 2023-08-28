@@ -766,6 +766,8 @@ const Team = () => {
               facebook={social_media.facebook}
               twitter={social_media.twitter}
               linked_in={social_media.linkedin}
+              instagram={social_media.insta}
+
             />
 
           </Grid>

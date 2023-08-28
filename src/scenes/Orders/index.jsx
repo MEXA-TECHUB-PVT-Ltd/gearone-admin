@@ -179,7 +179,7 @@ const Team = () => {
             );
         }
     };
-    const changeStatus = async (statusChange , order_id) => {
+    const changeStatus = async (statusChange, order_id) => {
         setIsloading(true);
         var InsertAPIURL = `${url}orders/update_orders_status`
         var headers = {
@@ -337,7 +337,7 @@ const Team = () => {
                             defaultValue={row.row.status}
                             onChange={(event) => {
                                 setId(row.row.id);
-                                changeStatus(event.target.value , row.row.id);
+                                changeStatus(event.target.value, row.row.id);
                             }}
                         >
                             <MenuItem value="" disabled>
@@ -392,59 +392,18 @@ const Team = () => {
 
                         <div>
                             <IconButton onClick={() => {
-                                setViewData(row.row);
-                                if (row.row.images.length == 5) {
-                                    setImgsWidth(900);
-                                } else if (row.row.images.length == 4) {
-                                    setImgsWidth(800);
-                                } else {
-                                    setImgsWidth(550);
-                                }
+                                navigate('/UserDetails', {
+                                    state: {
+                                        id: row.row.id,
+                                    }
+                                })
+                            }
 
-                                setViewImage(row.row.images); console.log(row.row);
-                                var myDate = new Date(row.row.end_date);
-                                var result = myDate.getTime();
-                                console.log(result);
-                                setTimer(result)
-
-                                var myDate1 = new Date(row.row.start_date);
-                                var result1 = myDate1.getTime();
-                                console.log(result1);
-                                setStartDate(result1)
-
-
-                                handleOpenmodal();
-                            }} >
+                            } >
                                 <Tooltip title="view" >
-                                    <Visibility sx={{ color: "#3FC0FF" }} onClick={() => {
-                                        setViewData(row.row);
-                                        if (row.row.images.length == 5) {
-                                            setImgsWidth(900);
-                                        } else if (row.row.images.length == 4) {
-                                            setImgsWidth(800);
-                                        } else {
-                                            setImgsWidth(550);
-                                        }
-
-                                        setViewImage(row.row.images); console.log(row.row);
-                                        var myDate = new Date(row.row.end_date);
-                                        var result = myDate.getTime();
-                                        console.log(result);
-                                        setTimer(result)
-
-                                        var myDate1 = new Date(row.row.start_date);
-                                        var result1 = myDate1.getTime();
-                                        console.log(result1);
-                                        setStartDate(result1)
-
-
-                                        handleOpenmodal();
-                                    }} />
+                                    <Visibility sx={{ color: "#3FC0FF" }} />
                                 </Tooltip>
                             </IconButton>
-
-
-
                         </div>
                     </>
 
@@ -479,7 +438,7 @@ const Team = () => {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
         };
-        
+
         const Data = {
             merchandise_id: location.state.id
         }
@@ -627,8 +586,17 @@ const Team = () => {
                             :
                             <>
                                 {Logos.map((item, index) => (
-                                    <Grid sx={{ mb: '20px' }} xs={12} md={3} lg={3} align="center" p={1}>
-                                        <Card width="100%" sx={{ padding: 0, boxShadow: "none", borderRadius: "10px", border: "1px solid #D8D8D8" }}>
+                                    <Grid sx={{ cursor:'pointer', mb: '20px' }} xs={12} md={3} lg={3} align="center" p={1}>
+                                        <Card
+                                            onClick={() => {
+                                                navigate('/UserDetails', {
+                                                    state: {
+                                                        id: item.id,
+                                                    }
+                                                })
+                                            }
+                                            }
+                                            width="100%" sx={{ padding: 0, boxShadow: "none", borderRadius: "10px", border: "1px solid #D8D8D8" }}>
                                             <CardContent>
                                                 <Grid container spacing={0} >
                                                     <Grid sx={{ width: '100px', height: '50px' }} xs={12} align="center" onClick={() => { setViewImage(item.images); setViewData(item); handleOpenmodal(); }}>
@@ -638,29 +606,21 @@ const Team = () => {
                                                     </Grid>
 
 
-                                                    <Grid xs={6} sx={{ pb: 1 }} align="left" onClick={() => {
-                                                        if (item.images.length == 5) {
-                                                            setImgsWidth(900);
-                                                        } else if (item.images.length == 4) {
-                                                            setImgsWidth(800);
-                                                        } else {
-                                                            setImgsWidth(550);
-                                                        } setViewImage(item.images); setViewData(item); handleOpenmodal();
-                                                    }}>
+                                                    <Grid xs={6} sx={{ pb: 1 }} align="left"
+                                                        onClick={() => {
+                                                            navigate('/UserDetails', {
+                                                                state: {
+                                                                    id: item.id,
+                                                                }
+                                                            })
+                                                        }
+                                                        }>
                                                         <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
                                                             User Name :
                                                         </Typography>
                                                     </Grid>
 
-                                                    <Grid sx={{ pb: 1, width: '100px', height: '50px' }} xs={6} align="right" onClick={() => {
-                                                        setViewImage(item.images); if (item.images.length == 5) {
-                                                            setImgsWidth(900);
-                                                        } else if (item.images.length == 4) {
-                                                            setImgsWidth(800);
-                                                        } else {
-                                                            setImgsWidth(550);
-                                                        } setViewData(item); handleOpenmodal();
-                                                    }}>
+                                                    <Grid sx={{ pb: 1, width: '100px', height: '50px' }} xs={6} align="right">
                                                         <Typography
                                                             onClick={() => {
                                                                 navigate('/UserDetails', {
@@ -670,35 +630,19 @@ const Team = () => {
                                                                 })
                                                             }
                                                             }
-                                                            variant="h5" fontWeight={600} pb={1} fontSize="16px"
-                                                            sx={{ cursor: 'pointer', letterSpacing: "2px" }} color="#808080">
-                                                            {item.user_name}
+                                                            variant="h6" fontWeight={600} pb={1} fontSize="16px"
+                                                            sx={{ cursor: 'pointer', letterSpacing: "0px" }} color="#808080">
+                                                            {item.username}
                                                         </Typography>
                                                     </Grid>
 
-                                                    <Grid xs={6} sx={{ pb: 1 }} align="left" onClick={() => {
-                                                        setViewImage(item.images); if (item.images.length == 5) {
-                                                            setImgsWidth(900);
-                                                        } else if (item.images.length == 4) {
-                                                            setImgsWidth(800);
-                                                        } else {
-                                                            setImgsWidth(550);
-                                                        } setViewData(item); handleOpenmodal();
-                                                    }}>
+                                                    <Grid xs={6} sx={{ pb: 1 }} align="left" >
                                                         <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
                                                             email :
                                                         </Typography>
                                                     </Grid>
 
-                                                    <Grid sx={{ pb: 1, width: '100px', height: '50px' }} xs={6} align="left" onClick={() => {
-                                                        setViewImage(item.images); if (item.images.length == 5) {
-                                                            setImgsWidth(900);
-                                                        } else if (item.images.length == 4) {
-                                                            setImgsWidth(800);
-                                                        } else {
-                                                            setImgsWidth(550);
-                                                        } setViewData(item); handleOpenmodal();
-                                                    }}>
+                                                    <Grid sx={{ pb: 1, width: '100px', height: '50px' }} xs={6} align="left" >
                                                         <PerfectScrollbar  >
 
                                                             <Typography variant="h6" fontWeight={300} pb={1} fontSize="12px" sx={{ letterSpacing: "2px" }} color="#808080">
@@ -708,37 +652,38 @@ const Team = () => {
 
                                                     </Grid>
 
-                                                    <Grid xs={6} sx={{ pb: 1 }} align="left" onClick={() => {
-                                                        setViewImage(item.images); if (item.images.length == 5) {
-                                                            setImgsWidth(900);
-                                                        } else if (item.images.length == 4) {
-                                                            setImgsWidth(800);
-                                                        } else {
-                                                            setImgsWidth(550);
-                                                        } setViewData(item); handleOpenmodal();
-                                                    }}>
+                                                    <Grid xs={6} sx={{ pb: 1 }} align="left" >
                                                         <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
-                                                            Reported Date :
+                                                            Location :
                                                         </Typography>
                                                     </Grid>
 
-                                                    <Grid sx={{ pb: 1, width: '100px', height: '50px' }} xs={6} align="right" onClick={() => {
-                                                        setViewImage(item.images); if (item.images.length == 5) {
-                                                            setImgsWidth(900);
-                                                        } else if (item.images.length == 4) {
-                                                            setImgsWidth(800);
-                                                        } else {
-                                                            setImgsWidth(550);
-                                                        } setViewData(item); handleOpenmodal();
-                                                    }}>
+                                                    <Grid sx={{ pb: 1, width: '100px', height: '50px' }} xs={6}
+                                                        align="right" >
                                                         <PerfectScrollbar  >
                                                             <Typography variant="h6" fontWeight={300} pb={1} fontSize="12px" sx={{ letterSpacing: "2px" }} color="#808080">
-                                                                {moment(item.start_date).format("MMMM Do, YYYY/hh:mm A")}
+                                                                {item.ordered_at}
                                                             </Typography>
                                                         </PerfectScrollbar  >
 
                                                     </Grid>
 
+
+                                                    <Grid xs={6} sx={{ pb: 1 }} align="left" >
+                                                        <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
+                                                            Merchandise :
+                                                        </Typography>
+                                                    </Grid>
+
+                                                    <Grid sx={{ pb: 1, width: '100px', height: '50px' }} xs={6}
+                                                        align="right" >
+                                                        <PerfectScrollbar  >
+                                                            <Typography variant="h6" fontWeight={300} pb={1} fontSize="12px" sx={{ letterSpacing: "2px" }} color="#808080">
+                                                                {item.merchandise_name}
+                                                            </Typography>
+                                                        </PerfectScrollbar  >
+
+                                                    </Grid>
 
                                                 </Grid>
                                             </CardContent>

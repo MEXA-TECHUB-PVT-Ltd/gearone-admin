@@ -286,7 +286,7 @@ const Team = () => {
                         onClick={() => {
                             navigate('/UserDetails', {
                                 state: {
-                                    id: row.row.id,
+                                    id: row.row.user_id,
                                 }
                             })
                         }
@@ -326,12 +326,12 @@ const Team = () => {
 
         {
             field: 'report_create_by',
-            headerName: <span style={{ color: "black", fontWeight: 600 }}>Promoted</span>,
+            headerName: <span style={{ color: "black", fontWeight: 600 }}>Reported On</span>,
             flex: 1,
             renderCell: (row) => {
                 return (
                     <>
-                        {moment(row.report_create_by).format("MMMM Do, YYYY/hh:mm A")}
+                        {moment(row.row.report_create_by).format("MMMM Do, YYYY/hh:mm A")}
                     </>
 
                 );
@@ -432,7 +432,7 @@ const Team = () => {
             .then(response => response.json())
             .then(response => {
                 console.log(response);
-                if (response.status == true) {
+                if (response.status === true) {
                     setLogos(response.result);
                 } else {
                     Swal.fire({
@@ -511,8 +511,8 @@ const Team = () => {
                                 <div style={{ height: 600, width: '100%' }}>
                                     <DataGrid
                                         rows={Logos}
-                                        getRowId={Logos.id}
-                                        id={Logos.id}
+                                        getRowId={Logos.report_id}
+                                        id={Logos.report_id}
                                         columns={columns}
                                         initialState={{
                                             pagination: {
@@ -595,7 +595,7 @@ const Team = () => {
                                                         </Typography>
                                                     </Grid>
 
-                                                    <Grid sx={{ pb: 1, width: '100px', height: '50px' }} xs={6} align="left" onClick={() => {
+                                                    <Grid sx={{ pb: 1, width: '100px', height: '50px' }} xs={6} align="right" onClick={() => {
                                                         setViewImage(item.images); if (item.images.length == 5) {
                                                             setImgsWidth(900);
                                                         } else if (item.images.length == 4) {

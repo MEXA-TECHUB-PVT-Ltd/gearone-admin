@@ -28,7 +28,7 @@ import {
   GridToolbarDensitySelector,
 } from '@mui/x-data-grid';
 import { ImageGroup, Image } from "react-fullscreen-image";
-import { Close, Delete, Edit, Upload, Visibility } from "@mui/icons-material";
+import {Cancel, Close, Delete, Edit, Upload, Visibility } from "@mui/icons-material";
 
 const override = {
   display: ' block',
@@ -732,7 +732,7 @@ const Team = () => {
           <Box width={{ xs: 400, md: 500, lg: 600, xl: 650 }} height="auto" sx={styleview}>
             <Box sx={{ borderTopLeftRadius: "20px", borderTopRightRadius: "20px", backgroundColor: "#FF6700", width: "100%", height: "80px" }}>
               <div xs={12} align="right" pt={0.6} pr={3}>
-                <Close sx={{ marginRight: '10px', marginTop: "5px", color: "white" }} onClick={() => setOpenmodal(false)} />
+                <Cancel sx={{ marginRight: '10px', marginTop: "5px", color: "white" }} onClick={() => setOpenmodal(false)} />
               </div>
               <Box xs={12} sx={{ mb: '20px' }} align="center">
                 <Typography align="center" sx={{ mb: '20px', fontWeight: 600, fontSize: "24px" }} color="white">

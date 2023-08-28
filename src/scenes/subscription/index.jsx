@@ -28,7 +28,7 @@ import {
   GridToolbarDensitySelector,
 } from '@mui/x-data-grid';
 import { ImageGroup, Image } from "react-fullscreen-image";
-import { Close, Delete, Edit, Upload, Visibility } from "@mui/icons-material";
+import { Close , Cancel, Delete, Edit, Upload, Visibility } from "@mui/icons-material";
 // import "./index.css";
 
 const override = {
@@ -723,7 +723,7 @@ const Team = () => {
                             </Typography>
                           </Grid>
 
-                          <Grid xs={6} sx={{ overflowX:'scroll', pb: 1, width: '150px', height: '80px' }}
+                          <Grid xs={6} sx={{ overflowX: 'scroll', pb: 1, width: '150px', height: '80px' }}
                             align="right" onClick={() => {
                               setViewData(item);
                               handleOpenmodal();
@@ -753,7 +753,7 @@ const Team = () => {
           <Box width={{ xs: 400, md: 500, lg: 600, xl: 650 }} height="auto" sx={styleview}>
             <Box sx={{ borderTopLeftRadius: "20px", borderTopRightRadius: "20px", backgroundColor: "#FF6700", width: "100%", height: "80px" }}>
               <div xs={12} align="right" pt={0.6} pr={3}>
-                <Close sx={{ marginRight: '10px', marginTop: "5px", color: "white" }} onClick={() => setOpenmodal(false)} />
+                <Cancel sx={{ marginRight: '10px', marginTop: "5px", color: "white" }} onClick={() => setOpenmodal(false)} />
               </div>                <Box xs={12} sx={{ mb: '20px' }} align="center">
                 <Typography align="center" sx={{ mb: '20px', fontWeight: 600, fontSize: "24px" }} color="white">
                   {viewData.title}
@@ -831,7 +831,11 @@ const Team = () => {
 
                   </Typography>
                   :
-                  ""
+                  <Typography variant="h5"
+                    fontWeight={600} fontSize="14px" 
+                    color="#808080">
+                      InActive
+                  </Typography>
                 }
               </Grid>
 
@@ -858,10 +862,10 @@ const Team = () => {
 
               <Grid xs={6} align="left" p={0.5}>
                 <Typography variant="h5"
-                  fontWeight={600} fontSize="14px" sx={{ overflowX: 'scroll', height: '100px' }}
+                  fontWeight={600} fontSize="14px" sx={{ overflowX: 'scroll', maxHeight: '100px' }}
                   color="#808080">
-                    <PerfectScrollbar>
-                  {viewData.description}
+                  <PerfectScrollbar>
+                    {viewData.description}
                   </PerfectScrollbar>
 
                 </Typography>

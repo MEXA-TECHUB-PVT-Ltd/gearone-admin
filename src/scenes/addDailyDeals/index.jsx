@@ -57,7 +57,15 @@ const Team = () => {
             'Content-Type': 'application/json',
         };
         var date = new Date(Date.now() + (3600 * 1000 * 24))
-
+        if(Description === '' || Title === '' || selectedFile === null || selectedFile === undefined){
+            setIsloading(false);
+            Swal.fire({
+                icon: 'warning',
+                title: 'Success',
+                confirmButtonColor: "#FF6700",
+                text: 'All Fields Required'
+            })
+        }else{
         var Data = {
             "description": Description,
             "title": Title,
@@ -100,12 +108,12 @@ const Team = () => {
                         }
                         )
                             .catch(error => {
-                                          Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            confirmButtonColor: "#FF6700",
-            text: response.message
-          })
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Oops...',
+                                    confirmButtonColor: "#FF6700",
+                                    text: response.message
+                                })
                             });
                     } else {
                         navigate("/subscription")
@@ -140,15 +148,16 @@ const Team = () => {
             )
             .catch(error => {
                 setIsloading(false);
-                          Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            confirmButtonColor: "#FF6700",
-            text: 'Server Down!'
-          })
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    confirmButtonColor: "#FF6700",
+                    text: 'Server Down!'
+                })
             });
+        }
     }
-  
+
     const handleImageChange = (e) => {
         setSelectedFile(e.target.files[0]);
         setHidecrossicon(true);
@@ -261,7 +270,7 @@ const Team = () => {
                                             }}
                                         />
                                         <br />
-                                     
+
 
                                     </Stack>
 
@@ -288,7 +297,7 @@ const Team = () => {
                                             }}
                                         />
                                         <br />
-                                  
+
 
                                     </Stack>
 
