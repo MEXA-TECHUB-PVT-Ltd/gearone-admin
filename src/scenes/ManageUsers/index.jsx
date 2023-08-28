@@ -18,7 +18,7 @@ import React, { useState, useEffect } from "react";
 import {
   DataGrid,
 } from '@mui/x-data-grid';
-import {Close,  Cancel, Delete, Edit, Upload, Visibility } from "@mui/icons-material";
+import { Close, Cancel, Delete, Edit, Upload, Visibility } from "@mui/icons-material";
 
 
 const btncancel = {
@@ -206,13 +206,13 @@ const Team = () => {
 
 
   const handleDelete = async () => {
-    var InsertAPIURL = `${url}logos/delete_logo`
+    var InsertAPIURL = `${url}auth/delete`
     var headers = {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
     };
     var Data = {
-      "logo_id": DeleteID,
+      "user_id": DeleteID,
     };
     await fetch(InsertAPIURL, {
       method: 'DELETE',
@@ -222,12 +222,16 @@ const Team = () => {
       .then(response => response.json())
       .then(response => {
         console.log(response);
-        if (response.message == `Logo Deleted Successfully!`) {
+        if (response.status === true) {
           // setLogos(response.count);
           getAllLogos();
           setOpendelmodal(false);
-          //   console.log(response.result);
-          //   setCatagory(response.result);
+          Swal.fire({
+            icon: 'success',
+            title: 'Success...',
+            confirmButtonColor: "#FF6700",
+            text: 'User Deleted Successfully'
+          })
         } else {
           Swal.fire({
             icon: 'error',
@@ -305,17 +309,27 @@ const Team = () => {
       flex: 1,
       renderCell: (row) => {
         return (
-          <IconButton style={{ cursor: 'pointer' }} onClick={() => {
-            navigate('/UserDetails', {
-              state: {
-                id: row.row.id,
-              }
-            })
-          }}>
-            <Tooltip title="view" >
-              <Visibility sx={{ color: "#3FC0FF" }} />
-            </Tooltip>
-          </IconButton>
+          <>
+            <IconButton style={{ cursor: 'pointer' }} onClick={() => {
+              navigate('/UserDetails', {
+                state: {
+                  id: row.row.id,
+                }
+              })
+            }}>
+              <Tooltip title="Delete" >
+                <Visibility sx={{ color: "#3FC0FF" }} />
+              </Tooltip>
+            </IconButton>
+            <IconButton style={{ cursor: 'pointer' }} onClick={() => {
+              setDeleteID(row.row.id)
+              setOpendelmodal(true)
+            }}>
+              <Tooltip title="view" >
+                <Delete sx={{ color: "#3FC0FF" }} />
+              </Tooltip>
+            </IconButton>
+          </>
         );
       },
     },
@@ -338,7 +352,7 @@ const Team = () => {
       .then(response => response.json())
       .then(response => {
         console.log(response);
-        if (response.message == `All User Details`) {
+        if (response.status === true) {
           // setLogos(response.count);
           console.log(response.result);
           setLogos(response.result);
@@ -791,7 +805,7 @@ const Team = () => {
               <Grid xs={12} align="center" p={{ xs: 2, md: 5, lg: 1, xl: 1 }}>
                 <Typography variant="h4" sx={{ letterSpacing: "3px" }} fontWeight={600} fontSize="x-large" color="#FF6700">Confirmation</Typography>
 
-                <Typography variant="h5" sx={{ letterSpacing: "3px" }} pt={7} pb={0} fontWeight={600} color="#1F1F1F">Do you want to delete this Diet Plan ?</Typography>  </Grid>
+                <Typography variant="h5" sx={{ letterSpacing: "3px" }} pt={7} pb={0} fontWeight={600} color="#1F1F1F">Do you want to delete this User ?</Typography>  </Grid>
             </Grid>
 
             <Grid container spacing={0} pt={7}>

@@ -1,17 +1,12 @@
-import { Box, Tooltip, Typography, useTheme, IconButton, TextField, Grid, Modal, Button, Stack, Divider, Container } from "@mui/material";
-import { tokens } from "../../theme";
+import { Box, Typography,  Grid, Modal, Button, Divider, Container } from "@mui/material";
 import Header from "../../components/Header";
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from '@mui/material/Link';
 import HomeIcon from '@mui/icons-material/Home';
 import Swal from 'sweetalert2'
-import PropTypes from 'prop-types';
-import { useNavigate } from 'react-router-dom';
-import { Form, Input, } from 'antd';
 import url from "../url";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import htmlToText from "html-to-text";
 import React, { useState, useEffect } from "react";
 import ClipLoader from "react-spinners/ClipLoader";
 
@@ -21,7 +16,6 @@ const override = {
   borderColor: 'red',
 }
 
-const { TextArea } = Input;
 
 const btn = {
   width: '25vh',
@@ -65,13 +59,10 @@ const style = {
 
 
 const Team = () => {
-  const navigate = useNavigate();
   const [isloading, setIsloading] = useState(false);
-  let [loading, setLoading] = useState(true);
   let [color, setColor] = useState("#ffffff");
 
   const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   const [jwtoken, setJwtoken] = useState('');

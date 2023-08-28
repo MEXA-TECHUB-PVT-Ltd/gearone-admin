@@ -4,7 +4,6 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import Avatar from '@mui/material/Avatar';
-import Rating from '@mui/material/Rating';
 import moment from 'moment';  // Import moment
 
 const ProfileCard = ({ name, role, createdat, imageUrl, email, address, gender, blockType, accountType, phoneNumber }) => {
