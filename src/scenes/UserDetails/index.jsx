@@ -483,19 +483,25 @@ const Team = () => {
   const [report_ads, setreport_ads] = useState(0);
 
   const getAllLogos = async () => {
-    var InsertAPIURL = `${url}auth/specific_user/${location.state.id}`
+    var InsertAPIURL = `${url}auth/specific_user`
     var headers = {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
     };
+    const Data = {
+      "logged_in_user":location.state.id,  
+      "Viewing_user":location.state.id
+    }
+    console.log(Data);
     await fetch(InsertAPIURL, {
-      method: 'GET',
+      method: 'POST',
       headers: headers,
+      body: JSON.stringify(Data)
     })
       .then(response => response.json())
       .then(response => {
         console.log(response);
-        if (response.status == true) {
+        if (response.status === true) {
 
           setreported_items(response.reported_items);
           setsaved_items(response.saved_items);
