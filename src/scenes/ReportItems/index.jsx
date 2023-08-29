@@ -300,18 +300,6 @@ const Team = () => {
 
         },
 
-        { field: 'email', headerName: <span style={{ color: "black", fontWeight: 600 }}>Email</span>, flex: 1 },
-        {
-            field: 'phone',
-            headerName: <span style={{ color: "black", fontWeight: 600 }}>Phone</span>,
-            flex: 1,
-        },
-        {
-            field: 'item_location',
-            headerName: <span style={{ color: "black", fontWeight: 600 }}>Location</span>,
-            flex: 1,
-        },
-
         {
             field: 'item_name',
             headerName: <span style={{ color: "black", fontWeight: 600 }}>Item</span>,
@@ -319,14 +307,8 @@ const Team = () => {
         },
 
         {
-            field: 'item_price',
-            headerName: <span style={{ color: "black", fontWeight: 600 }}>Price</span>,
-            flex: 1,
-        },
-
-        {
             field: 'report_create_by',
-            headerName: <span style={{ color: "black", fontWeight: 600 }}>Order On</span>,
+            headerName: <span style={{ color: "black", fontWeight: 600 }}>Reported On</span>,
             flex: 1,
             renderCell: (row) => {
                 return (
@@ -339,12 +321,6 @@ const Team = () => {
         },
 
         {
-            field: 'description',
-            headerName: <span style={{ color: "black", fontWeight: 600 }}>Description</span>,
-            flex: 1,
-        },
-
-        {
             field: 'id',
             headerName: <span style={{ color: "black", fontWeight: 600 }}>Actions</span>,
             flex: 1,
@@ -354,9 +330,10 @@ const Team = () => {
 
                         <div>
                             <IconButton onClick={() => {
-                                navigate('/UserDetails', {
+                                navigate('/ReportedItemDetails', {
                                     state: {
                                         id: row.row.user_id,
+                                        item_id: row.row.item_id
                                     }
                                 })
                             }
@@ -516,7 +493,7 @@ const Team = () => {
 
                                                     <Grid xs={6} sx={{ pb: 1 }} align="left"
                                                         onClick={() => {
-                                                            navigate('/UserDetails', {
+                                                            navigate('/ReportedItemDetails', {
                                                                 state: {
                                                                     id: item.user_id,
                                                                 }

@@ -84,6 +84,25 @@ const Team = () => {
         event.preventDefault();
     };
 
+    const [showPassword1, setShowPassword1] = React.useState(false);
+
+    const handleClickShowPassword1 = () => setShowPassword1((show) => !show);
+
+    const handleMouseDownPassword1 = (event) => {
+        event.preventDefault();
+    };
+
+
+    const [showPassword2, setShowPassword2] = React.useState(false);
+
+    const handleClickShowPassword2 = () => setShowPassword2((show) => !show);
+
+    const handleMouseDownPassword2 = (event) => {
+        event.preventDefault();
+    };
+
+
+
     const verifyotp = async () => {
         setIsloading(true);
         if (enteredotp.length == 0) {
@@ -372,16 +391,16 @@ const Team = () => {
                                                 <Lock sx={{ color: "#808080" }} />
                                             </InputAdornment>
                                         }
-                                        type={showPassword ? 'text' : 'password'}
+                                        type={showPassword1 ? 'text' : 'password'}
                                         endAdornment={
                                             <InputAdornment position="end">
                                                 <IconButton
                                                     aria-label="toggle password visibility"
-                                                    onClick={handleClickShowPassword}
-                                                    onMouseDown={handleMouseDownPassword}
+                                                    onClick={handleClickShowPassword1}
+                                                    onMouseDown={handleMouseDownPassword1}
                                                     edge="end"
                                                 >
-                                                    {showPassword ? <VisibilityOff sx={{ color: "#808080" }} /> : <Visibility sx={{ color: "#808080" }} />}
+                                                    {showPassword1 ? <VisibilityOff sx={{ color: "#808080" }} /> : <Visibility sx={{ color: "#808080" }} />}
                                                 </IconButton>
                                             </InputAdornment>
                                         }
@@ -407,16 +426,16 @@ const Team = () => {
                                                 <Lock sx={{ color: "#808080" }} />
                                             </InputAdornment>
                                         }
-                                        type={showPassword ? 'text' : 'password'}
+                                        type={showPassword2 ? 'text' : 'password'}
                                         endAdornment={
                                             <InputAdornment position="end">
                                                 <IconButton
                                                     aria-label="toggle password visibility"
-                                                    onClick={handleClickShowPassword}
+                                                    onClick={handleClickShowPassword2}
                                                     onMouseDown={handleMouseDownPassword}
                                                     edge="end"
                                                 >
-                                                    {showPassword ? <VisibilityOff sx={{ color: "#808080" }} /> : <Visibility sx={{ color: "#808080" }} />}
+                                                    {showPassword2 ? <VisibilityOff sx={{ color: "#808080" }} /> : <Visibility sx={{ color: "#808080" }} />}
                                                 </IconButton>
                                             </InputAdornment>
                                         }

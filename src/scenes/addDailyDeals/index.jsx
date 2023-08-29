@@ -278,32 +278,33 @@ const Team = () => {
 
                             </Grid>
 
-                            <Grid xs={12} md={6} lg={6} xl={6} p={1} align="right" >
+                            <Grid xs={12} md={6} lg={6} xl={6} p={1} align="">
+                                    <FormControl sx={{ width: "90%" }} align="left">
+                                        <Stack direction="column" spacing={0} pt={2}>
+                                            <Typography variant="paragraph" pl={1} pb={1} sx={{ font: "normal normal normal 17px/26px Roboto", fontSize: "12px", fontWeight: "medium" }} color="#1F1F1F">
+                                                Description
+                                            </Typography>
+                                            <OutlinedInput
+                                                multiline
+                                                onChange={(event) => {
+                                                    setDescription(event.target.value);
+                                                }}
+                                                id="input-with-icon-adornment"
+                                                sx={{
+                                                    borderRadius: "50px",
+                                                    backgroundColor: "#F8F8F8",
+                                                    "& fieldset": { border: 'none' },
+                                                    resize: 'none',
+                                                    overflow: 'hidden',
+                                                    transition: 'height 0.2s',
+                                                    height: 'auto',
+                                                }}
+                                            />
+                                            <br />
+                                        </Stack>
+                                    </FormControl>
+                                </Grid>
 
-                                <FormControl sx={{ width: "90%" }} align="left">
-                                    <Stack direction="column" spacing={0} pt={2}>
-                                        <Typography variant="paragraph" pl={1} pb={1} sx={{ font: "normal normal normal 17px/26px Roboto", fontSize: "12px", fontWeight: "medium" }} color="#1F1F1F">
-                                            Description
-                                        </Typography>
-                                        <OutlinedInput
-                                            onChange={(event) => {
-                                                setDescription(event.target.value);
-                                            }}
-                                            id="input-with-icon-adornment"
-                                            sx={{
-                                                borderRadius: "50px",
-                                                backgroundColor: "#F8F8F8",
-                                                "& fieldset": { border: 'none' },
-                                            }}
-                                        />
-                                        <br />
-
-
-                                    </Stack>
-
-                                </FormControl>
-
-                            </Grid>
                             {isloading ?
                                 <Grid xs={12} align="center">
                                     <Button variant="contained" style={btn}>
