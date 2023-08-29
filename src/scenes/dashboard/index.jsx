@@ -561,11 +561,11 @@ const Dashboard = () => {
 
         <Grid container spacing={0} mt={2} p={2} >
 
-          <Grid xs={12} md={4} lg={4} xl={4} p={1} align="center">
+          <Grid xs={10} md={4} lg={4} xl={4} p={1} align="center">
             <Card sx={{ width: "99%", height: "auto", boxShadow: "0px 3px 6px #00000029" }}>
               <CardContent>
                 <Grid container spacing={0} mt={1}>
-                  <Grid xs={6} md={8} lg={8} xl={8} pt={0.5} align="left" >
+                  <Grid xs={5} md={8} lg={8} xl={8} pt={0.5} align="left" >
                     <Stack direction="column" spacing={1}>
                       <Typography variant="paragraph" fontWeight={750} sx={{ font: "normal normal normal 18px/32px Roboto", letterSpacing: "1px" }} fontSize="15px" color="#808080" >Total Categories</Typography>
 
@@ -583,7 +583,7 @@ const Dashboard = () => {
           </Grid>
 
 
-          <Grid xs={12} md={4} lg={4} xl={4} p={1} align="center">
+          <Grid xs={10} md={4} lg={4} xl={4} p={1} align="center">
             <Card sx={{ width: "99%", height: "auto", boxShadow: "0px 3px 6px #00000029" }}>
               <CardContent>
                 <Grid container spacing={0} mt={1}>
@@ -607,7 +607,7 @@ const Dashboard = () => {
 
 
 
-          <Grid xs={12} md={4} lg={4} xl={4} p={1} align="left">
+          <Grid xs={10} md={4} lg={4} xl={4} p={1} align="left">
             <Card sx={{ width: "99%", height: "auto", boxShadow: "0px 3px 6px #00000029" }}>
               <CardContent>
                 <Grid container spacing={0} mt={1}>
@@ -635,7 +635,7 @@ const Dashboard = () => {
 
 
 
-          <Grid xs={12} md={7} lg={7} xl={7} p={1} align="">
+          <Grid xs={10} md={7} lg={7} xl={7} p={1} align="">
             <Grid container spacing={0}>
               {/* list view */}
               {showtable ?

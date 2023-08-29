@@ -32,6 +32,7 @@ import Faqs from "./scenes/faqs"
 import ManageUsers from "./scenes/ManageUsers"
 import UserDetails from "./scenes/UserDetails"
 import ReportItems from "./scenes/ReportItems"
+import ReportedItemDetails from "./scenes/ReportedItemDetails"
 
 import PrivacyPolicy from "./scenes/privacy&policy"
 import TermConditions from "./scenes/term&conditions"
@@ -87,6 +88,7 @@ function App() {
               <Route path="/workoutdetail" element={<WorkoutDetail />} />
               <Route path="/ReportItems" element={<ReportItems />} />
               <Route path="/Orders" element={<Orders />} />
+              <Route path="/ReportedItemDetails" element={<ReportedItemDetails />} />
 
               <Route path="/Terms" element={<Terms />} />
               <Route path="/Privacy" element={<Privacy />} />

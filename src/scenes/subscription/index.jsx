@@ -173,7 +173,7 @@ const Team = () => {
       .then(response => response.json())
       .then(response => {
         console.log(response);
-        if (response.status === TextTrackCue) {
+        if (response.status === true) {
           // setLogos(response.count);
           getAllLogos();
           setOpendelmodal(false);
@@ -251,7 +251,7 @@ const Team = () => {
       .then(response => response.json())
       .then(response => {
         console.log(response);
-        if (response.message === true) {
+        if (response.status === true) {
           // setLogos(response.count);
           Swal.fire({
             icon: 'success',

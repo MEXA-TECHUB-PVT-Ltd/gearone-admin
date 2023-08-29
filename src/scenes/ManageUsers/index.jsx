@@ -4,6 +4,7 @@ import AutorenewIcon from '@mui/icons-material/Autorenew';
 import Link from '@mui/material/Link';
 import Swal from 'sweetalert2'
 import url from "../url"
+import ClipLoader from "react-spinners/ClipLoader";
 
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import PerfectScrollbar from 'react-perfect-scrollbar'
@@ -35,6 +36,11 @@ const btncancel = {
   boxShadow: "none",
   fontSize: "large",
   textTransform: "capitalize"
+}
+const override = {
+  display: ' block',
+  margin: '0 auto',
+  borderColor: 'red',
 }
 
 const btn = {
@@ -109,6 +115,7 @@ const Team = () => {
 
   const [viewData, setViewData] = useState([]);
   const [DeleteData, setDeleteData] = useState([]);
+  const [isloading, setIsloading] = useState(false);
 
 
 
@@ -151,6 +158,7 @@ const Team = () => {
   const [showtable, setShowtable] = useState(true);
 
   const changeStatus = async () => {
+    setIsloading(true);
     var InsertAPIURL = `${url}admin/block_unblock_user`
     var headers = {
       'Accept': 'application/json',
@@ -167,9 +175,9 @@ const Team = () => {
       .then(response => response.json())
       .then(response => {
         console.log(response);
-        if (response.message == `User Updated Successfully!`) {
+        if (response.status === true) {
           handleClose();
-
+          setIsloading(false);
 
           handleClosedelmodalStatus();
           getAllLogos();
@@ -184,6 +192,7 @@ const Team = () => {
           //   console.log(response.result);
           //   setCatagory(response.result);
         } else {
+          setIsloading(false);
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
@@ -194,6 +203,7 @@ const Team = () => {
       }
       )
       .catch(error => {
+        setIsloading(false);
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
@@ -206,11 +216,13 @@ const Team = () => {
 
 
   const handleDelete = async () => {
+    setIsloading(true);
     var InsertAPIURL = `${url}auth/delete`
     var headers = {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
     };
+    console.log(DeleteID);
     var Data = {
       "user_id": DeleteID,
     };
@@ -223,6 +235,8 @@ const Team = () => {
       .then(response => {
         console.log(response);
         if (response.status === true) {
+          setIsloading(false);
+
           // setLogos(response.count);
           getAllLogos();
           setOpendelmodal(false);
@@ -233,6 +247,7 @@ const Team = () => {
             text: 'User Deleted Successfully'
           })
         } else {
+          setIsloading(false);
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
@@ -243,6 +258,7 @@ const Team = () => {
       }
       )
       .catch(error => {
+        setIsloading(false);
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
@@ -547,6 +563,15 @@ const Team = () => {
                                 }}>
                                 <AutorenewIcon sx={{ color: "#E10006" }} /><span style={{ marginLeft: 10 }}>Change Status</span>
                               </MenuItem>
+                              <MenuItem
+
+                                onClick={() => {
+                                  setDeleteID(idData.id)
+                                  setOpendelmodal(true)
+                                }}>
+                                <Delete sx={{ color: "#E10006" }} /><span style={{ marginLeft: 10 }}>Delete</span>
+                              </MenuItem>
+
                             </Menu>
 
                           </Grid>
@@ -778,9 +803,39 @@ const Team = () => {
 
               <Grid xs={6} align="right">
                 {DeleteData.status === 'block' ?
-                  <Button variant="contained" style={btn} onClick={() => { changeStatus() }}>unblock</Button>
+                  <>
+                    {isloading ?
+                      <Grid xs={12} align="center">
+                        <Button variant="contained" style={btn}>
+                          <ClipLoader loading={isloading}
+                            css={override}
+                            size={10}
+                          />
+                        </Button>
+                      </Grid>
+
+                      :
+
+                      <Button variant="contained" style={btn} onClick={() => { changeStatus() }}>unblock</Button>
+                    }
+                  </>
                   :
-                  <Button variant="contained" style={btn} onClick={() => { changeStatus() }}>block</Button>
+                  <>
+                    {isloading ?
+                      <Grid xs={12} align="center">
+                        <Button variant="contained" style={btn}>
+                          <ClipLoader loading={isloading}
+                            css={override}
+                            size={10}
+                          />
+                        </Button>
+                      </Grid>
+
+                      :
+
+                      <Button variant="contained" style={btn} onClick={() => { changeStatus() }}>block</Button>
+                    }
+                  </>
                 }
               </Grid>
             </Grid>
@@ -814,7 +869,20 @@ const Team = () => {
               </Grid>
 
               <Grid xs={6} align="right">
-                <Button variant="contained" style={btn} onClick={() => { handleDelete() }}>Delete</Button>
+                {isloading ?
+                  <Grid xs={12} align="center">
+                    <Button variant="contained" style={btn}>
+                      <ClipLoader loading={isloading}
+                        css={override}
+                        size={10}
+                      />
+                    </Button>
+                  </Grid>
+
+                  :
+
+                  <Button variant="contained" style={btn} onClick={() => { handleDelete() }}>Delete</Button>
+                }
               </Grid>
             </Grid>
 
