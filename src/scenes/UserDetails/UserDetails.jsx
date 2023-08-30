@@ -14,9 +14,9 @@ const btncancel = {
     width: '90%',
     letterSpacing: "2px",
     marginBottom: '40px',
-    color: '#FF6700',
+    color: '#B5030B',
     backgroundColor: '#ffffff',
-    border: '1px solid #FF6700',
+    border: '1px solid #B5030B',
     height: '50px',
     padding: '0px',
     fontFamily: '',
@@ -31,8 +31,8 @@ const btn = {
     letterSpacing: "2px",
     marginBottom: '40px',
     color: 'white',
-    backgroundColor: '#FF6700',
-    borderColor: '#FF6700',
+    backgroundColor: '#B5030B',
+    borderColor: '#B5030B',
     height: '50px',
     padding: '0px',
     fontFamily: '',
@@ -118,7 +118,7 @@ export default function UserDetails({
                     Swal.fire({
                         icon: 'success',
                         title: 'Success',
-                        confirmButtonColor: "#FF6700",
+                        confirmButtonColor: "#B5030B",
                         text: 'Status change successfully'
                     })
 
@@ -129,7 +129,7 @@ export default function UserDetails({
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
-                        confirmButtonColor: "#FF6700",
+                        confirmButtonColor: "#B5030B",
                         text: ''
                     })
                 }
@@ -139,7 +139,7 @@ export default function UserDetails({
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
-                    confirmButtonColor: "#FF6700",
+                    confirmButtonColor: "#B5030B",
                     text: "Server Down!"
                 })
             });
@@ -166,7 +166,7 @@ export default function UserDetails({
                                             label={BlockStatus}
                                             variant='outlined'
                                             color="secondary"
-                                            onClick={ () => { setOpendelmodalStatus(true) }}
+                                            onClick={() => { setOpendelmodalStatus(true) }}
                                         />
                                 }
 
@@ -376,12 +376,13 @@ export default function UserDetails({
                         </Grid>
 
                         <Grid xs={12} align="center" p={{ xs: 2, md: 5, lg: 1, xl: 1 }}>
-                            <Typography variant="h4" sx={{ letterSpacing: "3px" }} fontWeight={600} fontSize="x-large" color="#FF6700">Confirmation</Typography>
-                            {DeleteData.status === 'block' ?
+                            <Typography variant="h4" sx={{ letterSpacing: "3px" }} fontWeight={600} fontSize="x-large" color="#B5030B">Confirmation</Typography>
+                            {BlockStatus === 'block' ?
                                 <Typography variant="h5" sx={{ letterSpacing: "3px" }} pt={7}
                                     pb={0} fontWeight={600} color="#1F1F1F">{`Do you want to unblock user?`}
                                 </Typography>
                                 :
+                                BlockStatus === 'unblock' &&
                                 <Typography variant="h5" sx={{ letterSpacing: "3px" }} pt={7}
                                     pb={0} fontWeight={600} color="#1F1F1F">{`Do you want to block user?`}
                                 </Typography>
@@ -396,53 +397,10 @@ export default function UserDetails({
                         </Grid>
 
                         <Grid xs={6} align="right">
-                            {DeleteData.status === 'block' ?
+                            {BlockStatus === 'block' ?
                                 <Button variant="contained" style={btn} onClick={() => { handleChipClick() }}>unblock</Button>
                                 :
-                                <Button variant="contained" style={btn} onClick={() => { handleChipClick() }}>block</Button>
-                            }
-                        </Grid>
-                    </Grid>
-
-                </Box>
-            </Modal>
-            {/* Change */}
-            <Modal
-                open={opendelmodalStatus}
-                // onClose={handleClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-            >
-                <Box width={{ xs: 400, md: 500, lg: 500, xl: 600 }} height="auto" sx={style}>
-                    <Grid container spacing={0}>
-                        <Grid xs={12} align="right">
-                            <Close onClick={() => setOpendelmodalStatus(false)} />
-                        </Grid>
-
-                        <Grid xs={12} align="center" p={{ xs: 2, md: 5, lg: 1, xl: 1 }}>
-                            <Typography variant="h4" sx={{ letterSpacing: "3px" }} fontWeight={600} fontSize="x-large" color="#FF6700">Confirmation</Typography>
-                            {DeleteData.status === 'block' ?
-                                <Typography variant="h5" sx={{ letterSpacing: "3px" }} pt={7}
-                                    pb={0} fontWeight={600} color="#1F1F1F">{`Do you want to unblock user?`}
-                                </Typography>
-                                :
-                                <Typography variant="h5" sx={{ letterSpacing: "3px" }} pt={7}
-                                    pb={0} fontWeight={600} color="#1F1F1F">{`Do you want to block user?`}
-                                </Typography>
-
-                            }
-                        </Grid>
-                    </Grid>
-
-                    <Grid container spacing={0} pt={7}>
-                        <Grid xs={6} align="">
-                            <Button variant="contained" style={btncancel} onClick={() => { setOpendelmodalStatus(false) }}>Cancel</Button>
-                        </Grid>
-
-                        <Grid xs={6} align="right">
-                            {DeleteData.status === 'block' ?
-                                <Button variant="contained" style={btn} onClick={() => { handleChipClick() }}>unblock</Button>
-                                :
+                                BlockStatus === 'unblock' &&
                                 <Button variant="contained" style={btn} onClick={() => { handleChipClick() }}>block</Button>
                             }
                         </Grid>

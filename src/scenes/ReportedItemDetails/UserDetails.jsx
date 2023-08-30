@@ -15,9 +15,9 @@ const btncancel = {
     width: '90%',
     letterSpacing: "2px",
     marginBottom: '40px',
-    color: '#FF6700',
+    color: '#B5030B',
     backgroundColor: '#ffffff',
-    border: '1px solid #FF6700',
+    border: '1px solid #B5030B',
     height: '50px',
     padding: '0px',
     fontFamily: '',
@@ -32,8 +32,8 @@ const btn = {
     letterSpacing: "2px",
     marginBottom: '40px',
     color: 'white',
-    backgroundColor: '#FF6700',
-    borderColor: '#FF6700',
+    backgroundColor: '#B5030B',
+    borderColor: '#B5030B',
     height: '50px',
     padding: '0px',
     fontFamily: '',
@@ -120,7 +120,7 @@ export default function UserDetails({
                     Swal.fire({
                         icon: 'success',
                         title: 'Success',
-                        confirmButtonColor: "#FF6700",
+                        confirmButtonColor: "#B5030B",
                         text: 'Status change successfully'
                     })
 
@@ -131,7 +131,7 @@ export default function UserDetails({
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
-                        confirmButtonColor: "#FF6700",
+                        confirmButtonColor: "#B5030B",
                         text: ''
                     })
                 }
@@ -141,7 +141,7 @@ export default function UserDetails({
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
-                    confirmButtonColor: "#FF6700",
+                    confirmButtonColor: "#B5030B",
                     text: "Server Down!"
                 })
             });
@@ -297,7 +297,7 @@ export default function UserDetails({
                         </Grid>
 
                         <Grid xs={12} align="center" p={{ xs: 2, md: 5, lg: 1, xl: 1 }}>
-                            <Typography variant="h4" sx={{ letterSpacing: "3px" }} fontWeight={600} fontSize="x-large" color="#FF6700">Confirmation</Typography>
+                            <Typography variant="h4" sx={{ letterSpacing: "3px" }} fontWeight={600} fontSize="x-large" color="#B5030B">Confirmation</Typography>
                             {DeleteData.status === 'block' ?
                                 <Typography variant="h5" sx={{ letterSpacing: "3px" }} pt={7}
                                     pb={0} fontWeight={600} color="#1F1F1F">{`Do you want to unblock user?`}
@@ -341,7 +341,7 @@ export default function UserDetails({
                         </Grid>
 
                         <Grid xs={12} align="center" p={{ xs: 2, md: 5, lg: 1, xl: 1 }}>
-                            <Typography variant="h4" sx={{ letterSpacing: "3px" }} fontWeight={600} fontSize="x-large" color="#FF6700">Confirmation</Typography>
+                            <Typography variant="h4" sx={{ letterSpacing: "3px" }} fontWeight={600} fontSize="x-large" color="#B5030B">Confirmation</Typography>
                             {DeleteData.status === 'block' ?
                                 <Typography variant="h5" sx={{ letterSpacing: "3px" }} pt={7}
                                     pb={0} fontWeight={600} color="#1F1F1F">{`Do you want to unblock user?`}

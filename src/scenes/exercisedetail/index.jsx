@@ -38,8 +38,8 @@ const Team = () => {
         marginTop: '80px',
         // marginBottom: '20px',
         color: 'white',
-        backgroundColor: '#FF6700',
-        borderColor: '#FF6700',
+        backgroundColor: '#B5030B',
+        borderColor: '#B5030B',
         height: '45px',
         padding: '0px',
         fontWeight: "bold",
@@ -78,7 +78,7 @@ const Team = () => {
                                 <Box height="40vh" sx={{ borderRadius: "10px", background: "rgba(0, 0, 0, 0.3)" }}>
                                     <Stack pt={15}>
                                         <div style={{ display: "flex", justifyContent: "center", alignContent: "center" }}>
-                                            <PlayCircle sx={{ fontSize: "35px", color: "#FF6700" }} />
+                                            <PlayCircle sx={{ fontSize: "35px", color: "#B5030B" }} />
                                         </div>
                                     </Stack>
                                 </Box>
@@ -155,13 +155,13 @@ const Team = () => {
                                         <Stack mt={1} pb={2} pl={1}  >
                                             <div style={{ display: "flex", justifyContent: "start", alignContent: "start", gap: "50px" }}>
                                                 <div>
-                                                    <Typography variant="h5" fontWeight={750} align="left" fontSize={{ xs: "13px", lg: "15px", xl: "20px" }} sx={{ fontFamily: "normal normal normal 9px/32px Arial", letterSpacing: "1px" }} color="#FF6700">
+                                                    <Typography variant="h5" fontWeight={750} align="left" fontSize={{ xs: "13px", lg: "15px", xl: "20px" }} sx={{ fontFamily: "normal normal normal 9px/32px Arial", letterSpacing: "1px" }} color="#B5030B">
                                                         Title Here
                                                     </Typography>
                                                 </div>
 
                                                 <div>
-                                                    <Box sx={{ width: "fit-content", backgroundColor: "#FF6700", borderRadius: "50px", }}>
+                                                    <Box sx={{ width: "fit-content", backgroundColor: "#B5030B", borderRadius: "50px", }}>
                                                         <Typography variant="h5" fontWeight={750} align="" fontSize={{ xs: "13px", lg: "15px", xl: "20px" }} p={0.5} pl={2} pr={2} sx={{ fontFamily: "normal normal normal 9px/32px Arial", letterSpacing: "1px" }} color="white">
                                                             Intermediate
                                                         </Typography>
@@ -186,13 +186,13 @@ const Team = () => {
                                         <Stack mt={1} pb={2} pl={1}  >
                                             <div style={{ display: "flex", justifyContent: "start", alignContent: "start", gap: "50px" }}>
                                                 <div>
-                                                    <Typography variant="h5" fontWeight={750} align="left" fontSize={{ xs: "13px", lg: "15px", xl: "20px" }} sx={{ fontFamily: "normal normal normal 9px/32px Arial", letterSpacing: "1px" }} color="#FF6700">
+                                                    <Typography variant="h5" fontWeight={750} align="left" fontSize={{ xs: "13px", lg: "15px", xl: "20px" }} sx={{ fontFamily: "normal normal normal 9px/32px Arial", letterSpacing: "1px" }} color="#B5030B">
                                                         Title Here
                                                     </Typography>
                                                 </div>
 
                                                 <div>
-                                                    <Box sx={{ width: "fit-content", backgroundColor: "#FF6700", borderRadius: "50px", }}>
+                                                    <Box sx={{ width: "fit-content", backgroundColor: "#B5030B", borderRadius: "50px", }}>
                                                         <Typography variant="h5" fontWeight={750} align="" fontSize={{ xs: "13px", lg: "15px", xl: "20px" }} p={0.5} pl={2} pr={2} sx={{ fontFamily: "normal normal normal 9px/32px Arial", letterSpacing: "1px" }} color="white">
                                                             Intermediate
                                                         </Typography>
@@ -217,13 +217,13 @@ const Team = () => {
                                         <Stack mt={1} pb={2} pl={1}  >
                                             <div style={{ display: "flex", justifyContent: "start", alignContent: "start", gap: "50px" }}>
                                                 <div>
-                                                    <Typography variant="h5" fontWeight={750} align="left" fontSize={{ xs: "13px", lg: "15px", xl: "20px" }} sx={{ fontFamily: "normal normal normal 9px/32px Arial", letterSpacing: "1px" }} color="#FF6700">
+                                                    <Typography variant="h5" fontWeight={750} align="left" fontSize={{ xs: "13px", lg: "15px", xl: "20px" }} sx={{ fontFamily: "normal normal normal 9px/32px Arial", letterSpacing: "1px" }} color="#B5030B">
                                                         Title Here
                                                     </Typography>
                                                 </div>
 
                                                 <div>
-                                                    <Box sx={{ width: "fit-content", backgroundColor: "#FF6700", borderRadius: "50px", }}>
+                                                    <Box sx={{ width: "fit-content", backgroundColor: "#B5030B", borderRadius: "50px", }}>
                                                         <Typography variant="h5" fontWeight={750} align="" fontSize={{ xs: "13px", lg: "15px", xl: "20px" }} p={0.5} pl={2} pr={2} sx={{ fontFamily: "normal normal normal 9px/32px Arial", letterSpacing: "1px" }} color="white">
                                                             Intermediate
                                                         </Typography>
@@ -248,13 +248,13 @@ const Team = () => {
                                         <Stack mt={1} pb={2} pl={1}  >
                                             <div style={{ display: "flex", justifyContent: "start", alignContent: "start", gap: "50px" }}>
                                                 <div>
-                                                    <Typography variant="h5" fontWeight={750} align="left" fontSize={{ xs: "13px", lg: "15px", xl: "20px" }} sx={{ fontFamily: "normal normal normal 9px/32px Arial", letterSpacing: "1px" }} color="#FF6700">
+                                                    <Typography variant="h5" fontWeight={750} align="left" fontSize={{ xs: "13px", lg: "15px", xl: "20px" }} sx={{ fontFamily: "normal normal normal 9px/32px Arial", letterSpacing: "1px" }} color="#B5030B">
                                                         Title Here
                                                     </Typography>
                                                 </div>
 
                                                 <div>
-                                                    <Box sx={{ width: "fit-content", backgroundColor: "#FF6700", borderRadius: "50px", }}>
+                                                    <Box sx={{ width: "fit-content", backgroundColor: "#B5030B", borderRadius: "50px", }}>
                                                         <Typography variant="h5" fontWeight={750} align="" fontSize={{ xs: "13px", lg: "15px", xl: "20px" }} p={0.5} pl={2} pr={2} sx={{ fontFamily: "normal normal normal 9px/32px Arial", letterSpacing: "1px" }} color="white">
                                                             Intermediate
                                                         </Typography>
@@ -279,13 +279,13 @@ const Team = () => {
                                         <Stack mt={1} pb={2} pl={1}  >
                                             <div style={{ display: "flex", justifyContent: "start", alignContent: "start", gap: "50px" }}>
                                                 <div>
-                                                    <Typography variant="h5" fontWeight={750} align="left" fontSize={{ xs: "13px", lg: "15px", xl: "20px" }} sx={{ fontFamily: "normal normal normal 9px/32px Arial", letterSpacing: "1px" }} color="#FF6700">
+                                                    <Typography variant="h5" fontWeight={750} align="left" fontSize={{ xs: "13px", lg: "15px", xl: "20px" }} sx={{ fontFamily: "normal normal normal 9px/32px Arial", letterSpacing: "1px" }} color="#B5030B">
                                                         Title Here
                                                     </Typography>
                                                 </div>
 
                                                 <div>
-                                                    <Box sx={{ width: "fit-content", backgroundColor: "#FF6700", borderRadius: "50px", }}>
+                                                    <Box sx={{ width: "fit-content", backgroundColor: "#B5030B", borderRadius: "50px", }}>
                                                         <Typography variant="h5" fontWeight={750} align="" fontSize={{ xs: "13px", lg: "15px", xl: "20px" }} p={0.5} pl={2} pr={2} sx={{ fontFamily: "normal normal normal 9px/32px Arial", letterSpacing: "1px" }} color="white">
                                                             Intermediate
                                                         </Typography>
@@ -310,13 +310,13 @@ const Team = () => {
                                         <Stack mt={1} pb={2} pl={1}  >
                                             <div style={{ display: "flex", justifyContent: "start", alignContent: "start", gap: "50px" }}>
                                                 <div>
-                                                    <Typography variant="h5" fontWeight={750} align="left" fontSize={{ xs: "13px", lg: "15px", xl: "20px" }} sx={{ fontFamily: "normal normal normal 9px/32px Arial", letterSpacing: "1px" }} color="#FF6700">
+                                                    <Typography variant="h5" fontWeight={750} align="left" fontSize={{ xs: "13px", lg: "15px", xl: "20px" }} sx={{ fontFamily: "normal normal normal 9px/32px Arial", letterSpacing: "1px" }} color="#B5030B">
                                                         Title Here
                                                     </Typography>
                                                 </div>
 
                                                 <div>
-                                                    <Box sx={{ width: "fit-content", backgroundColor: "#FF6700", borderRadius: "50px", }}>
+                                                    <Box sx={{ width: "fit-content", backgroundColor: "#B5030B", borderRadius: "50px", }}>
                                                         <Typography variant="h5" fontWeight={750} align="" fontSize={{ xs: "13px", lg: "15px", xl: "20px" }} p={0.5} pl={2} pr={2} sx={{ fontFamily: "normal normal normal 9px/32px Arial", letterSpacing: "1px" }} color="white">
                                                             Intermediate
                                                         </Typography>

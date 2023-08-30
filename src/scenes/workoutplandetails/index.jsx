@@ -38,8 +38,8 @@ const Team = () => {
         marginTop: '80px',
         // marginBottom: '20px',
         color: 'white',
-        backgroundColor: '#FF6700',
-        borderColor: '#FF6700',
+        backgroundColor: '#B5030B',
+        borderColor: '#B5030B',
         height: '45px',
         padding: '0px',
         fontWeight: "bold",
@@ -76,7 +76,7 @@ const Team = () => {
                                     <Avatar variant="square" src={workout1} sx={{ borderRadius: "10px", width: 170, height: 170 }} />
                                 </div>
                                 <div>
-                                    <Typography variant="h5" fontWeight={750} pt={10} fontSize="18px" sx={{ letterSpacing: "2px" }} color="#FF6700">
+                                    <Typography variant="h5" fontWeight={750} pt={10} fontSize="18px" sx={{ letterSpacing: "2px" }} color="#B5030B">
                                         Workout Title
                                     </Typography>
                                 </div>
@@ -190,7 +190,7 @@ const Team = () => {
                                 <Box height="40vh" sx={{ borderRadius: "10px", background: "rgba(0, 0, 0, 0.3)" }}>
                                     <Stack pt={15}>
                                         <div style={{ display: "flex", justifyContent: "center", alignContent: "center" }}>
-                                            <PlayCircle sx={{ fontSize: "35px", color: "#FF6700" }} />
+                                            <PlayCircle sx={{ fontSize: "35px", color: "#B5030B" }} />
                                         </div>
                                     </Stack>
                                 </Box>
@@ -245,7 +245,7 @@ const Team = () => {
 
                     <Grid container spacing={0}>
                         <Grid xs={12} p={1} >
-                            <Typography variant="h5" fontWeight={750} pt={2} pb={2} fontSize="18px" sx={{ letterSpacing: "2px" }} color="#FF6700">
+                            <Typography variant="h5" fontWeight={750} pt={2} pb={2} fontSize="18px" sx={{ letterSpacing: "2px" }} color="#B5030B">
                                 Daily Exercises
                             </Typography>
 
@@ -262,7 +262,7 @@ const Team = () => {
                                         </Stack>
 
                                         <Stack mt={1} pb={2} pl={1}  >
-                                            <Typography variant="h5" fontWeight={750} align="left" fontSize={{ xs: "13px", lg: "15px", xl: "20px" }} sx={{ letterSpacing: "2px" }} color="#FF6700">
+                                            <Typography variant="h5" fontWeight={750} align="left" fontSize={{ xs: "13px", lg: "15px", xl: "20px" }} sx={{ letterSpacing: "2px" }} color="#B5030B">
                                                 Title Here
                                             </Typography>
                                         </Stack>
@@ -281,7 +281,7 @@ const Team = () => {
                                         </Stack>
 
                                         <Stack mt={1} pb={2} pl={1}  >
-                                            <Typography variant="h5" fontWeight={750} align="left" fontSize={{ xs: "13px", lg: "15px", xl: "20px" }} sx={{ letterSpacing: "2px" }} color="#FF6700">
+                                            <Typography variant="h5" fontWeight={750} align="left" fontSize={{ xs: "13px", lg: "15px", xl: "20px" }} sx={{ letterSpacing: "2px" }} color="#B5030B">
                                                 Title Here
                                             </Typography>
                                         </Stack>
@@ -300,7 +300,7 @@ const Team = () => {
                                         </Stack>
 
                                         <Stack mt={1} pb={2} pl={1}  >
-                                            <Typography variant="h5" fontWeight={750} align="left" fontSize={{ xs: "13px", lg: "15px", xl: "20px" }} sx={{ letterSpacing: "2px" }} color="#FF6700">
+                                            <Typography variant="h5" fontWeight={750} align="left" fontSize={{ xs: "13px", lg: "15px", xl: "20px" }} sx={{ letterSpacing: "2px" }} color="#B5030B">
                                                 Title Here
                                             </Typography>
                                         </Stack>
@@ -319,7 +319,7 @@ const Team = () => {
                                         </Stack>
 
                                         <Stack mt={1} pb={2} pl={1}  >
-                                            <Typography variant="h5" fontWeight={750} align="left" fontSize={{ xs: "13px", lg: "15px", xl: "20px" }} sx={{ letterSpacing: "2px" }} color="#FF6700">
+                                            <Typography variant="h5" fontWeight={750} align="left" fontSize={{ xs: "13px", lg: "15px", xl: "20px" }} sx={{ letterSpacing: "2px" }} color="#B5030B">
                                                 Title Here
                                             </Typography>
                                         </Stack>
@@ -338,7 +338,7 @@ const Team = () => {
                                         </Stack>
 
                                         <Stack mt={1} pb={2} pl={1}  >
-                                            <Typography variant="h5" fontWeight={750} align="left" fontSize={{ xs: "13px", lg: "15px", xl: "20px" }} sx={{ letterSpacing: "2px" }} color="#FF6700">
+                                            <Typography variant="h5" fontWeight={750} align="left" fontSize={{ xs: "13px", lg: "15px", xl: "20px" }} sx={{ letterSpacing: "2px" }} color="#B5030B">
                                                 Title Here
                                             </Typography>
                                         </Stack>
@@ -357,7 +357,7 @@ const Team = () => {
                                         </Stack>
 
                                         <Stack mt={1} pb={2} pl={1}  >
-                                            <Typography variant="h5" fontWeight={750} align="left" fontSize={{ xs: "13px", lg: "15px", xl: "20px" }} sx={{ letterSpacing: "2px" }} color="#FF6700">
+                                            <Typography variant="h5" fontWeight={750} align="left" fontSize={{ xs: "13px", lg: "15px", xl: "20px" }} sx={{ letterSpacing: "2px" }} color="#B5030B">
                                                 Title Here
                                             </Typography>
                                         </Stack>
@@ -376,7 +376,7 @@ const Team = () => {
                                         </Stack>
 
                                         <Stack mt={1} pb={2} pl={1}  >
-                                            <Typography variant="h5" fontWeight={750} align="left" fontSize={{ xs: "13px", lg: "15px", xl: "20px" }} sx={{ letterSpacing: "2px" }} color="#FF6700">
+                                            <Typography variant="h5" fontWeight={750} align="left" fontSize={{ xs: "13px", lg: "15px", xl: "20px" }} sx={{ letterSpacing: "2px" }} color="#B5030B">
                                                 Title Here
                                             </Typography>
                                         </Stack>
@@ -395,7 +395,7 @@ const Team = () => {
                                         </Stack>
 
                                         <Stack mt={1} pb={2} pl={1}  >
-                                            <Typography variant="h5" fontWeight={750} align="left" fontSize={{ xs: "13px", lg: "15px", xl: "20px" }} sx={{ letterSpacing: "2px" }} color="#FF6700">
+                                            <Typography variant="h5" fontWeight={750} align="left" fontSize={{ xs: "13px", lg: "15px", xl: "20px" }} sx={{ letterSpacing: "2px" }} color="#B5030B">
                                                 Title Here
                                             </Typography>
                                         </Stack>

@@ -18,8 +18,8 @@ const btn = {
     marginTop: '40px',
     marginBottom: '40px',
     color: 'white',
-    backgroundColor: '#FF6700',
-    borderColor: '#FF6700',
+    backgroundColor: '#B5030B',
+    borderColor: '#B5030B',
     height: '50px',
     padding: '0px',
     font: 'normal normal normal 17px/26px Roboto',
@@ -100,7 +100,7 @@ const Team = () => {
                                 Swal.fire({
                                     icon: 'error',
                                     title: 'Oops2...',
-                                    confirmButtonColor: "#FF6700",
+                                    confirmButtonColor: "#B5030B",
                                     text: ''
                                 })
                             }
@@ -111,7 +111,7 @@ const Team = () => {
                                 Swal.fire({
                                     icon: 'error',
                                     title: 'Oops...',
-                                    confirmButtonColor: "#FF6700",
+                                    confirmButtonColor: "#B5030B",
                                     text: "Server Down!",
                                 })
                             });
@@ -124,7 +124,7 @@ const Team = () => {
                     Swal.fire({
                         icon: 'success',
                         title: 'Success!',
-                        confirmButtonColor: "#FF6700",
+                        confirmButtonColor: "#B5030B",
                         text: 'Daily Deal Updated Successfully!',
                     })
             
@@ -133,7 +133,7 @@ const Team = () => {
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
-                        confirmButtonColor: "#FF6700",
+                        confirmButtonColor: "#B5030B",
                         text: ''
                     })
                 }
@@ -144,7 +144,7 @@ const Team = () => {
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
-                    confirmButtonColor: "#FF6700",
+                    confirmButtonColor: "#B5030B",
                     text: "Srever Error"
                 })
             });
@@ -174,7 +174,7 @@ const Team = () => {
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
-                        confirmButtonColor: "#FF6700",
+                        confirmButtonColor: "#B5030B",
                         text: ''
                     })
                 }
@@ -184,7 +184,7 @@ const Team = () => {
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
-                    confirmButtonColor: "#FF6700",
+                    confirmButtonColor: "#B5030B",
                     text: "Server Down!"
                 })
             });
@@ -278,7 +278,7 @@ const Team = () => {
                                         hidecrossicon ?
                                             <Box sx={{ display: "flex", justifyContent: "center", alignContent: "center" }}>
                                                 <Close sx={{
-                                                    padding: 0.2, backgroundColor: "#FF6700", borderRadius: "50px",
+                                                    padding: 0.2, backgroundColor: "#B5030B", borderRadius: "50px",
                                                     color: "white", ml: 32, mt: -24
                                                 }} onClick={() => clearpreviewimage()} />
                                             </Box>
@@ -286,7 +286,7 @@ const Team = () => {
                                             location.state.image ?
                                                 <Box sx={{ display: "flex", justifyContent: "center", alignContent: "center" }}>
                                                     <Close sx={{
-                                                        padding: 0.2, backgroundColor: "#FF6700", borderRadius: "50px",
+                                                        padding: 0.2, backgroundColor: "#B5030B", borderRadius: "50px",
                                                         color: "white", ml: 32, mt: -24
                                                     }} onClick={() => clearpreviewimage()} />
                                                 </Box>
@@ -314,7 +314,7 @@ const Team = () => {
                                             maxRows={6}
                                             sx={{
                                                 borderRadius: "50px",
-                                                backgroundColor: "#F8F8F8",
+                                                backgroundColor: "#EEEEEE",
                                                 "& fieldset": { border: 'none' },
                                             }}
                                         />
@@ -332,7 +332,7 @@ const Team = () => {
                                             maxRows={6}
                                             sx={{
                                                 borderRadius: "50px",
-                                                backgroundColor: "#F8F8F8",
+                                                backgroundColor: "#EEEEEE",
                                                 "& fieldset": { border: 'none' },
                                             }}
                                         />
@@ -342,7 +342,7 @@ const Team = () => {
                                             rows={4}
                                             sx={{
                                                 borderRadius: "20px",
-                                                backgroundColor: "#F8F8F8",
+                                                backgroundColor: "#EEEEEE",
                                                 "& fieldset": { border: 'none' },
                                             }}
                                         /> */}
@@ -363,7 +363,7 @@ const Team = () => {
                                         <Select
                                             sx={{
                                                 borderRadius: "50px",
-                                                backgroundColor: "#F8F8F8",
+                                                backgroundColor: "#EEEEEE",
                                                 "& fieldset": { border: 'none' },
                                             }}
                                             // input={<Input name="circle" id="demo-simple-select" />}

@@ -22,8 +22,8 @@ const btn = {
   // marginTop: '20px',
   // marginBottom: '20px',
   color: 'white',
-  backgroundColor: '#789040',
-  borderColor: '#789040',
+  backgroundColor: '#B5030B',
+  borderColor: '#B5030B',
   height: '50px',
   padding: '0px',
   fontFamily: 'bold',
@@ -35,8 +35,8 @@ const btnupdate = {
   marginTop: '20px',
   marginBottom: '0px',
   color: 'white',
-  backgroundColor: '#789040',
-  borderColor: '#789040',
+  backgroundColor: '#B5030B',
+  borderColor: '#B5030B',
   height: '50px',
   padding: '0px',
   fontFamily: 'bold',
@@ -106,7 +106,7 @@ const Team = () => {
                   Swal.fire({
             icon: 'error',
             title: 'Oops...',
-            confirmButtonColor: "#FF6700",
+            confirmButtonColor: "#B5030B",
             text: "Server Down!"
           })
       });
@@ -171,7 +171,7 @@ const Team = () => {
                     Swal.fire({
             icon: 'error',
             title: 'Oops...',
-            confirmButtonColor: "#FF6700",
+            confirmButtonColor: "#B5030B",
             text: "Server Down!"
           })
         });

@@ -1,5 +1,7 @@
 import Swal from 'sweetalert2'
 import axios from 'axios';
+import 'react-perfect-scrollbar/dist/css/styles.css';
+import PerfectScrollbar from 'react-perfect-scrollbar'
 
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
@@ -9,7 +11,7 @@ import { tokens } from "../../theme";
 import { Add, List, Apps, MoreVert, } from '@mui/icons-material';
 import React, { useState, useEffect } from "react";
 import ClipLoader from "react-spinners/ClipLoader";
-import { Box, Tooltip, Typography, useTheme, IconButton, FormControl, OutlinedInput, Grid, Modal, Button, Stack, Card, CardContent, MenuItem, Menu, Paper, Divider, Avatar } from "@mui/material";
+import { Box, Tooltip, Select, Chip, Typography, useTheme, IconButton, FormControl, OutlinedInput, Grid, Modal, Button, Stack, Card, CardContent, MenuItem, Menu, Paper, Divider, Avatar } from "@mui/material";
 import { Checkbox } from '@mui/material';
 import {
     DataGrid,
@@ -20,20 +22,30 @@ import {
     GridToolbarDensitySelector,
 } from '@mui/x-data-grid';
 import { Close, Delete, Edit, Upload, Visibility } from "@mui/icons-material";
-// import "./index.css";
+import "./index.css";
 const override = {
     display: ' block',
     margin: '0 auto',
     borderColor: 'red',
 }
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+    PaperProps: {
+        style: {
+            maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+            width: 250,
+        },
+    },
+};
 
 const btncancel = {
     width: '90%',
     letterSpacing: "2px",
     marginBottom: '40px',
-    color: '#FF6700',
+    color: '#B5030B',
     backgroundColor: '#ffffff',
-    border: '1px solid #FF6700',
+    border: '1px solid #B5030B',
     height: '50px',
     padding: '0px',
     fontFamily: '',
@@ -48,8 +60,8 @@ const btndelete = {
     width: '95%',
     marginBottom: '20px',
     color: 'white',
-    backgroundColor: '#FF6700',
-    borderColor: '#FF6700',
+    backgroundColor: '#B5030B',
+    borderColor: '#B5030B',
     padding: '0px',
     font: 'normal normal normal 17px/26px Roboto',
     height: '50px',
@@ -66,8 +78,8 @@ const btn = {
     marginTop: '20px',
     marginBottom: '20px',
     color: 'white',
-    backgroundColor: '#FF6700',
-    borderColor: '#FF6700',
+    backgroundColor: '#B5030B',
+    borderColor: '#B5030B',
     height: '50px',
     padding: '0px',
     font: 'normal normal normal 17px/26px Roboto',
@@ -87,6 +99,8 @@ const style = {
     transform: 'translate(-50%, -50%)',
     bgcolor: '#FFFFFF',
     outline: "none",
+    maxHeight: "80vh", 
+    overflowY: "auto", 
     boxShadow: 0,
     p: 4,
     borderRadius: 5
@@ -106,8 +120,8 @@ const styleview = {
 const btncreate = {
     width: '100%',
     color: 'white',
-    backgroundColor: '#FF6700',
-    borderColor: '#FF6700',
+    backgroundColor: '#B5030B',
+    borderColor: '#B5030B',
     height: '50px',
     padding: '0px',
     fontFamily: 'bold',
@@ -171,7 +185,44 @@ const Team = () => {
     const [hidecrossiconUpload, setHidecrossiconUpload] = useState(false);
     const [selectedFileUpload, setSelectedFileUpload] = useState(null);
     const [hidelabelUpload, setHidelabelUpload] = useState(false);
+    const [Skill, setSkill] = React.useState([]);
+    const [Skills, setSkills] = useState([]);
 
+    const getAllPlans = async () => {
+        var InsertAPIURL = `${url}ads/get_all_ads`
+        var headers = {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+        };
+        await fetch(InsertAPIURL, {
+            method: 'POST',
+            headers: headers,
+        })
+            .then(response => response.json())
+            .then(response => {
+                if (response.status == true) {
+                    // setLogos(response.count);
+                    console.log("response");
+                    setSkills(response.result);
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        confirmButtonColor: "#FF8B94",
+                        text: ''
+                    })
+                }
+            }
+            )
+            .catch(error => {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    confirmButtonColor: "#FF8B94",
+                    text: "Server Down!"
+                })
+            });
+    }
 
     const [value, setValue] = React.useState(0);
 
@@ -202,6 +253,16 @@ const Team = () => {
         setHidelabelUpload(true);
     };
 
+    const handleChangeSkill = (event) => {
+        const {
+            target: { value },
+        } = event;
+        setSkill(
+            // On autofill we get a stringified value.
+            typeof value === 'string' ? value.split(',') : value,
+        );
+
+    };
 
     const [openaddsuccess, setOpenaddsuccess] = useState(false);
     const handleOpenaddsuccess = () => setOpenaddsuccess(true);
@@ -258,6 +319,7 @@ const Team = () => {
 
     const [Catagory, setCatagory] = useState([]);
     useEffect(() => {
+        getAllPlans();
         getAllCatagory();
     }, [])
 
@@ -268,97 +330,118 @@ const Team = () => {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
         };
-        var Data = {
-            "name": addName,
-        };
-        await fetch(InsertAPIURL, {
-            method: 'POST',
-            headers: headers,
-            body: JSON.stringify(Data),
-        })
-            .then(response => response.json())
-            .then(async response => {
-                console.log(response);
-                if (response.message == `Category Added Successfully!`) {
-                    getAllCatagory();
-                    if (selectedFile !== null && selectedFile !== undefined) {
-                        var Data = {
-                            "id": response.result[0].id,
-                            "image": selectedFile,
-                        };
-                        await axios.put(url + "category/add_category_image", Data, {
-                            headers: {
-                                "Content-Type": "multipart/form-data"
-                            }
-                        }).then((response) => {
-                            setIsloading(false)
-                            console.log(response.data);
-                            if (response.data.message == `categories Image added Successfully!`) {
-                                navigate("/categories")
-                                setOpenaddmodal(false);
-                                setIsloading(false)
-                            } else {
-                                setOpenaddmodal(false);
-                                setIsloading(false)
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Oops2...',
-                                    confirmButtonColor: "#FF6700",
-                                    text: ''
-                                })
-                            }
-                        }
-                        )
-                            .catch(error => {
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Oops...',
-                                    confirmButtonColor: "#FF6700",
-                                    text: response.message
-                                })
-                            });
-                    } else {
-                        setOpenaddmodal(false);
-                        setIsloading(false)
-                        navigate("/categories")
-                    }
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Success!',
-                        confirmButtonColor: "#FF6700",
-                        text: 'Category Added Successfully!',
-                      })                        
+        console.log(selectedFile)
 
-                } else if (response.message == `Please Enter Category name`) {
-                    setOpenaddmodal(false);
+        if (addName === '' || selectedFile === null) {
+            setIsloading(false);
+            setOpenaddmodal(false);
+            Swal.fire({
+                icon: 'warning',
+                title: 'Warning...',
+                confirmButtonColor: "#B5030B",
+                text: "All Fields Required"
+            })
+
+        } else {
+            var Data = {
+                "name": addName,
+                "banners": Skill
+            };
+            await fetch(InsertAPIURL, {
+                method: 'POST',
+                headers: headers,
+                body: JSON.stringify(Data),
+            })
+                .then(response => response.json())
+                .then(async response => {
+                    console.log(response);
+                    if (response.status === true) {
+                        if (selectedFile !== null && selectedFile !== undefined) {
+                            var Data = {
+                                "id": response.result[0].id,
+                                "image": selectedFile,
+                            };
+                            await axios.put(url + "category/add_category_image", Data, {
+                                headers: {
+                                    "Content-Type": "multipart/form-data"
+                                }
+                            }).then((response) => {
+                                setIsloading(false)
+                                console.log(response.data);
+                                if (response.data.message == `categories Image added Successfully!`) {
+                                    navigate("/categories")
+                                    setOpenaddmodal(false);
+                                    setIsloading(false)
+                                } else {
+                                    setOpenaddmodal(false);
+                                    setIsloading(false)
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Oops2...',
+                                        confirmButtonColor: "#B5030B",
+                                        text: ''
+                                    })
+                                }
+                            }
+                            )
+                                .catch(error => {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Oops...',
+                                        confirmButtonColor: "#B5030B",
+                                        text: response.message
+                                    })
+                                });
+                        } else {
+                            setOpenaddmodal(false);
+                            setIsloading(false)
+                            getAllCatagory();
+                            navigate("/categories")
+                        }
+                        getAllCatagory();
+                        navigate("/categories")
+                        setSelectedFile(null);
+                        setHidecrossicon(false);
+                        setHidelabel(false);
+
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success!',
+                            confirmButtonColor: "#B5030B",
+                            text: 'Category Added Successfully!',
+                        })
+
+                    } else if (response.message == `Please Enter Category name`) {
+                        setOpenaddmodal(false);
+                        setIsloading(false);
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Oops...',
+                            confirmButtonColor: "#B5030B",
+                            text: 'Please Enter Name'
+                        })
+                    } else {
+                        setIsloading(false);
+                        setOpenaddmodal(false);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            confirmButtonColor: "#B5030B",
+                            text: ''
+                        })
+                    }
+                }
+                )
+                .catch(error => {
                     setIsloading(false);
-                    Swal.fire({
-                        icon: 'warning',
-                        title: 'Oops...',
-                        confirmButtonColor: "#FF6700",
-                        text: 'Please Enter Name'
-                    })
-                } else {
-                    setIsloading(false);
-                    setOpenaddmodal(false);
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
-                        confirmButtonColor: "#FF6700",
-                        text: ''
+                        confirmButtonColor: "#B5030B",
+                        text: "Server Down!"
                     })
-                }
-            }
-            )
-            .catch(error => {
-                setIsloading(false);
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    confirmButtonColor: "#FF6700",
-                    text: "Server Down!"
-                })
-            });
+                });
+        }
     }
 
 
@@ -372,6 +455,7 @@ const Team = () => {
         var Data = {
             "Category_ID": ActionData.id,
             "name": EditName,
+            "banners": Skill
         };
         await fetch(InsertAPIURL, {
             method: 'PUT',
@@ -412,7 +496,7 @@ const Team = () => {
                                 Swal.fire({
                                     icon: 'error',
                                     title: 'Oops2...',
-                                    confirmButtonColor: "#FF6700",
+                                    confirmButtonColor: "#B5030B",
                                     text: ''
                                 })
                             }
@@ -422,7 +506,7 @@ const Team = () => {
                                 Swal.fire({
                                     icon: 'error',
                                     title: 'Oops...',
-                                    confirmButtonColor: "#FF6700",
+                                    confirmButtonColor: "#B5030B",
                                     text: response.message
                                 })
                             });
@@ -441,9 +525,9 @@ const Team = () => {
                     Swal.fire({
                         icon: 'success',
                         title: 'Success!',
-                        confirmButtonColor: "#FF6700",
+                        confirmButtonColor: "#B5030B",
                         text: 'Category Updated Successfully!',
-                      })                    
+                    })
                     // setIsloading(false);
                     // setOpeneditmodal(false);
                     //   console.log(response.result);
@@ -453,7 +537,7 @@ const Team = () => {
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
-                        confirmButtonColor: "#FF6700",
+                        confirmButtonColor: "#B5030B",
                         text: ''
                     })
                 }
@@ -464,7 +548,7 @@ const Team = () => {
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
-                    confirmButtonColor: "#FF6700",
+                    confirmButtonColor: "#B5030B",
                     text: "Server Down!"
                 })
             });
@@ -498,14 +582,14 @@ const Team = () => {
                     Swal.fire({
                         icon: 'success',
                         title: 'Success!',
-                        confirmButtonColor: "#FF6700",
+                        confirmButtonColor: "#B5030B",
                         text: 'Category Deleted Successfully!',
-                      })                    
+                    })
                 } else {
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
-                        confirmButtonColor: "#FF6700",
+                        confirmButtonColor: "#B5030B",
                         text: ''
                     })
                 }
@@ -515,7 +599,7 @@ const Team = () => {
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
-                    confirmButtonColor: "#FF6700",
+                    confirmButtonColor: "#B5030B",
                     text: "Server Down!"
                 })
             });
@@ -543,7 +627,7 @@ const Team = () => {
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
-                        confirmButtonColor: "#FF6700",
+                        confirmButtonColor: "#B5030B",
                         text: ''
                     })
                 }
@@ -553,7 +637,7 @@ const Team = () => {
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
-                    confirmButtonColor: "#FF6700",
+                    confirmButtonColor: "#B5030B",
                     text: "Server Down!"
                 })
             });
@@ -569,8 +653,8 @@ const Team = () => {
                 return (
                     <>
                         {row.row.image !== null ?
-                            // <img src={`https://staging-gearone-be.mtechub.com/${row.row.image}`} style={{ bgcolor: "#FF6700", width: '45px', height: '45px' }}>
-                            <Avatar src={`https://staging-gearone-be.mtechub.com/${row.row.image}`} style={{ bgcolor: "#FF6700", width: '45px', height: '45px' }}>
+                            // <img src={`https://staging-gearone-be.mtechub.com/${row.row.image}`} style={{ bgcolor: "#B5030B", width: '45px', height: '45px' }}>
+                            <Avatar src={`https://staging-gearone-be.mtechub.com/${row.row.image}`} style={{ bgcolor: "#B5030B", width: '45px', height: '45px' }}>
                             </Avatar>
                             :
                             <Avatar sx={{ width: '45px', height: '45px' }}>
@@ -593,6 +677,9 @@ const Team = () => {
                     <>
                         <Stack pl={15} >
                             <div style={{ display: "flex", justifyContent: "center", alignContent: "center" }}>
+
+
+
                                 <IconButton onClick={() => {
                                     console.log(row.row);
                                     setActionData(row.row);
@@ -608,6 +695,8 @@ const Team = () => {
                                             if (row.row.image !== null) {
                                                 setHidelabelUpload(true);
                                             }
+                                            const bannerIds = row.row.banners.map(banner => banner.id);
+                                            setSkill(bannerIds)
                                             handleOpenedit();
                                         }} />
                                     </Tooltip>
@@ -644,7 +733,7 @@ const Team = () => {
                     </Grid>
 
                     <Grid item xs={3} align="center">
-              
+
                     </Grid>
 
                     <Grid item xs={1.5} align="center">
@@ -656,7 +745,7 @@ const Team = () => {
                                             showtable ?
                                                 <>
                                                     <Box sx={{ pl: 1 }}>
-                                                        <List fontSize="large" sx={{ color: "white", backgroundColor: "#FF6700", borderRadius: "5px" }} onClick={() => { setShowtable(true) }} />
+                                                        <List fontSize="large" sx={{ color: "white", backgroundColor: "#B5030B", borderRadius: "5px" }} onClick={() => { setShowtable(true) }} />
                                                     </Box>
                                                     <Box sx={{ pr: 1 }}>
                                                         <Apps fontSize="large" sx={{ color: "#9B9B9B", backgroundColor: "transparent", borderRadius: "5px" }} onClick={() => setShowtable(false)} />
@@ -668,7 +757,7 @@ const Team = () => {
                                                         <List fontSize="large" sx={{ color: "#9B9B9B", backgroundColor: "transparent", borderRadius: "5px" }} onClick={() => setShowtable(true)} />
                                                     </Box>
                                                     <Box sx={{ pr: 1 }}>
-                                                        <Apps fontSize="large" sx={{ color: "white", backgroundColor: "#FF6700", borderRadius: "5px" }} onClick={() => setShowtable(false)} />
+                                                        <Apps fontSize="large" sx={{ color: "white", backgroundColor: "#B5030B", borderRadius: "5px" }} onClick={() => setShowtable(false)} />
                                                     </Box>
                                                 </>
                                         }
@@ -681,7 +770,7 @@ const Team = () => {
                     <Grid item xs={1.5} align="center">
                         <div style={{ display: "flex", justifyContent: "right", alignContent: "right", gap: "30px" }}>
                             <div>
-                                <button onClick={handleOpenadd} style={{ marginTop: "2%", padding: "10px", display: "flex", justifyContent: "center", alignContent: "center", alignSelf: "center", border: "none", borderRadius: "50px", backgroundColor: "#FF6700", color: "white" }}>
+                                <button onClick={handleOpenadd} style={{ marginTop: "2%", padding: "10px", display: "flex", justifyContent: "center", alignContent: "center", alignSelf: "center", border: "none", borderRadius: "50px", backgroundColor: "#B5030B", color: "white" }}>
                                     <Stack direction="row" sx={{ display: "flex", justifyContent: "right", alignContent: "right", gap: "3px" }}>
                                         <div>
                                             <Stack sx={{ paddingLeft: "20px" }}>
@@ -702,7 +791,7 @@ const Team = () => {
 
                 <Divider sx={{ pb: 2 }} />
 
-                <Grid container spacing={0} pt={2}  >
+                <Grid mb='6%' container spacing={0} pt={2}  >
                     {
                         showtable ?
                             <Grid xs={12} p={1} align="center">
@@ -710,6 +799,10 @@ const Team = () => {
                                     <DataGrid
                                         rows={Catagory}
                                         columns={columns}
+                                        getRowClassName={(params) => {
+                                            return 'unblock-row'
+                                        }}
+
                                         initialState={{
                                             pagination: {
                                                 paginationModel: { page: 0, pageSize: 5 },
@@ -730,7 +823,7 @@ const Team = () => {
                                 {Catagory.map((item, index) => (
                                     <Grid key={index} xs={12} md={3} lg={3} align="center" p={1} >
                                         <Card width="95%" sx={{ padding: 0, boxShadow: "none", borderRadius: "10px", border: "1px solid #D8D8D8" }}>
-                                            <CardContent>
+                                            <CardContent >
                                                 <Grid key={index} container spacing={0} >
 
                                                     <Grid key={index} xs={12} align="right">
@@ -814,16 +907,20 @@ const Team = () => {
                                                     </Grid>
 
                                                     <Grid xs={12} align="left">
-                                                    {ActionData.image !== null ? 
-                                                    <img src={`${url}${item.image}`}
-                                                     alt="" style={{ width: "200px", height: "200px" }} />
-                                                        :
-                                                        <Card  sx={{ width: "200px", height: "200px" }} />
-                                                       }
+                                                        {ActionData.image !== null ?
+                                                            <img src={`${url}${item.image}`}
+                                                                alt="" style={{ width: "200px", height: "200px" }} />
+                                                            :
+                                                            <Card sx={{ width: "200px", height: "200px" }} />
+                                                        }
+                                                        <PerfectScrollbar>
 
-                                                        <Typography variant="h5" pb={1} fontWeight={750} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#FF6700">
-                                                            {item.name}
-                                                        </Typography>
+                                                            <Typography maxHeight='50px' variant="h5" pb={1} fontWeight={750} fontSize="16px"
+                                                                sx={{ letterSpacing: "2px" }} color="#B5030B">
+                                                                {item.name}
+                                                            </Typography>
+                                                        </PerfectScrollbar>
+
                                                     </Grid>
 
                                                 </Grid>
@@ -889,7 +986,7 @@ const Team = () => {
                                             hidecrossicon ?
                                                 <Box sx={{ display: "flex", justifyContent: "center", alignContent: "center" }}>
                                                     <Close sx={{
-                                                        padding: 0.2, backgroundColor: "#FF6700", borderRadius: "50px",
+                                                        padding: 0.2, backgroundColor: "#B5030B", borderRadius: "50px",
                                                         color: "white", ml: 32, mt: -24
                                                     }} onClick={() => clearpreviewimage()} />
                                                 </Box>
@@ -909,11 +1006,55 @@ const Team = () => {
                                         }}
 
                                         sx={{
+
                                             backgroundColor: "#EEEEEE",
                                             "& fieldset": { border: 'none' },
                                             "& ::placeholder": { ml: 1, fontWeight: 600, color: "#000000" }
                                         }}
                                     />
+
+
+                                    <Typography variant="h4" sx={{ mt: '5%', letterSpacing: "2px" }} pb={0.7} fontWeight={700} align="left" fontSize="14px" color="#1F1F1F">Select Banner</Typography>
+
+                                    <Select
+                                        labelId="demo-multiple-chip-label"
+                                        id="demo-multiple-chip"
+                                        multiple
+                                        sx={{
+                                            backgroundColor: "#EEEEEE",
+                                            "& fieldset": { border: 'none' },
+                                        }}
+                                        value={Skill}
+                                        onChange={(event) => { handleChangeSkill(event) }}
+                                        input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
+                                        MenuProps={MenuProps}
+                                    >
+                                        <MenuItem value="" disabled>
+                                            <em>select Banner</em>
+                                        </MenuItem>
+                                        {Skills.map((data) => {
+                                            const isSelected = Skill.includes(data.id);
+                                            const backgroundColor = isSelected ? 'blue' : 'red';
+
+                                            return (
+                                                <MenuItem
+                                                    key={data.id}
+                                                    value={data.id}
+                                                    sx={{ background: backgroundColor }}
+                                                >
+                                                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                                                        <img
+                                                            alt=""
+                                                            src={`${url}${data.image}`}
+                                                            style={{ marginRight: '10px', width: '500px', height: 'auto' }}
+                                                        />
+                                                        {data.plan_name}
+                                                    </div>
+                                                </MenuItem>
+                                            );
+                                        })}
+                                    </Select>
+                                        
                                 </FormControl>
                             </Grid>
                         </Grid>
@@ -955,7 +1096,7 @@ const Team = () => {
                             </Grid>
 
                             <Grid xs={12} align="center" >
-                                <Typography variant="h4" sx={{ letterSpacing: "3px" }} fontWeight={800} fontSize="large" color="#FF6700">Success</Typography>
+                                <Typography variant="h4" sx={{ letterSpacing: "3px" }} fontWeight={800} fontSize="large" color="#B5030B">Success</Typography>
                             </Grid>
 
                             <Grid xs={12} align="center" pt={7}>
@@ -980,7 +1121,9 @@ const Team = () => {
                     aria-labelledby="modal-modal-title"
                     aria-describedby="modal-modal-description"
                 >
-                    <Box width={{ xs: 400, md: 500, lg: 500, xl: 600 }} height="auto" sx={style}>
+                    <Box width={{ xs: 400, md: 500, lg: 500, xl: 600 }}
+
+                        height="auto" sx={style}>
                         <Grid container spacing={0}>
                             <Grid xs={6} align="left" >
                                 <Typography variant="h4" sx={{ letterSpacing: "3px" }} fontWeight={800} fontSize="large" color="#1F1F1F">Update Category</Typography>
@@ -993,7 +1136,7 @@ const Team = () => {
                             <Grid xs={12} align="center" pt={7}>
                                 <FormControl fullWidth>
 
-                                    <Box pt={2} pb={2}>
+                                    <Box pt={0} pb={2}>
                                         <Box sx={{ pt: 2, width: "300px", height: "200px", p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
                                             {hidelabelUpload ?
                                                 null
@@ -1021,7 +1164,7 @@ const Team = () => {
 
                                             {selectedFileUpload || selectedFileUpload !== null ? <img src={URL.createObjectURL(selectedFileUpload)} alt="Preview" style={{ width: "300px", height: "200px" }} />
                                                 :
-                                                ActionData.image && <img src={`https://staging-gearone-be.mtechub.com/${ActionData.image}`} alt="Preview" style={{ width: "300px", height: "200px" }} />
+                                                ActionData.image && <img src={`${url}${ActionData.image}`} alt="Preview" style={{ width: "300px", height: "200px" }} />
                                             }
                                         </Box>
 
@@ -1029,19 +1172,26 @@ const Team = () => {
                                             hidecrossiconUpload ?
                                                 <Box sx={{ display: "flex", justifyContent: "center", alignContent: "center" }}>
                                                     <Close sx={{
-                                                        padding: 0.2, backgroundColor: "#FF6700", borderRadius: "50px",
+                                                        padding: 0.2, backgroundColor: "#B5030B", borderRadius: "50px",
                                                         color: "white", ml: 32, mt: -24
                                                     }} onClick={() => clearpreviewimageUpload()} />
                                                 </Box>
                                                 :
-                                                ActionData.image || ActionData.image !== null ?
+                                                ActionData.image ?
                                                     <Box sx={{ display: "flex", justifyContent: "center", alignContent: "center" }}>
                                                         <Close sx={{
-                                                            padding: 0.2, backgroundColor: "#FF6700", borderRadius: "50px",
+                                                            padding: 0.2, backgroundColor: "#B5030B", borderRadius: "50px",
                                                             color: "white", ml: 32, mt: -24
                                                         }} onClick={() => clearpreviewimageUpload()} />
                                                     </Box>
-                                                    : null
+                                                    :
+                                                    ActionData.image === null && !hidecrossiconUpload &&
+                                                    <Box sx={{ display: "flex", justifyContent: "center", alignContent: "center" }}>
+                                                        <Close sx={{
+                                                            padding: 0.2, backgroundColor: "#B5030B", borderRadius: "50px",
+                                                            color: "white", ml: 32, mt: -24
+                                                        }} onClick={() => clearpreviewimageUpload()} />
+                                                    </Box>
                                         }
                                     </Box>
 
@@ -1062,6 +1212,50 @@ const Team = () => {
                                             "& ::placeholder": { ml: 1, fontWeight: 600, color: "#000000" }
                                         }}
                                     />
+
+                                    <Typography variant="h4" sx={{ mt: '5%', letterSpacing: "2px" }} pb={0.7} fontWeight={700} align="left" fontSize="14px" color="#1F1F1F">Select Banner</Typography>
+
+
+                                    <Select
+                                        labelId="demo-multiple-chip-label"
+                                        id="demo-multiple-chip"
+                                        multiple
+                                        sx={{
+                                            backgroundColor: "#EEEEEE",
+                                            "& fieldset": { border: 'none' },
+                                        }}
+                                        value={Skill}
+                                        onChange={(event) => { handleChangeSkill(event) }}
+                                        input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
+                                        MenuProps={MenuProps}
+                                    >
+                                        <MenuItem value="" disabled>
+                                            <em>select Banner</em>
+                                        </MenuItem>
+                                        {Skills.map((data) => {
+                                            const isSelected = Skill.includes(data.id);
+                                            const backgroundColor = isSelected ? 'blue' : 'red';
+
+                                            return (
+                                                <MenuItem
+                                                    key={data.id}
+                                                    value={data.id}
+                                                    sx={{ background: backgroundColor }}
+                                                >
+                                                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                                                        <img
+                                                            alt=""
+                                                            src={`${url}${data.image}`}
+                                                            style={{ marginRight: '10px', width: '500px', height: 'auto' }}
+                                                        />
+                                                        {data.plan_name}
+                                                    </div>
+                                                </MenuItem>
+                                            );
+                                        })}
+                                    </Select>
+
+
                                 </FormControl>
                             </Grid>
                         </Grid>
@@ -1102,7 +1296,7 @@ const Team = () => {
                             </Grid>
 
                             <Grid xs={12} align="center" p={{ xs: 2, md: 5, lg: 1, xl: 1 }}>
-                                <Typography variant="h4" sx={{ letterSpacing: "3px" }} fontWeight={600} fontSize="x-large" color="#FF6700">Confirmation</Typography>
+                                <Typography variant="h4" sx={{ letterSpacing: "3px" }} fontWeight={600} fontSize="x-large" color="#B5030B">Confirmation</Typography>
 
                                 <Typography variant="h5" sx={{ letterSpacing: "3px" }} pt={7} pb={0} fontWeight={600} color="#1F1F1F">Do you want to delete this Category ?</Typography>  </Grid>
                         </Grid>

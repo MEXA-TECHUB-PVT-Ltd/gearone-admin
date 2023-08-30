@@ -5,7 +5,7 @@ import Link from '@mui/material/Link';
 import Swal from 'sweetalert2'
 import url from "../url"
 import ClipLoader from "react-spinners/ClipLoader";
-
+import './index.css'
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import PerfectScrollbar from 'react-perfect-scrollbar'
 import PropTypes from 'prop-types';
@@ -26,9 +26,9 @@ const btncancel = {
   width: '90%',
   letterSpacing: "2px",
   marginBottom: '40px',
-  color: '#FF6700',
+  color: '#B5030B',
   backgroundColor: '#ffffff',
-  border: '1px solid #FF6700',
+  border: '1px solid #B5030B',
   height: '50px',
   padding: '0px',
   fontFamily: '',
@@ -48,8 +48,8 @@ const btn = {
   letterSpacing: "2px",
   marginBottom: '40px',
   color: 'white',
-  backgroundColor: '#FF6700',
-  borderColor: '#FF6700',
+  backgroundColor: '#B5030B',
+  borderColor: '#B5030B',
   height: '50px',
   padding: '0px',
   fontFamily: '',
@@ -184,7 +184,7 @@ const Team = () => {
           Swal.fire({
             icon: 'success',
             title: 'Success',
-            confirmButtonColor: "#FF6700",
+            confirmButtonColor: "#B5030B",
             text: 'Status change successfully'
           })
 
@@ -196,7 +196,7 @@ const Team = () => {
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
-            confirmButtonColor: "#FF6700",
+            confirmButtonColor: "#B5030B",
             text: ''
           })
         }
@@ -207,7 +207,7 @@ const Team = () => {
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
-          confirmButtonColor: "#FF6700",
+          confirmButtonColor: "#B5030B",
           text: "Server Down!"
         })
       });
@@ -236,14 +236,14 @@ const Team = () => {
         console.log(response);
         if (response.status === true) {
           setIsloading(false);
-
+          handleClose(true);
           // setLogos(response.count);
           getAllLogos();
           setOpendelmodal(false);
           Swal.fire({
             icon: 'success',
             title: 'Success...',
-            confirmButtonColor: "#FF6700",
+            confirmButtonColor: "#B5030B",
             text: 'User Deleted Successfully'
           })
         } else {
@@ -251,7 +251,7 @@ const Team = () => {
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
-            confirmButtonColor: "#FF6700",
+            confirmButtonColor: "#B5030B",
             text: ''
           })
         }
@@ -262,7 +262,7 @@ const Team = () => {
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
-          confirmButtonColor: "#FF6700",
+          confirmButtonColor: "#B5030B",
           text: "Server Down!"
         })
       });
@@ -279,7 +279,7 @@ const Team = () => {
         return (
           <>
             {row.row.image !== null ?
-              <Avatar src={`https://staging-gearone-be.mtechub.com/${row.row.image}`} style={{ bgcolor: "#FF6700", width: '45px', height: '45px' }}>
+              <Avatar src={`https://staging-gearone-be.mtechub.com/${row.row.image}`} style={{ bgcolor: "#B5030B", width: '45px', height: '45px' }}>
               </Avatar>
               :
               <Avatar sx={{ width: '45px', height: '45px' }}>
@@ -327,6 +327,15 @@ const Team = () => {
         return (
           <>
             <IconButton style={{ cursor: 'pointer' }} onClick={() => {
+              handleOpendelmodalStatus(row.row)
+              setDeleteData(row.row);
+            }}>
+              <Tooltip title="Change Status" >
+                <AutorenewIcon sx={{ color: "green" }} />
+              </Tooltip>
+            </IconButton>
+
+            <IconButton style={{ cursor: 'pointer' }} onClick={() => {
               navigate('/UserDetails', {
                 state: {
                   id: row.row.id,
@@ -342,7 +351,7 @@ const Team = () => {
               setOpendelmodal(true)
             }}>
               <Tooltip title="view" >
-                <Delete sx={{ color: "#3FC0FF" }} />
+                <Delete sx={{ color: "red" }} />
               </Tooltip>
             </IconButton>
           </>
@@ -376,7 +385,7 @@ const Team = () => {
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
-            confirmButtonColor: "#FF6700",
+            confirmButtonColor: "#B5030B",
             text: `${response.message}`
           })
         }
@@ -386,7 +395,7 @@ const Team = () => {
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
-          confirmButtonColor: "#FF6700",
+          confirmButtonColor: "#B5030B",
           text: "Server Down!"
         })
       });
@@ -422,7 +431,7 @@ const Team = () => {
                       showtable ?
                         <>
                           <Box sx={{ pl: 1 }}>
-                            <List fontSize="large" sx={{ lg: "13vh", xl: "7vh", color: "white", backgroundColor: "#FF6700", borderRadius: "5px" }} onClick={() => { setShowtable(true) }} />
+                            <List fontSize="large" sx={{ lg: "13vh", xl: "7vh", color: "white", backgroundColor: "#B5030B", borderRadius: "5px" }} onClick={() => { setShowtable(true) }} />
                           </Box>
                           <Box sx={{ pr: 1 }}>
                             <Apps fontSize="large" sx={{ lg: "13vh", xl: "7vh", color: "#9B9B9B", backgroundColor: "transparent", borderRadius: "5px" }} onClick={() => setShowtable(false)} />
@@ -434,7 +443,7 @@ const Team = () => {
                             <List fontSize="large" sx={{ color: "#9B9B9B", backgroundColor: "transparent", borderRadius: "5px" }} onClick={() => setShowtable(true)} />
                           </Box>
                           <Box sx={{ pr: 1 }}>
-                            <Apps fontSize="large" sx={{ color: "white", backgroundColor: "#FF6700", borderRadius: "5px" }} onClick={() => setShowtable(false)} />
+                            <Apps fontSize="large" sx={{ color: "white", backgroundColor: "#B5030B", borderRadius: "5px" }} onClick={() => setShowtable(false)} />
                           </Box>
                         </>
                     }
@@ -448,15 +457,23 @@ const Team = () => {
 
         <Divider sx={{ pb: 2 }} />
 
-        <Grid sx={{ mb: '15px' }} container spacing={0} pt={2} >
+        <Grid mb='6%' sx={{ mb: '15px' }} container spacing={0} pt={2} >
           {
             showtable ?
               <Grid xs={12} p={1} align="center">
                 <div style={{ height: 600, width: '100%' }}>
                   <DataGrid
+                    className="custom-datagrid"  // Add the custom class here
                     rows={Logos}
                     getRowId={Logos.id}
                     id={Logos.id}
+                    getRowStyle={(params) => ({
+                      color: 'red',
+                      fontWeight: '700'
+                    })}
+                    getRowClassName={(params) => {
+                      return 'unblock-row'
+                    }}
                     columns={columns}
                     initialState={{
                       pagination: {
@@ -480,7 +497,7 @@ const Team = () => {
                       <CardContent>
                         <Grid container spacing={0} >
                           <Grid xs={6} align="left" onClick={() => { setViewData(item); handleOpenmodal(); }}>
-                            <Typography variant="h5" pb={1} fontWeight={750} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#FF6700">
+                            <Typography variant="h5" pb={1} fontWeight={750} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#B5030B">
                               {item.username}
                             </Typography>
                           </Grid>
@@ -683,7 +700,7 @@ const Team = () => {
           aria-describedby="modal-modal-description"
         >
           <Box width={{ xs: 400, md: 500, lg: 600, xl: 650 }} height="auto" sx={styleview}>
-            <Box sx={{ borderTopLeftRadius: "20px", borderTopRightRadius: "20px", backgroundColor: "#FF6700", width: "100%", height: "70px" }}>
+            <Box sx={{ borderTopLeftRadius: "20px", borderTopRightRadius: "20px", backgroundColor: "#B5030B", width: "100%", height: "70px" }}>
               <Box xs={12} align="right" pt={0.1} pr={1}>
                 <Cancel sx={{ color: "white" }} onClick={() => setOpenmodal(false)} />
               </Box>
@@ -696,13 +713,13 @@ const Team = () => {
             <Grid xs={12} align="center" pt={3}>
               {viewData.image !== null ?
                 viewData.image !== undefined ?
-                  <img src={`https://staging-gearone-be.mtechub.com/${viewData.image}`} style={{ bgcolor: "#FF6700", width: '175px', height: '175px' }}>
+                  <img src={`https://staging-gearone-be.mtechub.com/${viewData.image}`} style={{ bgcolor: "#B5030B", width: '175px', height: '175px' }}>
                   </img>
                   :
-                  <Avatar sx={{ bgcolor: "#FF6700", width: 75, height: 75 }}>
+                  <Avatar sx={{ bgcolor: "#B5030B", width: 75, height: 75 }}>
                   </Avatar>
                 :
-                <Avatar sx={{ bgcolor: "#FF6700", width: 75, height: 75 }}>
+                <Avatar sx={{ bgcolor: "#B5030B", width: 75, height: 75 }}>
                 </Avatar>
 
               }
@@ -782,7 +799,7 @@ const Team = () => {
               </Grid>
 
               <Grid xs={12} align="center" p={{ xs: 2, md: 5, lg: 1, xl: 1 }}>
-                <Typography variant="h4" sx={{ letterSpacing: "3px" }} fontWeight={600} fontSize="x-large" color="#FF6700">Confirmation</Typography>
+                <Typography variant="h4" sx={{ letterSpacing: "3px" }} fontWeight={600} fontSize="x-large" color="#B5030B">Confirmation</Typography>
                 {DeleteData.status === 'block' ?
                   <Typography variant="h5" sx={{ letterSpacing: "3px" }} pt={7}
                     pb={0} fontWeight={600} color="#1F1F1F">{`Do you want to unblock user?`}
@@ -858,7 +875,7 @@ const Team = () => {
               </Grid>
 
               <Grid xs={12} align="center" p={{ xs: 2, md: 5, lg: 1, xl: 1 }}>
-                <Typography variant="h4" sx={{ letterSpacing: "3px" }} fontWeight={600} fontSize="x-large" color="#FF6700">Confirmation</Typography>
+                <Typography variant="h4" sx={{ letterSpacing: "3px" }} fontWeight={600} fontSize="x-large" color="#B5030B">Confirmation</Typography>
 
                 <Typography variant="h5" sx={{ letterSpacing: "3px" }} pt={7} pb={0} fontWeight={600} color="#1F1F1F">Do you want to delete this User ?</Typography>  </Grid>
             </Grid>
@@ -881,7 +898,10 @@ const Team = () => {
 
                   :
 
-                  <Button variant="contained" style={btn} onClick={() => { handleDelete() }}>Delete</Button>
+                  <Button variant="contained" style={btn} onClick={() => {
+                    handleClose();
+                    handleDelete()
+                  }}>Delete</Button>
                 }
               </Grid>
             </Grid>

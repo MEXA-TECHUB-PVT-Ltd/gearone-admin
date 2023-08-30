@@ -4,7 +4,7 @@ import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2'
 import image from '../../components/Images/logo.svg'
-import signinmockup from "../../components/Images/signinmockup.jpeg"
+import signinmockup from "../../components/Images/loginLogo.webp"
 import Avatar from '@mui/material/Avatar';
 import url from '../url'
 import { NavLink } from 'react-router-dom';
@@ -25,8 +25,8 @@ const btn = {
   marginTop: '20px',
   // marginBottom: '20px',
   color: 'white',
-  backgroundColor: '#FF6700',
-  borderColor: '#FF6700',
+  backgroundColor: '#B5030B',
+  borderColor: '#B5030B',
   height: '50px',
   padding: '0px',
   font: 'normal normal normal 17px/26px Roboto',
@@ -45,6 +45,11 @@ function Login() {
   let [color, setColor] = useState("#ffffff");
   const [hide, setHide] = useState(false);
   const [enteredotp, setEnteredotp] = useState('');
+
+
+
+
+
 
   useEffect(() => {
     const token = JSON.parse(localStorage.getItem('jwtoken'));
@@ -82,7 +87,7 @@ function Login() {
       Swal.fire({
         icon: 'warning',
         title: 'warning',
-        confirmButtonColor: "#FF6700",
+        confirmButtonColor: "#B5030B",
         text: 'Enter OTP For Verification'
       })
       setOpen(false);
@@ -114,6 +119,8 @@ function Login() {
               localStorage.setItem("adminimageurl", 'admin');
               localStorage.setItem("adminID", JSON.stringify(response.result[0].id));
               localStorage.setItem("password", JSON.stringify(password));
+              localStorage.setItem("two_factor", JSON.stringify(response.result[0].two_factor));
+
               navigate("/dashboard");
             }, 3000)
           } else {
@@ -121,7 +128,7 @@ function Login() {
             Swal.fire({
               icon: 'error',
               title: 'Oops...',
-              confirmButtonColor: "#FF6700",
+              confirmButtonColor: "#B5030B",
               text: 'Incorrect OTP, please try again'
             })
             setIsloading(false);
@@ -132,7 +139,85 @@ function Login() {
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
-            confirmButtonColor: "#FF6700",
+            confirmButtonColor: "#B5030B",
+            text: "Server Down!"
+          })
+        });
+    }
+  }
+  const checkTwoFaactor = async () => {
+    setIsloading(true);
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const isValidEmail = emailRegex.test(email);
+    if (email.length == 0 || password.length == 0) {
+      setIsloading(false);
+      Swal.fire({
+        icon: 'warning',
+        title: 'warning',
+        confirmButtonColor: "#B5030B",
+        text: 'All Fields Are Required'
+      })
+    } else if (!isValidEmail) {
+      setIsloading(false);
+      Swal.fire({
+        icon: 'error',
+        title: 'Warning',
+        confirmButtonColor: "#B5030B",
+        text: 'Enter Valid Email !'
+      })
+    } else {
+      var InsertAPIURL = `${url}admin/sign_in_without_otp`
+      var headers = {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      };
+      var Data = {
+        "email": email,
+        "password": password
+      };
+      await fetch(InsertAPIURL, {
+        method: 'POST',
+        headers: headers,
+        body: JSON.stringify(Data),
+      })
+        .then(response => response.json())
+        .then(response => {
+          console.log(response);
+          if (response.status == true) {
+            setIsloading(false);
+            if (response.result[0].two_factor === true) {
+              loginadmin()
+            } else {
+              setIsloading(false);
+              setTimeout(() => {
+                localStorage.setItem("jwtoken", JSON.stringify(response.token));
+                localStorage.setItem("adminemail", JSON.stringify(response.result[0].email));
+                localStorage.setItem("adminname", 'admin');
+                localStorage.setItem("adminimageurl", 'admin');
+                localStorage.setItem("adminID", JSON.stringify(response.result[0].id));
+                localStorage.setItem("password", JSON.stringify(password));
+                localStorage.setItem("two_factor", JSON.stringify(response.result[0].two_factor));
+
+                navigate("/dashboard");
+              }, 3000)
+            }
+          } else {
+            setIsloading(false);
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              confirmButtonColor: "#B5030B",
+              text: 'Email or Password wrong!'
+            })
+          }
+        }
+        )
+        .catch(error => {
+          setIsloading(false);
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            confirmButtonColor: "#B5030B",
             text: "Server Down!"
           })
         });
@@ -150,7 +235,7 @@ function Login() {
       Swal.fire({
         icon: 'warning',
         title: 'warning',
-        confirmButtonColor: "#FF6700",
+        confirmButtonColor: "#B5030B",
         text: 'All Fields Are Required'
       })
     } else if (!isValidEmail) {
@@ -158,7 +243,7 @@ function Login() {
       Swal.fire({
         icon: 'error',
         title: 'Warning',
-        confirmButtonColor: "#FF6700",
+        confirmButtonColor: "#B5030B",
         text: 'Enter Valid Email !'
       })
     } else {
@@ -188,7 +273,7 @@ function Login() {
             Swal.fire({
               icon: 'error',
               title: 'Oops...',
-              confirmButtonColor: "#FF6700",
+              confirmButtonColor: "#B5030B",
               text: 'Email or Password wrong!'
             })
           }
@@ -199,7 +284,7 @@ function Login() {
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
-            confirmButtonColor: "#FF6700",
+            confirmButtonColor: "#B5030B",
             text: "Server Down!"
           })
         });
@@ -258,7 +343,7 @@ function Login() {
                             onChange={(e) => { setEnteredotp(e) }}
                             numInputs={4}
                             style={btn}
-                            
+
                             // separator={<span>&nbsp;  
                             // </span>}
                             containerStyle={{ width: "100%" }}
@@ -373,7 +458,7 @@ function Login() {
                           />
                         </Button>
                         :
-                        <Button variant="contained" style={btn} onClick={() => loginadmin()} >Sign In</Button>
+                        <Button variant="contained" style={btn} onClick={() => checkTwoFaactor()} >Sign In</Button>
                       }
 
                     </Stack>

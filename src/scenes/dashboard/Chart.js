@@ -82,7 +82,7 @@ function Graph() {
                         label: 'Users',
                         data: chartData,
                         backgroundColor: '#f5bf9a',
-                        borderColor: '#FF6700', 
+                        borderColor: '#B5030B', 
                         borderWidth: 1,
                     },
                 ],

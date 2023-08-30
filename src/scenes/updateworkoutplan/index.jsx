@@ -17,8 +17,8 @@ const btn = {
     marginTop: '40px',
     marginBottom: '40px',
     color: 'white',
-    backgroundColor: '#FF6700',
-    borderColor: '#FF6700',
+    backgroundColor: '#B5030B',
+    borderColor: '#B5030B',
     height: '50px',
     padding: '0px',
     font: 'normal normal normal 17px/26px Roboto',
@@ -37,8 +37,8 @@ const btnchnge = {
     marginTop: '10px',
     // marginBottom: '40px',
     color: 'white',
-    backgroundColor: '#FF6700',
-    borderColor: '#FF6700',  
+    backgroundColor: '#B5030B',
+    borderColor: '#B5030B',  
     paddingLeft: "40px",
     paddingRight: "40px",
     font: 'normal normal normal 17px/26px Roboto',
@@ -144,7 +144,7 @@ const Team = () => {
                                             defaultValue="Category1"
                                             sx={{
                                                 borderRadius: "50px",
-                                                backgroundColor: "#F8F8F8",
+                                                backgroundColor: "#EEEEEE",
                                                 "& fieldset": { border: 'none' },
                                             }}
                                         >
@@ -161,7 +161,7 @@ const Team = () => {
                                             defaultValue="2 hrs 32 mins"
                                             sx={{
                                                 borderRadius: "50px",
-                                                backgroundColor: "#F8F8F8",
+                                                backgroundColor: "#EEEEEE",
                                                 "& fieldset": { border: 'none' },
                                             }}
                                         />
@@ -177,7 +177,7 @@ const Team = () => {
                                             defaultValue="Paid"
                                             sx={{
                                                 borderRadius: "50px",
-                                                backgroundColor: "#F8F8F8",
+                                                backgroundColor: "#EEEEEE",
                                                 "& fieldset": { border: 'none' },
                                             }}
                                         >
@@ -195,7 +195,7 @@ const Team = () => {
                                             defaultValue="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet,"
                                             sx={{
                                                 borderRadius: "20px",
-                                                backgroundColor: "#F8F8F8",
+                                                backgroundColor: "#EEEEEE",
                                                 "& fieldset": { border: 'none' },
                                             }}
                                         />
@@ -218,7 +218,7 @@ const Team = () => {
                                             defaultValue="Workout Title"
                                             sx={{
                                                 borderRadius: "50px",
-                                                backgroundColor: "#F8F8F8",
+                                                backgroundColor: "#EEEEEE",
                                                 "& fieldset": { border: 'none' },
                                             }}
                                         />
@@ -234,7 +234,7 @@ const Team = () => {
                                             defaultValue="Advance"
                                             sx={{
                                                 borderRadius: "50px",
-                                                backgroundColor: "#F8F8F8",
+                                                backgroundColor: "#EEEEEE",
                                                 "& fieldset": { border: 'none' },
                                             }}
                                         >
@@ -253,7 +253,7 @@ const Team = () => {
                                             defaultValue="Arms"
                                             sx={{
                                                 borderRadius: "50px",
-                                                backgroundColor: "#F8F8F8",
+                                                backgroundColor: "#EEEEEE",
                                                 "& fieldset": { border: 'none' },
                                             }}
                                         >
@@ -289,7 +289,7 @@ const Team = () => {
                                     </Stack>
 
                                     <Stack mt={-5} pb={2} pl={1} onClick={() => navigate("/workoutdetail")} >
-                                        <Typography variant="h5" fontWeight={750} align="left" fontSize={{ xs: "13px", lg: "14px", xl: "20px" }} sx={{ font: "normal normal bold 16px/26px Roboto", letterSpacing: "1px" }} color="#FF6700">
+                                        <Typography variant="h5" fontWeight={750} align="left" fontSize={{ xs: "13px", lg: "14px", xl: "20px" }} sx={{ font: "normal normal bold 16px/26px Roboto", letterSpacing: "1px" }} color="#B5030B">
                                             Title Here
                                         </Typography>
                                     </Stack>
@@ -299,7 +299,7 @@ const Team = () => {
 
                             <Grid xs={1} md={0.5} lg={0.5} xl={0.5} align="" >
                                 <Box sx={{ display: "flex", justifyContent: "start", alignContent: "start" }}>
-                                    <Close sx={{ padding: 0.2, backgroundColor: "#FF6700", borderRadius: "50px", color: "white", marginLeft: -3 }} onClick={() => clearpreviewimage()} />
+                                    <Close sx={{ padding: 0.2, backgroundColor: "#B5030B", borderRadius: "50px", color: "white", marginLeft: -3 }} onClick={() => clearpreviewimage()} />
                                 </Box>
                             </Grid>
 
@@ -314,7 +314,7 @@ const Team = () => {
                                     </Stack>
 
                                     <Stack mt={-5} pb={2} pl={1} onClick={() => navigate("/workoutdetail")} >
-                                        <Typography variant="h5" fontWeight={750} align="left" fontSize={{ xs: "13px", lg: "14px", xl: "20px" }} sx={{ font: "normal normal bold 16px/26px Roboto", letterSpacing: "1px" }} color="#FF6700">
+                                        <Typography variant="h5" fontWeight={750} align="left" fontSize={{ xs: "13px", lg: "14px", xl: "20px" }} sx={{ font: "normal normal bold 16px/26px Roboto", letterSpacing: "1px" }} color="#B5030B">
                                             Title Here
                                         </Typography>
                                     </Stack>
@@ -324,7 +324,7 @@ const Team = () => {
 
                             <Grid xs={1} md={0.5} lg={0.5} xl={0.5} align="" >
                                 <Box sx={{ display: "flex", justifyContent: "start", alignContent: "start" }}>
-                                    <Close sx={{ padding: 0.2, backgroundColor: "#FF6700", borderRadius: "50px", color: "white", marginLeft: -3 }} onClick={() => clearpreviewimage()} />
+                                    <Close sx={{ padding: 0.2, backgroundColor: "#B5030B", borderRadius: "50px", color: "white", marginLeft: -3 }} onClick={() => clearpreviewimage()} />
                                 </Box>
                             </Grid>
 
@@ -339,7 +339,7 @@ const Team = () => {
                                     </Stack>
 
                                     <Stack mt={-5} pb={2} pl={1} onClick={() => navigate("/workoutdetail")} >
-                                        <Typography variant="h5" fontWeight={750} align="left" fontSize={{ xs: "13px", lg: "14px", xl: "20px" }} sx={{ font: "normal normal bold 16px/26px Roboto", letterSpacing: "1px" }} color="#FF6700">
+                                        <Typography variant="h5" fontWeight={750} align="left" fontSize={{ xs: "13px", lg: "14px", xl: "20px" }} sx={{ font: "normal normal bold 16px/26px Roboto", letterSpacing: "1px" }} color="#B5030B">
                                             Title Here
                                         </Typography>
                                     </Stack>
@@ -349,7 +349,7 @@ const Team = () => {
 
                             <Grid xs={1} md={0.5} lg={0.5} xl={0.5} align="" >
                                 <Box sx={{ display: "flex", justifyContent: "start", alignContent: "start" }}>
-                                    <Close sx={{ padding: 0.2, backgroundColor: "#FF6700", borderRadius: "50px", color: "white", marginLeft: -3 }} onClick={() => clearpreviewimage()} />
+                                    <Close sx={{ padding: 0.2, backgroundColor: "#B5030B", borderRadius: "50px", color: "white", marginLeft: -3 }} onClick={() => clearpreviewimage()} />
                                 </Box>
                             </Grid>
 
@@ -364,7 +364,7 @@ const Team = () => {
                                     </Stack>
 
                                     <Stack mt={-5} pb={2} pl={1} onClick={() => navigate("/workoutdetail")} >
-                                        <Typography variant="h5" fontWeight={750} align="left" fontSize={{ xs: "13px", lg: "14px", xl: "20px" }} sx={{ font: "normal normal bold 16px/26px Roboto", letterSpacing: "1px" }} color="#FF6700">
+                                        <Typography variant="h5" fontWeight={750} align="left" fontSize={{ xs: "13px", lg: "14px", xl: "20px" }} sx={{ font: "normal normal bold 16px/26px Roboto", letterSpacing: "1px" }} color="#B5030B">
                                             Title Here
                                         </Typography>
                                     </Stack>
@@ -374,7 +374,7 @@ const Team = () => {
 
                             <Grid xs={1} md={0.5} lg={0.5} xl={0.5} align="" >
                                 <Box sx={{ display: "flex", justifyContent: "start", alignContent: "start" }}>
-                                    <Close sx={{ padding: 0.2, backgroundColor: "#FF6700", borderRadius: "50px", color: "white", marginLeft: -3 }} onClick={() => clearpreviewimage()} />
+                                    <Close sx={{ padding: 0.2, backgroundColor: "#B5030B", borderRadius: "50px", color: "white", marginLeft: -3 }} onClick={() => clearpreviewimage()} />
                                 </Box>
                             </Grid>
 

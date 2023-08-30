@@ -28,8 +28,8 @@ import {
   GridToolbarDensitySelector,
 } from '@mui/x-data-grid';
 import { ImageGroup, Image } from "react-fullscreen-image";
-import {Cancel, Close, Delete, Edit, Upload, Visibility } from "@mui/icons-material";
-
+import { Cancel, Close, Delete, Edit, Upload, Visibility } from "@mui/icons-material";
+import './index.css'
 const override = {
   display: ' block',
   margin: '0 auto',
@@ -40,9 +40,9 @@ const btncancel = {
   width: '90%',
   letterSpacing: "2px",
   marginBottom: '40px',
-  color: '#FF6700',
+  color: '#B5030B',
   backgroundColor: '#ffffff',
-  border: '1px solid #FF6700',
+  border: '1px solid #B5030B',
   height: '50px',
   padding: '0px',
   fontFamily: '',
@@ -57,8 +57,8 @@ const btn = {
   letterSpacing: "2px",
   marginBottom: '40px',
   color: 'white',
-  backgroundColor: '#FF6700',
-  borderColor: '#FF6700',
+  backgroundColor: '#B5030B',
+  borderColor: '#B5030B',
   height: '50px',
   padding: '0px',
   fontFamily: '',
@@ -94,8 +94,8 @@ const styleview = {
 const btncreate = {
   width: '100%',
   color: 'white',
-  backgroundColor: '#FF6700',
-  borderColor: '#FF6700',
+  backgroundColor: '#B5030B',
+  borderColor: '#B5030B',
   height: '50px',
   padding: '0px',
   fontFamily: 'bold',
@@ -220,7 +220,7 @@ const Team = () => {
           Swal.fire({
             icon: 'success',
             title: 'Success!',
-            confirmButtonColor: "#FF6700",
+            confirmButtonColor: "#B5030B",
             text: 'Merchandise Deleted Successfully!',
           })
           getAllLogos();
@@ -232,7 +232,7 @@ const Team = () => {
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
-            confirmButtonColor: "#FF6700",
+            confirmButtonColor: "#B5030B",
             text: ''
           })
         }
@@ -242,7 +242,7 @@ const Team = () => {
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
-          confirmButtonColor: "#FF6700",
+          confirmButtonColor: "#B5030B",
           text: "Server Down!"
         })
       });
@@ -256,24 +256,24 @@ const Team = () => {
       headerName: <span style={{ color: "black", fontWeight: 600 }}>Merchandise</span>,
       flex: 1,
       renderCell: (row) => {
-          return (
-              < Button sx={{ border: 'none', cursor: 'pointer' }}
-                  color="success"
-                  onClick={() => {
-                      navigate('/Orders', {
-                          state: {
-                              id: row.row.id,
-                          }
-                      })
-                  }
-                  }
-                  variant="outlined">
-                  {row.row.name}
-              </Button>
-          );
+        return (
+          < Button sx={{ border: 'none', cursor: 'pointer' }}
+            color="success"
+            onClick={() => {
+              navigate('/Orders', {
+                state: {
+                  id: row.row.id,
+                }
+              })
+            }
+            }
+            variant="outlined">
+            {row.row.name}
+          </Button>
+        );
       },
 
-  },    { field: 'price', headerName: <span style={{ color: "black", fontWeight: 600 }}>Price</span>, flex: 1 },
+    }, { field: 'price', headerName: <span style={{ color: "black", fontWeight: 600 }}>Price</span>, flex: 1 },
     {
       field: 'location',
       headerName: <span style={{ color: "black", fontWeight: 600 }}>Location</span>,
@@ -409,7 +409,7 @@ const Team = () => {
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
-            confirmButtonColor: "#FF6700",
+            confirmButtonColor: "#B5030B",
             text: ''
           })
         }
@@ -419,7 +419,7 @@ const Team = () => {
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
-          confirmButtonColor: "#FF6700",
+          confirmButtonColor: "#B5030B",
           text: "Server Down!"
         })
       });
@@ -427,7 +427,7 @@ const Team = () => {
 
   return (
     <>
-      <Box  sx={{ height: "100%", width: "100%", overflowX: "scroll" }}>
+      <Box sx={{ height: "100%", width: "100%", overflowX: "scroll" }}>
         <Grid container spacing={0} pl={3} pr={3} pt={{ lg: 2, xl: 1 }} >
           <Grid item xs={6} align="" pt={1} >
             <Typography variant="h5" fontWeight={750} fontSize="20px" sx={{ letterSpacing: "2px" }} color="#404040">
@@ -467,7 +467,7 @@ const Team = () => {
                       showtable ?
                         <>
                           <Box sx={{ pl: 1 }}>
-                            <List fontSize="large" sx={{ color: "white", backgroundColor: "#FF6700", borderRadius: "5px" }} onClick={() => { setShowtable(true) }} />
+                            <List fontSize="large" sx={{ color: "white", backgroundColor: "#B5030B", borderRadius: "5px" }} onClick={() => { setShowtable(true) }} />
                           </Box>
                           <Box sx={{ pr: 1 }}>
                             <Apps fontSize="large" sx={{ color: "#9B9B9B", backgroundColor: "transparent", borderRadius: "5px" }} onClick={() => setShowtable(false)} />
@@ -479,7 +479,7 @@ const Team = () => {
                             <List fontSize="large" sx={{ color: "#9B9B9B", backgroundColor: "transparent", borderRadius: "5px" }} onClick={() => setShowtable(true)} />
                           </Box>
                           <Box sx={{ pr: 1 }}>
-                            <Apps fontSize="large" sx={{ color: "white", backgroundColor: "#FF6700", borderRadius: "5px" }} onClick={() => setShowtable(false)} />
+                            <Apps fontSize="large" sx={{ color: "white", backgroundColor: "#B5030B", borderRadius: "5px" }} onClick={() => setShowtable(false)} />
                           </Box>
                         </>
                     }
@@ -492,7 +492,7 @@ const Team = () => {
           <Grid item xs={1.5} align="center">
             <div style={{ display: "flex", justifyContent: "right", alignContent: "right", gap: "30px" }}>
               <div>
-                <button onClick={() => navigate("/AddMerchandise")} style={{ marginTop: "2%", padding: "10px", display: "flex", justifyContent: "center", alignContent: "center", alignSelf: "center", border: "none", borderRadius: "50px", backgroundColor: "#FF6700", color: "white" }}>
+                <button onClick={() => navigate("/AddMerchandise")} style={{ marginTop: "2%", padding: "10px", display: "flex", justifyContent: "center", alignContent: "center", alignSelf: "center", border: "none", borderRadius: "50px", backgroundColor: "#B5030B", color: "white" }}>
                   <Stack direction="row" sx={{ display: "flex", justifyContent: "right", alignContent: "right", gap: "3px" }}>
                     <div>
                       <Stack sx={{ paddingLeft: "20px" }}>
@@ -513,7 +513,7 @@ const Team = () => {
 
         <Divider sx={{ pb: 2 }} />
 
-        <Grid container spacing={0} pt={2}  >
+        <Grid mb='6%' container spacing={0} pt={2}  >
           {
             showtable ?
               <Grid xs={12} p={1} align="center">
@@ -522,6 +522,9 @@ const Team = () => {
                     rows={Logos}
                     getRowId={Logos.id}
                     id={Logos.id}
+                    getRowClassName={(params) => {
+                      return 'unblock-row'
+                    }}
                     columns={columns}
                     initialState={{
                       pagination: {
@@ -555,164 +558,168 @@ const Team = () => {
                             }
                             setViewImage(item.images); setViewData(item); handleOpenmodal();
                           }}>
-                            <Typography variant="h5" pb={1} fontWeight={750} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#FF6700">
-                              {item.name}
-                            </Typography>
-                          </Grid>
+                            <PerfectScrollbar>
 
-                          <Grid xs={6} align="right">
-                            <div>
-                              <MoreVert
-                                id="basic-button"
-                                aria-controls={open ? 'basic-menu' : undefined}
-                                aria-haspopup="true"
-                                aria-expanded={open ? 'true' : undefined}
-                                // onClick={handleClick} 
-                                onClick={(event) => {
-                                  setIdData(item)
-                                  setAnchorEl(event.currentTarget)
-                                }}
-                                sx={{ color: "#1F1F1F" }} />
-                            </div>
-                            <Menu
-                              id="basic-menu"
-                              anchorEl={anchorEl}
-                              open={open}
-                              onClose={handleClose}
-                              MenuListProps={{
-                                'aria-labelledby': 'basic-button',
-                              }}
-                              PaperProps={{
+                              <Typography maxHeight='50px' variant="h5" pb={1} fontWeight={750} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#B5030B">
+                                {item.name}
+                              </Typography>
+                              </PerfectScrollbar>
 
-                                sx: {
-                                  // overflow: 'visible',
-                                  // filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.22))',
-                                  mt: 1.5,
-                                  '& .MuiAvatar-root': {
-                                    width: 32,
-                                    height: 32,
-                                    ml: -0.5,
-                                    mr: 1,
-                                  },
-                                  '&:before': {
-                                    content: '""',
-                                    display: 'block',
-                                    position: 'absolute',
-                                    top: 0,
-                                    right: 5,
-                                    width: 10,
-                                    height: 10,
-                                    bgcolor: 'background.paper',
-                                    transform: 'translateY(-50%) rotate(45deg)',
-                                    zIndex: 0,
-                                  },
-                                },
-                              }}
-                              transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-                              anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-                            >
-                              <MenuItem
-                                onClick={() => {
-                                  console.log(idData);
-                                  setActionData(idData);
-                                  // if (idData.image !== null) {
-                                  //   setHidelabelUpload(true);
-                                  // }
-                                  navigate('/EditMerchandise', {
-                                    state: {
-                                      id: idData.id,
-                                      images: idData.images,
-                                      name: idData.pushname,
-                                      row: idData,
-                                      category_id: idData.category_id,
-                                      catagory_name: idData.catagory_name,
-                                      price: idData.price,
-                                      description: idData.description,
-                                      location: idData.location
+                              </Grid>
+
+                              <Grid xs={6} align="right">
+                                <div>
+                                  <MoreVert
+                                    id="basic-button"
+                                    aria-controls={open ? 'basic-menu' : undefined}
+                                    aria-haspopup="true"
+                                    aria-expanded={open ? 'true' : undefined}
+                                    // onClick={handleClick} 
+                                    onClick={(event) => {
+                                      setIdData(item)
+                                      setAnchorEl(event.currentTarget)
+                                    }}
+                                    sx={{ color: "#1F1F1F" }} />
+                                </div>
+                                <Menu
+                                  id="basic-menu"
+                                  anchorEl={anchorEl}
+                                  open={open}
+                                  onClose={handleClose}
+                                  MenuListProps={{
+                                    'aria-labelledby': 'basic-button',
+                                  }}
+                                  PaperProps={{
+
+                                    sx: {
+                                      // overflow: 'visible',
+                                      // filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.22))',
+                                      mt: 1.5,
+                                      '& .MuiAvatar-root': {
+                                        width: 32,
+                                        height: 32,
+                                        ml: -0.5,
+                                        mr: 1,
+                                      },
+                                      '&:before': {
+                                        content: '""',
+                                        display: 'block',
+                                        position: 'absolute',
+                                        top: 0,
+                                        right: 5,
+                                        width: 10,
+                                        height: 10,
+                                        bgcolor: 'background.paper',
+                                        transform: 'translateY(-50%) rotate(45deg)',
+                                        zIndex: 0,
+                                      },
+                                    },
+                                  }}
+                                  transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+                                  anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+                                >
+                                  <MenuItem
+                                    onClick={() => {
+                                      console.log(idData);
+                                      setActionData(idData);
+                                      // if (idData.image !== null) {
+                                      //   setHidelabelUpload(true);
+                                      // }
+                                      navigate('/EditMerchandise', {
+                                        state: {
+                                          id: idData.id,
+                                          images: idData.images,
+                                          name: idData.pushname,
+                                          row: idData,
+                                          category_id: idData.category_id,
+                                          catagory_name: idData.catagory_name,
+                                          price: idData.price,
+                                          description: idData.description,
+                                          location: idData.location
+
+                                        }
+                                      })
 
                                     }
-                                  })
+                                    }
+                                  >
+                                    <Edit sx={{ color: "#40E0D0" }} /><span style={{ marginLeft: 10 }}>Update</span>
+                                  </MenuItem>
+                                  <Grid container spacing={0}>
+                                    <Grid xs={12} align="center">
+                                      <Divider sx={{ width: "80%" }} />
+                                    </Grid>
+                                  </Grid>
+                                  <MenuItem onClick={() => {
+                                    setDeleteID(idData.id);
+                                    handleOpendelmodal();
+                                  }}>
+                                    <Delete sx={{ color: "#E10006" }} /><span style={{ marginLeft: 10 }}>Delete</span>
+                                  </MenuItem>
+                                </Menu>
 
-                                }
-                                }
-                              >
-                                <Edit sx={{ color: "#40E0D0" }} /><span style={{ marginLeft: 10 }}>Update</span>
-                              </MenuItem>
-                              <Grid container spacing={0}>
-                                <Grid xs={12} align="center">
-                                  <Divider sx={{ width: "80%" }} />
-                                </Grid>
                               </Grid>
-                              <MenuItem onClick={() => {
-                                setDeleteID(idData.id);
-                                handleOpendelmodal();
+
+                              <Grid xs={6} sx={{ pb: 1, width: '100px', height: '50px' }} align="left" onClick={() => {
+                                if (item.images.length == 5) {
+                                  setImgsWidth(900);
+                                } else if (item.images.length == 4) {
+                                  setImgsWidth(800);
+                                } else {
+                                  setImgsWidth(550);
+                                }
+                                setViewImage(item.images); setViewData(item); handleOpenmodal();
                               }}>
-                                <Delete sx={{ color: "#E10006" }} /><span style={{ marginLeft: 10 }}>Delete</span>
-                              </MenuItem>
-                            </Menu>
+                                <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{}} color="#1F1F1F">
+                                  Price :
+                                </Typography>
+                              </Grid>
 
-                          </Grid>
+                              <Grid xs={6} sx={{ pb: 1, width: '100px', height: '50px' }} align="right" onClick={() => {
+                                if (item.images.length == 5) {
+                                  setImgsWidth(900);
+                                } else if (item.images.length == 4) {
+                                  setImgsWidth(800);
+                                } else {
+                                  setImgsWidth(550);
+                                }
+                                setViewImage(item.images); setViewData(item); handleOpenmodal();
+                              }}>
+                                <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#808080">
+                                  {item.price}
+                                </Typography>
+                              </Grid>
 
-                          <Grid xs={6} sx={{ pb: 1, width: '100px', height: '50px' }} align="left" onClick={() => {
-                            if (item.images.length == 5) {
-                              setImgsWidth(900);
-                            } else if (item.images.length == 4) {
-                              setImgsWidth(800);
-                            } else {
-                              setImgsWidth(550);
-                            }
-                            setViewImage(item.images); setViewData(item); handleOpenmodal();
-                          }}>
-                            <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{}} color="#1F1F1F">
-                              Price :
-                            </Typography>
-                          </Grid>
+                              <Grid xs={6} sx={{ pb: 1 }} align="left" onClick={() => {
+                                if (item.images.length == 5) {
+                                  setImgsWidth(900);
+                                } else if (item.images.length == 4) {
+                                  setImgsWidth(800);
+                                } else {
+                                  setImgsWidth(550);
+                                }
+                                setViewImage(item.images); setViewData(item); handleOpenmodal();
+                              }}>
+                                <Typography variant="h5" fontWeight={550} pb={1} fontSize="16px" color="#1F1F1F">
+                                  category :
+                                </Typography>
+                              </Grid>
 
-                          <Grid xs={6} sx={{ pb: 1, width: '100px', height: '50px' }} align="right" onClick={() => {
-                            if (item.images.length == 5) {
-                              setImgsWidth(900);
-                            } else if (item.images.length == 4) {
-                              setImgsWidth(800);
-                            } else {
-                              setImgsWidth(550);
-                            }
-                            setViewImage(item.images); setViewData(item); handleOpenmodal();
-                          }}>
-                            <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#808080">
-                              {item.price}
-                            </Typography>
+                              <Grid xs={6} sx={{ pb: 1, width: '100px', height: '50px' }} align="right" onClick={() => {
+                                if (item.images.length == 5) {
+                                  setImgsWidth(900);
+                                } else if (item.images.length == 4) {
+                                  setImgsWidth(800);
+                                } else {
+                                  setImgsWidth(550);
+                                }
+                                setViewImage(item.images); setViewData(item); handleOpenmodal();
+                              }}>
+                                <Typography variant="h5" fontWeight={550} pb={1} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#808080">
+                                  {item.catagory_name}
+                                </Typography>
+                              </Grid>
                           </Grid>
-
-                          <Grid xs={6} sx={{ pb: 1 }} align="left" onClick={() => {
-                            if (item.images.length == 5) {
-                              setImgsWidth(900);
-                            } else if (item.images.length == 4) {
-                              setImgsWidth(800);
-                            } else {
-                              setImgsWidth(550);
-                            }
-                            setViewImage(item.images); setViewData(item); handleOpenmodal();
-                          }}>
-                            <Typography variant="h5" fontWeight={550} pb={1} fontSize="16px" color="#1F1F1F">
-                              category :
-                            </Typography>
-                          </Grid>
-
-                          <Grid xs={6} sx={{ pb: 1, width: '100px', height: '50px' }} align="right" onClick={() => {
-                            if (item.images.length == 5) {
-                              setImgsWidth(900);
-                            } else if (item.images.length == 4) {
-                              setImgsWidth(800);
-                            } else {
-                              setImgsWidth(550);
-                            }
-                            setViewImage(item.images); setViewData(item); handleOpenmodal();
-                          }}>
-                            <Typography variant="h5" fontWeight={550} pb={1} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#808080">
-                              {item.catagory_name}
-                            </Typography>
-                          </Grid>
-                        </Grid>
                       </CardContent>
                     </Card>
                   </Grid>
@@ -730,7 +737,7 @@ const Team = () => {
           aria-describedby="modal-modal-description"
         >
           <Box width={{ xs: 400, md: 500, lg: 600, xl: 650 }} height="auto" sx={styleview}>
-            <Box sx={{ borderTopLeftRadius: "20px", borderTopRightRadius: "20px", backgroundColor: "#FF6700", width: "100%", height: "80px" }}>
+            <Box sx={{ borderTopLeftRadius: "20px", borderTopRightRadius: "20px", backgroundColor: "#B5030B", width: "100%", height: "80px" }}>
               <div xs={12} align="right" pt={0.6} pr={3}>
                 <Cancel sx={{ marginRight: '10px', marginTop: "5px", color: "white" }} onClick={() => setOpenmodal(false)} />
               </div>
@@ -753,32 +760,32 @@ const Team = () => {
                   <Grid container sx={{ width: `${ImgsWidth}px`, mt: '10px', ml: '10px', mr: '10px', height: '200px' }}>
                     {viewImage.length > 0 &&
                       <ImageListItem key={viewImage.name}>
-                        <img src={`${url}${viewImage[0]}`} style={{ bgcolor: "#FF6700", width: '175px', height: '175px' }}>
+                        <img src={`${url}${viewImage[0]}`} style={{ bgcolor: "#B5030B", width: '175px', height: '175px' }}>
                         </img>
                       </ImageListItem>
                     }
                     {viewImage.length > 1 &&
                       <ImageListItem sx={{ ml: '2px' }} key={viewImage.name}>
-                        <img src={`${url}${viewImage[1]}`} style={{ bgcolor: "#FF6700", width: '175px', height: '175px' }}>
+                        <img src={`${url}${viewImage[1]}`} style={{ bgcolor: "#B5030B", width: '175px', height: '175px' }}>
                         </img>
                       </ImageListItem>
                     }
                     {viewImage.length > 2 &&
                       <ImageListItem sx={{ ml: '2px' }} key={viewImage.name}>
-                        <img src={`${url}${viewImage[2]}`} style={{ bgcolor: "#FF6700", width: '175px', height: '175px' }}>
+                        <img src={`${url}${viewImage[2]}`} style={{ bgcolor: "#B5030B", width: '175px', height: '175px' }}>
                         </img>
                       </ImageListItem>
 
                     }
                     {viewImage.length > 3 &&
                       <ImageListItem sx={{ ml: '2px' }} key={viewImage.name}>
-                        <img src={`${url}${viewImage[3]}`} style={{ bgcolor: "#FF6700", width: '175px', height: '175px' }}>
+                        <img src={`${url}${viewImage[3]}`} style={{ bgcolor: "#B5030B", width: '175px', height: '175px' }}>
                         </img>
                       </ImageListItem>
                     }
                     {viewImage.length > 4 &&
                       <ImageListItem sx={{ ml: '2px' }} key={viewImage.name}>
-                        <img src={`${url}${viewImage[4]}`} style={{ bgcolor: "#FF6700", width: '175px', height: '175px' }}>
+                        <img src={`${url}${viewImage[4]}`} style={{ bgcolor: "#B5030B", width: '175px', height: '175px' }}>
                         </img>
                       </ImageListItem>
                     }
@@ -786,7 +793,7 @@ const Team = () => {
                 </PerfectScrollbar>
                 :
                 <Grid xs={12} align="center" pt={3}>
-                  <Avatar sx={{ bgcolor: "#FF6700", width: 75, height: 75 }}>
+                  <Avatar sx={{ bgcolor: "#B5030B", width: 75, height: 75 }}>
                     <Typography variant="paragraph" sx={{ textTransform: "uppercase", fontSize: "18px", fontWeight: 600 }} p={1} color="white">
                     </Typography>
                   </Avatar>
@@ -869,7 +876,7 @@ const Team = () => {
               </Grid>
 
               <Grid xs={12} align="center" p={{ xs: 2, md: 5, lg: 1, xl: 1 }}>
-                <Typography variant="h4" sx={{ letterSpacing: "3px" }} fontWeight={600} fontSize="x-large" color="#FF6700">Confirmation</Typography>
+                <Typography variant="h4" sx={{ letterSpacing: "3px" }} fontWeight={600} fontSize="x-large" color="#B5030B">Confirmation</Typography>
 
                 <Typography variant="h5" sx={{ letterSpacing: "3px" }} pt={7} pb={0} fontWeight={600} color="#1F1F1F">Do you want to delete this Merchandise ?</Typography>  </Grid>
             </Grid>
