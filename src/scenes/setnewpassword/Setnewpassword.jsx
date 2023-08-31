@@ -3,7 +3,7 @@ import { Box, Container, Divider, FormControl, Modal, Grid, IconButton, InputAdo
 import Button from '@mui/material/Button';
 import Swal from 'sweetalert2'
 import image from '../../components/Images/logo.svg'
-import signinmockup from "../../components/Images/signinmockup.jpeg"
+import signinmockup from "../../components/Images/loginLogo.webp"
 import Avatar from '@mui/material/Avatar';
 import url from '../url'
 import { useNavigate, NavLink } from 'react-router-dom';
@@ -38,8 +38,8 @@ const btn = {
     marginTop: '20px',
     marginBottom: '20px',
     color: 'white',
-    backgroundColor: '#FF6700',
-    borderColor: '#FF6700',
+    backgroundColor: '#B5030B',
+    borderColor: '#B5030B',
     height: '45px',
     padding: '0px',
     borderRadius: "50px",
@@ -173,7 +173,7 @@ function Setnewpassword() {
                                 Swal.fire({
                                     title: "Success",
                                     text: "Password Updated Succesfully",
-                                    confirmButtonColor: "#FF6700",
+                                    confirmButtonColor: "#B5030B",
                                     icon: "success",
                                     confirmButtonText: "OK",
                                 });
@@ -185,7 +185,7 @@ function Setnewpassword() {
                                 Swal.fire({
                                     title: "Error",
                                     text: "Password Not Updated",
-                                    confirmButtonColor: "#FF6700",
+                                    confirmButtonColor: "#B5030B",
                                     icon: "error",
                                     confirmButtonText: "OK",
                                 });
@@ -199,7 +199,7 @@ function Setnewpassword() {
                                   Swal.fire({
             icon: 'error',
             title: 'Oops...',
-            confirmButtonColor: "#FF6700",
+            confirmButtonColor: "#B5030B",
             text: 'Error Server'
           })
                     });
@@ -378,7 +378,7 @@ function Setnewpassword() {
                         </Grid>
 
                         <Grid xs={12} align="center" p={{ xs: 2, md: 5, lg: 5, xl: 5 }}>
-                            <Typography variant="h4" sx={{ letterSpacing: "3px" }} fontWeight={600} fontSize="x-large" color="#FF6700">Success</Typography>
+                            <Typography variant="h4" sx={{ letterSpacing: "3px" }} fontWeight={600} fontSize="x-large" color="#B5030B">Success</Typography>
 
                             <Typography variant="h5" sx={{ letterSpacing: "3px" }} pt={7} pb={6} fontWeight={600} color="#1F1F1F">Password Reset Successfully</Typography>
 

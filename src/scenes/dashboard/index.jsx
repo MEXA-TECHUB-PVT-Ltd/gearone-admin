@@ -98,7 +98,7 @@ const Dashboard = () => {
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
-            confirmButtonColor: "#FF6700",
+            confirmButtonColor: "#B5030B",
             text: ''
           })
         }
@@ -108,7 +108,7 @@ const Dashboard = () => {
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
-          confirmButtonColor: "#FF6700",
+          confirmButtonColor: "#B5030B",
           text: 'Server Down!'
         })
       });
@@ -132,7 +132,7 @@ const Dashboard = () => {
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
-            confirmButtonColor: "#FF6700",
+            confirmButtonColor: "#B5030B",
             text: ''
           })
         }
@@ -142,7 +142,7 @@ const Dashboard = () => {
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
-          confirmButtonColor: "#FF6700",
+          confirmButtonColor: "#B5030B",
           text: 'Server Down!'
         })
       });
@@ -168,7 +168,7 @@ const Dashboard = () => {
   //         Swal.fire({
   //           icon: 'error',
   //           title: 'Oops...',
-  //           confirmButtonColor: "#FF6700",
+  //           confirmButtonColor: "#B5030B",
   //           text: ''
   //         })
   //       }
@@ -178,7 +178,7 @@ const Dashboard = () => {
   //       Swal.fire({
   //         icon: 'error',
   //         title: 'Oops...',
-  //         confirmButtonColor: "#FF6700",
+  //         confirmButtonColor: "#B5030B",
   //         text: 'Server Down!'
   //       })
   //     });
@@ -204,7 +204,7 @@ const Dashboard = () => {
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
-            confirmButtonColor: "#FF6700",
+            confirmButtonColor: "#B5030B",
             text: ''
           })
         }
@@ -214,7 +214,7 @@ const Dashboard = () => {
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
-          confirmButtonColor: "#FF6700",
+          confirmButtonColor: "#B5030B",
           text: 'Server Down!'
         })
       });
@@ -261,7 +261,7 @@ const Dashboard = () => {
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
-            confirmButtonColor: "#FF6700",
+            confirmButtonColor: "#B5030B",
             text: ''
           })
         }
@@ -271,7 +271,7 @@ const Dashboard = () => {
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
-          confirmButtonColor: "#FF6700",
+          confirmButtonColor: "#B5030B",
           text: 'Server Down!'
         })
       });
@@ -289,8 +289,8 @@ const Dashboard = () => {
         return (
           <>
             {row.row.image !== null ?
-              // <img src={`https://staging-gearone-be.mtechub.com/${row.row.image}`} style={{ bgcolor: "#FF6700", width: '45px', height: '45px' }}>
-              <Avatar src={`https://staging-gearone-be.mtechub.com/${row.row.image}`} style={{ bgcolor: "#FF6700", width: '45px', height: '45px' }}>
+              // <img src={`https://staging-gearone-be.mtechub.com/${row.row.image}`} style={{ bgcolor: "#B5030B", width: '45px', height: '45px' }}>
+              <Avatar src={`https://staging-gearone-be.mtechub.com/${row.row.image}`} style={{ bgcolor: "#B5030B", width: '45px', height: '45px' }}>
               </Avatar>
               :
               <Avatar sx={{ width: '45px', height: '45px' }}>
@@ -331,7 +331,7 @@ const Dashboard = () => {
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
-            confirmButtonColor: "#FF6700",
+            confirmButtonColor: "#B5030B",
             text: 'Server ERROR'
           })
         }
@@ -341,7 +341,7 @@ const Dashboard = () => {
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
-          confirmButtonColor: "#FF6700",
+          confirmButtonColor: "#B5030B",
           text: 'Server Down!'
         })
       });
@@ -441,6 +441,9 @@ const Dashboard = () => {
           <div style={{ height: 440, width: '100%' }}>
             <DataGrid
               rows={Items}
+              getRowClassName={(params) => {
+                return 'unblock-row'
+              }}
               getRowId={Items.id}
               id={Items.id}
               columns={columns}
@@ -684,7 +687,7 @@ const Dashboard = () => {
                       sx={{
                         ml:'20px',
                         borderRadius: "50px",
-                        backgroundColor: "#F8F8F8", height: "35px",
+                        backgroundColor: "#EEEEEE", height: "35px",
                         "& fieldset": { border: 'none' },
                       }}
                       labelId="demo-simple-select-label"
@@ -727,7 +730,7 @@ const Dashboard = () => {
                       type="monotone"
                       dataKey="count"
                       stroke="black"
-                      dot={{ r: 3, stroke: "#FF6700", fill: '#FF6700' }}
+                      dot={{ r: 3, stroke: "#B5030B", fill: '#B5030B' }}
                     />
                   </LineChart>
                 </CardContent>

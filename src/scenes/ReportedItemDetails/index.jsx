@@ -41,9 +41,9 @@ const btncancel = {
   width: '90%',
   letterSpacing: "2px",
   marginBottom: '40px',
-  color: '#FF6700',
+  color: '#B5030B',
   backgroundColor: '#ffffff',
-  border: '1px solid #FF6700',
+  border: '1px solid #B5030B',
   height: '50px',
   padding: '0px',
   fontFamily: '',
@@ -58,8 +58,8 @@ const btn = {
   letterSpacing: "2px",
   marginBottom: '40px',
   color: 'white',
-  backgroundColor: '#FF6700',
-  borderColor: '#FF6700',
+  backgroundColor: '#B5030B',
+  borderColor: '#B5030B',
   height: '50px',
   padding: '0px',
   fontFamily: '',
@@ -95,8 +95,8 @@ const styleview = {
 const btncreate = {
   width: '100%',
   color: 'white',
-  backgroundColor: '#FF6700',
-  borderColor: '#FF6700',
+  backgroundColor: '#B5030B',
+  borderColor: '#B5030B',
   height: '50px',
   padding: '0px',
   fontFamily: 'bold',
@@ -266,7 +266,7 @@ const Team = () => {
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
-            confirmButtonColor: "#FF6700",
+            confirmButtonColor: "#B5030B",
             text: ''
           })
         }
@@ -276,7 +276,7 @@ const Team = () => {
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
-          confirmButtonColor: "#FF6700",
+          confirmButtonColor: "#B5030B",
           text: 'Server Down!'
         })
       });
@@ -351,7 +351,7 @@ const Team = () => {
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
-            confirmButtonColor: "#FF6700",
+            confirmButtonColor: "#B5030B",
             text: `${response.message}`
           })
         }
@@ -362,7 +362,7 @@ const Team = () => {
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
-          confirmButtonColor: "#FF6700",
+          confirmButtonColor: "#B5030B",
           text: 'Server Down!'
         })
       });
@@ -394,7 +394,7 @@ const Team = () => {
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
-            confirmButtonColor: "#FF6700",
+            confirmButtonColor: "#B5030B",
             text: ''
           })
         }
@@ -404,7 +404,7 @@ const Team = () => {
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
-          confirmButtonColor: "#FF6700",
+          confirmButtonColor: "#B5030B",
           text: 'Server Down!'
         })
       });
@@ -436,7 +436,7 @@ const Team = () => {
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
-            confirmButtonColor: "#FF6700",
+            confirmButtonColor: "#B5030B",
             text: ''
           })
         }
@@ -446,7 +446,7 @@ const Team = () => {
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
-          confirmButtonColor: "#FF6700",
+          confirmButtonColor: "#B5030B",
           text: 'Server Down!'
         })
       });
@@ -541,7 +541,7 @@ const Team = () => {
             aria-describedby="modal-modal-description"
           >
             <Box width={{ xs: 400, md: 500, lg: 600, xl: 650 }} height="auto" sx={styleview}>
-              <Box sx={{ borderTopLeftRadius: "20px", borderTopRightRadius: "20px", backgroundColor: "#FF6700", width: "100%", height: "80px" }}>
+              <Box sx={{ borderTopLeftRadius: "20px", borderTopRightRadius: "20px", backgroundColor: "#B5030B", width: "100%", height: "80px" }}>
                 <Box xs={12} align="right" pt={0.1} pr={1}>
                   <Close sx={{ color: "white" }} onClick={() => setOpenmodal(false)} />
                 </Box>
@@ -555,13 +555,13 @@ const Team = () => {
               {viewImage !== null ?
                 viewImage !== undefined ?
                   <Grid xs={12} align="center" pt={3}>
-                    <img src={`https://staging-gearone-be.mtechub.com/${viewImage}`} style={{ bgcolor: "#FF6700", width: '175px', height: '175px' }}>
-                      {/* <img src={`https://staging-gearone-be.mtechub.com/${viewImage}`} style={{ bgcolor: "#FF6700", width: '175px', height: '175px' }}> */}
+                    <img src={`https://staging-gearone-be.mtechub.com/${viewImage}`} style={{ bgcolor: "#B5030B", width: '175px', height: '175px' }}>
+                      {/* <img src={`https://staging-gearone-be.mtechub.com/${viewImage}`} style={{ bgcolor: "#B5030B", width: '175px', height: '175px' }}> */}
                     </img>
                   </Grid>
                   :
                   <Grid xs={12} align="center" pt={3}>
-                    <Avatar sx={{ bgcolor: "#FF6700", width: 75, height: 75 }}>
+                    <Avatar sx={{ bgcolor: "#B5030B", width: 75, height: 75 }}>
                     </Avatar>
                   </Grid>
 
@@ -705,7 +705,7 @@ const Team = () => {
                 </Grid>
 
                 <Grid xs={12} align="center" p={{ xs: 2, md: 5, lg: 1, xl: 1 }}>
-                  <Typography variant="h4" sx={{ letterSpacing: "3px" }} fontWeight={600} fontSize="x-large" color="#FF6700">Confirmation</Typography>
+                  <Typography variant="h4" sx={{ letterSpacing: "3px" }} fontWeight={600} fontSize="x-large" color="#B5030B">Confirmation</Typography>
 
                   <Typography variant="h5" sx={{ letterSpacing: "3px" }} pt={7} pb={0} fontWeight={600} color="#1F1F1F">Do you want to delete this Diet Plan ?</Typography>  </Grid>
               </Grid>

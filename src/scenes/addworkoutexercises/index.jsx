@@ -45,9 +45,9 @@ const btncancel = {
     width: '90%',
     letterSpacing: "2px",
     marginBottom: '40px',
-    color: '#FF6700',
+    color: '#B5030B',
     backgroundColor: '#ffffff',
-    border: '1px solid #FF6700',
+    border: '1px solid #B5030B',
     height: '50px',
     padding: '0px',
     fontFamily: '',
@@ -62,8 +62,8 @@ const btndel = {
     letterSpacing: "2px",
     marginBottom: '40px',
     color: 'white',
-    backgroundColor: '#FF6700',
-    borderColor: '#FF6700',
+    backgroundColor: '#B5030B',
+    borderColor: '#B5030B',
     height: '50px',
     padding: '0px',
     fontFamily: '',
@@ -79,8 +79,8 @@ const btn = {
     marginTop: '20px',
     marginBottom: '10px',
     color: 'white',
-    backgroundColor: '#FF6700',
-    borderColor: '#FF6700',
+    backgroundColor: '#B5030B',
+    borderColor: '#B5030B',
     height: '50px',
     padding: '0px',
     font: 'normal normal normal 17px/26px Roboto',
@@ -110,8 +110,8 @@ const style = {
 const btncreate = {
     width: '100%',
     color: 'white',
-    backgroundColor: '#FF6700',
-    borderColor: '#FF6700',
+    backgroundColor: '#B5030B',
+    borderColor: '#B5030B',
     height: '50px',
     padding: '0px',
     fontFamily: 'bold',
@@ -318,7 +318,7 @@ const Team = () => {
                                                 showtable ?
                                                     <>
                                                         <Box sx={{ pl: 1 }}>
-                                                            <List fontSize="large" sx={{ color: "white", backgroundColor: "#FF6700", borderRadius: "5px" }} onClick={() => { setShowtable(true) }} />
+                                                            <List fontSize="large" sx={{ color: "white", backgroundColor: "#B5030B", borderRadius: "5px" }} onClick={() => { setShowtable(true) }} />
                                                         </Box>
                                                         <Box sx={{ pr: 1 }}>
                                                             <Apps fontSize="large" sx={{ color: "#9B9B9B", backgroundColor: "transparent", borderRadius: "5px" }} onClick={() => setShowtable(false)} />
@@ -330,7 +330,7 @@ const Team = () => {
                                                             <List fontSize="large" sx={{ color: "#9B9B9B", backgroundColor: "transparent", borderRadius: "5px" }} onClick={() => setShowtable(true)} />
                                                         </Box>
                                                         <Box sx={{ pr: 1 }}>
-                                                            <Apps fontSize="large" sx={{ color: "white", backgroundColor: "#FF6700", borderRadius: "5px" }} onClick={() => setShowtable(false)} />
+                                                            <Apps fontSize="large" sx={{ color: "white", backgroundColor: "#B5030B", borderRadius: "5px" }} onClick={() => setShowtable(false)} />
                                                         </Box>
                                                     </>
                                             }
@@ -343,7 +343,7 @@ const Team = () => {
                         <Grid item xs={1.5} align="center">
                             <div style={{ display: "flex", justifyContent: "right", alignContent: "right", gap: "30px" }}>
                                 <div>
-                                    <button onClick={() => navigate("/addexercise")} style={{ marginTop: "2%", padding: "10px", display: "flex", justifyContent: "center", alignContent: "center", alignSelf: "center", border: "none", borderRadius: "50px", backgroundColor: "#FF6700", color: "white" }}>
+                                    <button onClick={() => navigate("/addexercise")} style={{ marginTop: "2%", padding: "10px", display: "flex", justifyContent: "center", alignContent: "center", alignSelf: "center", border: "none", borderRadius: "50px", backgroundColor: "#B5030B", color: "white" }}>
                                         <Stack direction="row" sx={{ display: "flex", justifyContent: "right", alignContent: "right", gap: "3px" }}>
                                             <div>
                                                 <Stack sx={{ paddingLeft: "20px" }}>
@@ -404,14 +404,14 @@ const Team = () => {
                                     <Stack mt={1} pb={2} pl={1}  >
                                         <Grid container spacing={0}>
                                             <Grid xs={6}>
-                                                <Typography variant="h5" fontWeight={750} align="left" fontSize={{ xs: "13px", lg: "15px", xl: "20px" }} sx={{ fontFamily: "normal normal normal 9px/32px Arial", letterSpacing: "1px" }} color="#FF6700">
+                                                <Typography variant="h5" fontWeight={750} align="left" fontSize={{ xs: "13px", lg: "15px", xl: "20px" }} sx={{ fontFamily: "normal normal normal 9px/32px Arial", letterSpacing: "1px" }} color="#B5030B">
                                                     Title Here
                                                 </Typography>
                                             </Grid>
 
                                             <Grid xs={6} align="right" pr={1}>
                                                 <div>
-                                                    <Box sx={{ width: "fit-content", backgroundColor: "#FF6700", borderRadius: "50px", }}>
+                                                    <Box sx={{ width: "fit-content", backgroundColor: "#B5030B", borderRadius: "50px", }}>
                                                         <Typography variant="h5" fontWeight={750} align="" fontSize={{ xs: "13px", lg: "15px", xl: "20px" }} p={0.5} pl={2} pr={2} sx={{ fontFamily: "normal normal normal 9px/32px Arial", letterSpacing: "1px" }} color="white">
                                                             Intermediate
                                                         </Typography>
@@ -439,7 +439,7 @@ const Team = () => {
                             </Grid>
 
                             <Grid xs={12} align="center" p={{ xs: 2, md: 5, lg: 1, xl: 1 }}>
-                                <Typography variant="h4" sx={{ letterSpacing: "3px" }} fontWeight={600} fontSize="x-large" color="#FF6700">Confirmation</Typography>
+                                <Typography variant="h4" sx={{ letterSpacing: "3px" }} fontWeight={600} fontSize="x-large" color="#B5030B">Confirmation</Typography>
 
                                 <Typography variant="h5" sx={{ letterSpacing: "3px" }} pt={7} pb={0} fontWeight={600} color="#1F1F1F">Do you want to delete this Exercise ?</Typography>  </Grid>
                         </Grid>

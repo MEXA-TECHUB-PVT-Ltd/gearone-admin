@@ -9,8 +9,8 @@ const btn = {
     marginTop: '40px',
     marginBottom: '40px',
     color: 'white',
-    backgroundColor: '#FF6700',
-    borderColor: '#FF6700',
+    backgroundColor: '#B5030B',
+    borderColor: '#B5030B',
     height: '50px',
     padding: '0px',
     font: 'normal normal normal 17px/26px Roboto',
@@ -74,7 +74,7 @@ const Team = () => {
 
                     <Grid item xs={6} align="right">
                         <div>
-                            <button onClick={() => navigate("/addexercises")} style={{ marginTop: "2%", padding: "10px", display: "flex", justifyContent: "center", alignContent: "center", alignSelf: "center", border: "none", borderRadius: "50px", font: "normal normal normal 17px/26px Roboto", backgroundColor: "#FF6700", color: "white" }}>
+                            <button onClick={() => navigate("/addexercises")} style={{ marginTop: "2%", padding: "10px", display: "flex", justifyContent: "center", alignContent: "center", alignSelf: "center", border: "none", borderRadius: "50px", font: "normal normal normal 17px/26px Roboto", backgroundColor: "#B5030B", color: "white" }}>
                                 <Stack direction="row" sx={{ display: "flex", justifyContent: "right", alignContent: "right", gap: "3px" }}>
                                     <div>
                                         <Stack sx={{ paddingLeft: "10px" }}>
@@ -130,7 +130,7 @@ const Team = () => {
                                     {
                                         hidecrossicon ?
                                             <Box sx={{ display: "flex", justifyContent: "center", alignContent: "center" }}>
-                                                <Close sx={{ padding: 0.2, backgroundColor: "#FF6700", borderRadius: "50px", color: "white", ml: 57, mt: -20 }} onClick={() => clearpreviewimage()} />
+                                                <Close sx={{ padding: 0.2, backgroundColor: "#B5030B", borderRadius: "50px", color: "white", ml: 57, mt: -20 }} onClick={() => clearpreviewimage()} />
                                             </Box>
                                             :
                                             null
@@ -153,7 +153,7 @@ const Team = () => {
                                             renderValue="Select Category"
                                             sx={{
                                                 borderRadius: "50px",
-                                                backgroundColor: "#F8F8F8",
+                                                backgroundColor: "#EEEEEE",
                                                 "& fieldset": { border: 'none' },
                                             }}
                                         >
@@ -169,7 +169,7 @@ const Team = () => {
                                             id="input-with-icon-adornment"
                                             sx={{
                                                 borderRadius: "50px",
-                                                backgroundColor: "#F8F8F8",
+                                                backgroundColor: "#EEEEEE",
                                                 "& fieldset": { border: 'none' },
                                             }}
                                         />
@@ -185,7 +185,7 @@ const Team = () => {
                                             renderValue="Select Type"
                                             sx={{
                                                 borderRadius: "50px",
-                                                backgroundColor: "#F8F8F8",
+                                                backgroundColor: "#EEEEEE",
                                                 "& fieldset": { border: 'none' },
                                             }}
                                         >
@@ -203,7 +203,7 @@ const Team = () => {
                                             rows={4}
                                             sx={{
                                                 borderRadius: "20px",
-                                                backgroundColor: "#F8F8F8",
+                                                backgroundColor: "#EEEEEE",
                                                 "& fieldset": { border: 'none' },
                                             }}
                                         />
@@ -225,7 +225,7 @@ const Team = () => {
                                             id="input-with-icon-adornment"
                                             sx={{
                                                 borderRadius: "50px",
-                                                backgroundColor: "#F8F8F8",
+                                                backgroundColor: "#EEEEEE",
                                                 "& fieldset": { border: 'none' },
                                             }}
                                         />
@@ -241,7 +241,7 @@ const Team = () => {
                                             renderValue="Select Level of Workout"
                                             sx={{
                                                 borderRadius: "50px",
-                                                backgroundColor: "#F8F8F8",
+                                                backgroundColor: "#EEEEEE",
                                                 "& fieldset": { border: 'none' },
                                             }}
                                         >
@@ -259,7 +259,7 @@ const Team = () => {
                                             onChange={handleChange}
                                             sx={{
                                                 borderRadius: "50px",
-                                                backgroundColor: "#F8F8F8",
+                                                backgroundColor: "#EEEEEE",
                                                 "& fieldset": { border: 'none' },
                                             }}
                                         >

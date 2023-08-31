@@ -18,8 +18,8 @@ const btn = {
     marginTop: '40px',
     marginBottom: '40px',
     color: 'white',
-    backgroundColor: '#FF6700',
-    borderColor: '#FF6700',
+    backgroundColor: '#B5030B',
+    borderColor: '#B5030B',
     height: '50px',
     padding: '0px',
     font: 'normal normal normal 17px/26px Roboto',
@@ -106,7 +106,7 @@ const Team = () => {
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops',
-                        confirmButtonColor: "#FF6700",
+                        confirmButtonColor: "#B5030B",
                         text: ''
                     })
                 }
@@ -117,7 +117,7 @@ const Team = () => {
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
-                    confirmButtonColor: "#FF6700",
+                    confirmButtonColor: "#B5030B",
                     text: "Server Down!"
                 })
             });
@@ -145,7 +145,7 @@ const Team = () => {
             Swal.fire({
                 icon: 'warning',
                 title: 'Oops',
-                confirmButtonColor: "#FF6700",
+                confirmButtonColor: "#B5030B",
                 text: 'Price must be a number'
             })
         } else {
@@ -174,7 +174,7 @@ const Team = () => {
                         Swal.fire({
                             icon: 'success',
                             title: 'Success!',
-                            confirmButtonColor: "#FF6700",
+                            confirmButtonColor: "#B5030B",
                             text: 'Merchandise Updated Successfully!',
                         })
                         setIsloading(false);
@@ -185,7 +185,7 @@ const Team = () => {
                         Swal.fire({
                             icon: 'error',
                             title: 'Oops',
-                            confirmButtonColor: "#FF6700",
+                            confirmButtonColor: "#B5030B",
                             text: 'Try Again'
                         })
                     }
@@ -196,7 +196,7 @@ const Team = () => {
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
-                        confirmButtonColor: "#FF6700",
+                        confirmButtonColor: "#B5030B",
                         text: "Server Down!"
                     })
                 });
@@ -233,7 +233,7 @@ const Team = () => {
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops2...',
-                        confirmButtonColor: "#FF6700",
+                        confirmButtonColor: "#B5030B",
                         text: ''
                     })
                 }
@@ -244,7 +244,7 @@ const Team = () => {
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
-                        confirmButtonColor: "#FF6700",
+                        confirmButtonColor: "#B5030B",
                         text: "Server Down!"
                     })
                 });
@@ -290,7 +290,7 @@ const Team = () => {
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops..',
-                        confirmButtonColor: "#FF6700",
+                        confirmButtonColor: "#B5030B",
                         text: ''
                     })
                 }
@@ -300,7 +300,7 @@ const Team = () => {
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
-                    confirmButtonColor: "#FF6700",
+                    confirmButtonColor: "#B5030B",
                     text: "Server Down!"
                 })
             });
@@ -492,7 +492,7 @@ const Team = () => {
                                         hidecrossicon ?
                                             <Box sx={{ display: "flex", justifyContent: "center", alignContent: "center" }}>
                                                 <Close sx={{
-                                                    padding: 0.2, backgroundColor: "#FF6700", borderRadius: "50px",
+                                                    padding: 0.2, backgroundColor: "#B5030B", borderRadius: "50px",
                                                     color: "white", ml: 22, mt: -24
                                                 }} onClick={(e) => clearpreviewimage(e, 0)} />
                                             </Box>
@@ -500,7 +500,7 @@ const Team = () => {
                                             location.state.images[0] ?
                                                 <Box sx={{ display: "flex", justifyContent: "center", alignContent: "center" }}>
                                                     <Close sx={{
-                                                        padding: 0.2, backgroundColor: "#FF6700", borderRadius: "50px",
+                                                        padding: 0.2, backgroundColor: "#B5030B", borderRadius: "50px",
                                                         color: "white", ml: 22, mt: -24
                                                     }} onClick={(e) => clearpreviewimage(e, 0)} />
                                                 </Box>
@@ -508,7 +508,7 @@ const Team = () => {
                                                 selectedFile ?
                                                     <Box sx={{ display: "flex", justifyContent: "center", alignContent: "center" }}>
                                                         <Close sx={{
-                                                            padding: 0.2, backgroundColor: "#FF6700", borderRadius: "50px",
+                                                            padding: 0.2, backgroundColor: "#B5030B", borderRadius: "50px",
                                                             color: "white", ml: 22, mt: -24
                                                         }} onClick={(e) => clearpreviewimage(e, 0)} />
                                                     </Box>
@@ -565,7 +565,7 @@ const Team = () => {
                                         hidecrossicon1 ?
                                             <Box sx={{ display: "flex", justifyContent: "center", alignContent: "center" }}>
                                                 <Close sx={{
-                                                    padding: 0.2, backgroundColor: "#FF6700", borderRadius: "50px",
+                                                    padding: 0.2, backgroundColor: "#B5030B", borderRadius: "50px",
                                                     color: "white", ml: 22, mt: -24
                                                 }} onClick={(e) => clearpreviewimage(e, 1)} />
                                             </Box>
@@ -573,7 +573,7 @@ const Team = () => {
                                             location.state.images[1] ?
                                                 <Box sx={{ display: "flex", justifyContent: "center", alignContent: "center" }}>
                                                     <Close sx={{
-                                                        padding: 0.2, backgroundColor: "#FF6700", borderRadius: "50px",
+                                                        padding: 0.2, backgroundColor: "#B5030B", borderRadius: "50px",
                                                         color: "white", ml: 22, mt: -24
                                                     }} onClick={(e) => clearpreviewimage(e, 1)} />
                                                 </Box>
@@ -628,7 +628,7 @@ const Team = () => {
                                         hidecrossicon2 ?
                                             <Box sx={{ display: "flex", justifyContent: "center", alignContent: "center" }}>
                                                 <Close sx={{
-                                                    padding: 0.2, backgroundColor: "#FF6700", borderRadius: "50px",
+                                                    padding: 0.2, backgroundColor: "#B5030B", borderRadius: "50px",
                                                     color: "white", ml: 22, mt: -24
                                                 }} onClick={(e) => clearpreviewimage(e, 2)} />
                                             </Box>
@@ -636,7 +636,7 @@ const Team = () => {
                                             location.state.images[2] ?
                                                 <Box sx={{ display: "flex", justifyContent: "center", alignContent: "center" }}>
                                                     <Close sx={{
-                                                        padding: 0.2, backgroundColor: "#FF6700", borderRadius: "50px",
+                                                        padding: 0.2, backgroundColor: "#B5030B", borderRadius: "50px",
                                                         color: "white", ml: 22, mt: -24
                                                     }} onClick={(e) => clearpreviewimage(e, 2)} />
                                                 </Box>
@@ -694,7 +694,7 @@ const Team = () => {
                                         hidecrossicon3 ?
                                             <Box sx={{ display: "flex", justifyContent: "center", alignContent: "center" }}>
                                                 <Close sx={{
-                                                    padding: 0.2, backgroundColor: "#FF6700", borderRadius: "50px",
+                                                    padding: 0.2, backgroundColor: "#B5030B", borderRadius: "50px",
                                                     color: "white", ml: 22, mt: -24
                                                 }} onClick={(e) => clearpreviewimage(e, 3)} />
                                             </Box>
@@ -702,7 +702,7 @@ const Team = () => {
                                             location.state.images[3] ?
                                                 <Box sx={{ display: "flex", justifyContent: "center", alignContent: "center" }}>
                                                     <Close sx={{
-                                                        padding: 0.2, backgroundColor: "#FF6700", borderRadius: "50px",
+                                                        padding: 0.2, backgroundColor: "#B5030B", borderRadius: "50px",
                                                         color: "white", ml: 22, mt: -24
                                                     }} onClick={(e) => clearpreviewimage(e, 3)} />
                                                 </Box>
@@ -758,7 +758,7 @@ const Team = () => {
                                         hidecrossicon4 ?
                                             <Box sx={{ display: "flex", justifyContent: "center", alignContent: "center" }}>
                                                 <Close sx={{
-                                                    padding: 0.2, backgroundColor: "#FF6700", borderRadius: "50px",
+                                                    padding: 0.2, backgroundColor: "#B5030B", borderRadius: "50px",
                                                     color: "white", ml: 22, mt: -24
                                                 }} onClick={(e) => clearpreviewimage(e, 4)} />
                                             </Box>
@@ -766,7 +766,7 @@ const Team = () => {
                                             location.state.images[4] ?
                                                 <Box sx={{ display: "flex", justifyContent: "center", alignContent: "center" }}>
                                                     <Close sx={{
-                                                        padding: 0.2, backgroundColor: "#FF6700", borderRadius: "50px",
+                                                        padding: 0.2, backgroundColor: "#B5030B", borderRadius: "50px",
                                                         color: "white", ml: 22, mt: -24
                                                     }} onClick={(e) => clearpreviewimage(e, 4)} />
                                                 </Box>
@@ -795,7 +795,7 @@ const Team = () => {
                                                 id="input-with-icon-adornment"
                                                 sx={{
                                                     borderRadius: "50px",
-                                                    backgroundColor: "#F8F8F8",
+                                                    backgroundColor: "#EEEEEE",
                                                     "& fieldset": { border: 'none' },
                                                 }}
                                             />
@@ -811,7 +811,7 @@ const Team = () => {
                                                 id="input-with-icon-adornment"
                                                 sx={{
                                                     borderRadius: "50px",
-                                                    backgroundColor: "#F8F8F8",
+                                                    backgroundColor: "#EEEEEE",
                                                     "& fieldset": { border: 'none' },
                                                 }}
                                             />
@@ -837,7 +837,7 @@ const Team = () => {
                                                 onChange={(e) => { setCategory_id(e.target.value) }}
                                                 sx={{
                                                     borderRadius: "50px",
-                                                    backgroundColor: "#F8F8F8", height: "35px",
+                                                    backgroundColor: "#EEEEEE", height: "35px",
                                                     "& fieldset": { border: 'none' },
                                                 }}
                                             >
@@ -865,7 +865,7 @@ const Team = () => {
                                                 id="input-with-icon-adornment"
                                                 sx={{
                                                     borderRadius: "50px",
-                                                    backgroundColor: "#F8F8F8",
+                                                    backgroundColor: "#EEEEEE",
                                                     "& fieldset": { border: 'none' },
                                                 }}
                                             />
@@ -898,7 +898,7 @@ const Team = () => {
                                                 id="input-with-icon-adornment"
                                                 sx={{
                                                     borderRadius: "50px",
-                                                    backgroundColor: "#F8F8F8",
+                                                    backgroundColor: "#EEEEEE",
                                                     "& fieldset": { border: 'none' },
                                                 }}
                                             />

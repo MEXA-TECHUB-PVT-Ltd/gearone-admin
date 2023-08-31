@@ -34,7 +34,7 @@ import {
 } from '@mui/x-data-grid';
 import { ImageGroup, Image } from "react-fullscreen-image";
 import { Close, Delete, Edit, Upload, Visibility } from "@mui/icons-material";
-
+import './index.css'
 const override = {
     display: ' block',
     margin: '0 auto',
@@ -45,9 +45,9 @@ const btncancel = {
     width: '90%',
     letterSpacing: "2px",
     marginBottom: '40px',
-    color: '#FF6700',
+    color: '#B5030B',
     backgroundColor: '#ffffff',
-    border: '1px solid #FF6700',
+    border: '1px solid #B5030B',
     height: '50px',
     padding: '0px',
     fontFamily: '',
@@ -62,8 +62,8 @@ const btn = {
     letterSpacing: "2px",
     marginBottom: '40px',
     color: 'white',
-    backgroundColor: '#FF6700',
-    borderColor: '#FF6700',
+    backgroundColor: '#B5030B',
+    borderColor: '#B5030B',
     height: '50px',
     padding: '0px',
     fontFamily: '',
@@ -99,8 +99,8 @@ const styleview = {
 const btncreate = {
     width: '100%',
     color: 'white',
-    backgroundColor: '#FF6700',
-    borderColor: '#FF6700',
+    backgroundColor: '#B5030B',
+    borderColor: '#B5030B',
     height: '50px',
     padding: '0px',
     fontFamily: 'bold',
@@ -205,7 +205,7 @@ const Team = () => {
                     Swal.fire({
                         icon: 'success',
                         title: 'Success',
-                        confirmButtonColor: "#FF6700",
+                        confirmButtonColor: "#B5030B",
                         text: "Status Change Successfully"
                     })
                 } else {
@@ -213,7 +213,7 @@ const Team = () => {
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
-                        confirmButtonColor: "#FF6700",
+                        confirmButtonColor: "#B5030B",
                         text: response.message
                     })
                 }
@@ -224,7 +224,7 @@ const Team = () => {
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
-                    confirmButtonColor: "#FF6700",
+                    confirmButtonColor: "#B5030B",
                     text: 'Server Down!'
                 })
             });
@@ -328,7 +328,7 @@ const Team = () => {
                         <Select
                             sx={{
                                 width: "100%",
-                                backgroundColor: "#F8F8F8",
+                                backgroundColor: "#EEEEEE",
                                 "& fieldset": { border: 'none' },
                             }}
                             labelId="demo-simple-select-label"
@@ -456,7 +456,7 @@ const Team = () => {
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
-                        confirmButtonColor: "#FF6700",
+                        confirmButtonColor: "#B5030B",
                         text: ''
                     })
                 }
@@ -466,7 +466,7 @@ const Team = () => {
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
-                    confirmButtonColor: "#FF6700",
+                    confirmButtonColor: "#B5030B",
                     text: "Server Down!"
                 })
             });
@@ -492,7 +492,7 @@ const Team = () => {
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
-                        confirmButtonColor: "#FF6700",
+                        confirmButtonColor: "#B5030B",
                         text: ''
                     })
                 }
@@ -502,7 +502,7 @@ const Team = () => {
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
-                    confirmButtonColor: "#FF6700",
+                    confirmButtonColor: "#B5030B",
                     text: "Server Down!"
                 })
             });
@@ -531,7 +531,7 @@ const Team = () => {
                                             showtable ?
                                                 <>
                                                     <Box sx={{ pl: 1 }}>
-                                                        <List fontSize="large" sx={{ color: "white", backgroundColor: "#FF6700", borderRadius: "5px" }} onClick={() => { setShowtable(true) }} />
+                                                        <List fontSize="large" sx={{ color: "white", backgroundColor: "#B5030B", borderRadius: "5px" }} onClick={() => { setShowtable(true) }} />
                                                     </Box>
                                                     <Box sx={{ pr: 1 }}>
                                                         <Apps fontSize="large" sx={{ color: "#9B9B9B", backgroundColor: "transparent", borderRadius: "5px" }} onClick={() => setShowtable(false)} />
@@ -543,7 +543,7 @@ const Team = () => {
                                                         <List fontSize="large" sx={{ color: "#9B9B9B", backgroundColor: "transparent", borderRadius: "5px" }} onClick={() => setShowtable(true)} />
                                                     </Box>
                                                     <Box sx={{ pr: 1 }}>
-                                                        <Apps fontSize="large" sx={{ color: "white", backgroundColor: "#FF6700", borderRadius: "5px" }} onClick={() => setShowtable(false)} />
+                                                        <Apps fontSize="large" sx={{ color: "white", backgroundColor: "#B5030B", borderRadius: "5px" }} onClick={() => setShowtable(false)} />
                                                     </Box>
                                                 </>
                                         }
@@ -558,7 +558,7 @@ const Team = () => {
 
                 <Divider sx={{ pb: 2 }} />
 
-                <Grid container spacing={0} pt={2} >
+                <Grid mb='6%' container spacing={0} pt={2} >
                     {
                         showtable ?
                             <Grid xs={12} p={1} align="center">
@@ -568,6 +568,9 @@ const Team = () => {
                                         getRowId={Logos.id}
                                         id={Logos.id}
                                         columns={columns}
+                                        getRowClassName={(params) => {
+                                            return 'unblock-row'
+                                          }}                      
                                         initialState={{
                                             pagination: {
                                                 paginationModel: { page: 0, pageSize: 5 },
@@ -600,7 +603,7 @@ const Team = () => {
                                             <CardContent>
                                                 <Grid container spacing={0} >
                                                     <Grid sx={{ width: '100px', height: '50px' }} xs={12} align="center" onClick={() => { setViewImage(item.images); setViewData(item); handleOpenmodal(); }}>
-                                                        <Typography variant="h5" pb={1} fontWeight={750} fontSize="16px" color="#FF6700">
+                                                        <Typography variant="h5" pb={1} fontWeight={750} fontSize="16px" color="#B5030B">
                                                             {item.name}
                                                         </Typography>
                                                     </Grid>
@@ -642,7 +645,7 @@ const Team = () => {
                                                         </Typography>
                                                     </Grid>
 
-                                                    <Grid sx={{ pb: 1, width: '100px', height: '50px' }} xs={6} align="left" >
+                                                    <Grid sx={{ pb: 1, width: '100px', height: '50px' }} xs={6} align="right" >
                                                         <PerfectScrollbar  >
 
                                                             <Typography variant="h6" fontWeight={300} pb={1} fontSize="12px" sx={{ letterSpacing: "2px" }} color="#808080">
@@ -671,7 +674,7 @@ const Team = () => {
 
                                                     <Grid xs={6} sx={{ pb: 1 }} align="left" >
                                                         <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
-                                                            Merchandise :
+                                                            Merchandise
                                                         </Typography>
                                                     </Grid>
 
@@ -703,7 +706,7 @@ const Team = () => {
                     aria-describedby="modal-modal-description"
                 >
                     <Box width={{ xs: 400, md: 500, lg: 600, xl: 650 }} height="auto" sx={styleview}>
-                        <Box sx={{ borderTopLeftRadius: "20px", borderTopRightRadius: "20px", backgroundColor: "#FF6700", width: "100%", height: "80px" }}>
+                        <Box sx={{ borderTopLeftRadius: "20px", borderTopRightRadius: "20px", backgroundColor: "#B5030B", width: "100%", height: "80px" }}>
                             <div xs={12} align="right" pt={0.6} pr={3}>
                                 <Close sx={{ marginRight: '10px', marginTop: "5px", color: "white" }} onClick={() => setOpenmodal(false)} />
                             </div>
@@ -717,15 +720,15 @@ const Team = () => {
                         {
                             viewImage.length > 0 ?
                                 <Grid xs={12} align="center" pt={3}>
-                                    <Avatar sx={{ bgcolor: "#FF6700", width: 75, height: 75 }}>
-                                        <img src={`${url}${viewImage[0]}`} style={{ bgcolor: "#FF6700", width: '175px', height: '175px' }}>
+                                    <Avatar sx={{ bgcolor: "#B5030B", width: 75, height: 75 }}>
+                                        <img src={`${url}${viewImage[0]}`} style={{ bgcolor: "#B5030B", width: '175px', height: '175px' }}>
                                         </img>
 
                                     </Avatar>
                                 </Grid>
                                 :
                                 <Grid xs={12} align="center" pt={3}>
-                                    <Avatar sx={{ bgcolor: "#FF6700", width: 75, height: 75 }}>
+                                    <Avatar sx={{ bgcolor: "#B5030B", width: 75, height: 75 }}>
                                         <Typography variant="paragraph" sx={{ textTransform: "uppercase", fontSize: "18px", fontWeight: 600 }} p={1} color="white">
                                         </Typography>
                                     </Avatar>

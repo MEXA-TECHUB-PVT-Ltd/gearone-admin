@@ -14,7 +14,7 @@ const Header = ({ title, subtitle }) => {
       >
         {title}
       </Typography>
-      <Typography variant="h5" color="#789040">
+      <Typography variant="h5" color="#B5030B">
         {subtitle}
       </Typography>
     </Box>

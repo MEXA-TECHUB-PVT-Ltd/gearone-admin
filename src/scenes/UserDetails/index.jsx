@@ -41,9 +41,9 @@ const btncancel = {
   width: '90%',
   letterSpacing: "2px",
   marginBottom: '40px',
-  color: '#FF6700',
+  color: '#B5030B',
   backgroundColor: '#ffffff',
-  border: '1px solid #FF6700',
+  border: '1px solid #B5030B',
   height: '50px',
   padding: '0px',
   fontFamily: '',
@@ -58,8 +58,8 @@ const btn = {
   letterSpacing: "2px",
   marginBottom: '40px',
   color: 'white',
-  backgroundColor: '#FF6700',
-  borderColor: '#FF6700',
+  backgroundColor: '#B5030B',
+  borderColor: '#B5030B',
   height: '50px',
   padding: '0px',
   fontFamily: '',
@@ -95,8 +95,8 @@ const styleview = {
 const btncreate = {
   width: '100%',
   color: 'white',
-  backgroundColor: '#FF6700',
-  borderColor: '#FF6700',
+  backgroundColor: '#B5030B',
+  borderColor: '#B5030B',
   height: '50px',
   padding: '0px',
   fontFamily: 'bold',
@@ -239,14 +239,14 @@ const Team = () => {
       .then(response => response.json())
       .then(response => {
         console.log(response);
-        if (response.status == true) {
+        if (response.status === true) {
           setIsloading(false);
           getItems();
           getOrders();
           Swal.fire({
             icon: 'success',
             title: 'Success',
-            confirmButtonColor: "#FF6700",
+            confirmButtonColor: "#B5030B",
             text: "Status Change Successfully"
           })
 
@@ -258,7 +258,7 @@ const Team = () => {
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
-            confirmButtonColor: "#FF6700",
+            confirmButtonColor: "#B5030B",
             text: response.message
           })
         }
@@ -269,7 +269,7 @@ const Team = () => {
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
-          confirmButtonColor: "#FF6700",
+          confirmButtonColor: "#B5030B",
           text: 'Server Down!'
         })
       });
@@ -298,13 +298,13 @@ const Team = () => {
             <Select
               sx={{
                 width: "100%",
-                backgroundColor: "#F8F8F8",
+                backgroundColor: "#EEEEEE",
                 "& fieldset": { border: 'none' },
               }}
               labelId="demo-simple-select-label"
               id="demo-simple-select"
-              displayEmpty
-              defaultValue={row.row.status}
+              
+              value={row.row.status}
               onChange={(event) => {
                 setId(row.row.id);
                 changeStatus(event.target.value, row.row.id);
@@ -449,7 +449,7 @@ const Team = () => {
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
-            confirmButtonColor: "#FF6700",
+            confirmButtonColor: "#B5030B",
             text: ''
           })
         }
@@ -459,7 +459,7 @@ const Team = () => {
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
-          confirmButtonColor: "#FF6700",
+          confirmButtonColor: "#B5030B",
           text: 'Server Down!'
         })
       });
@@ -534,7 +534,7 @@ const Team = () => {
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
-            confirmButtonColor: "#FF6700",
+            confirmButtonColor: "#B5030B",
             text: `${response.message}`
           })
         }
@@ -545,7 +545,7 @@ const Team = () => {
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
-          confirmButtonColor: "#FF6700",
+          confirmButtonColor: "#B5030B",
           text: 'Server Down!'
         })
       });
@@ -569,7 +569,7 @@ const Team = () => {
       .then(response => response.json())
       .then(response => {
         console.log(response);
-        if (response.message == `User's All orders`) {
+        if (response.status === true) {
           setOrderCount(response.count);
           console.log(response.result);
           setOrders(response.result);
@@ -577,7 +577,7 @@ const Team = () => {
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
-            confirmButtonColor: "#FF6700",
+            confirmButtonColor: "#B5030B",
             text: ''
           })
         }
@@ -587,7 +587,7 @@ const Team = () => {
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
-          confirmButtonColor: "#FF6700",
+          confirmButtonColor: "#B5030B",
           text: 'Server Down!'
         })
       });
@@ -621,7 +621,7 @@ const Team = () => {
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
-            confirmButtonColor: "#FF6700",
+            confirmButtonColor: "#B5030B",
             text: ''
           })
         }
@@ -631,7 +631,7 @@ const Team = () => {
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
-          confirmButtonColor: "#FF6700",
+          confirmButtonColor: "#B5030B",
           text: 'Server Down!'
         })
       });
@@ -665,14 +665,14 @@ const Team = () => {
             </Grid>
 
             <Grid xs={12} align="center" p={{ xs: 2, md: 5, lg: 1, xl: 1 }}>
-              <Typography variant="h4" sx={{ letterSpacing: "3px" }} fontWeight={600} fontSize="x-large" color="#FF6700">Change Status</Typography>
+              <Typography variant="h4" sx={{ letterSpacing: "3px" }} fontWeight={600} fontSize="x-large" color="#B5030B">Change Status</Typography>
 
               <Select
                 sx={{
                   mt: '10%',
                   width: "80%",
                   borderRadius: "50px",
-                  backgroundColor: "#F8F8F8",
+                  backgroundColor: "#EEEEEE",
                   "& fieldset": { border: 'none' },
                 }}
                 labelId="demo-simple-select-label"
@@ -813,6 +813,9 @@ const Team = () => {
                         <div style={{ height: 400, width: '100%' }}>
                           <DataGrid
                             rows={Items}
+                            getRowClassName={(params) => {
+                              return 'unblock-row'
+                            }}              
                             getRowId={Items.id}
                             id={Items.id}
                             columns={ItemColomns}
@@ -831,12 +834,15 @@ const Team = () => {
                         </div>
                       </Grid>
                       <Typography sx={{ ml: '10px' }} variant="h5" fontWeight={750} fontSize="20px" color="#404040">
-                        {`Orders       ${OrderCount}`}
+                        {`Orders       ${Orders.length}`}
                       </Typography>
                       <Grid xs={12} p={1} align="center">
                         <div style={{ height: 400, width: '100%' }}>
                           <DataGrid
                             rows={Orders}
+                            getRowClassName={(params) => {
+                              return 'unblock-row'
+                            }}              
                             getRowId={Orders.id}
                             id={Orders.id}
                             columns={OrdersColomns}
@@ -864,7 +870,7 @@ const Team = () => {
                             <CardContent>
                               <Grid onClick={() => { setViewData(item); handleOpenmodal(); }} container spacing={0} >
                                 <Grid xs={6} align="left" onClick={() => { setViewData(item); handleOpenmodal(); }}>
-                                  <Typography variant="h5" pb={1} fontWeight={750} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#FF6700">
+                                  <Typography variant="h5" pb={1} fontWeight={750} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#B5030B">
                                     {item.screen_name}
                                   </Typography>
                                 </Grid>
@@ -984,7 +990,7 @@ const Team = () => {
                 aria-describedby="modal-modal-description"
               >
                 <Box width={{ xs: 400, md: 500, lg: 600, xl: 650 }} height="auto" sx={styleview}>
-                  <Box sx={{ borderTopLeftRadius: "20px", borderTopRightRadius: "20px", backgroundColor: "#FF6700", width: "100%", height: "80px" }}>
+                  <Box sx={{ borderTopLeftRadius: "20px", borderTopRightRadius: "20px", backgroundColor: "#B5030B", width: "100%", height: "80px" }}>
                     <Box xs={12} align="right" pt={0.1} pr={1}>
                       <Close sx={{ color: "white" }} onClick={() => setOpenmodal(false)} />
                     </Box>
@@ -998,13 +1004,13 @@ const Team = () => {
                   {viewImage !== null ?
                     viewImage !== undefined ?
                       <Grid xs={12} align="center" pt={3}>
-                        <img src={`https://staging-gearone-be.mtechub.com/${viewImage}`} style={{ bgcolor: "#FF6700", width: '175px', height: '175px' }}>
-                          {/* <img src={`https://staging-gearone-be.mtechub.com/${viewImage}`} style={{ bgcolor: "#FF6700", width: '175px', height: '175px' }}> */}
+                        <img src={`https://staging-gearone-be.mtechub.com/${viewImage}`} style={{ bgcolor: "#B5030B", width: '175px', height: '175px' }}>
+                          {/* <img src={`https://staging-gearone-be.mtechub.com/${viewImage}`} style={{ bgcolor: "#B5030B", width: '175px', height: '175px' }}> */}
                         </img>
                       </Grid>
                       :
                       <Grid xs={12} align="center" pt={3}>
-                        <Avatar sx={{ bgcolor: "#FF6700", width: 75, height: 75 }}>
+                        <Avatar sx={{ bgcolor: "#B5030B", width: 75, height: 75 }}>
                         </Avatar>
                       </Grid>
 
@@ -1148,7 +1154,7 @@ const Team = () => {
                     </Grid>
 
                     <Grid xs={12} align="center" p={{ xs: 2, md: 5, lg: 1, xl: 1 }}>
-                      <Typography variant="h4" sx={{ letterSpacing: "3px" }} fontWeight={600} fontSize="x-large" color="#FF6700">Confirmation</Typography>
+                      <Typography variant="h4" sx={{ letterSpacing: "3px" }} fontWeight={600} fontSize="x-large" color="#B5030B">Confirmation</Typography>
 
                       <Typography variant="h5" sx={{ letterSpacing: "3px" }} pt={7} pb={0} fontWeight={600} color="#1F1F1F">Do you want to delete this Diet Plan ?</Typography>  </Grid>
                   </Grid>

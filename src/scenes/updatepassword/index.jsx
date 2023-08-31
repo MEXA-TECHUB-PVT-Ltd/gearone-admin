@@ -32,8 +32,8 @@ const btn = {
     width: '100%',
     marginTop: '20px',
     color: 'white',
-    backgroundColor: '#FF6700',
-    borderColor: '#FF6700',
+    backgroundColor: '#B5030B',
+    borderColor: '#B5030B',
     height: '45px',
     padding: '0px',
     fontWeight: "bold",
@@ -110,11 +110,11 @@ const Team = () => {
             Swal.fire({
                 icon: 'warning',
                 title: 'warning',
-                confirmButtonColor: "#FF6700",
+                confirmButtonColor: "#B5030B",
                 text: 'Enter OTP For Verification'
             })
             setOpen(false);
-       } else {
+        } else {
             var InsertAPIURL = `${url}admin/verify_OTP_change_password`
             var headers = {
                 'Accept': 'application/json',
@@ -139,7 +139,7 @@ const Team = () => {
                         Swal.fire({
                             icon: 'success',
                             title: 'Success...',
-                            confirmButtonColor: "#FF6700",
+                            confirmButtonColor: "#B5030B",
                             text: 'Password Changed Successfully'
                         })
                     } else {
@@ -149,7 +149,7 @@ const Team = () => {
                         Swal.fire({
                             icon: 'error',
                             title: 'Oops...',
-                            confirmButtonColor: "#FF6700",
+                            confirmButtonColor: "#B5030B",
                             text: 'Wrong OTP!'
                         })
                     }
@@ -159,7 +159,7 @@ const Team = () => {
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
-                        confirmButtonColor: "#FF6700",
+                        confirmButtonColor: "#B5030B",
                         text: "Server Down!"
                     })
                 });
@@ -167,6 +167,115 @@ const Team = () => {
 
     }
 
+    const updatepasswordWithoutOTP = async () => {
+        setIsloading(true);
+        if (oldPassword.length === 0) {
+            setIsloading(false);
+            Swal.fire({
+                title: "Warning",
+                text: "Old Password Is Required",
+                confirmButtonColor: "#E79628",
+                icon: "warning",
+                confirmButtonText: "OK",
+            });
+        } else if (password.length === 0) {
+            setIsloading(false);
+            Swal.fire({
+                title: "Warning",
+                text: "Password Is Required",
+                confirmButtonColor: "#E79628",
+                icon: "warning",
+                confirmButtonText: "OK",
+            });
+        } else if (confirmPassword.length === 0) {
+            setIsloading(false);
+            Swal.fire({
+                title: "Warning",
+                text: "Confirm Password Is Required",
+                confirmButtonColor: "#E79628",
+                icon: "warning",
+                confirmButtonText: "OK",
+            });
+        }
+        else
+            if (password !== confirmPassword) {
+                setIsloading(false);
+                Swal.fire({
+                    title: "Warning",
+                    text: "Password & Confirm Password Should be same",
+                    confirmButtonColor: "#E79628",
+                    icon: "warning",
+                    confirmButtonText: "OK",
+                });
+            } else {
+                var InsertAPIURL = `${url}admin/resetPassword_without_Otp`
+                var headers = {
+                    // 'Authorization': `Bearer ${jwtoken}`,
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                };
+                console.log(email);
+                var Data = {
+                    "email": email,
+                    "password": oldPassword,
+                    "newPassword": password,
+                };
+                await fetch(InsertAPIURL, {
+                    method: 'PUT',
+                    headers: headers,
+                    body: JSON.stringify(Data),
+                })
+                    .then(response => response.json())
+                    .then(response => {
+                        console.log(response);
+                        if (response.status == true) {
+                            localStorage.setItem("password", JSON.stringify(password));
+                            setIsloading(false);
+                            Swal.fire({
+                                title: "Success",
+                                text: "Password Change Successfully",
+                                confirmButtonColor: "#B5030B",
+                                icon: "succes",
+                                confirmButtonText: "OK",
+                            });
+                        } else if (response.message == `Incorrect password`) {
+                            setIsloading(true);
+                            setIsloading(false);
+                            setTimeout(() => {
+                                Swal.fire({
+                                    title: "Error",
+                                    text: "Incorrect Password",
+                                    confirmButtonColor: "#B5030B",
+                                    icon: "error",
+                                    confirmButtonText: "OK",
+                                });
+                            }, 3000)
+                        } else {
+                            setIsloading(true);
+                            setIsloading(false);
+                            setTimeout(() => {
+                                Swal.fire({
+                                    title: "Error",
+                                    text: "not found",
+                                    confirmButtonColor: "#B5030B",
+                                    icon: "error",
+                                    confirmButtonText: "OK",
+                                });
+                            }, 3000)
+                        }
+                    }
+                    )
+                    .catch(error => {
+                        Swal.fire({
+                            title: "Error",
+                            text: "Password Not Updated",
+                            confirmButtonColor: "#B5030B",
+                            icon: "error",
+                            confirmButtonText: "OK",
+                        });
+                    });
+            }
+    }
 
 
     const updatepassword = async () => {
@@ -241,7 +350,7 @@ const Team = () => {
                                 Swal.fire({
                                     title: "Error",
                                     text: "Incorrect Password",
-                                    confirmButtonColor: "#FF6700",
+                                    confirmButtonColor: "#B5030B",
                                     icon: "error",
                                     confirmButtonText: "OK",
                                 });
@@ -253,7 +362,7 @@ const Team = () => {
                                 Swal.fire({
                                     title: "Error",
                                     text: "not found",
-                                    confirmButtonColor: "#FF6700",
+                                    confirmButtonColor: "#B5030B",
                                     icon: "error",
                                     confirmButtonText: "OK",
                                 });
@@ -265,7 +374,7 @@ const Team = () => {
                         Swal.fire({
                             title: "Error",
                             text: "Password Not Updated",
-                            confirmButtonColor: "#FF6700",
+                            confirmButtonColor: "#B5030B",
                             icon: "error",
                             confirmButtonText: "OK",
                         });
@@ -284,18 +393,18 @@ const Team = () => {
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >
-                <Box width={{ xs: 400,md: 500, lg: 500, xl: 600 }} height="auto" sx={style}>
+                <Box width={{ xs: 400, md: 500, lg: 500, xl: 600 }} height="auto" sx={style}>
                     <Grid container spacing={0}>
                         <Grid xs={6} align="left" >
                             <Typography variant="h4" sx={{ letterSpacing: "3px" }} fontWeight={800}
-                             fontSize="large" color="#1F1F1F">Enter OTP</Typography>
+                                fontSize="large" color="#1F1F1F">Enter OTP</Typography>
                         </Grid>
 
                         <Grid xs={6} align="right">
                             <Close onClick={() => setOpeneditmodal(false)} />
                         </Grid>
 
-                        <Grid xs={12} sx={{ml:'60px'}} align="center" pt={7}>
+                        <Grid xs={12} sx={{ ml: '60px' }} align="center" pt={7}>
                             <FormControl fullWidth>
                                 <OtpInput
                                     value={enteredotp}
@@ -450,7 +559,15 @@ const Team = () => {
                                             />
                                         </Button>
                                         :
-                                        <Button variant="contained" style={btn} onClick={() => { updatepassword() }} >Change Password</Button>
+
+                                        <Button variant="contained" style={btn} onClick={() => {
+                                            if (localStorage.getItem('two_factor') === true) {
+                                                updatepassword()
+                                            } else {
+                                                updatepasswordWithoutOTP()
+                                            }
+                                        }
+                                        } >Change Password</Button>
                                     }
                                 </Stack>
 

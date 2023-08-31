@@ -14,7 +14,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import url from "../url"
 import img from '../../components/Images/hairstyleimage.jpg'
 import { tokens } from "../../theme";
-import { Subscriptions, Notifications, Settings, Person, Add, List, Apps, MoreVert, People, Lock, Search } from '@mui/icons-material';
+import { Subscriptions, Autorenew, Notifications, Settings, Person, Add, List, Apps, MoreVert, People, Lock, Search } from '@mui/icons-material';
 import React, { useState, useEffect } from "react";
 import ClipLoader from "react-spinners/ClipLoader";
 import { Checkbox } from '@mui/material';
@@ -27,8 +27,8 @@ import {
   GridToolbarDensitySelector,
 } from '@mui/x-data-grid';
 import { ImageGroup, Image } from "react-fullscreen-image";
-import {Close, Cancel, Delete, Edit, Upload, Visibility } from "@mui/icons-material";
-// import "./index.css";
+import { Close, Cancel, Delete, Edit, Upload, Visibility } from "@mui/icons-material";
+import "./index.css";
 
 const override = {
   display: ' block',
@@ -40,9 +40,9 @@ const btncancel = {
   width: '90%',
   letterSpacing: "2px",
   marginBottom: '40px',
-  color: '#FF6700',
+  color: '#B5030B',
   backgroundColor: '#ffffff',
-  border: '1px solid #FF6700',
+  border: '1px solid #B5030B',
   height: '50px',
   padding: '0px',
   fontFamily: '',
@@ -57,8 +57,8 @@ const btn = {
   letterSpacing: "2px",
   marginBottom: '40px',
   color: 'white',
-  backgroundColor: '#FF6700',
-  borderColor: '#FF6700',
+  backgroundColor: '#B5030B',
+  borderColor: '#B5030B',
   height: '50px',
   padding: '0px',
   fontFamily: '',
@@ -94,8 +94,8 @@ const styleview = {
 const btncreate = {
   width: '100%',
   color: 'white',
-  backgroundColor: '#FF6700',
-  borderColor: '#FF6700',
+  backgroundColor: '#B5030B',
+  borderColor: '#B5030B',
   height: '50px',
   padding: '0px',
   fontFamily: 'bold',
@@ -234,14 +234,18 @@ const Team = () => {
         if (response.message == `ad status Updated Successfully!`) {
           handleClosedelmodalStatus();
           getAllLogos();
-          // setOpendelmodal(false);
-          //   console.log(response.result);
-          //   setCatagory(response.result);
+
+          Swal.fire({
+            icon: 'success',
+            title: 'Success...',
+            confirmButtonColor: "#B5030B",
+            text: 'Status Change Successfully!'
+          })
         } else {
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
-            confirmButtonColor: "#FF6700",
+            confirmButtonColor: "#B5030B",
             text: 'Server Down!'
           })
         }
@@ -251,7 +255,7 @@ const Team = () => {
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
-          confirmButtonColor: "#FF6700",
+          confirmButtonColor: "#B5030B",
           text: "Server Down!"
         })
       });
@@ -283,7 +287,7 @@ const Team = () => {
           Swal.fire({
             icon: 'success',
             title: 'Success!',
-            confirmButtonColor: "#FF6700",
+            confirmButtonColor: "#B5030B",
             text: 'Banner Deleted Successfully!',
           })
           // setLogos(response.count);
@@ -295,7 +299,7 @@ const Team = () => {
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
-            confirmButtonColor: "#FF6700",
+            confirmButtonColor: "#B5030B",
             text: ''
           })
         }
@@ -305,7 +309,7 @@ const Team = () => {
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
-          confirmButtonColor: "#FF6700",
+          confirmButtonColor: "#B5030B",
           text: "Server Down!"
         })
       });
@@ -343,6 +347,15 @@ const Team = () => {
         return (
           <>
             <div>
+              <IconButton style={{ cursor: 'pointer' }} onClick={() => {
+                handleOpendelmodalStatus(row.row)
+                setDeleteData(row.row);
+              }}>
+                <Tooltip title="Change Status" >
+                  <Autorenew sx={{ color: "green" }} />
+                </Tooltip>
+              </IconButton>
+
               <IconButton onClick={() => {
                 setViewData(row.row); console.log(row.row);
                 handleOpenmodal()
@@ -433,7 +446,7 @@ const Team = () => {
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
-            confirmButtonColor: "#FF6700",
+            confirmButtonColor: "#B5030B",
             text: ''
           })
         }
@@ -443,7 +456,7 @@ const Team = () => {
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
-          confirmButtonColor: "#FF6700",
+          confirmButtonColor: "#B5030B",
           text: "Server Down!"
         })
       });
@@ -491,7 +504,7 @@ const Team = () => {
                       showtable ?
                         <>
                           <Box sx={{ pl: 1 }}>
-                            <List fontSize="large" sx={{ color: "white", backgroundColor: "#FF6700", borderRadius: "5px" }} onClick={() => { setShowtable(true) }} />
+                            <List fontSize="large" sx={{ color: "white", backgroundColor: "#B5030B", borderRadius: "5px" }} onClick={() => { setShowtable(true) }} />
                           </Box>
                           <Box sx={{ pr: 1 }}>
                             <Apps fontSize="large" sx={{ color: "#9B9B9B", backgroundColor: "transparent", borderRadius: "5px" }} onClick={() => setShowtable(false)} />
@@ -503,7 +516,7 @@ const Team = () => {
                             <List fontSize="large" sx={{ color: "#9B9B9B", backgroundColor: "transparent", borderRadius: "5px" }} onClick={() => setShowtable(true)} />
                           </Box>
                           <Box sx={{ pr: 1 }}>
-                            <Apps fontSize="large" sx={{ color: "white", backgroundColor: "#FF6700", borderRadius: "5px" }} onClick={() => setShowtable(false)} />
+                            <Apps fontSize="large" sx={{ color: "white", backgroundColor: "#B5030B", borderRadius: "5px" }} onClick={() => setShowtable(false)} />
                           </Box>
                         </>
                     }
@@ -516,7 +529,7 @@ const Team = () => {
           <Grid item xs={1.5} align="center">
             <div style={{ display: "flex", justifyContent: "right", alignContent: "right", gap: "30px" }}>
               <div>
-                <button onClick={() => navigate("/addexercise")} style={{ marginTop: "2%", padding: "10px", display: "flex", justifyContent: "center", alignContent: "center", alignSelf: "center", border: "none", borderRadius: "50px", backgroundColor: "#FF6700", color: "white" }}>
+                <button onClick={() => navigate("/addexercise")} style={{ marginTop: "2%", padding: "10px", display: "flex", justifyContent: "center", alignContent: "center", alignSelf: "center", border: "none", borderRadius: "50px", backgroundColor: "#B5030B", color: "white" }}>
                   <Stack direction="row" sx={{ display: "flex", justifyContent: "right", alignContent: "right", gap: "3px" }}>
                     <div>
                       <Stack sx={{ paddingLeft: "20px" }}>
@@ -537,7 +550,7 @@ const Team = () => {
 
         <Divider sx={{ pb: 2 }} />
 
-        <Grid container spacing={0} pt={2}  >
+        <Grid mb='6%' container spacing={0} pt={2}  >
           {
             showtable ?
               <Grid xs={12} p={1} align="center">
@@ -546,6 +559,10 @@ const Team = () => {
                     rows={Logos}
                     getRowId={Logos.id}
                     id={Logos.id}
+                    getRowClassName={(params) => {
+                      return 'unblock-row'
+                    }}
+
                     columns={columns}
                     initialState={{
                       pagination: {
@@ -570,7 +587,7 @@ const Team = () => {
                       <CardContent>
                         <Grid container spacing={0} >
                           <Grid xs={6} align="left" onClick={() => { setViewData(item); handleOpenmodal(); }}>
-                            <Typography variant="h5" pb={1} fontWeight={750} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#FF6700">
+                            <Typography variant="h5" pb={1} fontWeight={750} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#B5030B">
                               {item.screen_name}
                             </Typography>
                           </Grid>
@@ -686,7 +703,7 @@ const Team = () => {
 
                           <Grid sx={{ pb: 1, width: '100px', height: '50px' }} xs={6} align="left">
                             <PerfectScrollbar  >
-                              <a href={item.link} style={{ width: '30px', height: '10px' ,fontSize:'12px',color:'#007FFF' }} variant="h6" fontWeight={300}  >
+                              <a href={item.link} style={{ width: '30px', height: '10px', fontSize: '12px', color: '#007FFF' }} variant="h6" fontWeight={300}  >
                                 {item.link}
                               </a>
                             </PerfectScrollbar  >
@@ -709,7 +726,7 @@ const Team = () => {
           aria-describedby="modal-modal-description"
         >
           <Box width={{ xs: 400, md: 500, lg: 600, xl: 650 }} height="auto" sx={styleview}>
-            <Box sx={{ borderTopLeftRadius: "20px", borderTopRightRadius: "20px", backgroundColor: "#FF6700", width: "100%", height: "80px" }}>
+            <Box sx={{ borderTopLeftRadius: "20px", borderTopRightRadius: "20px", backgroundColor: "#B5030B", width: "100%", height: "80px" }}>
               <div xs={12} align="right" pt={0.6} pr={3}>
                 <Cancel sx={{ marginRight: '10px', marginTop: "5px", color: "white" }} onClick={() => setOpenmodal(false)} />
               </div>
@@ -721,10 +738,10 @@ const Team = () => {
             </Box>
             <Grid xs={12} align="center" pt={3}>
               {viewData.image !== null ?
-                <img src={`${url}${viewData.image}`} style={{ bgcolor: "#FF6700", width: '175px', height: '175px' }}>
+                <img src={`${url}${viewData.image}`} style={{ bgcolor: "#B5030B", width: '175px', height: '175px' }}>
                 </img>
                 :
-                <Avatar sx={{ bgcolor: "#FF6700", width: 75, height: 75 }}>
+                <Avatar sx={{ bgcolor: "#B5030B", width: 75, height: 75 }}>
                 </Avatar>
               }
             </Grid>
@@ -773,11 +790,11 @@ const Team = () => {
           <Box width={{ xs: 400, md: 500, lg: 500, xl: 600 }} height="auto" sx={style}>
             <Grid container spacing={0}>
               <Grid xs={12} align="right">
-                <Close  sx={{mt:'2px', mr:'1px'}} onClick={() => setOpendelmodalStatus(false)} />
+                <Close sx={{ mt: '2px', mr: '1px' }} onClick={() => setOpendelmodalStatus(false)} />
               </Grid>
 
               <Grid xs={12} align="center" p={{ xs: 2, md: 5, lg: 1, xl: 1 }}>
-                <Typography variant="h4" sx={{ letterSpacing: "3px" }} fontWeight={600} fontSize="x-large" color="#FF6700">Confirmation</Typography>
+                <Typography variant="h4" sx={{ letterSpacing: "3px" }} fontWeight={600} fontSize="x-large" color="#B5030B">Confirmation</Typography>
                 {DeleteData.active_status === 'active' ?
                   <Typography variant="h5" sx={{ letterSpacing: "3px" }} pt={7}
                     pb={0} fontWeight={600} color="#1F1F1F">{`Do you want to Inactive Banner?`}
@@ -823,7 +840,7 @@ const Team = () => {
               </Grid>
 
               <Grid xs={12} align="center" p={{ xs: 2, md: 5, lg: 1, xl: 1 }}>
-                <Typography variant="h4" sx={{ letterSpacing: "3px" }} fontWeight={600} fontSize="x-large" color="#FF6700">Confirmation</Typography>
+                <Typography variant="h4" sx={{ letterSpacing: "3px" }} fontWeight={600} fontSize="x-large" color="#B5030B">Confirmation</Typography>
 
                 <Typography variant="h5" sx={{ letterSpacing: "3px" }} pt={7} pb={0} fontWeight={600} color="#1F1F1F">Do you want to delete this Ad ?</Typography>  </Grid>
             </Grid>

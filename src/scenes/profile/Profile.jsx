@@ -24,7 +24,7 @@ const btnimage = {
     width: '55%',
     marginTop: '0px',
     marginBottom: '0px',
-    color: '#789040',
+    color: '#B5030B',
     backgroundColor: 'transparent',
     borderColor: 'transparent',
     height: '50px',
@@ -39,8 +39,8 @@ const btn = {
     marginTop: '0px',
     marginBottom: '0px',
     color: 'white',
-    backgroundColor: '#789040',
-    borderColor: '#789040',
+    backgroundColor: '#B5030B',
+    borderColor: '#B5030B',
     height: '50px',
     padding: '0px',
     fontFamily: 'bold',
@@ -52,8 +52,8 @@ const btnpassword = {
     marginTop: '0px',
     marginBottom: '0px',
     color: 'white',
-    backgroundColor: '#789040',
-    borderColor: '#789040',
+    backgroundColor: '#B5030B',
+    borderColor: '#B5030B',
     height: '50px',
     padding: '0px',
     fontFamily: 'bold',
@@ -134,7 +134,7 @@ function Profile() {
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
-                    confirmButtonColor: "#FF6700",
+                    confirmButtonColor: "#B5030B",
                     text: "Server Down!"
                 })
             });
@@ -192,7 +192,7 @@ function Profile() {
                                     Swal.fire({
                                         title: "Success",
                                         text: "Admin Updated Succesfully",
-                                        confirmButtonColor: "#789040",
+                                        confirmButtonColor: "#B5030B",
                                         icon: "success",
                                         confirmButtonText: "OK",
                                     });
@@ -207,7 +207,7 @@ function Profile() {
                             Swal.fire({
                                 icon: 'error',
                                 title: 'Oops...',
-                                confirmButtonColor: "#FF6700",
+                                confirmButtonColor: "#B5030B",
                                 text: "Server Down!"
                             })
                         });
@@ -240,7 +240,7 @@ function Profile() {
                                     Swal.fire({
                                         title: "Success",
                                         text: "Admin Updated Succesfully",
-                                        confirmButtonColor: "#789040",
+                                        confirmButtonColor: "#B5030B",
                                         icon: "success",
                                         confirmButtonText: "OK",
                                     });
@@ -255,7 +255,7 @@ function Profile() {
                             Swal.fire({
                                 icon: 'error',
                                 title: 'Oops...',
-                                confirmButtonColor: "#FF6700",
+                                confirmButtonColor: "#B5030B",
                                 text: "Server Down!"
                             })
                         });
@@ -266,7 +266,7 @@ function Profile() {
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
-                    confirmButtonColor: "#FF6700",
+                    confirmButtonColor: "#B5030B",
                     text: "Server Down!"
                 })
             });
@@ -305,7 +305,7 @@ function Profile() {
                                         <Grid container spacing={2}>
                                             <Grid xs={12} lg={12}>
                                                 <Stack align="center" direction="row" spacing={3} sx={{ display: "flex", justifyContent: "center", alignContent: "center" }}>
-                                                    <Avatar src={`${url}` + adminimage} alt="..." sx={{ border: "2px solid #789040", width: 100, height: 100 }} />
+                                                    <Avatar src={`${url}` + adminimage} alt="..." sx={{ border: "2px solid #B5030B", width: 100, height: 100 }} />
                                                 </Stack>
                                             </Grid>
                                         </Grid>
@@ -344,12 +344,12 @@ function Profile() {
                                                 {shownewimage ?
                                                     <Stack align="center" direction="row" spacing={3} sx={{ display: "flex", justifyContent: "center", alignContent: "center" }}>
                                                         <div style={{ display: "flex", justifyContent: "center", alignContent: "center" }}>
-                                                            <Avatar src={file} alt="..." sx={{ border: "2px solid #789040", width: 130, height: 130 }} />
+                                                            <Avatar src={file} alt="..." sx={{ border: "2px solid #B5030B", width: 130, height: 130 }} />
                                                         </div>
                                                     </Stack>
                                                     :
                                                     <Stack align="center" direction="row" spacing={3} sx={{ display: "flex", justifyContent: "center", alignContent: "center" }}>
-                                                        <Avatar src={`${url}` + adminimage} alt="..." sx={{ border: "2px solid #789040", width: 130, height: 130 }} />
+                                                        <Avatar src={`${url}` + adminimage} alt="..." sx={{ border: "2px solid #B5030B", width: 130, height: 130 }} />
                                                     </Stack>
                                                 }
                                             </Grid>
@@ -368,7 +368,7 @@ function Profile() {
                                                             <Grid sx={{ zIndex: 2, mt: -2.5, ml: { md: 29, lg: 29 } }} xs={1}>
                                                                 <Box pt={0} mb={0} >
                                                                     <div >
-                                                                        <AddCircle sx={{ position: "static", color: "#789040" }} />
+                                                                        <AddCircle sx={{ position: "static", color: "#B5030B" }} />
                                                                     </div>
                                                                 </Box>
                                                             </Grid>

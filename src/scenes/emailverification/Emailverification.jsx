@@ -6,7 +6,7 @@ import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2'
 import image from '../../components/Images/logo.svg'
-import signinmockup from "../../components/Images/signinmockup.jpeg"
+import signinmockup from "../../components/Images/loginLogo.webp"
 import Avatar from '@mui/material/Avatar';
 import url from '../url'
 import { NavLink } from 'react-router-dom';
@@ -39,8 +39,8 @@ const btn = {
     marginTop: '70px',
     // marginBottom: '20px',
     color: 'white',
-    backgroundColor: '#FF6700',
-    borderColor: '#FF6700',
+    backgroundColor: '#B5030B',
+    borderColor: '#B5030B',
     height: '45px',
     padding: '0px',
     fontWeight: "medium",
@@ -88,7 +88,7 @@ function Emailverification() {
             Swal.fire({
                 icon: 'warning',
                 title: 'warning',
-                confirmButtonColor: "#FF6700",
+                confirmButtonColor: "#B5030B",
                 text: 'Email is Required'
             })
         } else if (!isValidEmail) {
@@ -96,7 +96,7 @@ function Emailverification() {
             Swal.fire({
                 icon: 'error',
                 title: 'Warning',
-                confirmButtonColor: "#FF6700",
+                confirmButtonColor: "#B5030B",
                 text: 'Enter Valid Email !'
             })
         } else {
@@ -121,7 +121,7 @@ function Emailverification() {
                         Swal.fire({
                             icon: 'success',
                             title: 'Success...',
-                            confirmButtonColor: "#FF6700",
+                            confirmButtonColor: "#B5030B",
                             text: 'OTP Send on your Email Address...',
                         })
                         setIsloading(false);
@@ -130,7 +130,7 @@ function Emailverification() {
                         Swal.fire({
                             icon: 'error',
                             title: 'Oops...',
-                            confirmButtonColor: "#FF6700",
+                            confirmButtonColor: "#B5030B",
                             text: 'Email Not Registered',
                         })
                     }
@@ -141,7 +141,7 @@ function Emailverification() {
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
-                        confirmButtonColor: "#FF6700",
+                        confirmButtonColor: "#B5030B",
                         text: "Server Down!"
                     })
                 });
@@ -155,7 +155,7 @@ function Emailverification() {
             Swal.fire({
                 icon: 'warning',
                 title: 'warning',
-                confirmButtonColor: "#FF6700",
+                confirmButtonColor: "#B5030B",
                 text: 'Enter OTP For Verification'
             })
             setOpen(false);
@@ -188,7 +188,7 @@ function Emailverification() {
                         Swal.fire({
                             icon: 'error',
                             title: 'Oops...',
-                            confirmButtonColor: "#FF6700",
+                            confirmButtonColor: "#B5030B",
                             text: 'Wrong OTP!'
                         })
                     }
@@ -198,7 +198,7 @@ function Emailverification() {
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
-                        confirmButtonColor: "#FF6700",
+                        confirmButtonColor: "#B5030B",
                         text: "Server Down!"
                     })
                 });
@@ -364,7 +364,7 @@ function Emailverification() {
                             </Grid>
 
                             <Grid xs={12} align="center" p={{ xs: 2, md: 5, lg: 5, xl: 5 }}>
-                                <Typography variant="h4" sx={{ letterSpacing: "3px" }} fontWeight={600} fontSize="x-large" color="#FF6700">Success</Typography>
+                                <Typography variant="h4" sx={{ letterSpacing: "3px" }} fontWeight={600} fontSize="x-large" color="#B5030B">Success</Typography>
 
                                 <Typography variant="h5" sx={{ letterSpacing: "3px" }} pt={7} pb={0} fontWeight={600} color="#1F1F1F">Code Verified Successfully</Typography>
 

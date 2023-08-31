@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import url from "../url"
 import { tokens } from "../../theme";
-import {  Add, List, Apps, MoreVert } from '@mui/icons-material';
+import { Add, List, Apps, MoreVert } from '@mui/icons-material';
 import React, { useState, useEffect } from "react";
 import { Checkbox } from '@mui/material';
 import 'react-perfect-scrollbar/dist/css/styles.css';
@@ -20,15 +20,15 @@ import {
   GridToolbarExport,
   GridToolbarDensitySelector,
 } from '@mui/x-data-grid';
-import { Close , Cancel, Delete, Edit, Visibility } from "@mui/icons-material";
-
+import { Close,Autorenew, Cancel, Delete, Edit, Visibility } from "@mui/icons-material";
+import './index.css'
 const btncancel = {
   width: '90%',
   letterSpacing: "2px",
   marginBottom: '40px',
-  color: '#FF6700',
+  color: '#B5030B',
   backgroundColor: '#ffffff',
-  border: '1px solid #FF6700',
+  border: '1px solid #B5030B',
   height: '50px',
   padding: '0px',
   fontFamily: '',
@@ -43,8 +43,8 @@ const btn = {
   letterSpacing: "2px",
   marginBottom: '40px',
   color: 'white',
-  backgroundColor: '#FF6700',
-  borderColor: '#FF6700',
+  backgroundColor: '#B5030B',
+  borderColor: '#B5030B',
   height: '50px',
   padding: '0px',
   fontFamily: '',
@@ -180,7 +180,7 @@ const Team = () => {
           Swal.fire({
             icon: 'success',
             title: 'Success!',
-            confirmButtonColor: "#FF6700",
+            confirmButtonColor: "#B5030B",
             text: 'Daily Deal Deleted Successfully!',
           })
         } else {
@@ -188,7 +188,7 @@ const Team = () => {
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
-            confirmButtonColor: "#FF6700",
+            confirmButtonColor: "#B5030B",
             text: ''
           })
         }
@@ -198,7 +198,7 @@ const Team = () => {
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
-          confirmButtonColor: "#FF6700",
+          confirmButtonColor: "#B5030B",
           text: "Server Down!"
         })
       });
@@ -256,7 +256,7 @@ const Team = () => {
           Swal.fire({
             icon: 'success',
             title: 'Success!',
-            confirmButtonColor: "#FF6700",
+            confirmButtonColor: "#B5030B",
             text: 'Daily Deal Status Updated Successfully!',
           })
 
@@ -266,7 +266,7 @@ const Team = () => {
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
-            confirmButtonColor: "#FF6700",
+            confirmButtonColor: "#B5030B",
             text: ''
           })
         }
@@ -276,7 +276,7 @@ const Team = () => {
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
-          confirmButtonColor: "#FF6700",
+          confirmButtonColor: "#B5030B",
           text: "Server Down!"
         })
       });
@@ -330,6 +330,14 @@ const Team = () => {
         return (
           <>
             <div>
+            <IconButton style={{ cursor: 'pointer' }} onClick={() => {
+                                handleOpendelmodalStatus(row.row); setDeleteData(row.row);
+                            }}>
+                                <Tooltip title="Change Status" >
+                                    <Autorenew sx={{ color: "green" }} />
+                                </Tooltip>
+                            </IconButton>
+
               <IconButton onClick={() => {
                 setViewData(row.row); console.log(row.row);
                 var myDate = new Date(row.row.ends_at);
@@ -426,7 +434,7 @@ const Team = () => {
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
-            confirmButtonColor: "#FF6700",
+            confirmButtonColor: "#B5030B",
             text: ''
           })
         }
@@ -436,7 +444,7 @@ const Team = () => {
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
-          confirmButtonColor: "#FF6700",
+          confirmButtonColor: "#B5030B",
           text: "Server Down!"
         })
       });
@@ -464,7 +472,7 @@ const Team = () => {
                       showtable ?
                         <>
                           <Box sx={{ pl: 1 }}>
-                            <List fontSize="large" sx={{ color: "white", backgroundColor: "#FF6700", borderRadius: "5px" }} onClick={() => { setShowtable(true) }} />
+                            <List fontSize="large" sx={{ color: "white", backgroundColor: "#B5030B", borderRadius: "5px" }} onClick={() => { setShowtable(true) }} />
                           </Box>
                           <Box sx={{ pr: 1 }}>
                             <Apps fontSize="large" sx={{ color: "#9B9B9B", backgroundColor: "transparent", borderRadius: "5px" }} onClick={() => setShowtable(false)} />
@@ -476,7 +484,7 @@ const Team = () => {
                             <List fontSize="large" sx={{ color: "#9B9B9B", backgroundColor: "transparent", borderRadius: "5px" }} onClick={() => setShowtable(true)} />
                           </Box>
                           <Box sx={{ pr: 1 }}>
-                            <Apps fontSize="large" sx={{ color: "white", backgroundColor: "#FF6700", borderRadius: "5px" }} onClick={() => setShowtable(false)} />
+                            <Apps fontSize="large" sx={{ color: "white", backgroundColor: "#B5030B", borderRadius: "5px" }} onClick={() => setShowtable(false)} />
                           </Box>
                         </>
                     }
@@ -492,7 +500,7 @@ const Team = () => {
                 style={{
                   marginTop: "2%", padding: "10px", display: "flex", justifyContent: "center",
                   alignContent: "center", alignSelf: "center", border: "none", borderRadius: "50px",
-                  backgroundColor: "#FF6700", color: "white"
+                  backgroundColor: "#B5030B", color: "white"
                 }}>
                 <Stack direction="row" sx={{ display: "flex", justifyContent: "right", alignContent: "right", gap: "3px" }}>
                   <div>
@@ -516,13 +524,17 @@ const Team = () => {
 
 
 
-        <Grid container spacing={0} pt={2} >
+        <Grid mb='6%' container spacing={0} pt={2} >
           {
             showtable ?
               <Grid xs={12} p={1} align="center">
                 <div style={{ height: 600, width: '100%' }}>
                   <DataGrid
                     rows={Logos}
+                    getRowClassName={(params) => {
+                      return 'unblock-row'
+                    }}
+
                     getRowId={Logos.id}
                     id={Logos.id}
                     columns={columns}
@@ -548,10 +560,13 @@ const Team = () => {
                     <Card width="100%" sx={{ padding: 0, boxShadow: "none", borderRadius: "10px", border: "1px solid #D8D8D8" }}>
                       <CardContent>
                         <Grid container spacing={0} >
-                          <Grid xs={6} align="left" onClick={() => { setViewData(item); handleOpenmodal(); }}>
-                            <Typography variant="h5" pb={1} fontWeight={750} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#FF6700">
+                          <Grid  width = '100%' xs={6} align="left" onClick={() => { setViewData(item); handleOpenmodal(); }}>
+                          <PerfectScrollbar>
+                            <Typography variant="h5" pb={1} fontWeight={750} fontSize="16px" 
+                            sx={{maxHeight:'50px',width:'100%', letterSpacing: "2px" }} color="#B5030B">
                               {item.title}
                             </Typography>
+                            </PerfectScrollbar>
                           </Grid>
 
                           <Grid xs={6} align="right">
@@ -666,10 +681,12 @@ const Team = () => {
                               setViewData(item);
                               handleOpenmodal();
                             }}>
-                            <Typography variant="h6" fontWeight={600} pb={1}
-                              fontSize="12px" color="#808080">
-                              {item.description}
-                            </Typography>
+                            <PerfectScrollbar>
+                              <Typography variant="h6" fontWeight={600} pb={1}
+                                fontSize="12px" color="#808080" sx={{ maxHeight: '100px' }}>
+                                {item.description}
+                              </Typography>
+                            </PerfectScrollbar>
                           </Grid>
                         </Grid>
                       </CardContent>
@@ -689,7 +706,7 @@ const Team = () => {
           aria-describedby="modal-modal-description"
         >
           <Box width={{ xs: 400, md: 500, lg: 600, xl: 650 }} height="auto" sx={styleview}>
-            <Box sx={{ borderTopLeftRadius: "20px", borderTopRightRadius: "20px", backgroundColor: "#FF6700", width: "100%", height: "80px" }}>
+            <Box sx={{ borderTopLeftRadius: "20px", borderTopRightRadius: "20px", backgroundColor: "#B5030B", width: "100%", height: "80px" }}>
               <div xs={12} align="right" pt={0.6} pr={3}>
                 <Cancel sx={{ marginRight: '10px', marginTop: "5px", color: "white" }} onClick={() => setOpenmodal(false)} />
               </div>                <Box xs={12} sx={{ mb: '20px' }} align="center">
@@ -701,10 +718,10 @@ const Team = () => {
 
             <Grid xs={12} align="center" pt={3}>
               {viewData.image !== null ?
-                <img alt={''} src={`https://staging-gearone-be.mtechub.com/${viewData.image}`} style={{ bgcolor: "#FF6700", width: '175px', height: '175px' }}>
+                <img alt={''} src={`https://staging-gearone-be.mtechub.com/${viewData.image}`} style={{ bgcolor: "#B5030B", width: '175px', height: '175px' }}>
                 </img>
                 :
-                <Avatar sx={{ bgcolor: "#FF6700", width: 75, height: 75 }}>
+                <Avatar sx={{ bgcolor: "#B5030B", width: 75, height: 75 }}>
                   <Typography variant="paragraph" sx={{ textTransform: "uppercase", fontSize: "18px", fontWeight: 600 }} p={1} color="white">
                   </Typography>
                 </Avatar>
@@ -770,9 +787,9 @@ const Team = () => {
                   </Typography>
                   :
                   <Typography variant="h5"
-                    fontWeight={600} fontSize="14px" 
+                    fontWeight={600} fontSize="14px"
                     color="#808080">
-                      InActive
+                    InActive
                   </Typography>
                 }
               </Grid>
@@ -799,14 +816,14 @@ const Team = () => {
               </Grid>
 
               <Grid xs={6} align="left" p={0.5}>
-                <Typography variant="h5"
-                  fontWeight={600} fontSize="14px" sx={{ overflowX: 'scroll', maxHeight: '100px' }}
-                  color="#808080">
-                  <PerfectScrollbar>
+                <PerfectScrollbar>
+                  <Typography variant="h5"
+                    fontWeight={600} fontSize="14px" sx={{ maxHeight: '100px' }}
+                    color="#808080">
                     {viewData.description}
-                  </PerfectScrollbar>
 
-                </Typography>
+                  </Typography>
+                </PerfectScrollbar>
               </Grid>
 
 
@@ -829,7 +846,7 @@ const Team = () => {
               </Grid>
 
               <Grid xs={12} align="center" p={{ xs: 2, md: 5, lg: 1, xl: 1 }}>
-                <Typography variant="h4" sx={{ letterSpacing: "3px" }} fontWeight={600} fontSize="x-large" color="#FF6700">Confirmation</Typography>
+                <Typography variant="h4" sx={{ letterSpacing: "3px" }} fontWeight={600} fontSize="x-large" color="#B5030B">Confirmation</Typography>
 
                 {DeleteData.status === 'active' ?
                   <Typography variant="h5" sx={{ letterSpacing: "3px" }} pt={7}
@@ -878,7 +895,7 @@ const Team = () => {
               </Grid>
 
               <Grid xs={12} align="center" p={{ xs: 2, md: 5, lg: 1, xl: 1 }}>
-                <Typography variant="h4" sx={{ letterSpacing: "3px" }} fontWeight={600} fontSize="x-large" color="#FF6700">Confirmation</Typography>
+                <Typography variant="h4" sx={{ letterSpacing: "3px" }} fontWeight={600} fontSize="x-large" color="#B5030B">Confirmation</Typography>
 
                 <Typography variant="h5" sx={{ letterSpacing: "3px" }} pt={7} pb={0} fontWeight={600} color="#1F1F1F">Do you want to delete this Daily Deal ?</Typography>  </Grid>
             </Grid>
