@@ -295,66 +295,67 @@ export default function UserDetails({
                                 />
                             </StyledListItem>
 
-                            <StyledListItem
-                                secondaryAction={
-                                    <a href={facebook} target="_blank" rel="noopener noreferrer">
-                                        <ListItemText
-                                            primary={facebook}
-                                            secondary={secondary ? 'Secondary text' : null}
-                                        />
-                                    </a>
-                                }
-                            >
+                            <StyledListItem>
                                 <ListItemText
                                     primary="Facebook"
                                     secondary={secondary ? 'Secondary text' : null}
                                 />
+                                <a
+                                    style={{ maxWidth: { sx: '150px', md: '500px' }, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}
+                                    href={facebook}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    {facebook}
+                                </a>
                             </StyledListItem>
-                            <StyledListItem
-                                secondaryAction={
-                                    <a href={twitter} target="_blank" rel="noopener noreferrer">
-                                        <ListItemText
-                                            primary={twitter}
-                                            secondary={secondary ? 'Secondary text' : null}
-                                        />
-                                    </a>
 
-                                }
-                            >
+
+                            <StyledListItem>
                                 <ListItemText
                                     primary="Twitter"
                                     secondary={secondary ? 'Secondary text' : null}
                                 />
+                                <a
+                                    style={{ maxWidth: { sx: '150px', md: '500px' }, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}
+                                    href={twitter}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    {twitter}
+                                </a>
                             </StyledListItem>
-                            <StyledListItem
-                                secondaryAction={
-                                    <a href={linked_in} target="_blank" rel="noopener noreferrer">
-                                        <ListItemText
-                                            primary={linked_in}
-                                            secondary={secondary ? 'Secondary text' : null}
-                                        />
-                                    </a>
-                                }
-                            >
+
+
+                            <StyledListItem>
                                 <ListItemText
                                     primary="LinkedIn"
                                     secondary={secondary ? 'Secondary text' : null}
                                 />
+                                <a
+                                    style={{ maxWidth: { sx: '150px', md: '500px' }, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}
+                                    href={linked_in}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    {linked_in}
+                                </a>
                             </StyledListItem>
-                            <StyledListItem
-                                secondaryAction={
-                                    <a href={instagram} target="_blank" rel="noopener noreferrer">
-                                        <ListItemText
-                                            primary={linked_in}
-                                            secondary={secondary ? 'Secondary text' : null}
-                                        />
-                                    </a>
-                                }
-                            >
+
+
+                            <StyledListItem>
                                 <ListItemText
                                     primary="Instagram"
                                     secondary={secondary ? 'Secondary text' : null}
                                 />
+                                <a
+                                    style={{ maxWidth: { sx: '150px', md: '500px' }, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}
+                                    href={instagram}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    {instagram}
+                                </a>
                             </StyledListItem>
 
                         </List>

@@ -294,8 +294,19 @@ const Team = () => {
     },
     { field: 'email', headerName: <span style={{ color: "black", fontWeight: 600 }}>Email</span>, flex: 1 },
 
-    { field: 'country_code', headerName: <span style={{ color: "black", fontWeight: 600 }}>Code</span>, flex: 1 },
-    { field: 'phone', headerName: <span style={{ color: "black", fontWeight: 600 }}>Phone</span>, flex: 1 },
+    {
+      field: 'phone', headerName: <span style={{ color: "black", fontWeight: 600 }}>Phone</span>,
+      flex: 1,
+      renderCell: (row) => {
+        return (
+          <>
+            {`${row.row.country_code}-${row.row.phone}`}
+          </>
+
+        );
+      },
+    },
+
     { field: 'address', headerName: <span style={{ color: "black", fontWeight: 600 }}>Address</span>, flex: 1 },
     {
       field: `status`,
@@ -305,12 +316,12 @@ const Team = () => {
         return (
           <>
             {row.row.status === 'unblock' ?
-              < Chip onClick={() => { handleOpendelmodalStatus(row.row); setDeleteData(row.row); }} sx={{ cursor: 'pointer' }} label={row.row.status} color="success" variant="outlined" />
+              < Chip label={row.row.status} color="success" variant="outlined" />
               :
               row.row.status === null ?
-                < Chip onClick={() => { handleOpendelmodalStatus(row.row); setDeleteData(row.row); }} sx={{ cursor: 'pointer' }} label='unblock' color="success" variant="outlined" />
+                < Chip label='unblock' color="success" variant="outlined" />
                 :
-                <Chip onClick={() => { handleOpendelmodalStatus(row.row); setDeleteData(row.row); }} sx={{ cursor: 'pointer' }} label={row.row.status} color="primary" variant="outlined" />
+                <Chip label={row.row.status} color="primary" variant="outlined" />
 
             }
           </>
@@ -342,7 +353,7 @@ const Team = () => {
                 }
               })
             }}>
-              <Tooltip title="Delete" >
+              <Tooltip title="View" >
                 <Visibility sx={{ color: "#3FC0FF" }} />
               </Tooltip>
             </IconButton>
@@ -350,7 +361,7 @@ const Team = () => {
               setDeleteID(row.row.id)
               setOpendelmodal(true)
             }}>
-              <Tooltip title="view" >
+              <Tooltip title="Delete" >
                 <Delete sx={{ color: "red" }} />
               </Tooltip>
             </IconButton>
@@ -461,9 +472,9 @@ const Team = () => {
           {
             showtable ?
               <Grid xs={12} p={1} align="center">
-                <div style={{ height: 600, width: '100%' }}>
+                <div style={{ height: 600, width: '100%', overflowX: 'auto' }}>
                   <DataGrid
-                    className="custom-datagrid"  // Add the custom class here
+                    className="custom-datagrid"
                     rows={Logos}
                     getRowId={Logos.id}
                     id={Logos.id}

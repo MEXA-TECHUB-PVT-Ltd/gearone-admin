@@ -830,7 +830,7 @@ const Team = () => {
           <Grid container spacing={0} pl={3} pr={3} pt={{ lg: 2, xl: 1 }} >
             <Grid item xs={6} align="" pt={1} >
               <Typography variant="h5" fontWeight={750} fontSize="20px" sx={{ letterSpacing: "2px" }} color="#404040">
-                User Details
+                Order Details
               </Typography>
             </Grid>
 
@@ -849,16 +849,14 @@ const Team = () => {
               <ProfileCard
                 key={1}
 
-                name={Logos.length > 0 && Logos[0].username}
-                // role='admin'
-                address={Logos.length > 0 && Logos[0].address}
+                name={location.state.row.username && location.state.row.username}
+                address={ location.state.row.ordered_at && location.state.row.ordered_at}
                 imageUrl={Logos.length > 0 && `${url}${Logos[0].image}`}
-                email={Logos.length > 0 && Logos[0].email}
-                createdat={Logos.length > 0 && Logos[0].createdat}
+                email={location.state.row.email  && location.state.row.email}
+                createdat={Logos.length > 0 && location.state.row.createdat}
                 // gender={Logos[0].email}
                 blockType={Logos.length > 0 && Logos[0].status}
-                accountType={Logos.length > 0 && Logos[0].type}
-                phoneNumber={Logos.length > 0 && `${Logos[0].country_code}${Logos[0].phone}`}
+                phoneNumber={location.state.row.phone && `${location.state.row.country_code}${location.state.row.phone}`}
               />
 
             </Grid>
@@ -868,11 +866,14 @@ const Team = () => {
               <UserDetails
                 id={Logos.length > 0 && Logos[0].id}
                 block={Logos.length > 0 && Logos[0].status}
-                all_items={items}
-                liked_items={likedItems}
-                reported_items={reported_items}
-                saved_items={saved_items}
-                shared_items={shared_items}
+                merchandise_name={location.state.row.merchandise_name  && location.state.row.merchandise_name}
+                
+                merchandise_description={location.state.row.merchandise_description  && location.state.row.merchandise_description}
+                ordered_at={location.state.row.ordered_at  && location.state.row.ordered_at}
+                price={location.state.row.price  && location.state.row.price}
+                status={location.state.row.status  && location.state.row.status}
+                createdat={location.state.row.createdat  && location.state.row.createdat}
+
                 report_ads={report_ads}
                 followers={followers}
                 followings={followings}
@@ -890,186 +891,6 @@ const Team = () => {
           <Divider sx={{mt:{xs:'140%', md:'0', xl:'0'}, pb: 2 }} />
 
 
-          <Grid sx={{ mb: '23px' }} container spacing={0} pt={2} pl={2} pr={2} >
-            <Typography sx={{ ml: '10px' }} variant="h5" fontWeight={750} fontSize="20px" color="#404040">
-              Items {ItemsCount}
-            </Typography>
-
-            {
-              showtable ?
-                <>
-                  <Grid xs={12} p={1} align="center">
-                    <div style={{ height: 400, width: '100%' }}>
-                      <DataGrid
-                        rows={Items}
-                        getRowClassName={(params) => {
-                          return 'unblock-row'
-                        }}
-                        getRowId={Items.id}
-                        id={Items.id}
-                        columns={ItemColomns}
-                        initialState={{
-                          pagination: {
-                            paginationModel: { page: 0, pageSize: 5 },
-                          },
-                        }}
-                        pageSizeOptions={[5, 10]}
-                        //  checkboxSelection
-
-                        components={
-                          <Chip label='active_status' color="success" variant="outlined" />
-                        }
-                      />
-                    </div>
-                  </Grid>
-                  <Typography sx={{ ml: '10px' }} variant="h5" fontWeight={750} fontSize="20px" color="#404040">
-                    {`Orders       ${Orders.length}`}
-                  </Typography>
-                  <Grid xs={12} p={1} align="center">
-                    <div style={{ height: 400, width: '100%' }}>
-                      <DataGrid
-                        rows={Orders}
-                        getRowClassName={(params) => {
-                          return 'unblock-row'
-                        }}
-                        getRowId={Orders.id}
-                        id={Orders.id}
-                        columns={OrdersColomns}
-                        initialState={{
-                          pagination: {
-                            paginationModel: { page: 0, pageSize: 5 },
-                          },
-                        }}
-                        pageSizeOptions={[5, 10]}
-                        //  checkboxSelection
-
-                        components={
-                          <Chip label='active_status' color="success" variant="outlined" />
-                        }
-                      />
-                    </div>
-                  </Grid>
-
-                </>
-                :
-                <>
-                  {Logos.map((item, index) => (
-                    <Grid xs={12} md={3} lg={3} align="center" p={1}>
-                      <Card width="95%" sx={{ padding: 0, boxShadow: "none", borderRadius: "10px", border: "1px solid #D8D8D8" }}>
-                        <CardContent>
-                          <Grid onClick={() => { setViewData(item); handleOpenmodal(); }} container spacing={0} >
-                            <Grid xs={6} align="left" onClick={() => { setViewData(item); handleOpenmodal(); }}>
-                              <Typography variant="h5" pb={1} fontWeight={750} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#B5030B">
-                                {item.screen_name}
-                              </Typography>
-                            </Grid>
-
-                            <Grid xs={6} align="right">
-                              <div>
-                                {/* <MoreVert
-                                id="basic-button"
-                                aria-controls={open ? 'basic-menu' : undefined}
-                                aria-haspopup="true"
-                                aria-expanded={open ? 'true' : undefined}
-                                onClick={handleClick} sx={{ color: "#1F1F1F" }} /> */}
-                              </div>
-
-                              {/* <Menu
-                              id="basic-menu"
-                              anchorEl={anchorEl}
-                              open={open}
-                              onClose={handleClose}
-                              MenuListProps={{
-                                'aria-labelledby': 'basic-button',
-                              }}
-                              PaperProps={{
-
-                                sx: {
-                                  overflow: 'visible',
-                                  filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.22))',
-                                  mt: 1.5,
-                                  '& .MuiAvatar-root': {
-                                    width: 32,
-                                    height: 32,
-                                    ml: -0.5,
-                                    mr: 1,
-                                  },
-                                  '&:before': {
-                                    content: '""',
-                                    display: 'block',
-                                    position: 'absolute',
-                                    top: 0,
-                                    right: 23,
-                                    width: 10,
-                                    height: 10,
-                                    bgcolor: 'background.paper',
-                                    transform: 'translateY(-50%) rotate(45deg)',
-                                    zIndex: 0,
-                                  },
-                                },
-                              }}
-                              transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-                              anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-                            >
-                              <MenuItem onClick={() => navigate("/updatedietplan")}>
-                                <Edit sx={{ color: "gray" }} /><span style={{ marginLeft: 10 }}>Edit Diet Plan</span>
-                              </MenuItem>
-                              <MenuItem onClick={() => handleOpendelmodal()}>
-                                <Delete sx={{ color: "gray" }} /><span style={{ marginLeft: 10 }}>Delete Diet Plan</span>
-                              </MenuItem>
-                            </Menu> */}
-                            </Grid>
-
-                            <Grid xs={6} sx={{ pb: 1 }} align="left" onClick={handleOpenmodal}>
-                              <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
-                                Name :
-                              </Typography>
-                            </Grid>
-
-                            <Grid xs={6} sx={{ pb: 1 }} align="left" onClick={handleOpenmodal}>
-                              <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#808080">
-                                {item.username}
-                              </Typography>
-                            </Grid>
-
-
-                            <Grid xs={6} sx={{ pb: 1 }} align="left" onClick={handleOpenmodal}>
-                              <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
-                                email
-                              </Typography>
-                            </Grid>
-
-                            <Grid sx={{ pb: 1, width: '100px', height: '50px' }} xs={6} align="left" onClick={handleOpenmodal}>
-                              <Link style={{ width: '30px', height: '10px' }} variant="h6" fontWeight={300} fontSize="12px" color='#007FFF'>
-                                {item.email}
-                              </Link>
-                            </Grid>
-
-                            <Grid xs={6} sx={{ pb: 1 }} align="left" onClick={handleOpenmodal}>
-                              <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
-                                Phone
-                              </Typography>
-                            </Grid>
-
-                            <Grid xs={6} sx={{ pb: 1 }} align="left" onClick={handleOpenmodal}>
-                              <Typography variant="h5" fontWeight={600} pb={1} fontSize="12px" sx={{}} color="#808080">
-                                {`${item.country_code}:${item.phone}`}
-                              </Typography>
-                            </Grid>
-
-                          </Grid>
-                        </CardContent>
-                      </Card>
-                    </Grid>
-                  ))}
-
-                </>
-            }
-          </Grid>
-
-
-          <Grid sx={{ mb: '13px' }} container spacing={0} pt={2} pl={2} pr={2} >
-          </Grid>
 
           {/* view */}
           <Modal

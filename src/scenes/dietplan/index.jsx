@@ -21,7 +21,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import url from "../url"
 import img from '../../components/Images/hairstyleimage.jpg'
 import { tokens } from "../../theme";
-import { Subscriptions,Autorenew, Notifications, Settings, Person, Add, List, Apps, MoreVert, People, Lock, Search } from '@mui/icons-material';
+import { Subscriptions, Autorenew, Notifications, Settings, Person, Add, List, Apps, MoreVert, People, Lock, Search } from '@mui/icons-material';
 import React, { useState, useEffect } from "react";
 import ClipLoader from "react-spinners/ClipLoader";
 import { Checkbox } from '@mui/material';
@@ -246,61 +246,93 @@ const Team = () => {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
         };
-        var Data = {
-            "Item_ID": ID,
-            "promoted": promoted_status,
-            "start_date": start_date,
-            "end_date": end_date,
-        };
-        await fetch(InsertAPIURL, {
-            method: 'PUT',
-            headers: headers,
-            body: JSON.stringify(Data),
-        })
-            .then(response => response.json())
-            .then(async response => {
-                console.log(response);
-                if (response.status == true) {
-                    setIsloading(false);
-                    getAllLogos();
-                    setOpenaddmodal(false);
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Success!',
-                        confirmButtonColor: "#B5030B",
-                        text: 'Status Updated Successfully',
-                    })
+        var Data = {};
+        let check = true;
+        console.log(promoted_status)
+        if (promoted_status === "true") {
+            if (start_date === '' && end_date === '') {
+                check = false;
+                setOpenaddmodal(false);
+                setIsloading(false);
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Warning!',
+                    confirmButtonColor: "#B5030B",
+                    text: 'All Fields Required',
+                })
+            } else {
+                Data = {
+                    "Item_ID": ID,
+                    "promoted": promoted_status,
+                    "start_date": start_date,
+                    "end_date": end_date,
+                };
+            }
+        }
+        if (promoted_status === "false") {
+            Data = {
+                "Item_ID": ID,
+                "promoted": promoted_status,
+                "start_date": Date.now(),
+                "end_date": Date.now(),
+            };
+        }
+        console.log(Data);
+        if (check) {
+            await fetch(InsertAPIURL, {
+                method: 'PUT',
+                headers: headers,
+                body: JSON.stringify(Data),
+            })
+                .then(response => response.json())
+                .then(async response => {
+                    console.log(response);
+                    if (response.status === true) {
+                        setIsloading(false);
+                        getAllLogos();
+                        handleClose();
+                        setOpenaddmodal(false);
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success!',
+                            confirmButtonColor: "#B5030B",
+                            text: 'Status Updated Successfully',
+                        })
 
-                } else if (response.message == `Please Enter Category name`) {
-                    setOpenaddmodal(false);
+                    } else if (response.message == `Please Enter Category name`) {
+                        handleClose();
+                        setOpenaddmodal(false);
+                        setIsloading(false);
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Oops...',
+                            confirmButtonColor: "#B5030B",
+                            text: 'Please Enter Name'
+                        })
+                    } else {
+                        handleClose();
+                        setIsloading(false);
+                        setOpenaddmodal(false);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            confirmButtonColor: "#B5030B",
+                            text: 'Something went wrong, Try Again'
+                        })
+                    }
+                }
+                )
+                .catch(error => {
+                    handleClose();
                     setIsloading(false);
-                    Swal.fire({
-                        icon: 'warning',
-                        title: 'Oops...',
-                        confirmButtonColor: "#B5030B",
-                        text: 'Please Enter Name'
-                    })
-                } else {
-                    setIsloading(false);
-                    setOpenaddmodal(false);
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
                         confirmButtonColor: "#B5030B",
-                        text: ''
+                        text: "Server Down!"
                     })
-                }
-            }
-            )
-            .catch(error => {
-                setIsloading(false);
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    confirmButtonColor: "#B5030B",
-                    text: "Server Down!"
-                })
-            });
+                });
+        }
     }
 
 
@@ -372,17 +404,9 @@ const Team = () => {
                 return (
                     <>
                         {row.row.promoted === 'true' ?
-                            < Chip onClick={() => {
-                                setID(row.row.id)
-                                setPromoted_status(row.row.promoted)
-                                handleOpenadd();
-                            }} sx={{ cursor: 'pointer' }} label={row.row.promoted} color="success" variant="outlined" />
+                            < Chip label={row.row.promoted} color="success" variant="outlined" />
                             :
-                            <Chip onClick={() => {
-                                setID(row.row.id)
-                                setPromoted_status(row.row.promoted)
-                                handleOpenadd();
-                            }} sx={{ cursor: 'pointer' }} label={row.row.promoted} color="primary" />
+                            <Chip label={row.row.promoted} color="primary" />
 
                         }
                     </>
@@ -623,7 +647,7 @@ const Team = () => {
 
 
                                                     <Grid xs={6} align="right">
-                                                        {/* <div>
+                                                        <div>
                                                             <MoreVert
                                                                 id="basic-button"
                                                                 aria-controls={open ? 'basic-menu' : undefined}
@@ -635,7 +659,7 @@ const Team = () => {
                                                                     setAnchorEl(event.currentTarget)
                                                                 }}
                                                             />
-                                                        </div> */}
+                                                        </div>
                                                         <Menu
                                                             id="basic-menu"
                                                             anchorEl={anchorEl}
@@ -671,49 +695,17 @@ const Team = () => {
                                                             transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                                                             anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                                                         >
+
                                                             <MenuItem
                                                                 onClick={() => {
-                                                                    setActionData(idData);
-                                                                    // if (idData.image !== null) {
-                                                                    //   setHidelabelUpload(true);
-                                                                    // }
-                                                                    navigate('/updatedietplan', {
-                                                                        state: {
-                                                                            id: idData.id,
-                                                                            images: idData.images,
-                                                                            name: idData.name,
-                                                                            price: idData.price,
-                                                                            category_id: idData.category_id,
-
-                                                                            description: idData.description,
-                                                                            locations: idData.location,
-                                                                            promoted: idData.promoted,
-                                                                            start_date: idData.start_date,
-                                                                            end_date: idData.end_date,
-                                                                            added_by: idData.added_by,
-
-                                                                        }
-                                                                    })
-
-                                                                }
-                                                                }
+                                                                    setID(item.id)
+                                                                    setPromoted_status(item.promoted)
+                                                                    handleOpenadd();
+                                                                }}
                                                             >
-                                                                <Edit sx={{ color: "#40E0D0" }} /><span style={{ marginLeft: 10 }}>Update</span>
+                                                                <Autorenew sx={{ color: "#40E0D0" }} /><span style={{ marginLeft: 10 }}>Change Status</span>
                                                             </MenuItem>
 
-                                                            <Grid container spacing={0}>
-                                                                <Grid xs={12} align="center">
-                                                                    <Divider sx={{ width: "80%" }} />
-                                                                </Grid>
-                                                            </Grid>
-
-
-                                                            <MenuItem onClick={() => {
-                                                                setDeleteID(idData.id);
-                                                                handleOpendelmodal();
-                                                            }}>
-                                                                <Delete sx={{ color: "#E10006" }} /><span style={{ marginLeft: 10 }}>Delete</span>
-                                                            </MenuItem>
                                                         </Menu>
 
                                                     </Grid>

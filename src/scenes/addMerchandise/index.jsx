@@ -186,7 +186,7 @@ const Team = () => {
             })
         } else {
             var Data = {
-                "adminID": 1,
+                "adminID": localStorage.getItem("adminID"),
                 "name": Name,
                 "price": Price,
                 "category_id": Category_id,
@@ -202,7 +202,7 @@ const Team = () => {
                 .then(response => response.json())
                 .then(async response => {
                     console.log(response)
-                    if (response.status == true) {
+                    if (response.status === true) {
                         if (selectedFile !== null && selectedFile !== undefined) {
                             formData.append("images", selectedFile)
                             if (selectedFile1 !== null && selectedFile1 !== undefined) {
@@ -262,14 +262,22 @@ const Team = () => {
                             text: 'Merchandise Added Successfully!',
                         })
 
-                    } else {
+                    } else if(response.message === 'Entered Admin ID is not present'){
                         setIsloading(false);
                         Swal.fire({
                             icon: 'error',
                             title: 'Oops',
                             confirmButtonColor: "#B5030B",
-                            text: ''
+                            text: 'Session Expired, Login Again!'
                         })
+                    }else{
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops',
+                            confirmButtonColor: "#B5030B",
+                            text: response.message
+                        })
+
                     }
                 }
 

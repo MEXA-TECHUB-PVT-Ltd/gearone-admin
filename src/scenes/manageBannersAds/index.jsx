@@ -1,4 +1,4 @@
-import { Box, Tooltip, Typography, useTheme, IconButton, TextField, Grid, Modal, Button, Stack, Card, CardContent, MenuItem, Menu, Paper, Divider, Avatar } from "@mui/material";
+import { Box, Tooltip,Select, Typography, useTheme, IconButton, TextField, Grid, Modal, Button, Stack, Card, CardContent, MenuItem, Menu, Paper, Divider, Avatar } from "@mui/material";
 import Chip from '@mui/material/Chip';
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import PerfectScrollbar from 'react-perfect-scrollbar'
@@ -315,6 +315,7 @@ const Team = () => {
       });
   }
 
+  const [Screens, setScreens] = useState([]);
 
 
   const columns = [
@@ -323,14 +324,14 @@ const Team = () => {
     {
       field: 'active_status',
       headerName: <span style={{ color: "black", fontWeight: 600 }}>Status</span>,
-      flex: 1,
+      flex: 0.5,
       renderCell: (row) => {
         return (
           <>
             {row.row.active_status === 'active' ?
-              < Chip onClick={() => { handleOpendelmodalStatus(row.row); setDeleteData(row.row); }} sx={{ cursor: 'pointer' }} label={row.row.active_status} color="success" variant="outlined" />
+              < Chip label={row.row.active_status} color="success" variant="outlined" />
               :
-              <Chip onClick={() => { handleOpendelmodalStatus(row.row); setDeleteData(row.row); }} sx={{ cursor: 'pointer' }} label={row.row.active_status} color="primary" variant="outlined" />
+              <Chip label={row.row.active_status} color="primary" variant="outlined" />
 
             }
           </>
@@ -422,10 +423,48 @@ const Team = () => {
   ];
   const [Logos, setLogos] = useState([]);
   useEffect(() => {
+    getAllScreens();
     getAllLogos();
   }, [])
 
+  const getAllScreens = async () => {
+    var InsertAPIURL = `${url}screen/get_all_screen`
+    var headers = {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    };
+    await fetch(InsertAPIURL, {
+      method: 'GET',
+      headers: headers,
+    })
+      .then(response => response.json())
+      .then(response => {
+        console.log(response);
+        if (response.message == `All screens Details`) {
+          // setLogos(response.count);
+          setScreens(response.result);
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            confirmButtonColor: "#B5030B",
+            text: ''
+          })
+        }
+      }
+      )
+      .catch(error => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          confirmButtonColor: "#B5030B",
+          text: "Server Down!"
+        })
+      });
+  }
+
   const getAllLogos = async () => {
+    setScreen("ALL Screens");
     var InsertAPIURL = `${url}ads/get_all_ads`
     var headers = {
       'Accept': 'application/json',
@@ -461,91 +500,130 @@ const Team = () => {
         })
       });
   }
+  const [Screen, setScreen] = React.useState("ALL Screens");
+
+  const getAllLogos_ByScreen = async (screen_id) => {
+    var InsertAPIURL = `${url}ads/get_ads_by_screen`
+    var headers = {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    };
+    const Data = {
+      "screen_id": screen_id
+    }
+    console.log(screen_id)
+    await fetch(InsertAPIURL, {
+      method: 'POST',
+      headers: headers,
+      body: JSON.stringify(Data),
+    })
+
+      .then(response => response.json())
+      .then(response => {
+        console.log(response);
+        if (response.status === true) {
+          // setLogos(response.count);
+          setLogos(response.result);
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            confirmButtonColor: "#B5030B",
+            text: ''
+          })
+        }
+      }
+      )
+      .catch(error => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          confirmButtonColor: "#B5030B",
+          text: "Server Down!"
+        })
+      });
+  }
+
+  const handleChangeScreen = (event) => {
+    if (event.target.value === "ALL Screens") {
+      getAllLogos();
+    } else {
+      getAllLogos_ByScreen(event.target.value)
+    }
+    setScreen(event.target.value);
+  };
 
   return (
     <>
       <Box sx={{ height: "100%", width: "100%", overflowX: "scroll" }}>
-        <Grid container spacing={0} pl={3} pr={3} pt={{ lg: 2, xl: 1 }} >
-          <Grid item xs={6} align="" pt={1} >
-            <Typography variant="h5" fontWeight={750} fontSize="20px" sx={{ letterSpacing: "2px" }} color="#404040">
-              Banners
+
+        <Grid container pt={{ lg: 2, xl: 1 }} >
+          <Grid item md={5.3} xs={12} align="left" pt={1}>
+            <Typography variant="h5" fontWeight={750} fontSize="20px" sx={{ ml: '2%', letterSpacing: "2px" }} color="#404040">
+              Banner Ads
             </Typography>
           </Grid>
+          <Grid  item md={4} xs={12} align="right" pt={0 } sx={{mr:{xs:'3%', md:'0%'}, mb:{xs:'3%', md:'0%'}, height: '42px' }}>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  displayEmpty
+                  sx={{ height: '100%' }}
+                  defaultValue={Screen}
+                onChange={handleChangeScreen}
+                >
+                  <MenuItem key="ALL Screens" value="ALL Screens" >
+                    <em>ALL Screens</em>
+                  </MenuItem>
 
-          <Grid item xs={3} align="center">
-            {/* <Stack direction="row" spacing={0}>
-              <div>
-                <Box sx={{ width: "100%", border: "1px solid lightgray", borderRadius: "50px" }}>
-                  <Stack p={0.5}>
-                    <Grid container spacing={0} >
-                      <Grid xs={2} md={2} lg={2} sx={{ pl: 1 }}>
-                        <Search sx={{ color: "lightgray" }} />
-                      </Grid>
+                  {Screens.map((data) => (
+                    <MenuItem key={data.id} value={data.id}>{`${data.name}`}</MenuItem>
+                  ))}
+                </Select>
 
-                      <Grid xs={10} md={10} lg={10} sx={{ pr: 1 }}>
-                        <Typography variant="paragraph" fontWeight={500} fontSize="13px" color="lightgray">
-                          Search Here
-                        </Typography>
-                      </Grid>
-                    </Grid>
-                  </Stack>
-                </Box>
-              </div>
-
-            </Stack> */}
           </Grid>
 
-          <Grid item xs={1.5} align="center">
-            <div>
-              <Box sx={{ width: '90px', borderRadius: "5px", border: "1px solid #D8D8D8" }}>
-                <Box >
-                  <div style={{ padding: "5px", paddingBottom: "0px", display: "flex", justifyContent: "center", alignContent: "center", gap: "3px" }}>
-                    {
-                      showtable ?
-                        <>
-                          <Box sx={{ pl: 1 }}>
-                            <List fontSize="large" sx={{ color: "white", backgroundColor: "#B5030B", borderRadius: "5px" }} onClick={() => { setShowtable(true) }} />
-                          </Box>
-                          <Box sx={{ pr: 1 }}>
-                            <Apps fontSize="large" sx={{ color: "#9B9B9B", backgroundColor: "transparent", borderRadius: "5px" }} onClick={() => setShowtable(false)} />
-                          </Box>
-                        </>
-                        :
-                        <>
-                          <Box sx={{ pl: 1 }}>
-                            <List fontSize="large" sx={{ color: "#9B9B9B", backgroundColor: "transparent", borderRadius: "5px" }} onClick={() => setShowtable(true)} />
-                          </Box>
-                          <Box sx={{ pr: 1 }}>
-                            <Apps fontSize="large" sx={{ color: "white", backgroundColor: "#B5030B", borderRadius: "5px" }} onClick={() => setShowtable(false)} />
-                          </Box>
-                        </>
-                    }
+          <Grid item md={2.7} xs={12} align="right">
+            <div style={{ display: 'flex', justifyContent: 'right', alignItems: 'right', gap: '10px', width: '100%' }}>
+              <div style={{ width: '100px', borderRadius: "5px", border: "1px solid #D8D8D8", padding: "5px", paddingBottom: "0px", display: "flex", justifyContent: "center", alignContent: "center", gap: "3px" }}>
+                {
+                  showtable ?
+                    <>
+                      <Box onClick={() => { setShowtable(true) }}>
+                        <List fontSize="large" sx={{ color: "white", backgroundColor: "#B5030B", borderRadius: "5px" }} />
+                      </Box>
+                      <Box onClick={() => setShowtable(false)}>
+                        <Apps fontSize="large" sx={{ color: "#9B9B9B", backgroundColor: "transparent", borderRadius: "5px" }} />
+                      </Box>
+                    </>
+                    :
+                    <>
+                      <Box onClick={() => setShowtable(true)}>
+                        <List fontSize="large" sx={{ color: "#9B9B9B", backgroundColor: "transparent", borderRadius: "5px" }} />
+                      </Box>
+                      <Box onClick={() => setShowtable(false)}>
+                        <Apps fontSize="large" sx={{ color: "white", backgroundColor: "#B5030B", borderRadius: "5px" }} />
+                      </Box>
+                    </>
+                }
+              </div>
+
+              <button onClick={() => navigate("/addexercise")} style={{ marginRight: '3%', padding: "10px", border: "none", borderRadius: "50px", backgroundColor: "#B5030B", color: "white" }}>
+                <Stack direction="row" sx={{ display: "flex", justifyContent: "center", alignContent: "center", gap: "3px" }}>
+                  <div>
+                    <Stack sx={{ paddingLeft: "20px" }}>
+                      <Add sx={{ fontWeight: 600, width: "24dpi" }} />
+                    </Stack>
                   </div>
-                </Box>
-              </Box>
+
+                  <div>
+                    <Stack sx={{ marginLeft: "2vh", paddingTop: "0.5vh", paddingRight: "25px", fontWeight: "bold" }}>Add</Stack>
+                  </div>
+                </Stack>
+              </button>
             </div>
           </Grid>
 
-          <Grid item xs={1.5} align="center">
-            <div style={{ display: "flex", justifyContent: "right", alignContent: "right", gap: "30px" }}>
-              <div>
-                <button onClick={() => navigate("/addexercise")} style={{ marginTop: "2%", padding: "10px", display: "flex", justifyContent: "center", alignContent: "center", alignSelf: "center", border: "none", borderRadius: "50px", backgroundColor: "#B5030B", color: "white" }}>
-                  <Stack direction="row" sx={{ display: "flex", justifyContent: "right", alignContent: "right", gap: "3px" }}>
-                    <div>
-                      <Stack sx={{ paddingLeft: "20px" }}>
-                        <Add sx={{ fontWeight: 600, width: "24dpi" }} />
-                      </Stack>
-                    </div>
-
-                    <div>
-                      <Stack sx={{ marginLeft: "2vh", paddingTop: "0.5vh", paddingRight: "25px", fontWeight: "bold" }}>Add</Stack>
-                    </div>
-                  </Stack>
-
-                </button>
-              </div>
-            </div>
-          </Grid>
         </Grid>
 
         <Divider sx={{ pb: 2 }} />
@@ -643,6 +721,7 @@ const Team = () => {
                               transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                               anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                             >
+
                               <MenuItem
                                 onClick={() => {
                                   console.log(idData);
@@ -666,12 +745,27 @@ const Team = () => {
                                 }
                               >
                                 <Edit sx={{ color: "#40E0D0" }} /><span style={{ marginLeft: 10 }}>Update</span>
+
+
+
                               </MenuItem>
                               <Grid container spacing={0}>
                                 <Grid xs={12} align="center">
                                   <Divider sx={{ width: "80%" }} />
                                 </Grid>
                               </Grid>
+                              <MenuItem onClick={() => {
+                                handleOpendelmodalStatus(idData)
+                                setDeleteData(idData);
+                              }}>
+                                <Autorenew sx={{ color: "green" }} /><span style={{ marginLeft: 10 }}>Change Status</span>
+                              </MenuItem>
+                              <Grid container spacing={0}>
+                                <Grid xs={12} align="center">
+                                  <Divider sx={{ width: "80%" }} />
+                                </Grid>
+                              </Grid>
+
                               <MenuItem onClick={() => {
                                 setDeleteID(idData.id);
                                 handleOpendelmodal();

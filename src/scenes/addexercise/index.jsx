@@ -91,12 +91,6 @@ const Team = () => {
                     .then(async response => {
                         console.log(response);
                         if (response.message == `Ad's added Successfully!`) {
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Success!',
-                                confirmButtonColor: "#B5030B",
-                                text: 'Banner Added Successfully!',
-                            })
                             if (selectedFile !== null && selectedFile !== undefined) {
                                 var Data = {
                                     "id": response.result[0].id,
@@ -110,46 +104,34 @@ const Team = () => {
                                 }).then((response) => {
                                     setIsloading(false)
 
-
-                                    // var InsertAPIURL = `${url}logos/add_logos_image`
-                                    // var headers = {
-                                    //     // 'Accept': 'application/json',
-                                    //     // 'Content-Type': 'application/json',
-                                    //     "Content-Type": "multipart/form-data"
-
-                                    // };
-                                    // var Data = {
-                                    //     "id": response.result[0].id,
-                                    //     "image": selectedFile,
-                                    // };
-                                    // await fetch(InsertAPIURL, {
-                                    //     method: 'PUT',
-                                    //     headers: headers,
-                                    //     body: JSON.stringify(Data),
-                                    // })
-                                    //     .then(response => response.json())
-                                    //     .then(response => {
                                     console.log(response.data);
                                     if (response.data.message == `Ad Image added Successfully!`) {
                                         navigate("/manage_banners_ads")
                                         setIsloading(false)
+                                        Swal.fire({
+                                            icon: 'success',
+                                            title: 'Success!',
+                                            confirmButtonColor: "#B5030B",
+                                            text: 'Banner Added Successfully!',
+                                        })            
                                     } else {
                                         setIsloading(false)
                                         Swal.fire({
                                             icon: 'error',
-                                            title: 'Oops2...',
+                                            title: 'Oops...',
                                             confirmButtonColor: "#B5030B",
-                                            text: ''
+                                            text: 'Image Size too Big'
                                         })
                                     }
                                 }
                                 )
                                     .catch(error => {
+                                        setIsloading(false)
                                         Swal.fire({
                                             icon: 'error',
                                             title: 'Oops...',
                                             confirmButtonColor: "#B5030B",
-                                            text: response.message
+                                            text: "Image Size too Large"
                                         })
                                     });
                             } else {

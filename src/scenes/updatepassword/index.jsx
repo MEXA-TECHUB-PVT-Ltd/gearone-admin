@@ -235,28 +235,16 @@ const Team = () => {
                                 title: "Success",
                                 text: "Password Change Successfully",
                                 confirmButtonColor: "#B5030B",
-                                icon: "succes",
+                                icon: "success",
                                 confirmButtonText: "OK",
                             });
-                        } else if (response.message == `Incorrect password`) {
-                            setIsloading(true);
-                            setIsloading(false);
-                            setTimeout(() => {
-                                Swal.fire({
-                                    title: "Error",
-                                    text: "Incorrect Password",
-                                    confirmButtonColor: "#B5030B",
-                                    icon: "error",
-                                    confirmButtonText: "OK",
-                                });
-                            }, 3000)
                         } else {
                             setIsloading(true);
                             setIsloading(false);
                             setTimeout(() => {
                                 Swal.fire({
                                     title: "Error",
-                                    text: "not found",
+                                    text: response.message,
                                     confirmButtonColor: "#B5030B",
                                     icon: "error",
                                     confirmButtonText: "OK",

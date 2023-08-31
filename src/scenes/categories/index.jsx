@@ -99,8 +99,8 @@ const style = {
     transform: 'translate(-50%, -50%)',
     bgcolor: '#FFFFFF',
     outline: "none",
-    maxHeight: "80vh", 
-    overflowY: "auto", 
+    maxHeight: "80vh",
+    overflowY: "auto",
     boxShadow: 0,
     p: 4,
     borderRadius: 5
@@ -281,6 +281,16 @@ const Team = () => {
         setAnchorEl(null);
     };
     const handleCloseedit = () => setOpeneditmodal(false);
+
+
+
+    const [openViewmodal, setOpenViewmodal] = useState(false);
+    const handleOpenView = () => {
+        setOpenViewmodal(true);
+        setAnchorEl(null);
+    };
+    const handleCloseView = () => setOpenViewmodal(false);
+
 
     const [opendelmodal, setOpendelmodal] = useState(false);
     const handleOpendel = () => {
@@ -679,25 +689,48 @@ const Team = () => {
                             <div style={{ display: "flex", justifyContent: "center", alignContent: "center" }}>
 
 
-
                                 <IconButton onClick={() => {
                                     console.log(row.row);
                                     setActionData(row.row);
-                                    if (row.row.image !== null) {
-                                        setHidelabelUpload(true);
-                                    }
-                                    handleOpenedit();
+                                    navigate('/ViewCategory', {
+                                        state: {
+                                            row: row.row
+                                        }
+                                    });
+                                }}>
+                                    <Tooltip title="view" >
+                                        <Visibility sx={{ color: "#40E0D0" }} onClick={() => {
+                                            console.log(row.row);
+                                            setActionData(row.row);
+                                            navigate('/ViewCategory', {
+                                                state: {    
+                                                    row: row.row
+                                                }
+                                            });
+                                            const bannerIds = row.row.banners.map(banner => banner.id);
+                                            setSkill(bannerIds)
+                                            handleOpenView();
+                                        }} />
+                                    </Tooltip>
+                                </IconButton>
+
+
+                                <IconButton onClick={() => {
+                                    navigate('/UpdateCategory', {
+                                        state: {
+                                            row: row.row
+                                        }
+                                    });
                                 }}>
                                     <Tooltip title="edit" >
                                         <Edit sx={{ color: "#40E0D0" }} onClick={() => {
-                                            console.log(row.row);
-                                            setActionData(row.row);
-                                            if (row.row.image !== null) {
-                                                setHidelabelUpload(true);
-                                            }
+                                            navigate('/UpdateCategory', {
+                                                state: {
+                                                    row: row.row
+                                                }
+                                            });
                                             const bannerIds = row.row.banners.map(banner => banner.id);
                                             setSkill(bannerIds)
-                                            handleOpenedit();
                                         }} />
                                     </Tooltip>
                                 </IconButton>
@@ -725,68 +758,54 @@ const Team = () => {
     return (
         <>
             <Box sx={{ height: "100%", width: "100%", overflowX: "scroll" }}>
-                <Grid container spacing={0} pl={3} pr={3} pt={{ lg: 2, xl: 1 }} >
-                    <Grid item xs={6} align="" pt={1} >
-                        <Typography variant="h5" fontWeight={750} fontSize="20px" sx={{ letterSpacing: "2px" }} color="#404040">
+                <Grid container pt={{ lg: 2, xl: 1 }} >
+                    <Grid item md={6} xs={12} align="left" pt={1}>
+                        <Typography variant="h5" fontWeight={750} fontSize="20px" sx={{ ml: '2%', letterSpacing: "2px" }} color="#404040">
                             Categories
                         </Typography>
                     </Grid>
 
-                    <Grid item xs={3} align="center">
-
-                    </Grid>
-
-                    <Grid item xs={1.5} align="center">
-                        <div>
-                            <Box sx={{ width: '90px', borderRadius: "5px", border: "1px solid #D8D8D8" }}>
-                                <Box >
-                                    <div style={{ padding: "5px", paddingBottom: "0px", display: "flex", justifyContent: "center", alignContent: "center", gap: "3px" }}>
-                                        {
-                                            showtable ?
-                                                <>
-                                                    <Box sx={{ pl: 1 }}>
-                                                        <List fontSize="large" sx={{ color: "white", backgroundColor: "#B5030B", borderRadius: "5px" }} onClick={() => { setShowtable(true) }} />
-                                                    </Box>
-                                                    <Box sx={{ pr: 1 }}>
-                                                        <Apps fontSize="large" sx={{ color: "#9B9B9B", backgroundColor: "transparent", borderRadius: "5px" }} onClick={() => setShowtable(false)} />
-                                                    </Box>
-                                                </>
-                                                :
-                                                <>
-                                                    <Box sx={{ pl: 1 }}>
-                                                        <List fontSize="large" sx={{ color: "#9B9B9B", backgroundColor: "transparent", borderRadius: "5px" }} onClick={() => setShowtable(true)} />
-                                                    </Box>
-                                                    <Box sx={{ pr: 1 }}>
-                                                        <Apps fontSize="large" sx={{ color: "white", backgroundColor: "#B5030B", borderRadius: "5px" }} onClick={() => setShowtable(false)} />
-                                                    </Box>
-                                                </>
-                                        }
-                                    </div>
-                                </Box>
-                            </Box>
-                        </div>
-                    </Grid>
-
-                    <Grid item xs={1.5} align="center">
-                        <div style={{ display: "flex", justifyContent: "right", alignContent: "right", gap: "30px" }}>
-                            <div>
-                                <button onClick={handleOpenadd} style={{ marginTop: "2%", padding: "10px", display: "flex", justifyContent: "center", alignContent: "center", alignSelf: "center", border: "none", borderRadius: "50px", backgroundColor: "#B5030B", color: "white" }}>
-                                    <Stack direction="row" sx={{ display: "flex", justifyContent: "right", alignContent: "right", gap: "3px" }}>
-                                        <div>
-                                            <Stack sx={{ paddingLeft: "20px" }}>
-                                                <Add sx={{ fontWeight: 600, width: "24dpi" }} />
-                                            </Stack>
-                                        </div>
-
-                                        <div>
-                                            <Stack sx={{ marginLeft: "2vh", paddingTop: "0.5vh", paddingRight: "25px", fontWeight: "bold" }}>Add</Stack>
-                                        </div>
-                                    </Stack>
-
-                                </button>
+                    <Grid item md={6} xs={12} align="right">
+                        <div style={{ display: 'flex', justifyContent: 'right', alignItems: 'right', gap: '10px', width: '100%' }}>
+                            <div style={{ width: '100px', borderRadius: "5px", border: "1px solid #D8D8D8", padding: "5px", paddingBottom: "0px", display: "flex", justifyContent: "center", alignContent: "center", gap: "3px" }}>
+                                {
+                                    showtable ?
+                                        <>
+                                            <Box onClick={() => { setShowtable(true) }}>
+                                                <List fontSize="large" sx={{ color: "white", backgroundColor: "#B5030B", borderRadius: "5px" }} />
+                                            </Box>
+                                            <Box onClick={() => setShowtable(false)}>
+                                                <Apps fontSize="large" sx={{ color: "#9B9B9B", backgroundColor: "transparent", borderRadius: "5px" }} />
+                                            </Box>
+                                        </>
+                                        :
+                                        <>
+                                            <Box onClick={() => setShowtable(true)}>
+                                                <List fontSize="large" sx={{ color: "#9B9B9B", backgroundColor: "transparent", borderRadius: "5px" }} />
+                                            </Box>
+                                            <Box onClick={() => setShowtable(false)}>
+                                                <Apps fontSize="large" sx={{ color: "white", backgroundColor: "#B5030B", borderRadius: "5px" }} />
+                                            </Box>
+                                        </>
+                                }
                             </div>
+
+                            <button onClick={() => { navigate('/AddCategory') }} style={{ marginRight: '3%', padding: "10px", border: "none", borderRadius: "50px", backgroundColor: "#B5030B", color: "white" }}>
+                                <Stack direction="row" sx={{ display: "flex", justifyContent: "center", alignContent: "center", gap: "3px" }}>
+                                    <div>
+                                        <Stack sx={{ paddingLeft: "20px" }}>
+                                            <Add sx={{ fontWeight: 600, width: "24dpi" }} />
+                                        </Stack>
+                                    </div>
+
+                                    <div>
+                                        <Stack sx={{ marginLeft: "2vh", paddingTop: "0.5vh", paddingRight: "25px", fontWeight: "bold" }}>Add</Stack>
+                                    </div>
+                                </Stack>
+                            </button>
                         </div>
                     </Grid>
+
                 </Grid>
 
                 <Divider sx={{ pb: 2 }} />
@@ -931,245 +950,366 @@ const Team = () => {
                             </>
                     }
                 </Grid>
+            </Box>
 
-                {/* addmodal */}
-                <Modal
-                    open={openaddmodal}
-                    // onClose={handleClose}
-                    aria-labelledby="modal-modal-title"
-                    aria-describedby="modal-modal-description"
-                >
-                    <Box width={{ xs: 400, md: 500, lg: 500, xl: 600 }} height="auto" sx={style}>
-                        <Grid container spacing={0}>
-                            <Grid xs={6} align="left" >
-                                <Typography variant="h4" sx={{ letterSpacing: "3px" }} fontWeight={800} fontSize="large" color="#1F1F1F">Add Category</Typography>
-                            </Grid>
+            {/* addmodal */}
+            <Modal
+                open={openaddmodal}
+                // onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box width={{ xs: 400, md: 500, lg: 500, xl: 600 }} height="auto" sx={style}>
+                    <Grid container spacing={0}>
+                        <Grid xs={6} align="left" >
+                            <Typography variant="h4" sx={{ letterSpacing: "3px" }} fontWeight={800} fontSize="large" color="#1F1F1F">Add Category</Typography>
+                        </Grid>
 
-                            <Grid xs={6} align="right">
-                                <Close onClick={() => setOpenaddmodal(false)} />
-                            </Grid>
+                        <Grid xs={6} align="right">
+                            <Close onClick={() => setOpenaddmodal(false)} />
+                        </Grid>
 
-                            <Grid xs={12} align="center" pt={7}>
-                                <FormControl fullWidth>
+                        <Grid xs={12} align="center" pt={7}>
+                            <FormControl fullWidth>
 
 
-                                    <Box pt={2} pb={2}>
-                                        <Box sx={{ width: '300px', height: '200px', pt: 2, p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
-                                            {hidelabel ?
-                                                null
-                                                :
-                                                <Grid container spacing={0} pt={5}>
-                                                    <Grid xs={12} align="">
-                                                        <Stack align="">
-                                                            <label htmlFor="fileInput" style={{ display: "flex", justifyContent: "center", alignContent: "center", color: "#808080" }}>
-                                                                <Stack direction="column" spacing={1} >
-                                                                    <Upload sx={{ fontSize: "50px", color: "#808080", ml: 1.8, pb: 1 }} />
-                                                                    <span style={{ paddingBottom: "2vh", font: "normal normal normal 16px/26px Arial" }}>Upload Image</span>
-                                                                </Stack>
-                                                            </label>
-                                                            <input
-                                                                style={{ display: "none" }}
-                                                                id="fileInput"
-                                                                type="file"
-                                                                onChange={handleImageChange}
-                                                                accept="image/*"
-                                                            />
-                                                        </Stack>
-                                                    </Grid>
+                                <Box pt={2} pb={2}>
+                                    <Box sx={{ width: '300px', height: '200px', pt: 2, p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
+                                        {hidelabel ?
+                                            null
+                                            :
+                                            <Grid container spacing={0} pt={5}>
+                                                <Grid xs={12} align="">
+                                                    <Stack align="">
+                                                        <label htmlFor="fileInput" style={{ display: "flex", justifyContent: "center", alignContent: "center", color: "#808080" }}>
+                                                            <Stack direction="column" spacing={1} >
+                                                                <Upload sx={{ fontSize: "50px", color: "#808080", ml: 1.8, pb: 1 }} />
+                                                                <span style={{ paddingBottom: "2vh", font: "normal normal normal 16px/26px Arial" }}>Upload Image</span>
+                                                            </Stack>
+                                                        </label>
+                                                        <input
+                                                            style={{ display: "none" }}
+                                                            id="fileInput"
+                                                            type="file"
+                                                            onChange={handleImageChange}
+                                                            accept="image/*"
+                                                        />
+                                                    </Stack>
                                                 </Grid>
-                                            }
+                                            </Grid>
+                                        }
 
-                                            {selectedFile && <img src={URL.createObjectURL(selectedFile)} alt="Preview" style={{ width: "300px", height: "200px" }} />}
-                                        </Box>
+                                        {selectedFile && <img src={URL.createObjectURL(selectedFile)} alt="Preview" style={{ width: "300px", height: "200px" }} />}
+                                    </Box>
 
-                                        {
-                                            hidecrossicon ?
+                                    {
+                                        hidecrossicon ?
+                                            <Box sx={{ display: "flex", justifyContent: "center", alignContent: "center" }}>
+                                                <Close sx={{
+                                                    padding: 0.2, backgroundColor: "#B5030B", borderRadius: "50px",
+                                                    color: "white", ml: 32, mt: -24
+                                                }} onClick={() => clearpreviewimage()} />
+                                            </Box>
+                                            :
+                                            null
+                                    }
+                                </Box>
+
+
+
+
+                                <OutlinedInput
+                                    id="input-with-icon-adornment"
+                                    placeholder="Category Name"
+                                    onChange={(event) => {
+                                        setAddName(event.target.value);
+                                    }}
+
+                                    sx={{
+
+                                        backgroundColor: "#EEEEEE",
+                                        "& fieldset": { border: 'none' },
+                                        "& ::placeholder": { ml: 1, fontWeight: 600, color: "#000000" }
+                                    }}
+                                />
+
+
+                                <Typography variant="h4" sx={{ mt: '5%', letterSpacing: "2px" }} pb={0.7} fontWeight={700} align="left" fontSize="14px" color="#1F1F1F">Select Banner</Typography>
+
+                                <Select
+                                    labelId="demo-multiple-chip-label"
+                                    id="demo-multiple-chip"
+                                    multiple
+                                    sx={{
+                                        backgroundColor: "#EEEEEE",
+                                        "& fieldset": { border: 'none' },
+                                    }}
+                                    value={Skill}
+                                    onChange={(event) => { handleChangeSkill(event) }}
+                                    input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
+                                    MenuProps={MenuProps}
+                                >
+                                    <MenuItem value="" disabled>
+                                        <em>select Banner</em>
+                                    </MenuItem>
+                                    {Skills.map((data) => {
+                                        const isSelected = Skill.includes(data.id);
+                                        const backgroundColor = isSelected ? 'blue' : 'red';
+
+                                        return (
+                                            <MenuItem
+                                                key={data.id}
+                                                value={data.id}
+                                                sx={{ background: backgroundColor }}
+                                            >
+                                                <div style={{ display: 'flex', alignItems: 'center' }}>
+                                                    <img
+                                                        alt=""
+                                                        src={`${url}${data.image}`}
+                                                        style={{ marginRight: '10px', width: '500px', height: 'auto' }}
+                                                    />
+                                                    {data.plan_name}
+                                                </div>
+                                            </MenuItem>
+                                        );
+                                    })}
+                                </Select>
+
+                            </FormControl>
+                        </Grid>
+                    </Grid>
+
+                    <Grid container spacing={0} pt={7}>
+
+                        {isloading ?
+                            <Grid xs={12} align="center">
+                                <Button variant="contained" style={btn}>
+                                    <ClipLoader loading={isloading}
+                                        css={override}
+                                        size={10}
+                                    />
+                                </Button>
+                            </Grid>
+
+                            :
+
+                            <Grid xs={12} align="center">
+                                <Button variant="contained" style={btn} onClick={handleAdd}>Add</Button>
+                            </Grid>
+                        }
+                    </Grid>
+
+                </Box>
+            </Modal>
+
+            {/* add success modal */}
+            <Modal
+                open={openaddsuccess}
+                // onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box width={{ xs: 400, md: 500, lg: 500, xl: 600 }} height="auto" sx={style}>
+                    <Grid container spacing={0}>
+                        <Grid xs={12} align="right">
+                            <Close onClick={() => setOpenaddsuccess(false)} />
+                        </Grid>
+
+                        <Grid xs={12} align="center" >
+                            <Typography variant="h4" sx={{ letterSpacing: "3px" }} fontWeight={800} fontSize="large" color="#B5030B">Success</Typography>
+                        </Grid>
+
+                        <Grid xs={12} align="center" pt={7}>
+                            <Typography variant="h4" sx={{ letterSpacing: "3px" }} fontWeight={800} fontSize="large" color="#1F1F1F">Category Added Successfully</Typography>
+                        </Grid>
+                    </Grid>
+
+                    <Grid container spacing={0} pt={7}>
+
+                        <Grid xs={12} align="center">
+                            <Button variant="contained" style={btn} onClick={() => { setOpenaddsuccess(false) }}>Ok</Button>
+                        </Grid>
+                    </Grid>
+
+                </Box>
+            </Modal>
+
+
+            {/* View modal */}
+            <Modal
+                open={openViewmodal}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box width={{ xs: 400, md: 500, lg: 500, xl: 600 }}
+
+                    height="auto" sx={style}>
+                    <Grid container spacing={0}>
+                        <Grid xs={6} align="left" >
+                            <Typography variant="h4" sx={{ letterSpacing: "3px" }} fontWeight={800} fontSize="large" color="#1F1F1F">View Category</Typography>
+                        </Grid>
+
+                        <Grid xs={6} align="right">
+                            <Close onClick={() => setOpenViewmodal(false)} />
+                        </Grid>
+
+                        <Grid xs={12} align="center" pt={7}>
+                            <FormControl fullWidth>
+
+                                <Box pt={0} pb={2}>
+                                    <Box sx={{ pt: 2, width: "300px", height: "200px", p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
+                                        {selectedFileUpload || selectedFileUpload !== null ? <img src={URL.createObjectURL(selectedFileUpload)} alt="Preview" style={{ width: "300px", height: "200px" }} />
+                                            :
+                                            ActionData.image && <img src={`${url}${ActionData.image}`} alt="Preview" style={{ width: "300px", height: "200px" }} />
+                                        }
+                                    </Box>
+
+                                    {
+                                        hidecrossiconUpload ?
+                                            <Box sx={{ display: "flex", justifyContent: "center", alignContent: "center" }}>
+                                            </Box>
+                                            :
+                                            ActionData.image ?
+                                                <Box sx={{ display: "flex", justifyContent: "center", alignContent: "center" }}>
+                                                </Box>
+                                                :
+                                                ActionData.image === null && !hidecrossiconUpload &&
                                                 <Box sx={{ display: "flex", justifyContent: "center", alignContent: "center" }}>
                                                     <Close sx={{
                                                         padding: 0.2, backgroundColor: "#B5030B", borderRadius: "50px",
                                                         color: "white", ml: 32, mt: -24
-                                                    }} onClick={() => clearpreviewimage()} />
+                                                    }} onClick={() => clearpreviewimageUpload()} />
                                                 </Box>
-                                                :
-                                                null
+                                    }
+                                </Box>
+
+
+
+
+                                <Typography variant="h4" sx={{ letterSpacing: "2px" }} pb={0.7} fontWeight={700} align="left" fontSize="14px" color="#1F1F1F">Category Name</Typography>
+                                <OutlinedInput
+                                    id={ActionData.id}
+                                    value={ActionData.name}
+
+                                    sx={{
+                                        backgroundColor: "#EEEEEE",
+                                        "& fieldset": { border: 'none' },
+                                        "& ::placeholder": { ml: 1, fontWeight: 600, color: "#000000" }
+                                    }}
+                                />
+
+                                <Typography variant="h4" sx={{ mt: '5%', letterSpacing: "2px" }} pb={0.7} fontWeight={700} align="left" fontSize="14px" color="#1F1F1F">Selected Banners</Typography>
+
+
+                                <Select
+                                    labelId="demo-multiple-chip-label"
+                                    id="demo-multiple-chip"
+                                    multiple
+                                    sx={{
+                                        backgroundColor: "#EEEEEE",
+                                        "& fieldset": { border: 'none' },
+                                    }}
+                                    value={Skill}
+                                    input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
+                                    MenuProps={MenuProps}
+                                >
+                                    {Skills.map((data) => {
+                                        const isSelected = Skill.includes(data.id);
+                                        const backgroundColor = isSelected ? 'blue' : 'red';
+
+                                        return (
+                                            <MenuItem
+                                                disabled                    // The item is disabled, preventing interaction
+                                                key={data.id}               // A unique key for React's internal use
+                                                value={data.id}             // The value associated with the menu item
+                                                sx={{ background: backgroundColor }} // Styling using the "sx" prop (assuming it's from a library like Material-UI)
+                                            >
+                                                <div style={{ display: 'flex', alignItems: 'center' }}>
+                                                    <img
+                                                        alt=""
+                                                        src={`${url}${data.image}`} // Image source based on the provided URL and data.image
+                                                        style={{ marginRight: '10px', width: '500px', height: 'auto' }} // Image styling
+                                                    />
+                                                    {data.image}
+                                                </div>
+                                            </MenuItem>);
+                                    })}
+                                </Select>
+
+
+                            </FormControl>
+                        </Grid>
+                    </Grid>
+                </Box>
+            </Modal>
+
+
+
+            {/* edit modal */}
+            <Modal
+                open={openeditmodal}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box width={{ xs: 400, md: 500, lg: 500, xl: 600 }}
+
+                    height="auto" sx={style}>
+                    <Grid container spacing={0}>
+                        <Grid xs={6} align="left" >
+                            <Typography variant="h4" sx={{ letterSpacing: "3px" }} fontWeight={800} fontSize="large" color="#1F1F1F">Update Category</Typography>
+                        </Grid>
+
+                        <Grid xs={6} align="right">
+                            <Close onClick={() => setOpeneditmodal(false)} />
+                        </Grid>
+
+                        <Grid xs={12} align="center" pt={7}>
+                            <FormControl fullWidth>
+
+                                <Box pt={0} pb={2}>
+                                    <Box sx={{ pt: 2, width: "300px", height: "200px", p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
+                                        {hidelabelUpload ?
+                                            null
+                                            :
+                                            <Grid container spacing={0} pt={5}>
+                                                <Grid xs={12} align="">
+                                                    <Stack align="">
+                                                        <label htmlFor="fileInput" style={{ display: "flex", justifyContent: "center", alignContent: "center", color: "#808080" }}>
+                                                            <Stack direction="column" spacing={1} >
+                                                                <Upload sx={{ fontSize: "50px", color: "#808080", ml: 1.8, pb: 1 }} />
+                                                                <span style={{ paddingBottom: "2vh", font: "normal normal normal 16px/26px Arial" }}>Upload Image</span>
+                                                            </Stack>
+                                                        </label>
+                                                        <input
+                                                            style={{ display: "none" }}
+                                                            id="fileInput"
+                                                            type="file"
+                                                            onChange={handleImageChangeUpload}
+                                                            accept="image/*"
+                                                        />
+                                                    </Stack>
+                                                </Grid>
+                                            </Grid>
+                                        }
+
+                                        {selectedFileUpload || selectedFileUpload !== null ? <img src={URL.createObjectURL(selectedFileUpload)} alt="Preview" style={{ width: "300px", height: "200px" }} />
+                                            :
+                                            ActionData.image && <img src={`${url}${ActionData.image}`} alt="Preview" style={{ width: "300px", height: "200px" }} />
                                         }
                                     </Box>
 
-
-
-
-                                    <OutlinedInput
-                                        id="input-with-icon-adornment"
-                                        placeholder="Category Name"
-                                        onChange={(event) => {
-                                            setAddName(event.target.value);
-                                        }}
-
-                                        sx={{
-
-                                            backgroundColor: "#EEEEEE",
-                                            "& fieldset": { border: 'none' },
-                                            "& ::placeholder": { ml: 1, fontWeight: 600, color: "#000000" }
-                                        }}
-                                    />
-
-
-                                    <Typography variant="h4" sx={{ mt: '5%', letterSpacing: "2px" }} pb={0.7} fontWeight={700} align="left" fontSize="14px" color="#1F1F1F">Select Banner</Typography>
-
-                                    <Select
-                                        labelId="demo-multiple-chip-label"
-                                        id="demo-multiple-chip"
-                                        multiple
-                                        sx={{
-                                            backgroundColor: "#EEEEEE",
-                                            "& fieldset": { border: 'none' },
-                                        }}
-                                        value={Skill}
-                                        onChange={(event) => { handleChangeSkill(event) }}
-                                        input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
-                                        MenuProps={MenuProps}
-                                    >
-                                        <MenuItem value="" disabled>
-                                            <em>select Banner</em>
-                                        </MenuItem>
-                                        {Skills.map((data) => {
-                                            const isSelected = Skill.includes(data.id);
-                                            const backgroundColor = isSelected ? 'blue' : 'red';
-
-                                            return (
-                                                <MenuItem
-                                                    key={data.id}
-                                                    value={data.id}
-                                                    sx={{ background: backgroundColor }}
-                                                >
-                                                    <div style={{ display: 'flex', alignItems: 'center' }}>
-                                                        <img
-                                                            alt=""
-                                                            src={`${url}${data.image}`}
-                                                            style={{ marginRight: '10px', width: '500px', height: 'auto' }}
-                                                        />
-                                                        {data.plan_name}
-                                                    </div>
-                                                </MenuItem>
-                                            );
-                                        })}
-                                    </Select>
-                                        
-                                </FormControl>
-                            </Grid>
-                        </Grid>
-
-                        <Grid container spacing={0} pt={7}>
-
-                            {isloading ?
-                                <Grid xs={12} align="center">
-                                    <Button variant="contained" style={btn}>
-                                        <ClipLoader loading={isloading}
-                                            css={override}
-                                            size={10}
-                                        />
-                                    </Button>
-                                </Grid>
-
-                                :
-
-                                <Grid xs={12} align="center">
-                                    <Button variant="contained" style={btn} onClick={handleAdd}>Add</Button>
-                                </Grid>
-                            }
-                        </Grid>
-
-                    </Box>
-                </Modal>
-
-                {/* add success modal */}
-                <Modal
-                    open={openaddsuccess}
-                    // onClose={handleClose}
-                    aria-labelledby="modal-modal-title"
-                    aria-describedby="modal-modal-description"
-                >
-                    <Box width={{ xs: 400, md: 500, lg: 500, xl: 600 }} height="auto" sx={style}>
-                        <Grid container spacing={0}>
-                            <Grid xs={12} align="right">
-                                <Close onClick={() => setOpenaddsuccess(false)} />
-                            </Grid>
-
-                            <Grid xs={12} align="center" >
-                                <Typography variant="h4" sx={{ letterSpacing: "3px" }} fontWeight={800} fontSize="large" color="#B5030B">Success</Typography>
-                            </Grid>
-
-                            <Grid xs={12} align="center" pt={7}>
-                                <Typography variant="h4" sx={{ letterSpacing: "3px" }} fontWeight={800} fontSize="large" color="#1F1F1F">Category Added Successfully</Typography>
-                            </Grid>
-                        </Grid>
-
-                        <Grid container spacing={0} pt={7}>
-
-                            <Grid xs={12} align="center">
-                                <Button variant="contained" style={btn} onClick={() => { setOpenaddsuccess(false) }}>Ok</Button>
-                            </Grid>
-                        </Grid>
-
-                    </Box>
-                </Modal>
-
-                {/* edit modal */}
-                <Modal
-                    open={openeditmodal}
-                    onClose={handleClose}
-                    aria-labelledby="modal-modal-title"
-                    aria-describedby="modal-modal-description"
-                >
-                    <Box width={{ xs: 400, md: 500, lg: 500, xl: 600 }}
-
-                        height="auto" sx={style}>
-                        <Grid container spacing={0}>
-                            <Grid xs={6} align="left" >
-                                <Typography variant="h4" sx={{ letterSpacing: "3px" }} fontWeight={800} fontSize="large" color="#1F1F1F">Update Category</Typography>
-                            </Grid>
-
-                            <Grid xs={6} align="right">
-                                <Close onClick={() => setOpeneditmodal(false)} />
-                            </Grid>
-
-                            <Grid xs={12} align="center" pt={7}>
-                                <FormControl fullWidth>
-
-                                    <Box pt={0} pb={2}>
-                                        <Box sx={{ pt: 2, width: "300px", height: "200px", p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
-                                            {hidelabelUpload ?
-                                                null
-                                                :
-                                                <Grid container spacing={0} pt={5}>
-                                                    <Grid xs={12} align="">
-                                                        <Stack align="">
-                                                            <label htmlFor="fileInput" style={{ display: "flex", justifyContent: "center", alignContent: "center", color: "#808080" }}>
-                                                                <Stack direction="column" spacing={1} >
-                                                                    <Upload sx={{ fontSize: "50px", color: "#808080", ml: 1.8, pb: 1 }} />
-                                                                    <span style={{ paddingBottom: "2vh", font: "normal normal normal 16px/26px Arial" }}>Upload Image</span>
-                                                                </Stack>
-                                                            </label>
-                                                            <input
-                                                                style={{ display: "none" }}
-                                                                id="fileInput"
-                                                                type="file"
-                                                                onChange={handleImageChangeUpload}
-                                                                accept="image/*"
-                                                            />
-                                                        </Stack>
-                                                    </Grid>
-                                                </Grid>
-                                            }
-
-                                            {selectedFileUpload || selectedFileUpload !== null ? <img src={URL.createObjectURL(selectedFileUpload)} alt="Preview" style={{ width: "300px", height: "200px" }} />
-                                                :
-                                                ActionData.image && <img src={`${url}${ActionData.image}`} alt="Preview" style={{ width: "300px", height: "200px" }} />
-                                            }
-                                        </Box>
-
-                                        {
-                                            hidecrossiconUpload ?
+                                    {
+                                        hidecrossiconUpload ?
+                                            <Box sx={{ display: "flex", justifyContent: "center", alignContent: "center" }}>
+                                                <Close sx={{
+                                                    padding: 0.2, backgroundColor: "#B5030B", borderRadius: "50px",
+                                                    color: "white", ml: 32, mt: -24
+                                                }} onClick={() => clearpreviewimageUpload()} />
+                                            </Box>
+                                            :
+                                            ActionData.image ?
                                                 <Box sx={{ display: "flex", justifyContent: "center", alignContent: "center" }}>
                                                     <Close sx={{
                                                         padding: 0.2, backgroundColor: "#B5030B", borderRadius: "50px",
@@ -1177,144 +1317,135 @@ const Team = () => {
                                                     }} onClick={() => clearpreviewimageUpload()} />
                                                 </Box>
                                                 :
-                                                ActionData.image ?
-                                                    <Box sx={{ display: "flex", justifyContent: "center", alignContent: "center" }}>
-                                                        <Close sx={{
-                                                            padding: 0.2, backgroundColor: "#B5030B", borderRadius: "50px",
-                                                            color: "white", ml: 32, mt: -24
-                                                        }} onClick={() => clearpreviewimageUpload()} />
-                                                    </Box>
-                                                    :
-                                                    ActionData.image === null && !hidecrossiconUpload &&
-                                                    <Box sx={{ display: "flex", justifyContent: "center", alignContent: "center" }}>
-                                                        <Close sx={{
-                                                            padding: 0.2, backgroundColor: "#B5030B", borderRadius: "50px",
-                                                            color: "white", ml: 32, mt: -24
-                                                        }} onClick={() => clearpreviewimageUpload()} />
-                                                    </Box>
-                                        }
-                                    </Box>
+                                                ActionData.image === null && !hidecrossiconUpload &&
+                                                <Box sx={{ display: "flex", justifyContent: "center", alignContent: "center" }}>
+                                                    <Close sx={{
+                                                        padding: 0.2, backgroundColor: "#B5030B", borderRadius: "50px",
+                                                        color: "white", ml: 32, mt: -24
+                                                    }} onClick={() => clearpreviewimageUpload()} />
+                                                </Box>
+                                    }
+                                </Box>
 
 
 
 
-                                    <Typography variant="h4" sx={{ letterSpacing: "2px" }} pb={0.7} fontWeight={700} align="left" fontSize="14px" color="#1F1F1F">Category Name</Typography>
-                                    <OutlinedInput
-                                        id={ActionData.id}
-                                        defaultValue={ActionData.name}
-                                        onChange={(event) => {
-                                            setEditName(event.target.value);
-                                        }}
+                                <Typography variant="h4" sx={{ letterSpacing: "2px" }} pb={0.7} fontWeight={700} align="left" fontSize="14px" color="#1F1F1F">Category Name</Typography>
+                                <OutlinedInput
+                                    id={ActionData.id}
+                                    defaultValue={ActionData.name}
+                                    onChange={(event) => {
+                                        setEditName(event.target.value);
+                                    }}
 
-                                        sx={{
-                                            backgroundColor: "#EEEEEE",
-                                            "& fieldset": { border: 'none' },
-                                            "& ::placeholder": { ml: 1, fontWeight: 600, color: "#000000" }
-                                        }}
+                                    sx={{
+                                        backgroundColor: "#EEEEEE",
+                                        "& fieldset": { border: 'none' },
+                                        "& ::placeholder": { ml: 1, fontWeight: 600, color: "#000000" }
+                                    }}
+                                />
+
+                                <Typography variant="h4" sx={{ mt: '5%', letterSpacing: "2px" }} pb={0.7} fontWeight={700} align="left" fontSize="14px" color="#1F1F1F">Select Banner</Typography>
+
+
+                                <Select
+                                    labelId="demo-multiple-chip-label"
+                                    id="demo-multiple-chip"
+                                    multiple
+                                    sx={{
+                                        backgroundColor: "#EEEEEE",
+                                        "& fieldset": { border: 'none' },
+                                    }}
+                                    value={Skill}
+                                    onChange={(event) => { handleChangeSkill(event) }}
+                                    input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
+                                    MenuProps={MenuProps}
+                                >
+                                    <MenuItem value="" disabled>
+                                        <em>select Banner</em>
+                                    </MenuItem>
+                                    {Skills.map((data) => {
+                                        const isSelected = Skill.includes(data.id);
+                                        const backgroundColor = isSelected ? 'blue' : 'red';
+
+                                        return (
+                                            <MenuItem
+                                                key={data.id}
+                                                value={data.id}
+                                                sx={{ background: backgroundColor }}
+                                            >
+                                                <div style={{ display: 'flex', alignItems: 'center' }}>
+                                                    <img
+                                                        alt=""
+                                                        src={`${url}${data.image}`}
+                                                        style={{ marginRight: '10px', width: '500px', height: 'auto' }}
+                                                    />
+                                                    {data.plan_name}
+                                                </div>
+                                            </MenuItem>
+                                        );
+                                    })}
+                                </Select>
+
+
+                            </FormControl>
+                        </Grid>
+                    </Grid>
+
+                    <Grid container spacing={0} pt={7}>
+                        {isloading ?
+                            <Grid xs={12} align="center">
+                                <Button variant="contained" style={btn}>
+                                    <ClipLoader loading={isloading}
+                                        css={override}
+                                        size={10}
                                     />
-
-                                    <Typography variant="h4" sx={{ mt: '5%', letterSpacing: "2px" }} pb={0.7} fontWeight={700} align="left" fontSize="14px" color="#1F1F1F">Select Banner</Typography>
-
-
-                                    <Select
-                                        labelId="demo-multiple-chip-label"
-                                        id="demo-multiple-chip"
-                                        multiple
-                                        sx={{
-                                            backgroundColor: "#EEEEEE",
-                                            "& fieldset": { border: 'none' },
-                                        }}
-                                        value={Skill}
-                                        onChange={(event) => { handleChangeSkill(event) }}
-                                        input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
-                                        MenuProps={MenuProps}
-                                    >
-                                        <MenuItem value="" disabled>
-                                            <em>select Banner</em>
-                                        </MenuItem>
-                                        {Skills.map((data) => {
-                                            const isSelected = Skill.includes(data.id);
-                                            const backgroundColor = isSelected ? 'blue' : 'red';
-
-                                            return (
-                                                <MenuItem
-                                                    key={data.id}
-                                                    value={data.id}
-                                                    sx={{ background: backgroundColor }}
-                                                >
-                                                    <div style={{ display: 'flex', alignItems: 'center' }}>
-                                                        <img
-                                                            alt=""
-                                                            src={`${url}${data.image}`}
-                                                            style={{ marginRight: '10px', width: '500px', height: 'auto' }}
-                                                        />
-                                                        {data.plan_name}
-                                                    </div>
-                                                </MenuItem>
-                                            );
-                                        })}
-                                    </Select>
-
-
-                                </FormControl>
-                            </Grid>
-                        </Grid>
-
-                        <Grid container spacing={0} pt={7}>
-                            {isloading ?
-                                <Grid xs={12} align="center">
-                                    <Button variant="contained" style={btn}>
-                                        <ClipLoader loading={isloading}
-                                            css={override}
-                                            size={10}
-                                        />
-                                    </Button>
-                                </Grid>
-
-                                :
-
-                                <Grid xs={12} align="center">
-                                    <Button variant="contained" style={btn} onClick={HandleEdit}>Update</Button>
-                                </Grid>
-                            }
-                        </Grid>
-
-                    </Box>
-                </Modal>
-
-                {/* delete modal */}
-                <Modal
-                    open={opendelmodal}
-                    // onClose={handleClose}
-                    aria-labelledby="modal-modal-title"
-                    aria-describedby="modal-modal-description"
-                >
-                    <Box width={{ xs: 400, md: 500, lg: 500, xl: 600 }} height="auto" sx={style}>
-                        <Grid container spacing={0}>
-                            <Grid xs={12} align="right">
-                                <Close onClick={() => setOpendelmodal(false)} />
+                                </Button>
                             </Grid>
 
-                            <Grid xs={12} align="center" p={{ xs: 2, md: 5, lg: 1, xl: 1 }}>
-                                <Typography variant="h4" sx={{ letterSpacing: "3px" }} fontWeight={600} fontSize="x-large" color="#B5030B">Confirmation</Typography>
+                            :
 
-                                <Typography variant="h5" sx={{ letterSpacing: "3px" }} pt={7} pb={0} fontWeight={600} color="#1F1F1F">Do you want to delete this Category ?</Typography>  </Grid>
+                            <Grid xs={12} align="center">
+                                <Button variant="contained" style={btn} onClick={HandleEdit}>Update</Button>
+                            </Grid>
+                        }
+                    </Grid>
+
+                </Box>
+            </Modal>
+
+            {/* delete modal */}
+            <Modal
+                open={opendelmodal}
+                // onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box width={{ xs: 400, md: 500, lg: 500, xl: 600 }} height="auto" sx={style}>
+                    <Grid container spacing={0}>
+                        <Grid xs={12} align="right">
+                            <Close onClick={() => setOpendelmodal(false)} />
                         </Grid>
 
-                        <Grid container spacing={0} pt={7}>
-                            <Grid xs={6} align="">
-                                <Button variant="contained" style={btncancel} onClick={() => { setOpendelmodal(false) }}>Cancel</Button>
-                            </Grid>
+                        <Grid xs={12} align="center" p={{ xs: 2, md: 5, lg: 1, xl: 1 }}>
+                            <Typography variant="h4" sx={{ letterSpacing: "3px" }} fontWeight={600} fontSize="x-large" color="#B5030B">Confirmation</Typography>
 
-                            <Grid xs={6} align="right">
-                                <Button variant="contained" style={btndelete} onClick={() => { handleDelete() }}>Delete</Button>
-                            </Grid>
+                            <Typography variant="h5" sx={{ letterSpacing: "3px" }} pt={7} pb={0} fontWeight={600} color="#1F1F1F">Do you want to delete this Category ?</Typography>  </Grid>
+                    </Grid>
+
+                    <Grid container spacing={0} pt={7}>
+                        <Grid xs={6} align="">
+                            <Button variant="contained" style={btncancel} onClick={() => { setOpendelmodal(false) }}>Cancel</Button>
                         </Grid>
 
-                    </Box>
-                </Modal>
+                        <Grid xs={6} align="right">
+                            <Button variant="contained" style={btndelete} onClick={() => { handleDelete() }}>Delete</Button>
+                        </Grid>
+                    </Grid>
 
-            </Box>
+                </Box>
+            </Modal>
+
         </>
     );
 };
