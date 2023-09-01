@@ -11,6 +11,7 @@ import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
 import LoginPage from "./scenes/loginPage/login"
 import ManageLogos from "./scenes/ManageLogos"
+import OrderDetails from "./scenes/orderDetails"
 import Addworkoutplans from "./scenes/addworkoutplans"
 import AddworkoutplanExercises from "./scenes/addworkoutexercises"
 import Updateworkoutplan from "./scenes/updateworkoutplan"
@@ -33,6 +34,10 @@ import ManageUsers from "./scenes/ManageUsers"
 import UserDetails from "./scenes/UserDetails"
 import ReportItems from "./scenes/ReportItems"
 import ReportedItemDetails from "./scenes/ReportedItemDetails"
+
+import AddCategory from "./scenes/AddCategory"
+import UpdateCategory from "./scenes/UpdateCategory"
+import ViewCategory from "./scenes/ViewCategory"
 
 import PrivacyPolicy from "./scenes/privacy&policy"
 import TermConditions from "./scenes/term&conditions"
@@ -81,6 +86,7 @@ function App() {
               <Route path="/settings" element={<Settings />} />
               <Route path="/updatepassword" element={<Updatepassword />} />
               <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/UpdateCategory" element={<UpdateCategory />} />
               <Route path="/ManageLogos" element={<ManageLogos />} />
               <Route path="/addworkoutplans" element={<Addworkoutplans />} />
               <Route path="/addexercises" element={<AddworkoutplanExercises />} />
@@ -89,6 +95,8 @@ function App() {
               <Route path="/ReportItems" element={<ReportItems />} />
               <Route path="/Orders" element={<Orders />} />
               <Route path="/ReportedItemDetails" element={<ReportedItemDetails />} />
+              <Route path="/AddCategory" element={<AddCategory />} />
+              <Route path="/OrderDetails" element={<OrderDetails />} />
 
               <Route path="/Terms" element={<Terms />} />
               <Route path="/Privacy" element={<Privacy />} />
@@ -97,6 +105,7 @@ function App() {
               <Route path="/updateMerchandise" element={<UpdateMerchandise />} />
               <Route path="/UpdateLogo" element={<UpdateLogo />} />
               <Route path="/ManageUsers" element={<ManageUsers />} />
+              <Route path="/ViewCategory" element={<ViewCategory />} />
 
               <Route path="/EditMerchandise" element={<EditMerchandise />} />
               <Route path="/AddLogo" element={<AddLogo />} />

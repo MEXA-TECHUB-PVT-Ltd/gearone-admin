@@ -20,7 +20,7 @@ import {
   GridToolbarExport,
   GridToolbarDensitySelector,
 } from '@mui/x-data-grid';
-import { Close,Autorenew, Cancel, Delete, Edit, Visibility } from "@mui/icons-material";
+import { Close, Autorenew, Cancel, Delete, Edit, Visibility } from "@mui/icons-material";
 import './index.css'
 const btncancel = {
   width: '90%',
@@ -288,14 +288,14 @@ const Team = () => {
     {
       field: 'status',
       headerName: <span style={{ color: "black", fontWeight: 600 }}>Status</span>,
-      flex: 1,
+      flex: 0.5,
       renderCell: (row) => {
         return (
           <>
             {row.row.status === 'active' ?
-              < Chip onClick={() => { handleOpendelmodalStatus(row.row); setDeleteData(row.row); }} sx={{ cursor: 'pointer' }} label={row.row.status} color="success" variant="outlined" />
+              < Chip label={row.row.status} color="success" variant="outlined" />
               :
-              <Chip onClick={() => { handleOpendelmodalStatus(row.row); setDeleteData(row.row); }} sx={{ cursor: 'pointer' }} label={row.row.status} color="primary" variant="outlined" />
+              <Chip label={row.row.status} color="primary" variant="outlined" />
 
             }
           </>
@@ -330,13 +330,13 @@ const Team = () => {
         return (
           <>
             <div>
-            <IconButton style={{ cursor: 'pointer' }} onClick={() => {
-                                handleOpendelmodalStatus(row.row); setDeleteData(row.row);
-                            }}>
-                                <Tooltip title="Change Status" >
-                                    <Autorenew sx={{ color: "green" }} />
-                                </Tooltip>
-                            </IconButton>
+              <IconButton style={{ cursor: 'pointer' }} onClick={() => {
+                handleOpendelmodalStatus(row.row); setDeleteData(row.row);
+              }}>
+                <Tooltip title="Change Status" >
+                  <Autorenew sx={{ color: "green" }} />
+                </Tooltip>
+              </IconButton>
 
               <IconButton onClick={() => {
                 setViewData(row.row); console.log(row.row);
@@ -453,56 +453,42 @@ const Team = () => {
   return (
     <>
       <Box sx={{ height: "100%", width: "100%", overflowX: "scroll" }}>
-        <Grid container spacing={0} pl={3} pr={3} pt={{ lg: 2, xl: 1 }} >
-          <Grid item xs={6} align="" pt={1} >
-            <Typography variant="h5" fontWeight={750} fontSize="20px" sx={{ letterSpacing: "2px" }} color="#404040">
+
+
+        <Grid container pt={{ lg: 2, xl: 1 }} >
+          <Grid item md={6} xs={12} align="left" pt={1}>
+            <Typography variant="h5" fontWeight={750} fontSize="20px" sx={{ ml: '2%', letterSpacing: "2px" }} color="#404040">
               Daily Deals
             </Typography>
           </Grid>
 
-          <Grid item xs={3} align="center">
-          </Grid>
+          <Grid item md={6} xs={12} align="right">
+            <div style={{ display: 'flex', justifyContent: 'right', alignItems: 'right', gap: '10px', width: '100%' }}>
+              <div style={{ width: '100px', borderRadius: "5px", border: "1px solid #D8D8D8", padding: "5px", paddingBottom: "0px", display: "flex", justifyContent: "center", alignContent: "center", gap: "3px" }}>
+                {
+                  showtable ?
+                    <>
+                      <Box onClick={() => { setShowtable(true) }}>
+                        <List fontSize="large" sx={{ color: "white", backgroundColor: "#B5030B", borderRadius: "5px" }} />
+                      </Box>
+                      <Box onClick={() => setShowtable(false)}>
+                        <Apps fontSize="large" sx={{ color: "#9B9B9B", backgroundColor: "transparent", borderRadius: "5px" }} />
+                      </Box>
+                    </>
+                    :
+                    <>
+                      <Box onClick={() => setShowtable(true)}>
+                        <List fontSize="large" sx={{ color: "#9B9B9B", backgroundColor: "transparent", borderRadius: "5px" }} />
+                      </Box>
+                      <Box onClick={() => setShowtable(false)}>
+                        <Apps fontSize="large" sx={{ color: "white", backgroundColor: "#B5030B", borderRadius: "5px" }} />
+                      </Box>
+                    </>
+                }
+              </div>
 
-          <Grid item xs={1.5} align="center">
-            <div>
-              <Box sx={{ width: '90px', borderRadius: "5px", border: "1px solid #D8D8D8" }}>
-                <Box >
-                  <div style={{ padding: "5px", paddingBottom: "0px", display: "flex", justifyContent: "center", alignContent: "center", gap: "3px" }}>
-                    {
-                      showtable ?
-                        <>
-                          <Box sx={{ pl: 1 }}>
-                            <List fontSize="large" sx={{ color: "white", backgroundColor: "#B5030B", borderRadius: "5px" }} onClick={() => { setShowtable(true) }} />
-                          </Box>
-                          <Box sx={{ pr: 1 }}>
-                            <Apps fontSize="large" sx={{ color: "#9B9B9B", backgroundColor: "transparent", borderRadius: "5px" }} onClick={() => setShowtable(false)} />
-                          </Box>
-                        </>
-                        :
-                        <>
-                          <Box sx={{ pl: 1 }}>
-                            <List fontSize="large" sx={{ color: "#9B9B9B", backgroundColor: "transparent", borderRadius: "5px" }} onClick={() => setShowtable(true)} />
-                          </Box>
-                          <Box sx={{ pr: 1 }}>
-                            <Apps fontSize="large" sx={{ color: "white", backgroundColor: "#B5030B", borderRadius: "5px" }} onClick={() => setShowtable(false)} />
-                          </Box>
-                        </>
-                    }
-                  </div>
-                </Box>
-              </Box>
-            </div>
-          </Grid>
-
-          <Grid item xs={1.5} align="center">
-            <div>
-              <button onClick={() => navigate("/addDailyDeals")}
-                style={{
-                  marginTop: "2%", padding: "10px", display: "flex", justifyContent: "center",
-                  alignContent: "center", alignSelf: "center", border: "none", borderRadius: "50px",
-                  backgroundColor: "#B5030B", color: "white"
-                }}>
-                <Stack direction="row" sx={{ display: "flex", justifyContent: "right", alignContent: "right", gap: "3px" }}>
+              <button onClick={() => navigate("/addDailyDeals")} style={{ marginRight: '3%', padding: "10px", border: "none", borderRadius: "50px", backgroundColor: "#B5030B", color: "white" }}>
+                <Stack direction="row" sx={{ display: "flex", justifyContent: "center", alignContent: "center", gap: "3px" }}>
                   <div>
                     <Stack sx={{ paddingLeft: "20px" }}>
                       <Add sx={{ fontWeight: 600, width: "24dpi" }} />
@@ -513,10 +499,10 @@ const Team = () => {
                     <Stack sx={{ marginLeft: "2vh", paddingTop: "0.5vh", paddingRight: "25px", fontWeight: "bold" }}>Add</Stack>
                   </div>
                 </Stack>
-
               </button>
             </div>
           </Grid>
+
         </Grid>
 
         <Divider sx={{ pb: 2 }} />
@@ -560,12 +546,12 @@ const Team = () => {
                     <Card width="100%" sx={{ padding: 0, boxShadow: "none", borderRadius: "10px", border: "1px solid #D8D8D8" }}>
                       <CardContent>
                         <Grid container spacing={0} >
-                          <Grid  width = '100%' xs={6} align="left" onClick={() => { setViewData(item); handleOpenmodal(); }}>
-                          <PerfectScrollbar>
-                            <Typography variant="h5" pb={1} fontWeight={750} fontSize="16px" 
-                            sx={{maxHeight:'50px',width:'100%', letterSpacing: "2px" }} color="#B5030B">
-                              {item.title}
-                            </Typography>
+                          <Grid width='100%' xs={6} align="left" onClick={() => { setViewData(item); handleOpenmodal(); }}>
+                            <PerfectScrollbar>
+                              <Typography variant="h5" pb={1} fontWeight={750} fontSize="16px"
+                                sx={{ height: '50px', width: '100%', letterSpacing: "2px" }} color="#B5030B">
+                                {item.title}
+                              </Typography>
                             </PerfectScrollbar>
                           </Grid>
 
@@ -648,6 +634,20 @@ const Team = () => {
                                   <Divider sx={{ width: "80%" }} />
                                 </Grid>
                               </Grid>
+
+                              <MenuItem onClick={() => {
+                                handleOpendelmodalStatus(idData)
+                                setDeleteData(idData);
+                              }}>
+                                <Autorenew sx={{ color: "green" }} /><span style={{ marginLeft: 10 }}>Status Change</span>
+                              </MenuItem>
+                              <Grid container spacing={0}>
+                                <Grid xs={12} align="center">
+                                  <Divider sx={{ width: "80%" }} />
+                                </Grid>
+                              </Grid>
+
+
                               <MenuItem onClick={() => {
                                 setDeleteID(idData.id);
                                 handleOpendelmodal();

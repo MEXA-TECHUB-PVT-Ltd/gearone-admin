@@ -337,9 +337,9 @@ const Topbar = () => {
             <Grid xs={12} align="center" p={{ xs: 2, md: 5, lg: 1, xl: 1 }}>
               <Typography variant="h4" sx={{ letterSpacing: "3px" }} fontWeight={600} fontSize="x-large" color="#B5030B">Confirmation</Typography>
               {changeStatus ?
-                <Typography variant="h5" sx={{ letterSpacing: "3px" }} pt={7} pb={0} fontWeight={600} color="#1F1F1F">Do you Enable Two Factor?</Typography>
+                <Typography variant="h5" sx={{ letterSpacing: "3px" }} pt={7} pb={0} fontWeight={600} color="#1F1F1F">Do you want Enable Two Factor?</Typography>
                 :
-                <Typography variant="h5" sx={{ letterSpacing: "3px" }} pt={7} pb={0} fontWeight={600} color="#1F1F1F">Do you  Disable  Two Factor?</Typography>
+                <Typography variant="h5" sx={{ letterSpacing: "3px" }} pt={7} pb={0} fontWeight={600} color="#1F1F1F">Do you want  Disable  Two Factor?</Typography>
               }
             </Grid>
           </Grid>

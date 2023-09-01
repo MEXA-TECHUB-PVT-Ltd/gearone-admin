@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { styled } from '@mui/material/styles';
 import List from '@mui/material/List';
-import moment from 'moment'; 
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Chip from '@mui/material/Chip';
@@ -10,6 +9,7 @@ import Swal from 'sweetalert2'
 import url from "../url"
 import { Close } from "@mui/icons-material";
 import { useEffect } from 'react';
+import moment from 'moment';  // Import moment
 
 const btncancel = {
     width: '90%',
@@ -76,15 +76,14 @@ const StyledListItem = styled(ListItem)(({ theme }) => ({
 
 export default function UserDetails({
     id,
-
-    block, name, price, promoted, added_by, createdat, location, user,email,phone
+    block, merchandise_name, price, status, ordered_at, createdat,
+    merchandise_description, instagram, total_orders, facebook, twitter, linked_in, followers, followings
 }) {
     const [DeleteData, setDeleteData] = useState([]);
     const [dense, setDense] = React.useState(false);
     const [secondary, setSecondary] = React.useState(false);
     const [AnchorElStatus, setAnchorElStatus] = React.useState(null);
     const [BlockStatus, setBlockStatus] = React.useState(block);
-    const formattedDate = moment(createdat).format('MMMM Do YYYY');  // Format the date using moment
 
     useEffect(() => {
         setBlockStatus(block)
@@ -147,6 +146,7 @@ export default function UserDetails({
             });
     }
 
+    const formattedDate = moment(createdat).format('MMMM Do YYYY');  // Format the date using moment
 
 
     return (
@@ -155,18 +155,18 @@ export default function UserDetails({
                 <Grid container spacing={2}>
                     <Grid item xs={24} md={12}>
                         <List dense={dense}>
-                        <p>Reported Item</p>
+                        <p>Merchandise</p>
 
                             <StyledListItem
                                 secondaryAction={
                                     <ListItemText
-                                        primary={name}
+                                        primary={merchandise_name}
                                         secondary={secondary ? 'Secondary text' : null}
                                     />
                                 }
                             >
                                 <ListItemText
-                                    primary="Item"
+                                    primary="Name"
                                     secondary={secondary ? 'Secondary text' : null}
                                 />
                             </StyledListItem>
@@ -182,43 +182,29 @@ export default function UserDetails({
                                     primary="Price"
                                     secondary={secondary ? 'Secondary text' : null}
                                 />
-                            </StyledListItem>
-                            <StyledListItem
+                            </StyledListItem>   <StyledListItem
                                 secondaryAction={
                                     <ListItemText
-                                        primary={location}
+                                        primary={status}
                                         secondary={secondary ? 'Secondary text' : null}
                                     />
                                 }
                             >
                                 <ListItemText
-                                    primary="Location"
+                                    primary="Status"
                                     secondary={secondary ? 'Secondary text' : null}
                                 />
                             </StyledListItem>
                             <StyledListItem
                                 secondaryAction={
                                     <ListItemText
-                                        primary={promoted}
+                                        primary={ordered_at}
                                         secondary={secondary ? 'Secondary text' : null}
                                     />
                                 }
                             >
                                 <ListItemText
-                                    primary="Promoted"
-                                    secondary={secondary ? 'Secondary text' : null}
-                                />
-                            </StyledListItem>
-                            <StyledListItem
-                                secondaryAction={
-                                    <ListItemText
-                                        primary={added_by}
-                                        secondary={secondary ? 'Secondary text' : null}
-                                    />
-                                }
-                            >
-                                <ListItemText
-                                    primary="Added By"
+                                    primary="Ordered Location"
                                     secondary={secondary ? 'Secondary text' : null}
                                 />
                             </StyledListItem>
@@ -231,54 +217,23 @@ export default function UserDetails({
                                 }
                             >
                                 <ListItemText
-                                    primary="Creation Date"
+                                    primary="ordered On"
                                     secondary={secondary ? 'Secondary text' : null}
                                 />
                             </StyledListItem>
-
                             <StyledListItem
                                 secondaryAction={
                                     <ListItemText
-                                        primary={user}
+                                        primary={merchandise_description}
                                         secondary={secondary ? 'Secondary text' : null}
                                     />
                                 }
                             >
                                 <ListItemText
-                                    primary="User"
+                                    primary="Description"
                                     secondary={secondary ? 'Secondary text' : null}
                                 />
                             </StyledListItem>
-
-                            <StyledListItem
-                                secondaryAction={
-                                    <ListItemText
-                                        primary={email}
-                                        secondary={secondary ? 'Secondary text' : null}
-                                    />
-                                }
-                            >
-                                <ListItemText
-                                    primary="Email"
-                                    secondary={secondary ? 'Secondary text' : null}
-                                />
-                            </StyledListItem>
-
-                            <StyledListItem
-                                secondaryAction={
-                                    <ListItemText
-                                        primary={phone}
-                                        secondary={secondary ? 'Secondary text' : null}
-                                    />
-                                }
-                            >
-                                <ListItemText
-                                    primary="Phone"
-                                    secondary={secondary ? 'Secondary text' : null}
-                                />
-                            </StyledListItem>
-
-
                         </List>
 
                     </Grid>
@@ -299,11 +254,12 @@ export default function UserDetails({
 
                         <Grid xs={12} align="center" p={{ xs: 2, md: 5, lg: 1, xl: 1 }}>
                             <Typography variant="h4" sx={{ letterSpacing: "3px" }} fontWeight={600} fontSize="x-large" color="#B5030B">Confirmation</Typography>
-                            {DeleteData.status === 'block' ?
+                            {BlockStatus === 'block' ?
                                 <Typography variant="h5" sx={{ letterSpacing: "3px" }} pt={7}
                                     pb={0} fontWeight={600} color="#1F1F1F">{`Do you want to unblock user?`}
                                 </Typography>
                                 :
+                                BlockStatus === 'unblock' &&
                                 <Typography variant="h5" sx={{ letterSpacing: "3px" }} pt={7}
                                     pb={0} fontWeight={600} color="#1F1F1F">{`Do you want to block user?`}
                                 </Typography>
@@ -318,53 +274,10 @@ export default function UserDetails({
                         </Grid>
 
                         <Grid xs={6} align="right">
-                            {DeleteData.status === 'block' ?
+                            {BlockStatus === 'block' ?
                                 <Button variant="contained" style={btn} onClick={() => { handleChipClick() }}>unblock</Button>
                                 :
-                                <Button variant="contained" style={btn} onClick={() => { handleChipClick() }}>block</Button>
-                            }
-                        </Grid>
-                    </Grid>
-
-                </Box>
-            </Modal>
-            {/* Change */}
-            <Modal
-                open={opendelmodalStatus}
-                // onClose={handleClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-            >
-                <Box width={{ xs: 400, md: 500, lg: 500, xl: 600 }} height="auto" sx={style}>
-                    <Grid container spacing={0}>
-                        <Grid xs={12} align="right">
-                            <Close onClick={() => setOpendelmodalStatus(false)} />
-                        </Grid>
-
-                        <Grid xs={12} align="center" p={{ xs: 2, md: 5, lg: 1, xl: 1 }}>
-                            <Typography variant="h4" sx={{ letterSpacing: "3px" }} fontWeight={600} fontSize="x-large" color="#B5030B">Confirmation</Typography>
-                            {DeleteData.status === 'block' ?
-                                <Typography variant="h5" sx={{ letterSpacing: "3px" }} pt={7}
-                                    pb={0} fontWeight={600} color="#1F1F1F">{`Do you want to unblock user?`}
-                                </Typography>
-                                :
-                                <Typography variant="h5" sx={{ letterSpacing: "3px" }} pt={7}
-                                    pb={0} fontWeight={600} color="#1F1F1F">{`Do you want to block user?`}
-                                </Typography>
-
-                            }
-                        </Grid>
-                    </Grid>
-
-                    <Grid container spacing={0} pt={7}>
-                        <Grid xs={6} align="">
-                            <Button variant="contained" style={btncancel} onClick={() => { setOpendelmodalStatus(false) }}>Cancel</Button>
-                        </Grid>
-
-                        <Grid xs={6} align="right">
-                            {DeleteData.status === 'block' ?
-                                <Button variant="contained" style={btn} onClick={() => { handleChipClick() }}>unblock</Button>
-                                :
+                                BlockStatus === 'unblock' &&
                                 <Button variant="contained" style={btn} onClick={() => { handleChipClick() }}>block</Button>
                             }
                         </Grid>

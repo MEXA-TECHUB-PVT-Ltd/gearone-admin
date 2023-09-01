@@ -392,9 +392,10 @@ const Team = () => {
 
                         <div>
                             <IconButton onClick={() => {
-                                navigate('/UserDetails', {
+                                navigate('/OrderDetails', {
                                     state: {
                                         id: row.row.id,
+                                        row: row.row,
                                     }
                                 })
                             }

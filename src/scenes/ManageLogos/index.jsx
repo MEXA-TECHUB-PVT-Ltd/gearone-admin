@@ -1,4 +1,4 @@
-import { Box, Tooltip, Typography, useTheme, IconButton, TextField, Grid, Modal, Button, Stack, Card, CardContent, MenuItem, Menu, Paper, Divider, Avatar } from "@mui/material";
+import { Box, Tooltip, Select, Typography, useTheme, IconButton, TextField, Grid, Modal, Button, Stack, Card, CardContent, MenuItem, Menu, Paper, Divider, Avatar } from "@mui/material";
 import Chip from '@mui/material/Chip';
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import PerfectScrollbar from 'react-perfect-scrollbar'
@@ -14,7 +14,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import url from "../url"
 import img from '../../components/Images/hairstyleimage.jpg'
 import { tokens } from "../../theme";
-import { Subscriptions, Autorenew , Notifications, Settings, Person, Add, List, Apps, MoreVert, People, Lock, Search } from '@mui/icons-material';
+import { Subscriptions, Autorenew, Notifications, Settings, Person, Add, List, Apps, MoreVert, People, Lock, Search } from '@mui/icons-material';
 import React, { useState, useEffect } from "react";
 import ClipLoader from "react-spinners/ClipLoader";
 import { Checkbox } from '@mui/material';
@@ -182,6 +182,7 @@ const Team = () => {
     setAnchorEl(null);
   };
   const handleClosedelmodal = () => setOpendelmodal(false);
+  const [Screens, setScreens] = useState([]);
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -191,6 +192,43 @@ const Team = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+
+  const getAllScreens = async () => {
+    var InsertAPIURL = `${url}screen/get_all_screen`
+    var headers = {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    };
+    await fetch(InsertAPIURL, {
+      method: 'GET',
+      headers: headers,
+    })
+      .then(response => response.json())
+      .then(response => {
+        console.log(response);
+        if (response.message == `All screens Details`) {
+          // setLogos(response.count);
+          setScreens(response.result);
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            confirmButtonColor: "#B5030B",
+            text: ''
+          })
+        }
+      }
+      )
+      .catch(error => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          confirmButtonColor: "#B5030B",
+          text: "Server Down!"
+        })
+      });
+  }
 
   const [showtable, setShowtable] = useState(true);
 
@@ -250,6 +288,16 @@ const Team = () => {
         })
       });
   }
+
+  const handleChangeScreen = (event) => {
+    if (event.target.value === "ALL Screens") {
+      getAllLogos();
+    } else {
+      getAllLogos_ByScreen(event.target.value)
+    }
+    setScreen(event.target.value);
+
+  };
 
 
 
@@ -314,12 +362,10 @@ const Team = () => {
         return (
           <>
             {row.row.active_status === 'active' ?
-              < Chip onClick={() => { handleOpendelmodalStatus(row.row); setDeleteData(row.row); }}
-                sx={{ cursor: 'pointer' }} label={row.row.active_status}
+              < Chip label={row.row.active_status}
                 color="success" variant="outlined" />
               :
-              <Chip onClick={() => { handleOpendelmodalStatus(row.row); setDeleteData(row.row); }}
-                sx={{ cursor: 'pointer' }} label={row.row.active_status}
+              <Chip label={row.row.active_status}
                 color="primary" variant="outlined" />
 
             }
@@ -337,14 +383,14 @@ const Team = () => {
         return (
           <>
             <div>
-            <IconButton style={{ cursor: 'pointer' }} onClick={() => {
-              handleOpendelmodalStatus(row.row)
-              setDeleteData(row.row);
-            }}>
-              <Tooltip title="Change Status" >
-                <Autorenew sx={{ color: "green" }} />
-              </Tooltip>
-            </IconButton>
+              <IconButton style={{ cursor: 'pointer' }} onClick={() => {
+                handleOpendelmodalStatus(row.row)
+                setDeleteData(row.row);
+              }}>
+                <Tooltip title="Change Status" >
+                  <Autorenew sx={{ color: "green" }} />
+                </Tooltip>
+              </IconButton>
 
               <IconButton onClick={() => {
                 setViewData(row.row); console.log(row.row);
@@ -410,12 +456,59 @@ const Team = () => {
       },
     },
   ];
+  const [Screen, setScreen] = React.useState("ALL Screens");
+
+  const getAllLogos_ByScreen = async (screen_id) => {
+    var InsertAPIURL = `${url}logos/get_logos_by_screen`
+    var headers = {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    };
+    const Data = {
+      "screen_id": screen_id
+    }
+    console.log(screen_id)
+    await fetch(InsertAPIURL, {
+      method: 'POST',
+      headers: headers,
+      body: JSON.stringify(Data),
+    })
+
+      .then(response => response.json())
+      .then(response => {
+        console.log(response);
+        if (response.status === true) {
+          // setLogos(response.count);
+          setLogos(response.result);
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            confirmButtonColor: "#B5030B",
+            text: ''
+          })
+        }
+      }
+      )
+      .catch(error => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          confirmButtonColor: "#B5030B",
+          text: "Server Down!"
+        })
+      });
+  }
+
+
   const [Logos, setLogos] = useState([]);
   useEffect(() => {
+    getAllScreens();
     getAllLogos();
   }, [])
 
   const getAllLogos = async () => {
+    setScreen("ALL Screens");
     var InsertAPIURL = `${url}logos/get_all_logos`
     var headers = {
       'Accept': 'application/json',
@@ -454,68 +547,74 @@ const Team = () => {
   return (
     <>
       <Box sx={{ height: "100%", width: "100%", overflowX: "scroll" }}>
-        <Grid container spacing={0} pl={3} pr={3} pt={{ lg: 2, xl: 1 }} >
-          <Grid item xs={6} align="" pt={1} >
-            <Typography variant="h5" fontWeight={750} fontSize="20px" sx={{ letterSpacing: "2px" }} color="#404040">
-              Logos
+        <Grid container pt={{ lg: 2, xl: 1 }} >
+          <Grid item md={5.3} xs={12} align="left" pt={1}>
+            <Typography variant="h5" fontWeight={750} fontSize="20px" sx={{ ml: '2%', letterSpacing: "2px" }} color="#404040">
+              Manage Logo
             </Typography>
           </Grid>
 
-          <Grid item xs={3} align="center">
+          <Grid item md={4} xs={12} align="right" pt={0} sx={{ mr: { xs: '3%', md: '0%' }, mb: { xs: '3%', md: '0%' }, height: '42px' }}>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              displayEmpty
+              sx={{ height: '100%' }}
+              defaultValue={Screen}
+              onChange={handleChangeScreen}
+            >
+              <MenuItem key="ALL Screens" value="ALL Screens" >
+                <em>ALL Screens</em>
+              </MenuItem>
+
+              {Screens.map((data) => (
+                <MenuItem key={data.id} value={data.id}>{`${data.name}`}</MenuItem>
+              ))}
+            </Select>
 
           </Grid>
 
-          <Grid item xs={1.5} align="center">
-            <div>
-              <Box sx={{ width: '90px', borderRadius: "5px", border: "1px solid #D8D8D8" }}>
-                <Box >
-                  <div style={{ padding: "5px", paddingBottom: "0px", display: "flex", justifyContent: "center", alignContent: "center", gap: "3px" }}>
-                    {
-                      showtable ?
-                        <>
-                          <Box sx={{ pl: 1 }}>
-                            <List fontSize="large" sx={{ color: "white", backgroundColor: "#B5030B", borderRadius: "5px" }} onClick={() => { setShowtable(true) }} />
-                          </Box>
-                          <Box sx={{ pr: 1 }}>
-                            <Apps fontSize="large" sx={{ color: "#9B9B9B", backgroundColor: "transparent", borderRadius: "5px" }} onClick={() => setShowtable(false)} />
-                          </Box>
-                        </>
-                        :
-                        <>
-                          <Box sx={{ pl: 1 }}>
-                            <List fontSize="large" sx={{ color: "#9B9B9B", backgroundColor: "transparent", borderRadius: "5px" }} onClick={() => setShowtable(true)} />
-                          </Box>
-                          <Box sx={{ pr: 1 }}>
-                            <Apps fontSize="large" sx={{ color: "white", backgroundColor: "#B5030B", borderRadius: "5px" }} onClick={() => setShowtable(false)} />
-                          </Box>
-                        </>
-                    }
-                  </div>
-                </Box>
-              </Box>
-            </div>
-          </Grid>
-
-          <Grid item xs={1.5} align="center">
-            <div style={{ display: "flex", justifyContent: "right", alignContent: "right", gap: "30px" }}>
-              <div>
-                <button onClick={() => navigate("/AddLogo")} style={{ marginTop: "2%", padding: "10px", display: "flex", justifyContent: "center", alignContent: "center", alignSelf: "center", border: "none", borderRadius: "50px", backgroundColor: "#B5030B", color: "white" }}>
-                  <Stack direction="row" sx={{ display: "flex", justifyContent: "right", alignContent: "right", gap: "3px" }}>
-                    <div>
-                      <Stack sx={{ paddingLeft: "20px" }}>
-                        <Add sx={{ fontWeight: 600, width: "24dpi" }} />
-                      </Stack>
-                    </div>
-
-                    <div>
-                      <Stack sx={{ marginLeft: "2vh", paddingTop: "0.5vh", paddingRight: "25px", fontWeight: "bold" }}>Add</Stack>
-                    </div>
-                  </Stack>
-
-                </button>
+          <Grid item md={2.7} xs={12} align="right">
+            <div style={{ display: 'flex', justifyContent: 'right', alignItems: 'right', gap: '10px', width: '100%' }}>
+              <div style={{ width: '100px', borderRadius: "5px", border: "1px solid #D8D8D8", padding: "5px", paddingBottom: "0px", display: "flex", justifyContent: "center", alignContent: "center", gap: "3px" }}>
+                {
+                  showtable ?
+                    <>
+                      <Box onClick={() => { setShowtable(true) }}>
+                        <List fontSize="large" sx={{ color: "white", backgroundColor: "#B5030B", borderRadius: "5px" }} />
+                      </Box>
+                      <Box onClick={() => setShowtable(false)}>
+                        <Apps fontSize="large" sx={{ color: "#9B9B9B", backgroundColor: "transparent", borderRadius: "5px" }} />
+                      </Box>
+                    </>
+                    :
+                    <>
+                      <Box onClick={() => setShowtable(true)}>
+                        <List fontSize="large" sx={{ color: "#9B9B9B", backgroundColor: "transparent", borderRadius: "5px" }} />
+                      </Box>
+                      <Box onClick={() => setShowtable(false)}>
+                        <Apps fontSize="large" sx={{ color: "white", backgroundColor: "#B5030B", borderRadius: "5px" }} />
+                      </Box>
+                    </>
+                }
               </div>
+
+              <button onClick={() => navigate("/AddLogo")} style={{ marginRight: '3%', padding: "10px", border: "none", borderRadius: "50px", backgroundColor: "#B5030B", color: "white" }}>
+                <Stack direction="row" sx={{ display: "flex", justifyContent: "center", alignContent: "center", gap: "3px" }}>
+                  <div>
+                    <Stack sx={{ paddingLeft: "20px" }}>
+                      <Add sx={{ fontWeight: 600, width: "24dpi" }} />
+                    </Stack>
+                  </div>
+
+                  <div>
+                    <Stack sx={{ marginLeft: "2vh", paddingTop: "0.5vh", paddingRight: "25px", fontWeight: "bold" }}>Add</Stack>
+                  </div>
+                </Stack>
+              </button>
             </div>
           </Grid>
+
         </Grid>
 
         <Divider sx={{ pb: 2 }} />
@@ -523,7 +622,7 @@ const Team = () => {
         <Grid mb='6%' sx={{ mb: '23px' }} container spacing={0} pt={2} >
           {
             showtable ?
-              <Grid xs={12} p={1} align="center">
+              <Grid xs={24}  p={1} align="center">
                 <div style={{ height: 600, width: '100%' }}>
                   <DataGrid
                     rows={Logos}
@@ -637,6 +736,24 @@ const Team = () => {
                                   <Divider sx={{ width: "80%" }} />
                                 </Grid>
                               </Grid>
+
+
+                              <MenuItem onClick={() => {
+                                handleOpendelmodalStatus(idData)
+                                setDeleteData(idData);
+                              }}>
+                                <Autorenew sx={{ color: "green" }} /><span style={{ marginLeft: 10 }}>Status Change</span>
+                              </MenuItem>
+
+
+
+                              <Grid container spacing={0}>
+                                <Grid xs={12} align="center">
+                                  <Divider sx={{ width: "80%" }} />
+                                </Grid>
+                              </Grid>
+
+
                               <MenuItem onClick={() => {
                                 setDeleteID(idData.id);
                                 handleOpendelmodal();
@@ -700,11 +817,11 @@ const Team = () => {
           <Box width={{ xs: 400, md: 500, lg: 600, xl: 650 }} height="auto" sx={styleview}>
             <Box sx={{ borderTopLeftRadius: "20px", borderTopRightRadius: "20px", backgroundColor: "#B5030B", width: "100%", height: "80px" }}>
               <div xs={12} align="right" pt={0.6} pr={3}>
-                <Cancel sx={{ marginRight: '10px', marginTop: "5px", color: "white" }} onClick={() => setOpenmodal(false)} />
+                <Cancel sx={{ marginRight: '10px', marginTop: "10px", color: "white" }} onClick={() => setOpenmodal(false)} />
               </div>
-                <Typography align="center" sx={{ mb: '90px', fontWeight: 600, fontSize: "24px" }} color="white">
-                  {viewData.screen_name}
-                </Typography>
+              <Typography align="center" sx={{ mb: '90px', fontWeight: 600, fontSize: "24px" }} color="white">
+                {viewData.screen_name}
+              </Typography>
             </Box>
             <Grid xs={12} align="center" pt={3}>
               {viewData.image !== null ?

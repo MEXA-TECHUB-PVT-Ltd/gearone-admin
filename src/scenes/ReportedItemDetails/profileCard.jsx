@@ -133,6 +133,8 @@ const ProfileCard = ({ id, reported_items, name, role, createdat, imageUrl, emai
                 justifyContent: 'stretch',
                 borderRadius: '8px',
             }}>
+                            <p>Reported By</p>
+
                 <div style={{
                     display: 'flex',
                     justifyContent: 'space-between',

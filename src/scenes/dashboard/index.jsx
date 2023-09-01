@@ -7,9 +7,9 @@ import Chart from "./Chart.js";
 import { Avatar, Box, Typography, Button, Stack, useTheme, Divider, Card, CardContent, Toolbar, TableSortLabel, TableCell, Checkbox, TableHead, TableRow, FormControlLabel, Switch, Paper, TableContainer, Table, TableBody, TablePagination, ToggleButton, ToggleButtonGroup } from "@mui/material";
 import { tokens } from "../../theme";
 import Select from '@mui/material/Select';
-import totalusers from '../../components/Images/totalusers.png'
-import categoriesofworkout from '../../components/Images/categoriesofworkout.png'
-import totalworkoutplans from '../../components/Images/totalworkoutplans.png'
+import totalusers from '../../components/Images/Group 6.svg'
+import categoriesofworkout from '../../components/Images/Group 7.svg'
+import totalworkoutplans from '../../components/Images/Group 8.svg'
 import { useNavigate } from 'react-router-dom';
 import Grid from "@mui/material/Grid";
 import Menu from '@mui/material/Menu';
@@ -570,7 +570,7 @@ const Dashboard = () => {
                 <Grid container spacing={0} mt={1}>
                   <Grid xs={5} md={8} lg={8} xl={8} pt={0.5} align="left" >
                     <Stack direction="column" spacing={1}>
-                      <Typography variant="paragraph" fontWeight={750} sx={{ font: "normal normal normal 18px/32px Roboto", letterSpacing: "1px" }} fontSize="15px" color="#808080" >Total Categories</Typography>
+                      <Typography variant="paragraph" fontWeight={750} bold sx={{ font: "normal normal normal 18px/32px Roboto", letterSpacing: "1px" }}  fontSize="15px" color="black" >Total Categories</Typography>
 
                       <Typography variant="h6" fontWeight={850} fontSize="18px" color="#1F1F1F" sx={{ letterSpacing: "2px" }}>{allUsers}</Typography>
 
@@ -592,7 +592,7 @@ const Dashboard = () => {
                 <Grid container spacing={0} mt={1}>
                   <Grid xs={6} md={8} lg={8} xl={8} pt={0.5} align="left" >
                     <Stack direction="column" spacing={1}>
-                      <Typography variant="paragraph" fontWeight={750} sx={{ font: "normal normal normal 18px/32px Roboto", letterSpacing: "1px" }} fontSize="15px" color="#808080" >Total Ads</Typography>
+                      <Typography variant="paragraph" fontWeight={750} sx={{ font: "normal normal normal 18px/32px Roboto", letterSpacing: "1px" }} fontSize="15px" color="black" >Total Ads</Typography>
 
                       <Typography variant="h6" fontWeight={850} fontSize="18px" color="#1F1F1F" sx={{ letterSpacing: "2px" }}>{allItems}</Typography>
 
@@ -616,7 +616,7 @@ const Dashboard = () => {
                 <Grid container spacing={0} mt={1}>
                   <Grid xs={6} md={8} lg={8} xl={8} pt={0.5} align="left" >
                     <Stack direction="column" spacing={1}>
-                      <Typography variant="paragraph" fontWeight={750} sx={{ font: "normal normal normal 18px/32px Roboto", letterSpacing: "1px" }} fontSize="15px" color="#808080" >Total Merchandise</Typography>
+                      <Typography variant="paragraph" fontWeight={750} sx={{ font: "normal normal normal 18px/32px Roboto", letterSpacing: "1px" }} fontSize="15px" color="black" >Total Merchandise</Typography>
 
                       <Typography variant="h6" fontWeight={850} fontSize="18px" color="#1F1F1F" sx={{ letterSpacing: "2px" }}>{allMerchandise}</Typography>
                     </Stack>
@@ -669,7 +669,7 @@ const Dashboard = () => {
               <Card sx={{overflow: { xs: 'scroll', md: 'hidden' }, borderRadius: "10px", boxShadow: "0px 3px 6px #00000029" }}>
                 <CardContent style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                   <div>
-                    <Typography variant="h5" fontWeight={750} fontSize="15px" sx={{ font: "normal normal medium 16px/21px Roboto", letterSpacing: "1px" }} color="#1F1F1F">
+                    <Typography variant="h5" fontWeight={750} fontSize="15px" sx={{ font: "normal normal medium 16px/21px Roboto", letterSpacing: "1px" }} color="black">
                       Total User
                     </Typography>
                   </div>

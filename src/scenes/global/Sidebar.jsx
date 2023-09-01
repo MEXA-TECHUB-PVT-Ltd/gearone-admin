@@ -88,24 +88,13 @@ const Sidebar = () => {
                 onClick={() => setIsCollapsed(!isCollapsed)}
                 icon={isCollapsed ? <MenuOutlinedIcon /> : undefined}
                 style={{
-                  margin: "10px 0 20px 0",
                   color: colors.grey[100],
                 }}
               >
                 {!isCollapsed && (
-                  <Box
-                  // display="flex"
-                  // justifyContent="space-between"
-                  // alignItems="center"
-                  // ml="15px"
-                  >
-                    <div style={{ display: "flex", alignContent: "center", justifyContent: "center" }}>
+                    <div  style={{marginTop:'-10%', display: "flex", alignContent: "center", justifyContent: "center" }}>
                       <img src={logo} style={{ width: '120px', height: '120px' }} />
                     </div>
-                    {/* <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
-                      <MenuOutlinedIcon />
-                    </IconButton> */}
-                  </Box>
                 )}
               </MenuItem>
               :

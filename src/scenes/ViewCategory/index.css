@@ -1,0 +1,38 @@
+.image_preview {
+    height: 175px;
+    overflow-y: scroll; 
+}
+
+.image_preview::-webkit-scrollbar {
+    width: 5px;
+}
+
+.image_preview::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+.image_preview::-webkit-scrollbar-thumb {
+    background-color: transparent;
+}
+
+/* Replace "custom-datagrid" with the actual class name of your DataGrid component */
+.custom-datagrid .MuiDataGrid-row::before {
+    content: '';
+    font-weight: bold;
+    display: block;
+    height: 0; /* Adjust as needed */
+    visibility: hidden;
+  }
+  
+  /* Replace "custom-datagrid" with the actual class name of your DataGrid component */
+  .custom-datagrid .MuiDataGrid-row {
+    color: black;
+    /* Add any other row-specific styles you want */
+  }
+
+.unblock-row {
+    font-weight: 600;
+    font-size:larger;
+  }
+  
+  
