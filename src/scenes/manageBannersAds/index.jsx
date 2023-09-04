@@ -1,4 +1,4 @@
-import { Box, Tooltip,Select, Typography, useTheme, IconButton, TextField, Grid, Modal, Button, Stack, Card, CardContent, MenuItem, Menu, Paper, Divider, Avatar } from "@mui/material";
+import { Box, Tooltip, Select, Typography, useTheme, IconButton, TextField, Grid, Modal, Button, Stack, Card, CardContent, MenuItem, Menu, Paper, Divider, Avatar } from "@mui/material";
 import Chip from '@mui/material/Chip';
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import PerfectScrollbar from 'react-perfect-scrollbar'
@@ -14,7 +14,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import url from "../url"
 import img from '../../components/Images/hairstyleimage.jpg'
 import { tokens } from "../../theme";
-import { Subscriptions, Autorenew, Notifications, Settings, Person, Add, List, Apps, MoreVert, People, Lock, Search } from '@mui/icons-material';
+import { Subscriptions, InsertLink, Autorenew, Notifications, Settings, Person, Add, List, Apps, MoreVert, People, Lock, Search } from '@mui/icons-material';
 import React, { useState, useEffect } from "react";
 import ClipLoader from "react-spinners/ClipLoader";
 import { Checkbox } from '@mui/material';
@@ -320,7 +320,6 @@ const Team = () => {
 
   const columns = [
     { field: 'screen_name', headerName: <span style={{ color: "black", fontWeight: 600 }}>Screen</span>, flex: 1 },
-    { field: 'link', headerName: <span style={{ color: "black", fontWeight: 600 }}>Link</span>, flex: 1 },
     {
       field: 'active_status',
       headerName: <span style={{ color: "black", fontWeight: 600 }}>Status</span>,
@@ -366,6 +365,14 @@ const Team = () => {
                     setViewData(row.row); console.log(row.row);
                     handleOpenmodal()
                   }} />
+                </Tooltip>
+              </IconButton>
+              <IconButton onClick={() => {
+                window.open(row.row.link, '_blank');
+              }} >
+                <Tooltip title="View Link" >
+                  <InsertLink sx={{ color: "#40E0D0" }}
+                  />
                 </Tooltip>
               </IconButton>
 
@@ -464,6 +471,7 @@ const Team = () => {
   }
 
   const getAllLogos = async () => {
+    setIsloading(true);
     setScreen("ALL Screens");
     var InsertAPIURL = `${url}ads/get_all_ads`
     var headers = {
@@ -477,11 +485,13 @@ const Team = () => {
       .then(response => response.json())
       .then(response => {
         console.log(response);
-        if (response.message == `Ad's Data`) {
+        if (response.status == true) {
           // setLogos(response.count);
           console.log(response.result);
+          setIsloading(false);
           setLogos(response.result);
         } else {
+          setIsloading(false);
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
@@ -492,6 +502,7 @@ const Team = () => {
       }
       )
       .catch(error => {
+        setIsloading(false);
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
@@ -563,23 +574,23 @@ const Team = () => {
               Banner Ads
             </Typography>
           </Grid>
-          <Grid  item md={4} xs={12} align="right" pt={0 } sx={{mr:{xs:'3%', md:'0%'}, mb:{xs:'3%', md:'0%'}, height: '42px' }}>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  displayEmpty
-                  sx={{ height: '100%' }}
-                  defaultValue={Screen}
-                onChange={handleChangeScreen}
-                >
-                  <MenuItem key="ALL Screens" value="ALL Screens" >
-                    <em>ALL Screens</em>
-                  </MenuItem>
+          <Grid item md={4} xs={12} align="right" pt={0} sx={{ mr: { xs: '3%', md: '0%' }, mb: { xs: '3%', md: '0%' }, height: '42px' }}>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              displayEmpty
+              sx={{ height: '100%' }}
+              defaultValue={Screen}
+              onChange={handleChangeScreen}
+            >
+              <MenuItem key="ALL Screens" value="ALL Screens" >
+                <em>ALL Screens</em>
+              </MenuItem>
 
-                  {Screens.map((data) => (
-                    <MenuItem key={data.id} value={data.id}>{`${data.name}`}</MenuItem>
-                  ))}
-                </Select>
+              {Screens.map((data) => (
+                <MenuItem key={data.id} value={data.id}>{`${data.name}`}</MenuItem>
+              ))}
+            </Select>
 
           </Grid>
 
@@ -590,25 +601,25 @@ const Team = () => {
                   showtable ?
                     <>
                       <Box onClick={() => { setShowtable(true) }}>
-                        <List fontSize="large" sx={{ color: "white", backgroundColor: "#B5030B", borderRadius: "5px" }} />
+                        <List fontSize="large" sx={{ cursor: 'pointer', color: "white", backgroundColor: "#B5030B", borderRadius: "5px" }} />
                       </Box>
                       <Box onClick={() => setShowtable(false)}>
-                        <Apps fontSize="large" sx={{ color: "#9B9B9B", backgroundColor: "transparent", borderRadius: "5px" }} />
+                        <Apps fontSize="large" sx={{ cursor: 'pointer', color: "#9B9B9B", backgroundColor: "transparent", borderRadius: "5px" }} />
                       </Box>
                     </>
                     :
                     <>
                       <Box onClick={() => setShowtable(true)}>
-                        <List fontSize="large" sx={{ color: "#9B9B9B", backgroundColor: "transparent", borderRadius: "5px" }} />
+                        <List fontSize="large" sx={{ cursor: 'pointer', color: "#9B9B9B", backgroundColor: "transparent", borderRadius: "5px" }} />
                       </Box>
                       <Box onClick={() => setShowtable(false)}>
-                        <Apps fontSize="large" sx={{ color: "white", backgroundColor: "#B5030B", borderRadius: "5px" }} />
+                        <Apps fontSize="large" sx={{ cursor: 'pointer', color: "white", backgroundColor: "#B5030B", borderRadius: "5px" }} />
                       </Box>
                     </>
                 }
               </div>
 
-              <button onClick={() => navigate("/addexercise")} style={{ marginRight: '3%', padding: "10px", border: "none", borderRadius: "50px", backgroundColor: "#B5030B", color: "white" }}>
+              <button onClick={() => navigate("/addexercise")} style={{ cursor: 'pointer', marginRight: '3%', padding: "10px", border: "none", borderRadius: "50px", backgroundColor: "#B5030B", color: "white" }}>
                 <Stack direction="row" sx={{ display: "flex", justifyContent: "center", alignContent: "center", gap: "3px" }}>
                   <div>
                     <Stack sx={{ paddingLeft: "20px" }}>
@@ -627,191 +638,222 @@ const Team = () => {
         </Grid>
 
         <Divider sx={{ pb: 2 }} />
+        {isloading ?
+          <Grid sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignContent: "center",
+            alignItems: 'center',
+            height: "100%", width: "100%"
+            // backgroundColor:'red'
 
-        <Grid mb='6%' container spacing={0} pt={2}  >
-          {
-            showtable ?
-              <Grid xs={12} p={1} align="center">
-                <div style={{ height: 600, width: '100%' }}>
-                  <DataGrid
-                    rows={Logos}
-                    getRowId={Logos.id}
-                    id={Logos.id}
-                    getRowClassName={(params) => {
-                      return 'unblock-row'
-                    }}
+          }} >
+            <div className="loader">
+            </div>
+          </Grid>
 
-                    columns={columns}
-                    initialState={{
-                      pagination: {
-                        paginationModel: { page: 0, pageSize: 5 },
-                      },
-                    }}
-                    pageSizeOptions={[5, 10]}
-                    // checkboxSelection
-                    components={{
-                      Checkbox: ({ value }) => (
-                        <Checkbox style={{ color: 'red' }} checked={Logos.id} />
-                      ),
-                    }}
-                  />
-                </div>
-              </Grid>
-              :
-              <>
-                {Logos.map((item, index) => (
-                  <Grid xs={12} md={3} lg={3} align="center" p={1}>
-                    <Card width="95%" sx={{ padding: 0, boxShadow: "none", borderRadius: "10px", border: "1px solid #D8D8D8" }}>
-                      <CardContent>
-                        <Grid container spacing={0} >
-                          <Grid xs={6} align="left" onClick={() => { setViewData(item); handleOpenmodal(); }}>
-                            <Typography variant="h5" pb={1} fontWeight={750} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#B5030B">
-                              {item.screen_name}
-                            </Typography>
-                          </Grid>
+          :
 
-                          <Grid xs={6} align="right">
-                            <div>
-                              <MoreVert
-                                id="basic-button"
-                                aria-controls={open ? 'basic-menu' : undefined}
-                                aria-haspopup="true"
-                                aria-expanded={open ? 'true' : undefined}
-                                // onClick={handleClick} 
-                                onClick={(event) => {
-                                  setIdData(item)
-                                  setAnchorEl(event.currentTarget)
+
+          <Grid mb='6%' container spacing={0} pt={2}  >
+            {
+              showtable ?
+                <Grid xs={12} p={1} align="center">
+                  <div style={{ height: 600, width: '100%' }}>
+                    <DataGrid
+                      rows={Logos}
+                      getRowId={Logos.id}
+                      id={Logos.id}
+                      getRowClassName={(params) => {
+                        return 'unblock-row'
+                      }}
+
+                      columns={columns}
+                      initialState={{
+                        pagination: {
+                          paginationModel: { page: 0, pageSize: 5 },
+                        },
+                      }}
+                      pageSizeOptions={[5, 10]}
+                      // checkboxSelection
+                      components={{
+                        Checkbox: ({ value }) => (
+                          <Checkbox style={{ color: 'red' }} checked={Logos.id} />
+                        ),
+                      }}
+                    />
+                  </div>
+                </Grid>
+                :
+                <>
+                  {Logos.map((item, index) => (
+                    <Grid xs={12} md={3} lg={3} align="center" p={1}>
+                      <Card width="95%" sx={{ padding: 0, boxShadow: "none", borderRadius: "10px", border: "1px solid #D8D8D8" }}>
+                        <CardContent>
+                          <Grid container spacing={0} >
+                            <Grid xs={6} align="left" onClick={() => { setViewData(item); handleOpenmodal(); }}>
+                              <Typography variant="h5" pb={1} fontWeight={750} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#B5030B">
+                                {item.screen_name}
+                              </Typography>
+                            </Grid>
+
+                            <Grid xs={6} align="right">
+                              <div>
+                                <MoreVert
+                                  id="basic-button"
+                                  aria-controls={open ? 'basic-menu' : undefined}
+                                  aria-haspopup="true"
+                                  aria-expanded={open ? 'true' : undefined}
+                                  // onClick={handleClick} 
+                                  onClick={(event) => {
+                                    setIdData(item)
+                                    setAnchorEl(event.currentTarget)
+                                  }}
+                                  sx={{ cursor: 'pointer', color: "#1F1F1F" }} />
+                              </div>
+                              <Menu
+                                id="basic-menu"
+                                anchorEl={anchorEl}
+                                open={open}
+                                onClose={handleClose}
+                                MenuListProps={{
+                                  'aria-labelledby': 'basic-button',
                                 }}
-                                sx={{ color: "#1F1F1F" }} />
-                            </div>
-                            <Menu
-                              id="basic-menu"
-                              anchorEl={anchorEl}
-                              open={open}
-                              onClose={handleClose}
-                              MenuListProps={{
-                                'aria-labelledby': 'basic-button',
-                              }}
-                              PaperProps={{
+                                PaperProps={{
 
-                                sx: {
-                                  // overflow: 'visible',
-                                  // filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.22))',
-                                  mt: 1.5,
-                                  '& .MuiAvatar-root': {
-                                    width: 32,
-                                    height: 32,
-                                    ml: -0.5,
-                                    mr: 1,
+                                  sx: {
+                                    // overflow: 'visible',
+                                    // filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.22))',
+                                    mt: 1.5,
+                                    '& .MuiAvatar-root': {
+                                      width: 32,
+                                      height: 32,
+                                      ml: -0.5,
+                                      mr: 1,
+                                    },
+                                    '&:before': {
+                                      content: '""',
+                                      display: 'block',
+                                      position: 'absolute',
+                                      top: 0,
+                                      right: 5,
+                                      width: 10,
+                                      height: 10,
+                                      bgcolor: 'background.paper',
+                                      transform: 'translateY(-50%) rotate(45deg)',
+                                      zIndex: 0,
+                                    },
                                   },
-                                  '&:before': {
-                                    content: '""',
-                                    display: 'block',
-                                    position: 'absolute',
-                                    top: 0,
-                                    right: 5,
-                                    width: 10,
-                                    height: 10,
-                                    bgcolor: 'background.paper',
-                                    transform: 'translateY(-50%) rotate(45deg)',
-                                    zIndex: 0,
-                                  },
-                                },
-                              }}
-                              transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-                              anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-                            >
-
-                              <MenuItem
-                                onClick={() => {
-                                  console.log(idData);
-                                  setActionData(idData);
-                                  // if (idData.image !== null) {
-                                  //   setHidelabelUpload(true);
-                                  // }
-                                  navigate('/updateexercise', {
-                                    state: {
-                                      id: idData.id,
-                                      image: idData.image,
-                                      link: idData.link,
-                                      status: idData.active_status,
-                                      screen: idData.screen_name,
-                                      screen_id: idData.screen_id
-
-                                    }
-                                  })
-
-                                }
-                                }
+                                }}
+                                transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+                                anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                               >
-                                <Edit sx={{ color: "#40E0D0" }} /><span style={{ marginLeft: 10 }}>Update</span>
+
+                                <MenuItem
+                                  onClick={() => {
+                                    console.log(idData);
+                                    setActionData(idData);
+                                    // if (idData.image !== null) {
+                                    //   setHidelabelUpload(true);
+                                    // }
+                                    navigate('/updateexercise', {
+                                      state: {
+                                        id: idData.id,
+                                        image: idData.image,
+                                        link: idData.link,
+                                        status: idData.active_status,
+                                        screen: idData.screen_name,
+                                        screen_id: idData.screen_id
+
+                                      }
+                                    })
+
+                                  }
+                                  }
+                                >
+                                  <Edit sx={{ color: "#40E0D0" }} /><span style={{ marginLeft: 10 }}>Update</span>
 
 
 
-                              </MenuItem>
-                              <Grid container spacing={0}>
-                                <Grid xs={12} align="center">
-                                  <Divider sx={{ width: "80%" }} />
+                                </MenuItem>
+                                <Grid container spacing={0}>
+                                  <Grid xs={12} align="center">
+                                    <Divider sx={{ width: "80%" }} />
+                                  </Grid>
                                 </Grid>
-                              </Grid>
-                              <MenuItem onClick={() => {
-                                handleOpendelmodalStatus(idData)
-                                setDeleteData(idData);
-                              }}>
-                                <Autorenew sx={{ color: "green" }} /><span style={{ marginLeft: 10 }}>Change Status</span>
-                              </MenuItem>
-                              <Grid container spacing={0}>
-                                <Grid xs={12} align="center">
-                                  <Divider sx={{ width: "80%" }} />
+                                <MenuItem onClick={() => {
+                                  handleOpendelmodalStatus(idData)
+                                  setDeleteData(idData);
+                                }}>
+                                  <Autorenew sx={{ color: "green" }} /><span style={{ marginLeft: 10 }}>Change Status</span>
+                                </MenuItem>
+                                <Grid container spacing={0}>
+                                  <Grid xs={12} align="center">
+                                    <Divider sx={{ width: "80%" }} />
+                                  </Grid>
                                 </Grid>
-                              </Grid>
 
-                              <MenuItem onClick={() => {
-                                setDeleteID(idData.id);
-                                handleOpendelmodal();
-                              }}>
-                                <Delete sx={{ color: "#E10006" }} /><span style={{ marginLeft: 10 }}>Delete</span>
-                              </MenuItem>
-                            </Menu>
+                                <MenuItem onClick={() => {
+                                  setDeleteID(idData.id);
+                                  handleOpendelmodal();
+                                }}>
+                                  <Delete sx={{ color: "#E10006" }} /><span style={{ marginLeft: 10 }}>Delete</span>
+                                </MenuItem>
+                              </Menu>
 
+                            </Grid>
+
+                            <Grid xs={6} sx={{ pb: 1 }} align="left" onClick={() => { setViewData(item); handleOpenmodal(); }}>
+                              <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
+                                Status :
+                              </Typography>
+                            </Grid>
+
+                            <Grid xs={6} sx={{ pb: 1 }} align="left" onClick={() => { setViewData(item); handleOpenmodal(); }}>
+                              <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#808080">
+                                {item.active_status}
+                              </Typography>
+                            </Grid>
+
+
+                            <Grid xs={6} sx={{ pb: 1 }} align="left" onClick={() => { setViewData(item); handleOpenmodal(); }}>
+                              <Typography variant="h5" fontWeight={600} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
+                                Link :
+                              </Typography>
+                            </Grid>
+
+                            <Grid sx={{ pb: 1, width: '100px', height: '50px' }} xs={6} align="left">
+                              <Button
+                                variant="text"
+                                style={{
+                                  width: '100px',
+                                  height: '20px',
+                                  fontWeight: 'bold',
+                                  fontSize: '16px',
+                                  color: '#007FFF',
+                                  textTransform: 'none',
+                                  padding: 0,
+                                  lineHeight: 'normal',
+                                }}
+                                onClick={() => {
+                                  window.open(item.link, '_blank');
+                                }}
+                              >
+                                Open Link
+                              </Button>
+                            </Grid>
                           </Grid>
+                        </CardContent>
+                      </Card>
+                    </Grid>
+                  ))}
 
-                          <Grid xs={6} sx={{ pb: 1 }} align="left" onClick={() => { setViewData(item); handleOpenmodal(); }}>
-                            <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
-                              Status :
-                            </Typography>
-                          </Grid>
+                </>
+            }
+          </Grid>
+        }
 
-                          <Grid xs={6} sx={{ pb: 1 }} align="left" onClick={() => { setViewData(item); handleOpenmodal(); }}>
-                            <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#808080">
-                              {item.active_status}
-                            </Typography>
-                          </Grid>
-
-
-                          <Grid xs={6} sx={{ pb: 1 }} align="left" onClick={() => { setViewData(item); handleOpenmodal(); }}>
-                            <Typography variant="h5" fontWeight={600} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
-                              Link :
-                            </Typography>
-                          </Grid>
-
-                          <Grid sx={{ pb: 1, width: '100px', height: '50px' }} xs={6} align="left">
-                            <PerfectScrollbar  >
-                              <a href={item.link} style={{ width: '30px', height: '10px', fontSize: '12px', color: '#007FFF' }} variant="h6" fontWeight={300}  >
-                                {item.link}
-                              </a>
-                            </PerfectScrollbar  >
-                          </Grid>
-                        </Grid>
-                      </CardContent>
-                    </Card>
-                  </Grid>
-                ))}
-
-              </>
-          }
-        </Grid>
-
+        
         {/* view */}
         <Modal
           open={openmodal}
@@ -850,11 +892,24 @@ const Team = () => {
               </Grid>
 
               <Grid sx={{ overflow: 'hidden', pb: 1, width: '100px', height: '50px' }} xs={6} align="left" onClick={handleOpenmodal}>
-                <PerfectScrollbar  >
-                  <a href={viewData.link} sx={{ cursor: 'pointer' }} variant="h6" fontWeight={300} pb={1} fontSize="12px" color='#007FFF'>
-                    {viewData.link}
-                  </a>
-                </PerfectScrollbar  >
+                <Button
+                  variant="text"
+                  style={{
+                    width: '100px',
+                    height: '20px',
+                    fontWeight: 'bold',
+                    fontSize: '16px',
+                    color: '#007FFF',
+                    textTransform: 'none',
+                    padding: 0,
+                    lineHeight: 'normal',
+                  }}
+                  onClick={() => {
+                    window.open(viewData.link, '_blank');
+                  }}
+                >
+                  Open Link
+                </Button>
 
               </Grid>
 

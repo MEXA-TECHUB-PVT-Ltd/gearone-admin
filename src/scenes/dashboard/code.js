@@ -113,7 +113,7 @@ function Workoutplangraph() {
         datasets: [
           {
             data: [chartData, intermediate, advancecount],
-            backgroundColor: ['#0A1637', '#0000000E', '#FF5100'],
+            backgroundColor: ['#0A1637', 'white0E', '#FF5100'],
           },
         ],
       };

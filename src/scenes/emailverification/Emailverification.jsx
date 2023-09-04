@@ -236,8 +236,8 @@ function Emailverification() {
                                                         &nbsp;&nbsp;&nbsp;&nbsp;
                                                     </span>}
                                                     containerStyle={{ width: "100%" }}
-                                                    inputStyle={{ width: "100%", height: "8vh", backgroundColor: "#EEEEEE", borderColor: "lightgray", border: "none", borderRadius: "5px" }}
-                                                    focusStyle={{ width: "100%", height: "8vh", backgroundColor: "#EEEEEE", borderColor: "lightgray", border: "none", borderRadius: "5px" }}
+                                                    inputStyle={{ width: "100%", height: "8vh", backgroundColor: "darkgray", borderColor: "lightgray", border: "none", borderRadius: "5px" }}
+                                                    focusStyle={{ width: "100%", height: "8vh", backgroundColor: "darkgray", borderColor: "lightgray", border: "none", borderRadius: "5px" }}
                                                 />
                                             </Stack>
 
@@ -250,8 +250,8 @@ function Emailverification() {
                                                         // separator={<span>&nbsp;  
                                                         // </span>}
                                                         containerStyle={{ width: "100%" }}
-                                                        inputStyle={{ width: "40%", height: "5vh", backgroundColor: "#EEEEEE", borderColor: "lightgray", border: "none", borderRadius: "5px" }}
-                                                        focusStyle={{ width: "40%", height: "5vh", backgroundColor: "#EEEEEE", borderColor: "lightgray", border: "none", borderRadius: "5px" }}
+                                                        inputStyle={{ width: "40%", height: "5vh", backgroundColor: "darkgray", borderColor: "lightgray", border: "none", borderRadius: "5px" }}
+                                                        focusStyle={{ width: "40%", height: "5vh", backgroundColor: "darkgray", borderColor: "lightgray", border: "none", borderRadius: "5px" }}
                                                     />
                                                 </Stack>
                                             </div>
@@ -291,7 +291,7 @@ function Emailverification() {
                                                 id="input-with-icon-adornment"
                                                 sx={{
                                                     borderRadius: "50px",
-                                                    backgroundColor: "#EEEEEE",
+                                                    backgroundColor: "darkgray",
                                                     "& fieldset": { border: 'none' },
                                                 }}
                                                 onChange={(event) => {

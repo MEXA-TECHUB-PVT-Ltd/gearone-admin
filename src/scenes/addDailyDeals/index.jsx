@@ -265,8 +265,15 @@ const Team = () => {
                                             id="input-with-icon-adornment"
                                             sx={{
                                                 borderRadius: "50px",
-                                                backgroundColor: "#EEEEEE",
+                                                backgroundColor: "darkgray",
                                                 "& fieldset": { border: 'none' },
+                                            }}
+                                            inputProps={{
+                                                style: {
+                                                    color: "black",
+                                                    fontWeight: '600',
+                                                    fontSize: '16px'
+                                                },
                                             }}
                                         />
                                         <br />
@@ -292,12 +299,19 @@ const Team = () => {
                                                 id="input-with-icon-adornment"
                                                 sx={{
                                                     borderRadius: "50px",
-                                                    backgroundColor: "#EEEEEE",
+                                                    backgroundColor: "darkgray",
                                                     "& fieldset": { border: 'none' },
                                                     resize: 'none',
                                                     overflow: 'hidden',
                                                     transition: 'height 0.2s',
                                                     height: 'auto',
+                                                }}  
+                                                inputProps={{
+                                                    style: {
+                                                        color: "black",
+                                                        fontWeight: '600',
+                                                        fontSize: '16px'
+                                                    },
                                                 }}
                                             />
                                             <br />

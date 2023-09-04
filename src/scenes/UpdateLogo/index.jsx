@@ -1,4 +1,4 @@
-import { Box, Typography, Grid, Button, Stack, Divider, Avatar, Container, InputAdornment, OutlinedInput, FormControl, Select, MenuItem, InputLabel, Input, TextField, Breadcrumbs } from "@mui/material";
+import { Box,Autocomplete, Typography, Grid, Button, Stack, Divider, Avatar, Container, InputAdornment, OutlinedInput, FormControl, Select, MenuItem, InputLabel, Input, TextField, Breadcrumbs } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import { Subscriptions, Notifications, Settings, Person, Close, Upload, Add } from '@mui/icons-material';
 import url from "../url"
@@ -303,7 +303,7 @@ const Team = () => {
                                             placeholder={location.state.link}
                                             sx={{
                                                 borderRadius: "50px",
-                                                backgroundColor: "#EEEEEE",
+                                                backgroundColor: "darkgray",
                                                 "& fieldset": { border: 'none' },
                                             }}
                                         />
@@ -311,10 +311,15 @@ const Team = () => {
                                         <Typography variant="paragraph" pl={1} pb={1} sx={{ font: "normal normal normal 17px/26px Roboto", fontSize: "12px", fontWeight: "medium" }} color="#1F1F1F">
                                             Screen
                                         </Typography>
+
+
+
+
+
                                         <Select
                                             sx={{
                                                 borderRadius: "50px",
-                                                backgroundColor: "#EEEEEE",
+                                                backgroundColor: "darkgray",
                                                 "& fieldset": { border: 'none' },
                                             }}
                                             // displayEmpty
@@ -341,7 +346,7 @@ const Team = () => {
                                             rows={4}
                                             sx={{
                                                 borderRadius: "20px",
-                                                backgroundColor: "#EEEEEE",
+                                                backgroundColor: "darkgray",
                                                 "& fieldset": { border: 'none' },
                                             }}
                                         /> */}
@@ -362,7 +367,7 @@ const Team = () => {
                                         <Select
                                             sx={{
                                                 borderRadius: "50px",
-                                                backgroundColor: "#EEEEEE",
+                                                backgroundColor: "darkgray",
                                                 "& fieldset": { border: 'none' },
                                             }}
                                             id="input-with-icon-adornment"

@@ -251,7 +251,7 @@ function Setnewpassword() {
                                             id="outlined-adornment-password"
                                             sx={{
                                                 borderRadius: "50px",
-                                                backgroundColor: "#EEEEEE",
+                                                backgroundColor: "darkgray",
                                                 "& fieldset": { border: 'none' },
                                             }}
                                             onChange={(event) => {
@@ -285,7 +285,7 @@ function Setnewpassword() {
                                             id="outlined-adornment-password"
                                             sx={{
                                                 borderRadius: "50px",
-                                                backgroundColor: "#EEEEEE",
+                                                backgroundColor: "darkgray",
                                                 "& fieldset": { border: 'none' },
                                             }}
                                             startAdornment={

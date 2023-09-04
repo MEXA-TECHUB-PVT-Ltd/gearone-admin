@@ -265,7 +265,7 @@ const Team = () => {
                                             placeholder={location.state.link}
                                             sx={{
                                                 borderRadius: "50px",
-                                                backgroundColor: "#EEEEEE",
+                                                backgroundColor: "darkgray",
                                                 "& fieldset": { border: 'none' },
                                             }}
                                         />
@@ -276,7 +276,7 @@ const Team = () => {
                                         <Select
                                             sx={{
                                                 borderRadius: "50px",
-                                                backgroundColor: "#EEEEEE",
+                                                backgroundColor: "darkgray",
                                                 "& fieldset": { border: 'none' },
                                             }}
                                             labelId="demo-simple-select-label"
@@ -309,7 +309,7 @@ const Team = () => {
                                         <Select
                                             sx={{
                                                 borderRadius: "50px",
-                                                backgroundColor: "#EEEEEE",
+                                                backgroundColor: "darkgray",
                                                 "& fieldset": { border: 'none' },
                                             }}
                                             labelId="demo-simple-select-label"
@@ -400,7 +400,7 @@ export default Team
 //                                         id="input-with-icon-adornment"
 //                                         defaultValue="Food Name"
 //                                         sx={{
-//                                             backgroundColor: "#EEEEEE", borderRadius: "50px",
+//                                             backgroundColor: "darkgray", borderRadius: "50px",
 //                                             "& fieldset": { border: 'none' },
 //                                         }}
 //                                     />
@@ -412,7 +412,7 @@ export default Team
 //                                         id="input-with-icon-adornment"
 //                                         defaultValue="Measures"
 //                                         sx={{
-//                                             backgroundColor: "#EEEEEE", borderRadius: "50px",
+//                                             backgroundColor: "darkgray", borderRadius: "50px",
 //                                             "& fieldset": { border: 'none' },
 //                                         }}
 //                                     />
@@ -424,7 +424,7 @@ export default Team
 //                                         id="input-with-icon-adornment"
 //                                         defaultValue="Protein"
 //                                         sx={{
-//                                             backgroundColor: "#EEEEEE", borderRadius: "50px",
+//                                             backgroundColor: "darkgray", borderRadius: "50px",
 //                                             "& fieldset": { border: 'none' },
 //                                         }}
 //                                     />
@@ -436,7 +436,7 @@ export default Team
 //                                         id="input-with-icon-adornment"
 //                                         defaultValue="Fat"
 //                                         sx={{
-//                                             backgroundColor: "#EEEEEE", borderRadius: "50px",
+//                                             backgroundColor: "darkgray", borderRadius: "50px",
 //                                             "& fieldset": { border: 'none' },
 //                                         }}
 //                                     />
@@ -456,7 +456,7 @@ export default Team
 //                                         id="input-with-icon-adornment"
 //                                         defaultValue="Energy"
 //                                         sx={{
-//                                             backgroundColor: "#EEEEEE", borderRadius: "50px",
+//                                             backgroundColor: "darkgray", borderRadius: "50px",
 //                                             "& fieldset": { border: 'none' },
 //                                         }}
 //                                     />
@@ -468,7 +468,7 @@ export default Team
 //                                         id="input-with-icon-adornment"
 //                                         defaultValue="Units"
 //                                         sx={{
-//                                             backgroundColor: "#EEEEEE", borderRadius: "50px",
+//                                             backgroundColor: "darkgray", borderRadius: "50px",
 //                                             "& fieldset": { border: 'none' },
 //                                         }}
 //                                     />
@@ -480,7 +480,7 @@ export default Team
 //                                         id="input-with-icon-adornment"
 //                                         defaultValue="Carbs"
 //                                         sx={{
-//                                             backgroundColor: "#EEEEEE", borderRadius: "50px",
+//                                             backgroundColor: "darkgray", borderRadius: "50px",
 //                                             "& fieldset": { border: 'none' },
 //                                         }}
 //                                     />
@@ -510,7 +510,7 @@ export default Team
 //                                             id="input-with-icon-adornment"
 //                                             defaultValue=" Monosaturated Fats"
 //                                             sx={{
-//                                                 backgroundColor: "#EEEEEE", borderRadius: "50px",
+//                                                 backgroundColor: "darkgray", borderRadius: "50px",
 //                                                 "& fieldset": { border: 'none' },
 //                                             }}
 //                                         />
@@ -522,7 +522,7 @@ export default Team
 //                                             id="input-with-icon-adornment"
 //                                             defaultValue="Sugar"
 //                                             sx={{
-//                                                 backgroundColor: "#EEEEEE", borderRadius: "50px",
+//                                                 backgroundColor: "darkgray", borderRadius: "50px",
 //                                                 "& fieldset": { border: 'none' },
 //                                             }}
 //                                         />
@@ -534,7 +534,7 @@ export default Team
 //                                             id="input-with-icon-adornment"
 //                                             defaultValue="Sodium"
 //                                             sx={{
-//                                                 backgroundColor: "#EEEEEE", borderRadius: "50px",
+//                                                 backgroundColor: "darkgray", borderRadius: "50px",
 //                                                 "& fieldset": { border: 'none' },
 //                                             }}
 //                                         />
@@ -546,7 +546,7 @@ export default Team
 //                                             id="input-with-icon-adornment"
 //                                             defaultValue="Iron"
 //                                             sx={{
-//                                                 backgroundColor: "#EEEEEE", borderRadius: "50px",
+//                                                 backgroundColor: "darkgray", borderRadius: "50px",
 //                                                 "& fieldset": { border: 'none' },
 //                                             }}
 //                                         />
@@ -558,7 +558,7 @@ export default Team
 //                                             id="input-with-icon-adornment"
 //                                             defaultValue="Vitamin C"
 //                                             sx={{
-//                                                 backgroundColor: "#EEEEEE", borderRadius: "50px",
+//                                                 backgroundColor: "darkgray", borderRadius: "50px",
 //                                                 "& fieldset": { border: 'none' },
 //                                             }}
 //                                         />
@@ -579,7 +579,7 @@ export default Team
 //                                             id="input-with-icon-adornment"
 //                                             defaultValue="Saturated Fats"
 //                                             sx={{
-//                                                 backgroundColor: "#EEEEEE", borderRadius: "50px",
+//                                                 backgroundColor: "darkgray", borderRadius: "50px",
 //                                                 "& fieldset": { border: 'none' },
 //                                             }}
 //                                         />
@@ -591,7 +591,7 @@ export default Team
 //                                             id="input-with-icon-adornment"
 //                                             defaultValue="Fiber"
 //                                             sx={{
-//                                                 backgroundColor: "#EEEEEE", borderRadius: "50px",
+//                                                 backgroundColor: "darkgray", borderRadius: "50px",
 //                                                 "& fieldset": { border: 'none' },
 //                                             }}
 //                                         />
@@ -603,7 +603,7 @@ export default Team
 //                                             id="input-with-icon-adornment"
 //                                             defaultValue="Calcium"
 //                                             sx={{
-//                                                 backgroundColor: "#EEEEEE", borderRadius: "50px",
+//                                                 backgroundColor: "darkgray", borderRadius: "50px",
 //                                                 "& fieldset": { border: 'none' },
 //                                             }}
 //                                         />
@@ -615,7 +615,7 @@ export default Team
 //                                             id="input-with-icon-adornment"
 //                                             defaultValue="Vitamin A"
 //                                             sx={{
-//                                                 backgroundColor: "#EEEEEE", borderRadius: "50px",
+//                                                 backgroundColor: "darkgray", borderRadius: "50px",
 //                                                 "& fieldset": { border: 'none' },
 //                                             }}
 //                                         />
@@ -627,7 +627,7 @@ export default Team
 //                                             id="input-with-icon-adornment"
 //                                             defaultValue="Cholestrol"
 //                                             sx={{
-//                                                 backgroundColor: "#EEEEEE", borderRadius: "50px",
+//                                                 backgroundColor: "darkgray", borderRadius: "50px",
 //                                                 "& fieldset": { border: 'none' },
 //                                             }}
 //                                         />

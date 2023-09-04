@@ -1,4 +1,4 @@
-import { Box, Typography, Grid, Button, Stack, Divider, Avatar, Container, InputAdornment, OutlinedInput, FormControl, Select, MenuItem, InputLabel, Input, TextField, Breadcrumbs } from "@mui/material";
+import { Box, Typography, Modal, Grid, Button, Stack, Divider, Avatar, Container, InputAdornment, OutlinedInput, FormControl, Select, MenuItem, InputLabel, Input, TextField, Breadcrumbs } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import { Subscriptions, Notifications, Settings, Person, Close, Upload, Add } from '@mui/icons-material';
 import url from "../url"
@@ -11,6 +11,19 @@ const override = {
     margin: '0 auto',
     borderColor: 'red',
 }
+const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    bgcolor: '#FFFFFF',
+    outline: "none",
+    maxHeight: "80vh",
+    overflowY: "auto",
+    boxShadow: 0,
+    p: 4,
+    borderRadius: 5
+};
 const btn = {
     letterSpacing: "1px",
     width: '50%',
@@ -42,6 +55,7 @@ const MenuProps = {
 };
 
 const Team = () => {
+    const [addName, setAddName] = React.useState('');
     const navigate = useNavigate();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
@@ -97,6 +111,16 @@ const Team = () => {
             setSkill([...Skill, imageId]);
         }
     };
+
+
+    const [openaddsuccess, setOpenaddsuccess] = useState(false);
+    const [openaddmodal, setOpenaddmodal] = useState(false);
+    const handleOpenadd = () => setOpenaddmodal(true);
+    const handleCloseadd = () => {
+        setOpenaddmodal(false);
+        setOpenaddsuccess(true)
+    };
+
     const handleChangeSkill = (event) => {
         const {
             target: { value },
@@ -108,7 +132,12 @@ const Team = () => {
 
     };
     const [Skill, setSkill] = React.useState([]);
+    const [Images, setImages] = useState([]);
     const [Skills, setSkills] = useState([]);
+    const [Banners, setBanners] = useState([]);
+    const [hidelabelBanner, setHidelabelBanner] = useState(false);
+    const [hidecrossiconBanner, setHidecrossiconBanner] = useState(false);
+    const [selectedFileBanner, setSelectedFileBanner] = useState(null);
 
     const [hidelabel, setHidelabel] = useState(false);
     const [hidecrossicon, setHidecrossicon] = useState(false);
@@ -120,6 +149,109 @@ const Team = () => {
         getAllScreens();
     }, [])
 
+    const handleAddBanner = async () => {
+        console.log("1");
+        setIsloading(true);
+        var InsertAPIURL = `${url}ads/add_ad`
+        var headers = {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+        };
+        if (addName === '' || selectedFileBanner === null) {
+            setIsloading(false);
+            setOpenaddmodal(false);
+            Swal.fire({
+                icon: 'warning',
+                title: 'Warning...',
+                confirmButtonColor: "#B5030B",
+                text: "All Fields Required"
+            })
+            console.log("2");
+        } else {
+            var Data = {
+                "screen_id": "16",
+                "link": addName
+            };
+            await fetch(InsertAPIURL, {
+                method: 'POST',
+                headers: headers,
+                body: JSON.stringify(Data),
+            })
+                .then(response => response.json())
+                .then(async response => {
+                    console.log(response);
+                    if (response.status === true) {
+                        if (selectedFileBanner !== null && selectedFileBanner !== undefined) {
+
+                            setBanners(prevSkills => [...prevSkills, response.result[0].id]);
+                            var Data = {
+                                "id": response.result[0].id,
+                                "image": selectedFileBanner,
+                            };
+                            await axios.put(url + "ads/add_ad_image", Data, {
+                                headers: {
+                                    "Content-Type": "multipart/form-data"
+                                }
+                            }).then((response) => {
+                                if (response.data.status === true) {
+                                    console.log("4");
+                                    setImages(prevSkills => [...prevSkills, response.data.result[0].image]);
+                                    setOpenaddmodal(false);
+                                    console.log(addName);
+                                    setIsloading(false)
+                                } else {
+                                    setOpenaddmodal(false);
+                                    setIsloading(false)
+                                    console.log("5");
+                                }
+                            }
+                            )
+                                .catch(error => {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Oops...',
+                                        confirmButtonColor: "#B5030B",
+                                        text: response.message
+                                    })
+                                });
+                        } else {
+                            console.log("6");
+                            setOpenaddmodal(false);
+                            setIsloading(false)
+                        }
+                        setIsloading(false)
+                        setSelectedFileBanner(null);
+                        setHidecrossiconBanner(false);
+                        setHidelabelBanner(false);
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success!',
+                            confirmButtonColor: "#B5030B",
+                            text: 'Banner Added Successfully!',
+                        })
+                    } else {
+                        setIsloading(false);
+                        setOpenaddmodal(false);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            confirmButtonColor: "#B5030B",
+                            text: ''
+                        })
+                    }
+                }
+                )
+                .catch(error => {
+                    setIsloading(false);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        confirmButtonColor: "#B5030B",
+                        text: "Server Down!"
+                    })
+                });
+        }
+    }
 
     const handleAdd = async () => {
         setIsloading(true)
@@ -129,7 +261,7 @@ const Team = () => {
             'Content-Type': 'application/json',
         };
         console.log(selectedFile)
-        if (AddName === '' || Skill === "" || selectedFile === null || selectedFile === undefined) {
+        if (addName === '' || Skills === "" || selectedFile === null || selectedFile === undefined) {
             setIsloading(false)
             Swal.fire({
                 icon: 'warning',
@@ -139,8 +271,8 @@ const Team = () => {
             })
         } else {
             var Data = {
-                "name": AddName,
-                "banners": Skill
+                "name": addName,
+                "banners": Banners
             };
             await fetch(InsertAPIURL, {
                 method: 'POST',
@@ -167,6 +299,12 @@ const Team = () => {
                                     setIsloading(false)
                                 } else {
                                     setIsloading(false)
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Oops2...',
+                                        confirmButtonColor: "#B5030B",
+                                        text: ''
+                                    })
                                 }
                             }
                             )
@@ -258,6 +396,19 @@ const Team = () => {
             });
     }
 
+
+    const handleImageChangeBanner = (e) => {
+        setSelectedFileBanner(e.target.files[0]);
+        setHidecrossiconBanner(true);
+        setHidelabelBanner(true);
+    };
+
+    const clearpreviewimageBanner = () => {
+        setSelectedFileBanner(null);
+        setHidecrossiconBanner(false);
+        setHidelabelBanner(false);
+    }
+
     const handleImageChange = (e) => {
         setSelectedFile(e.target.files[0]);
         setHidecrossicon(true);
@@ -272,7 +423,6 @@ const Team = () => {
 
     const [Status, setStatus] = React.useState('');
     const [Screen, setScreen] = React.useState('');
-    const [AddName, setAddName] = React.useState('');
 
     const handleChangeScreen = (event) => {
         setScreen(event.target.value);
@@ -402,60 +552,52 @@ const Team = () => {
                                                 color: "#1F1F1F",
                                             }}
                                         >
-                                            Select Banners
+                                            Banners
                                         </Typography>
+                                        {isloading ?
+                                            <Grid sx={{ mt: '3%' }} xs={12} align="center">
+                                                <Button variant="contained" style={btn}>
+                                                    <ClipLoader loading={isloading}
+                                                        css={override}
+                                                        size={10}
+                                                    />
+                                                </Button>
+                                            </Grid>
 
-                                        <Grid
-    sx={{
-        display: 'flex',
-        justifyContent: 'center',
-    }}
->
-    <Grid
-        style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
-            gap: '16px',
-            maxWidth: '1000px',
-            '@media (max-width: 959px)': { // Small and medium screens (xs, sm, and md)
-                gridTemplateColumns: '1fr', // Single column
-            },
-        }}
-    >
-        {Skills.map((data) => {
-            const isSelected = Skill.includes(data.id);
-            const backgroundColor = isSelected ? 'red' : '';
+                                            :
 
-            return (
-                <div
-                    key={data.id}
-                    onClick={() => handleImageClick(data.id)}
-                    style={{
-                        cursor: 'pointer',
-                        backgroundColor,
-                        padding: '5px',
-                        borderRadius: '3px',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                    }}
-                >
-                    <img
-                        alt=""
-                        src={`${url}${data.image}`}
-                        style={{
-                            width: '100%',
-                            height: '100%',
-                            maxHeight: '300px',
-                            maxWidth: '300px',
-                        }}
-                    />
-                    <div>{data.plan_name}</div>
-                </div>
-            );
-        })}
-    </Grid>
-</Grid>
+                                            <Grid sx={{ mt: '3%' }} xs={12} align="center">
+                                                <Button variant="contained" style={btn} onClick={() => { handleOpenadd() }} >Add Banners</Button>
+                                            </Grid>
+                                        }
+                                        <Grid sx={12} >
+                                            <div style={{ display: 'flex', justifyContent: 'center' }}>
+                                                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '16px', maxWidth: '1000px' }}>
+                                                    {Images.map((data) => {
+                                                        const isSelected = Skill.includes(data.id);
+                                                        const backgroundColor = isSelected ? 'blue' : 'red';
+
+                                                        return (
+                                                            <div
+                                                                key={data.id}
+                                                                // onClick={() => handleImageClick(data.id)}
+                                                                style={{
+                                                                    cursor: 'pointer', backgroundColor, padding: '2px',
+                                                                    borderRadius: '3px', display: 'flex', flexDirection: 'column', alignItems: 'center'
+                                                                }}
+                                                            >
+                                                                <img
+                                                                    alt=""
+                                                                    src={`${url}${data}`}
+                                                                    style={{ width: '100%', height: '100%', maxHeight: '300px', maxWidth: '300px' }}
+                                                                />
+                                                                <div>{data.plan_name}</div>
+                                                            </div>
+                                                        );
+                                                    })}
+                                                </div>
+                                            </div>
+                                        </Grid>
                                     </Stack>
 
                                 </FormControl>
@@ -482,6 +624,113 @@ const Team = () => {
                 </Container>
 
             </Box>
+            {/* addmodal */}
+            <Modal
+                open={openaddmodal}
+                // onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box width={{ xs: 400, md: 500, lg: 500, xl: 600 }} height="auto" sx={style}>
+                    <Grid container spacing={0}>
+                        <Grid xs={6} align="left" >
+                            <Typography variant="h4" sx={{ letterSpacing: "3px" }} fontWeight={800} fontSize="large" color="#1F1F1F">Add Banner</Typography>
+                        </Grid>
+
+                        <Grid xs={6} align="right">
+                            <Close onClick={() => setOpenaddmodal(false)} />
+                        </Grid>
+
+                        <Grid xs={12} align="center" pt={7}>
+                            <FormControl fullWidth>
+
+
+                                <Box pt={2} pb={2}>
+                                    <Box sx={{ width: '300px', height: '200px', pt: 2, p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
+                                        {hidelabelBanner ?
+                                            null
+                                            :
+                                            <Grid container spacing={0} pt={5}>
+                                                <Grid xs={12} align="">
+                                                    <Stack align="">
+                                                        <label htmlFor="fileInputs" style={{ display: "flex", justifyContent: "center", alignContent: "center", color: "#808080" }}>
+                                                            <Stack direction="column" spacing={1} >
+                                                                <Upload sx={{ fontSize: "50px", color: "#808080", ml: 1.8, pb: 1 }} />
+                                                                <span style={{ paddingBottom: "2vh", font: "normal normal normal 16px/26px Arial" }}>Upload Image</span>
+                                                            </Stack>
+                                                        </label>
+                                                        <input
+                                                            style={{ display: "none" }}
+                                                            id="fileInputs"
+                                                            type="file"
+                                                            onChange={handleImageChangeBanner}
+                                                            accept="image/*"
+                                                        />
+                                                    </Stack>
+                                                </Grid>
+                                            </Grid>
+                                        }
+
+                                        {selectedFileBanner && <img src={URL.createObjectURL(selectedFileBanner)} alt="Preview" style={{ width: "300px", height: "200px" }} />}
+                                    </Box>
+
+                                    {
+                                        hidecrossiconBanner ?
+                                            <Box sx={{ display: "flex", justifyContent: "center", alignContent: "center" }}>
+                                                <Close sx={{
+                                                    padding: 0.2, backgroundColor: "#B5030B", borderRadius: "50px",
+                                                    color: "white", ml: 32, mt: -24
+                                                }} onClick={() => clearpreviewimageBanner()} />
+                                            </Box>
+                                            :
+                                            null
+                                    }
+                                </Box>
+
+
+
+
+                                <OutlinedInput
+                                    id="input-with-icon-adornment"
+                                    placeholder="Category Name"
+                                    onChange={(event) => {
+                                        setAddName(event.target.value);
+                                    }}
+
+                                    sx={{
+
+                                        backgroundColor: "darkgray",
+                                        "& fieldset": { border: 'none' },
+                                        "& ::placeholder": { ml: 1, fontWeight: 600, color: "white" }
+                                    }}
+                                />
+                            </FormControl>
+                        </Grid>
+                    </Grid>
+
+                    <Grid container spacing={0} pt={7}>
+
+                        {isloading ?
+                            <Grid xs={12} align="center">
+                                <Button variant="contained" style={btn}>
+                                    <ClipLoader loading={isloading}
+                                        css={override}
+                                        size={10}
+                                    />
+                                </Button>
+                            </Grid>
+
+                            :
+
+                            <Grid xs={12} align="center">
+                                <Button variant="contained" style={btn} onClick={handleAddBanner}>Add</Button>
+                            </Grid>
+                        }
+                    </Grid>
+
+                </Box>
+            </Modal>
+
         </>
     )
 }

@@ -144,6 +144,7 @@ const Team = () => {
     setAnchorElStatus(null);
   };
   const handleClosedelmodalStatus = () => setOpendelmodalStatus(false);
+  const [isloading, setIsloading] = useState(false);
 
   const [DeleteData, setDeleteData] = useState([]);
 
@@ -414,6 +415,7 @@ const Team = () => {
   }, [])
 
   const getAllLogos = async () => {
+    setIsloading(true);
     var InsertAPIURL = `${url}dailydeals/get_all_daily_deals`
     var headers = {
       'Accept': 'application/json',
@@ -426,21 +428,24 @@ const Team = () => {
       .then(response => response.json())
       .then(response => {
         console.log(response);
-        if (response.message == `ALL dailydeals data`) {
+        if (response.status ===true) {
           // setLogos(response.count);
           console.log(response.result);
+          setIsloading(false);
           setLogos(response.result);
         } else {
+          setIsloading(false);
           Swal.fire({
             icon: 'error',
-            title: 'Oops...',
+            title: 'Error...',
             confirmButtonColor: "#B5030B",
-            text: ''
+            text: response.message
           })
         }
       }
       )
       .catch(error => {
+        setIsloading(false);
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
@@ -469,16 +474,16 @@ const Team = () => {
                   showtable ?
                     <>
                       <Box onClick={() => { setShowtable(true) }}>
-                        <List fontSize="large" sx={{ color: "white", backgroundColor: "#B5030B", borderRadius: "5px" }} />
+                        <List fontSize="large" sx={{ cursor: 'pointer', color: "white", backgroundColor: "#B5030B", borderRadius: "5px" }} />
                       </Box>
                       <Box onClick={() => setShowtable(false)}>
-                        <Apps fontSize="large" sx={{ color: "#9B9B9B", backgroundColor: "transparent", borderRadius: "5px" }} />
+                        <Apps fontSize="large" sx={{ cursor: 'pointer', color: "#9B9B9B", backgroundColor: "transparent", borderRadius: "5px" }} />
                       </Box>
                     </>
                     :
                     <>
                       <Box onClick={() => setShowtable(true)}>
-                        <List fontSize="large" sx={{ color: "#9B9B9B", backgroundColor: "transparent", borderRadius: "5px" }} />
+                        <List fontSize="large" sx={{ cursor: 'pointer', color: "#9B9B9B", backgroundColor: "transparent", borderRadius: "5px" }} />
                       </Box>
                       <Box onClick={() => setShowtable(false)}>
                         <Apps fontSize="large" sx={{ color: "white", backgroundColor: "#B5030B", borderRadius: "5px" }} />
@@ -490,13 +495,13 @@ const Team = () => {
               <button onClick={() => navigate("/addDailyDeals")} style={{ marginRight: '3%', padding: "10px", border: "none", borderRadius: "50px", backgroundColor: "#B5030B", color: "white" }}>
                 <Stack direction="row" sx={{ display: "flex", justifyContent: "center", alignContent: "center", gap: "3px" }}>
                   <div>
-                    <Stack sx={{ paddingLeft: "20px" }}>
-                      <Add sx={{ fontWeight: 600, width: "24dpi" }} />
+                    <Stack sx={{ cursor: 'pointer', paddingLeft: "20px" }}>
+                      <Add sx={{ cursor: 'pointer', fontWeight: 600, width: "24dpi" }} />
                     </Stack>
                   </div>
 
                   <div>
-                    <Stack sx={{ marginLeft: "2vh", paddingTop: "0.5vh", paddingRight: "25px", fontWeight: "bold" }}>Add</Stack>
+                    <Stack sx={{ cursor: 'pointer', marginLeft: "2vh", paddingTop: "0.5vh", paddingRight: "25px", fontWeight: "bold" }}>Add</Stack>
                   </div>
                 </Stack>
               </button>
@@ -508,196 +513,210 @@ const Team = () => {
         <Divider sx={{ pb: 2 }} />
 
 
+        {isloading ?
+          <Grid sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignContent: "center",
+            alignItems: 'center',
+            height: "100%", width: "100%"
+            // backgroundColor:'red'
 
+          }} >
+            <div className="loader">
+            </div>
+          </Grid>
 
-        <Grid mb='6%' container spacing={0} pt={2} >
-          {
-            showtable ?
-              <Grid xs={12} p={1} align="center">
-                <div style={{ height: 600, width: '100%' }}>
-                  <DataGrid
-                    rows={Logos}
-                    getRowClassName={(params) => {
-                      return 'unblock-row'
-                    }}
+          :
 
-                    getRowId={Logos.id}
-                    id={Logos.id}
-                    columns={columns}
-                    initialState={{
-                      pagination: {
-                        paginationModel: { page: 0, pageSize: 5 },
-                      },
-                    }}
-                    pageSizeOptions={[5, 10]}
-                    // checkboxSelection
-                    components={{
-                      Checkbox: ({ value }) => (
-                        <Checkbox style={{ color: 'red' }} checked={Logos.id} />
-                      ),
-                    }}
-                  />
-                </div>
-              </Grid>
-              :
-              <>
-                {Logos.map((item, index) => (
-                  <Grid xs={12} md={3} lg={3} align="center" p={1}>
-                    <Card width="100%" sx={{ padding: 0, boxShadow: "none", borderRadius: "10px", border: "1px solid #D8D8D8" }}>
-                      <CardContent>
-                        <Grid container spacing={0} >
-                          <Grid width='100%' xs={6} align="left" onClick={() => { setViewData(item); handleOpenmodal(); }}>
-                            <PerfectScrollbar>
-                              <Typography variant="h5" pb={1} fontWeight={750} fontSize="16px"
-                                sx={{ height: '50px', width: '100%', letterSpacing: "2px" }} color="#B5030B">
-                                {item.title}
-                              </Typography>
-                            </PerfectScrollbar>
-                          </Grid>
+          <Grid mb='6%' container spacing={0} pt={2} >
+            {
+              showtable ?
+                <Grid xs={12} p={1} align="center">
+                  <div style={{ height: 600, width: '100%' }}>
+                    <DataGrid
+                      rows={Logos}
+                      getRowClassName={(params) => {
+                        return 'unblock-row'
+                      }}
 
-                          <Grid xs={6} align="right">
-                            <div>
-                              <MoreVert
-                                id="basic-button"
-                                aria-controls={open ? 'basic-menu' : undefined}
-                                aria-haspopup="true"
-                                aria-expanded={open ? 'true' : undefined}
-                                // onClick={handleClick} 
-                                onClick={(event) => {
-                                  setIdData(item)
-                                  setAnchorEl(event.currentTarget)
+                      getRowId={Logos.id}
+                      id={Logos.id}
+                      columns={columns}
+                      initialState={{
+                        pagination: {
+                          paginationModel: { page: 0, pageSize: 5 },
+                        },
+                      }}
+                      pageSizeOptions={[5, 10]}
+                      // checkboxSelection
+                      components={{
+                        Checkbox: ({ value }) => (
+                          <Checkbox style={{ color: 'red' }} checked={Logos.id} />
+                        ),
+                      }}
+                    />
+                  </div>
+                </Grid>
+                :
+                <>
+                  {Logos.map((item, index) => (
+                    <Grid xs={12} md={3} lg={3} align="center" p={1}>
+                      <Card width="100%" sx={{ padding: 0, boxShadow: "none", borderRadius: "10px", border: "1px solid #D8D8D8" }}>
+                        <CardContent>
+                          <Grid container spacing={0} >
+                            <Grid width='100%' xs={6} align="left" onClick={() => { setViewData(item); handleOpenmodal(); }}>
+                              <PerfectScrollbar>
+                                <Typography variant="h5" pb={1} fontWeight={750} fontSize="16px"
+                                  sx={{ height: '50px', width: '100%', letterSpacing: "2px" }} color="#B5030B">
+                                  {item.title}
+                                </Typography>
+                              </PerfectScrollbar>
+                            </Grid>
+
+                            <Grid xs={6} align="right">
+                              <div>
+                                <MoreVert
+                                  id="basic-button"
+                                  aria-controls={open ? 'basic-menu' : undefined}
+                                  aria-haspopup="true"
+                                  aria-expanded={open ? 'true' : undefined}
+                                  // onClick={handleClick} 
+                                  onClick={(event) => {
+                                    setIdData(item)
+                                    setAnchorEl(event.currentTarget)
+                                  }}
+                                  sx={{ cursor: 'pointer', color: "#1F1F1F" }} />
+                              </div>
+                              <Menu
+                                id="basic-menu"
+                                anchorEl={anchorEl}
+                                open={open}
+                                onClose={handleClose}
+                                MenuListProps={{
+                                  'aria-labelledby': 'basic-button',
                                 }}
-                                sx={{ color: "#1F1F1F" }} />
-                            </div>
-                            <Menu
-                              id="basic-menu"
-                              anchorEl={anchorEl}
-                              open={open}
-                              onClose={handleClose}
-                              MenuListProps={{
-                                'aria-labelledby': 'basic-button',
-                              }}
-                              PaperProps={{
+                                PaperProps={{
 
-                                sx: {
-                                  // overflow: 'visible',
-                                  // filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.22))',
-                                  mt: 1.5,
-                                  '& .MuiAvatar-root': {
-                                    width: 32,
-                                    height: 32,
-                                    ml: -0.5,
-                                    mr: 1,
+                                  sx: {
+                                    // overflow: 'visible',
+                                    // filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.22))',
+                                    mt: 1.5,
+                                    '& .MuiAvatar-root': {
+                                      width: 32,
+                                      height: 32,
+                                      ml: -0.5,
+                                      mr: 1,
+                                    },
+                                    '&:before': {
+                                      content: '""',
+                                      display: 'block',
+                                      position: 'absolute',
+                                      top: 0,
+                                      right: 5,
+                                      width: 10,
+                                      height: 10,
+                                      bgcolor: 'background.paper',
+                                      transform: 'translateY(-50%) rotate(45deg)',
+                                      zIndex: 0,
+                                    },
                                   },
-                                  '&:before': {
-                                    content: '""',
-                                    display: 'block',
-                                    position: 'absolute',
-                                    top: 0,
-                                    right: 5,
-                                    width: 10,
-                                    height: 10,
-                                    bgcolor: 'background.paper',
-                                    transform: 'translateY(-50%) rotate(45deg)',
-                                    zIndex: 0,
-                                  },
-                                },
-                              }}
-                              transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-                              anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-                            >
-                              <MenuItem
-                                onClick={() => {
-                                  console.log(idData);
-                                  setActionData(idData);
-                                  // if (idData.image !== null) {
-                                  //   setHidelabelUpload(true);
-                                  // }
-                                  navigate('/updateDailyDeals', {
-                                    state: {
-                                      description: idData.description,
-                                      title: idData.title,
-                                      id: idData.id,
-                                      image: idData.image,
-                                      active_status: idData.active_status,
-
-                                    }
-                                  })
-
-                                }
-                                }
+                                }}
+                                transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+                                anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                               >
-                                <Edit sx={{ color: "#40E0D0" }} /><span style={{ marginLeft: 10 }}>Update</span>
-                              </MenuItem>
-                              <Grid container spacing={0}>
-                                <Grid xs={12} align="center">
-                                  <Divider sx={{ width: "80%" }} />
+                                <MenuItem
+                                  onClick={() => {
+                                    console.log(idData);
+                                    setActionData(idData);
+                                    // if (idData.image !== null) {
+                                    //   setHidelabelUpload(true);
+                                    // }
+                                    navigate('/updateDailyDeals', {
+                                      state: {
+                                        description: idData.description,
+                                        title: idData.title,
+                                        id: idData.id,
+                                        image: idData.image,
+                                        active_status: idData.active_status,
+
+                                      }
+                                    })
+
+                                  }
+                                  }
+                                >
+                                  <Edit sx={{ color: "#40E0D0" }} /><span style={{ marginLeft: 10 }}>Update</span>
+                                </MenuItem>
+                                <Grid container spacing={0}>
+                                  <Grid xs={12} align="center">
+                                    <Divider sx={{ width: "80%" }} />
+                                  </Grid>
                                 </Grid>
-                              </Grid>
 
-                              <MenuItem onClick={() => {
-                                handleOpendelmodalStatus(idData)
-                                setDeleteData(idData);
-                              }}>
-                                <Autorenew sx={{ color: "green" }} /><span style={{ marginLeft: 10 }}>Status Change</span>
-                              </MenuItem>
-                              <Grid container spacing={0}>
-                                <Grid xs={12} align="center">
-                                  <Divider sx={{ width: "80%" }} />
+                                <MenuItem onClick={() => {
+                                  handleOpendelmodalStatus(idData)
+                                  setDeleteData(idData);
+                                }}>
+                                  <Autorenew sx={{ color: "green" }} /><span style={{ marginLeft: 10 }}>Status Change</span>
+                                </MenuItem>
+                                <Grid container spacing={0}>
+                                  <Grid xs={12} align="center">
+                                    <Divider sx={{ width: "80%" }} />
+                                  </Grid>
                                 </Grid>
-                              </Grid>
 
 
-                              <MenuItem onClick={() => {
-                                setDeleteID(idData.id);
-                                handleOpendelmodal();
-                              }}>
-                                <Delete sx={{ color: "#E10006" }} /><span style={{ marginLeft: 10 }}>Delete</span>
-                              </MenuItem>
-                            </Menu>
+                                <MenuItem onClick={() => {
+                                  setDeleteID(idData.id);
+                                  handleOpendelmodal();
+                                }}>
+                                  <Delete sx={{ color: "#E10006" }} /><span style={{ marginLeft: 10 }}>Delete</span>
+                                </MenuItem>
+                              </Menu>
 
-                          </Grid>
+                            </Grid>
 
-                          <Grid xs={6} sx={{ pb: 1 }} align="left" onClick={() => { setViewData(item); handleOpenmodal(); }}>
-                            <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
-                              status :
-                            </Typography>
-                          </Grid>
-
-                          <Grid xs={6} sx={{ pb: 1, width: '100px', height: '50px' }} align="right" onClick={() => { setViewData(item); handleOpenmodal(); }}>
-                            <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#808080">
-                              {item.status}
-                            </Typography>
-                          </Grid>
-
-                          <Grid xs={6} sx={{ pb: 1 }} align="left" onClick={() => { setViewData(item); handleOpenmodal(); }}>
-                            <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
-                              Description :
-                            </Typography>
-                          </Grid>
-
-                          <Grid xs={6} sx={{ overflowX: 'scroll', pb: 1, width: '150px', height: '80px' }}
-                            align="right" onClick={() => {
-                              setViewData(item);
-                              handleOpenmodal();
-                            }}>
-                            <PerfectScrollbar>
-                              <Typography variant="h6" fontWeight={600} pb={1}
-                                fontSize="12px" color="#808080" sx={{ maxHeight: '100px' }}>
-                                {item.description}
+                            <Grid xs={6} sx={{ pb: 1 }} align="left" onClick={() => { setViewData(item); handleOpenmodal(); }}>
+                              <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
+                                status :
                               </Typography>
-                            </PerfectScrollbar>
+                            </Grid>
+
+                            <Grid xs={6} sx={{ pb: 1, width: '100px', height: '50px' }} align="right" onClick={() => { setViewData(item); handleOpenmodal(); }}>
+                              <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#808080">
+                                {item.status}
+                              </Typography>
+                            </Grid>
+
+                            <Grid xs={6} sx={{ pb: 1 }} align="left" onClick={() => { setViewData(item); handleOpenmodal(); }}>
+                              <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
+                                Description :
+                              </Typography>
+                            </Grid>
+
+                            <Grid xs={6} sx={{ overflowX: 'scroll', pb: 1, width: '150px', height: '80px' }}
+                              align="right" onClick={() => {
+                                setViewData(item);
+                                handleOpenmodal();
+                              }}>
+                              <PerfectScrollbar>
+                                <Typography variant="h6" fontWeight={600} pb={1}
+                                  fontSize="12px" color="#808080" sx={{ maxHeight: '100px' }}>
+                                  {item.description}
+                                </Typography>
+                              </PerfectScrollbar>
+                            </Grid>
                           </Grid>
-                        </Grid>
-                      </CardContent>
-                    </Card>
-                  </Grid>
-                ))}
+                        </CardContent>
+                      </Card>
+                    </Grid>
+                  ))}
 
-              </>
-          }
-        </Grid>
-
+                </>
+            }
+          </Grid>
+        }
         {/* view */}
         <Modal
           open={openmodal}
@@ -718,7 +737,8 @@ const Team = () => {
 
             <Grid xs={12} align="center" pt={3}>
               {viewData.image !== null ?
-                <img alt={''} src={`https://staging-gearone-be.mtechub.com/${viewData.image}`} style={{ bgcolor: "#B5030B", width: '175px', height: '175px' }}>
+                <img alt={''} src={`${url}${viewData.image}`} 
+                style={{ bgcolor: "#B5030B", width: '300px', height: 'auto' }}>
                 </img>
                 :
                 <Avatar sx={{ bgcolor: "#B5030B", width: 75, height: 75 }}>

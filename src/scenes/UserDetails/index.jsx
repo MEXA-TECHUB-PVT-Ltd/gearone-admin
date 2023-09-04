@@ -312,7 +312,7 @@ const Team = () => {
             <Select
               sx={{
                 width: "100%",
-                backgroundColor: "#EEEEEE",
+                backgroundColor: "darkgray",
                 "& fieldset": { border: 'none' },
               }}
               labelId="demo-simple-select-label"
@@ -760,7 +760,7 @@ const Team = () => {
                   mt: '10%',
                   width: "80%",
                   borderRadius: "50px",
-                  backgroundColor: "#EEEEEE",
+                  backgroundColor: "darkgray",
                   "& fieldset": { border: 'none' },
                 }}
                 labelId="demo-simple-select-label"
@@ -1293,7 +1293,7 @@ const Team = () => {
                   onChange={(e) => { setPromoted_status(e.target.value) }}
                   sx={{
                     borderRadius: "50px",
-                    backgroundColor: "#EEEEEE", height: "35px",
+                    backgroundColor: "darkgray", height: "35px",
                     "& fieldset": { border: 'none' },
                   }}
                 >
@@ -1321,9 +1321,9 @@ const Team = () => {
                   }}
                   type="datetime-local"
                   sx={{
-                    backgroundColor: "#EEEEEE",
+                    backgroundColor: "darkgray",
                     "& fieldset": { border: 'none' },
-                    "& ::placeholder": { ml: 1, fontWeight: 600, color: "#000000" }
+                    "& ::placeholder": { ml: 1, fontWeight: 600, color: "white" }
                   }}
                 />
               </FormControl>
@@ -1342,9 +1342,9 @@ const Team = () => {
                   disabled={promoted_status === 'false' ? true : false}
                   type="datetime-local"
                   sx={{
-                    backgroundColor: "#EEEEEE",
+                    backgroundColor: "darkgray",
                     "& fieldset": { border: 'none' },
-                    "& ::placeholder": { ml: 1, fontWeight: 600, color: "#000000" }
+                    "& ::placeholder": { ml: 1, fontWeight: 600, color: "white" }
                   }}
                 />
               </FormControl>

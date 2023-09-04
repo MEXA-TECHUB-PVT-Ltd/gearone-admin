@@ -401,8 +401,8 @@ const Team = () => {
                                     // separator={<span>&nbsp;  
                                     // </span>}
                                     containerStyle={{ align: 'center', width: "100%" }}
-                                    inputStyle={{ width: "50%", height: "5vh", backgroundColor: "#EEEEEE", borderColor: "lightgray", border: "none", borderRadius: "5px" }}
-                                    focusStyle={{ width: "50%", height: "5vh", backgroundColor: "#EEEEEE", borderColor: "lightgray", border: "none", borderRadius: "5px" }}
+                                    inputStyle={{ width: "50%", height: "5vh", backgroundColor: "darkgray", borderColor: "lightgray", border: "none", borderRadius: "5px" }}
+                                    focusStyle={{ width: "50%", height: "5vh", backgroundColor: "darkgray", borderColor: "lightgray", border: "none", borderRadius: "5px" }}
                                 />
                             </FormControl>
                         </Grid>
@@ -441,7 +441,7 @@ const Team = () => {
                                     <OutlinedInput
                                         id="outlined-adornment-password"
                                         sx={{
-                                            backgroundColor: "#EEEEEE",
+                                            backgroundColor: "darkgray",
                                             borderRadius: "50px",
                                             "& fieldset": { border: 'none' },
                                         }}
@@ -479,7 +479,7 @@ const Team = () => {
                                             setPassword(event.target.value);
                                         }}
                                         sx={{
-                                            backgroundColor: "#EEEEEE",
+                                            backgroundColor: "darkgray",
                                             borderRadius: "50px",
                                             "& fieldset": { border: 'none' },
                                         }}
@@ -511,7 +511,7 @@ const Team = () => {
                                     <OutlinedInput
                                         id="outlined-adornment-password"
                                         sx={{
-                                            backgroundColor: "#EEEEEE",
+                                            backgroundColor: "darkgray",
                                             borderRadius: "50px",
                                             "& fieldset": { border: 'none' },
                                         }}

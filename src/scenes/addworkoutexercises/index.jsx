@@ -388,7 +388,7 @@ const Team = () => {
                             </Grid>
                             :
                             <Grid xs={12} md={4} lg={4} xl={4} p={1} align="center" onClick={handleOpenaddmodal}>
-                                <Box sx={{ backgroundColor: "#EEEEEE", width: "95%", borderRadius: "10px" }} >
+                                <Box sx={{ backgroundColor: "darkgray", width: "95%", borderRadius: "10px" }} >
                                     <Stack sx={{
                                         backgroundImage: `url(${workout1})`,
                                         backgroundRepeat: "no-repeat",
@@ -481,7 +481,7 @@ const Team = () => {
                                             sx={{
                                                 padding: "0px",
                                                 borderRadius: "50px",
-                                                backgroundColor: "#EEEEEE",
+                                                backgroundColor: "darkgray",
                                                 "& fieldset": { border: 'none' },
                                             }}
                                         />
@@ -494,7 +494,7 @@ const Team = () => {
                                             sx={{
                                                 padding: "0px",
                                                 borderRadius: "50px",
-                                                backgroundColor: "#EEEEEE",
+                                                backgroundColor: "darkgray",
                                                 "& fieldset": { border: 'none' },
                                             }}
                                         />

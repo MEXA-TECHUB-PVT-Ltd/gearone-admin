@@ -178,7 +178,6 @@ const Team = () => {
         if (response.status === true) {
           handleClose();
           setIsloading(false);
-
           handleClosedelmodalStatus();
           getAllLogos();
           Swal.fire({
@@ -354,7 +353,7 @@ const Team = () => {
               })
             }}>
               <Tooltip title="View" >
-                <Visibility sx={{ color: "#3FC0FF" }} />
+                <Visibility sx={{ cursor: 'pointer', color: "#3FC0FF" }} />
               </Tooltip>
             </IconButton>
             <IconButton style={{ cursor: 'pointer' }} onClick={() => {
@@ -376,6 +375,7 @@ const Team = () => {
   }, [])
 
   const getAllLogos = async () => {
+    setIsloading(true)
     var InsertAPIURL = `${url}auth/all_users`
     var headers = {
       'Accept': 'application/json',
@@ -388,11 +388,14 @@ const Team = () => {
       .then(response => response.json())
       .then(response => {
         console.log(response);
+
         if (response.status === true) {
           // setLogos(response.count);
+          setIsloading(false)
           console.log(response.result);
           setLogos(response.result);
         } else {
+          setIsloading(false)
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
@@ -403,6 +406,7 @@ const Team = () => {
       }
       )
       .catch(error => {
+        setIsloading(false)
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
@@ -442,19 +446,19 @@ const Team = () => {
                       showtable ?
                         <>
                           <Box sx={{ pl: 1 }}>
-                            <List fontSize="large" sx={{ lg: "13vh", xl: "7vh", color: "white", backgroundColor: "#B5030B", borderRadius: "5px" }} onClick={() => { setShowtable(true) }} />
+                            <List fontSize="large" sx={{ cursor: 'pointer', lg: "13vh", xl: "7vh", color: "white", backgroundColor: "#B5030B", borderRadius: "5px" }} onClick={() => { setShowtable(true) }} />
                           </Box>
                           <Box sx={{ pr: 1 }}>
-                            <Apps fontSize="large" sx={{ lg: "13vh", xl: "7vh", color: "#9B9B9B", backgroundColor: "transparent", borderRadius: "5px" }} onClick={() => setShowtable(false)} />
+                            <Apps fontSize="large" sx={{ cursor: 'pointer', lg: "13vh", xl: "7vh", color: "#9B9B9B", backgroundColor: "transparent", borderRadius: "5px" }} onClick={() => setShowtable(false)} />
                           </Box>
                         </>
                         :
                         <>
                           <Box sx={{ pl: 1 }}>
-                            <List fontSize="large" sx={{ color: "#9B9B9B", backgroundColor: "transparent", borderRadius: "5px" }} onClick={() => setShowtable(true)} />
+                            <List fontSize="large" sx={{ cursor: 'pointer', color: "#9B9B9B", backgroundColor: "transparent", borderRadius: "5px" }} onClick={() => setShowtable(true)} />
                           </Box>
                           <Box sx={{ pr: 1 }}>
-                            <Apps fontSize="large" sx={{ color: "white", backgroundColor: "#B5030B", borderRadius: "5px" }} onClick={() => setShowtable(false)} />
+                            <Apps fontSize="large" sx={{ cursor: 'pointer', color: "white", backgroundColor: "#B5030B", borderRadius: "5px" }} onClick={() => setShowtable(false)} />
                           </Box>
                         </>
                     }
@@ -467,242 +471,258 @@ const Team = () => {
         </Grid>
 
         <Divider sx={{ pb: 2 }} />
+        {isloading ?
+          <Grid sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignContent: "center",
+            alignItems: 'center',
+            height: "100%", width: "100%"
+            // backgroundColor:'red'
 
-        <Grid mb='6%' sx={{ mb: '15px' }} container spacing={0} pt={2} >
-          {
-            showtable ?
-              <Grid xs={12} p={1} align="center">
-                <div style={{ height: 600, width: '100%', overflowX: 'auto' }}>
-                  <DataGrid
-                    className="custom-datagrid"
-                    rows={Logos}
-                    getRowId={Logos.id}
-                    id={Logos.id}
-                    getRowStyle={(params) => ({
-                      color: 'red',
-                      fontWeight: '700'
-                    })}
-                    getRowClassName={(params) => {
-                      return 'unblock-row'
-                    }}
-                    columns={columns}
-                    initialState={{
-                      pagination: {
-                        paginationModel: { page: 0, pageSize: 10 },
-                      },
-                    }}
-                    pageSizeOptions={[5, 10]}
-                    //  checkboxSelection
+          }} >
+            <div className="loader">
+            </div>
+          </Grid>
 
-                    components={
-                      <Chip label='active_status' color="success" variant="outlined" />
-                    }
-                  />
-                </div>
-              </Grid>
-              :
-              <>
-                {Logos.map((item, index) => (
-                  <Grid xs={12} md={3} lg={3} align="center" p={1}>
-                    <Card width="95%" sx={{ padding: 0, boxShadow: "none", borderRadius: "10px", border: "1px solid #D8D8D8" }}>
-                      <CardContent>
-                        <Grid container spacing={0} >
-                          <Grid xs={6} align="left" onClick={() => { setViewData(item); handleOpenmodal(); }}>
-                            <Typography variant="h5" pb={1} fontWeight={750} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#B5030B">
-                              {item.username}
-                            </Typography>
-                          </Grid>
+          :
 
-                          <Grid xs={6} align="right">
-                            <div>
-                              <MoreVert
-                                id="basic-button"
-                                aria-controls={open ? 'basic-menu' : undefined}
-                                aria-haspopup="true"
-                                aria-expanded={open ? 'true' : undefined}
-                                // onClick={handleClick} 
-                                onClick={(event) => {
-                                  setIdData(item)
-                                  setAnchorEl(event.currentTarget)
-                                }}
-                                sx={{ color: "#1F1F1F" }} />
-                            </div>
-                            <Menu
-                              id="basic-menu"
-                              anchorEl={anchorEl}
-                              open={open}
-                              onClose={handleClose}
-                              MenuListProps={{
-                                'aria-labelledby': 'basic-button',
-                              }}
-                              PaperProps={{
+          <>
+            <Grid mb='6%' sx={{ mb: '15px' }} container spacing={0} pt={2} >
+              {
+                showtable ?
+                  <Grid xs={12} p={1} align="center">
+                    <div style={{ height: 600, width: '100%', overflowX: 'auto' }}>
+                      <DataGrid
+                        className="custom-datagrid"
+                        rows={Logos}
+                        getRowId={Logos.id}
+                        id={Logos.id}
+                        getRowStyle={(params) => ({
+                          color: 'red',
+                          fontWeight: '700'
+                        })}
+                        getRowClassName={(params) => {
+                          return 'unblock-row'
+                        }}
+                        columns={columns}
+                        initialState={{
+                          pagination: {
+                            paginationModel: { page: 0, pageSize: 10 },
+                          },
+                        }}
+                        pageSizeOptions={[5, 10]}
+                        //  checkboxSelection
 
-                                sx: {
-                                  // overflow: 'visible',
-                                  // filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.22))',
-                                  mt: 1.5,
-                                  '& .MuiAvatar-root': {
-                                    width: 32,
-                                    height: 32,
-                                    ml: -0.5,
-                                    mr: 1,
-                                  },
-                                  '&:before': {
-                                    content: '""',
-                                    display: 'block',
-                                    position: 'absolute',
-                                    top: 0,
-                                    right: 5,
-                                    width: 10,
-                                    height: 10,
-                                    bgcolor: 'background.paper',
-                                    transform: 'translateY(-50%) rotate(45deg)',
-                                    zIndex: 0,
-                                  },
-                                },
-                              }}
-                              transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-                              anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-                            >
-                              <MenuItem
-                                onClick={() => {
-                                  console.log(idData);
-                                  navigate('/UserDetails', {
-                                    state: {
-                                      id: idData.id,
-                                    }
-                                  })
-                                }
-                                }
-
-                              // onClick={() => updatefood(idData.food_id)}
-                              >
-                                <Visibility sx={{ color: "#40E0D0" }} /><span style={{ marginLeft: 10 }}>View</span>
-                              </MenuItem>
-                              <Grid container spacing={0}>
-                                <Grid xs={12} align="center">
-                                  <Divider sx={{ width: "80%" }} />
-                                </Grid>
-                              </Grid>
-                              <MenuItem
-
-                                onClick={() => {
-                                  handleOpendelmodalStatus(idData); setDeleteData(idData);
-                                }}>
-                                <AutorenewIcon sx={{ color: "#E10006" }} /><span style={{ marginLeft: 10 }}>Change Status</span>
-                              </MenuItem>
-                              <MenuItem
-
-                                onClick={() => {
-                                  setDeleteID(idData.id)
-                                  setOpendelmodal(true)
-                                }}>
-                                <Delete sx={{ color: "#E10006" }} /><span style={{ marginLeft: 10 }}>Delete</span>
-                              </MenuItem>
-
-                            </Menu>
-
-                          </Grid>
-
-                          <Grid onClick={() => {
-                            navigate('/UserDetails', {
-                              state: {
-                                id: item.id,
-                              }
-                            })
-                          }
-                          } xs={6} sx={{ mt: '4%', pb: 1 }} align="left" >
-                            <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
-                              email :
-                            </Typography>
-                          </Grid>
-
-                          <Grid onClick={() => {
-                            navigate('/UserDetails', {
-                              state: {
-                                id: item.id,
-                              }
-                            })
-                          }
-                          } xs={6} sx={{ mt: '4%', pb: 1 }} align="left" >
-                            <PerfectScrollbar  >
-                              <Typography variant="h6" fontWeight={600} pb={1} fontSize="12px" sx={{ letterSpacing: "1px" }} color="#808080">
-                                {item.email}
-                              </Typography>
-                            </PerfectScrollbar  >
-                          </Grid>
-                          <Grid xs={6} sx={{ pb: 1 }} align="left" onClick={() => {
-                            navigate('/UserDetails', {
-                              state: {
-                                id: item.id,
-                              }
-                            })
-                          }
-                          }>
-                            <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
-                              Type :
-                            </Typography>
-                          </Grid>
-
-                          <Grid sx={{ pb: 1, width: '100%', height: '50px' }} xs={6} align="left" onClick={() => {
-                            navigate('/UserDetails', {
-                              state: {
-                                id: item.id,
-                              }
-                            })
-                          }
-                          } >
-                            <PerfectScrollbar  >
-                              <Typography variant="h6" fontWeight={600} pb={1} fontSize="12px" sx={{ letterSpacing: "1px" }} color="#808080">
-                                {item.type}
-                              </Typography>
-                            </PerfectScrollbar  >
-                          </Grid>
-
-                          <Grid xs={6} sx={{ pb: 1 }} align="left" onClick={() => {
-                            navigate('/UserDetails', {
-                              state: {
-                                id: item.id,
-                              }
-                            })
-                          }
-                          } >
-                            <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
-                              status :
-                            </Typography>
-                          </Grid>
-
-                          <Grid sx={{ cursor: 'pointer', pb: 1, width: '100%', height: '50px' }} xs={6} align="left" onClick={() => { handleOpendelmodalStatus(item); setDeleteData(item); }} >
-                            <PerfectScrollbar  >
-                              {item.status === 'block'
-                                ?
-                                <Chip
-                                  onClick={() => { handleOpendelmodalStatus(item); setDeleteData(item); }} sx={{ cursor: 'pointer' }}
-                                  label={item.status} color="success" variant="outlined" />
-                                :
-                                <Chip
-                                  onClick={() => { handleOpendelmodalStatus(item); setDeleteData(item); }} sx={{ cursor: 'pointer' }}
-                                  label={item.status} color='secondary' variant="outlined" />
-                              }
-                            </PerfectScrollbar  >
-                          </Grid>
-
-
-
-                        </Grid>
-                      </CardContent>
-                    </Card>
+                        components={
+                          <Chip label='active_status' color="success" variant="outlined" />
+                        }
+                      />
+                    </div>
                   </Grid>
-                ))}
+                  :
+                  <>
+                    {Logos.map((item, index) => (
+                      <Grid xs={12} md={3} lg={3} align="center" p={1}>
+                        <Card width="95%" sx={{ padding: 0, boxShadow: "none", borderRadius: "10px", border: "1px solid #D8D8D8" }}>
+                          <CardContent>
+                            <Grid container spacing={0} >
+                              <Grid xs={6} align="left" onClick={() => { setViewData(item); handleOpenmodal(); }}>
+                                <Typography variant="h5" pb={1} fontWeight={750} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#B5030B">
+                                  {item.username}
+                                </Typography>
+                              </Grid>
 
-              </>
-          }
-        </Grid>
+                              <Grid xs={6} align="right">
+                                <div>
+                                  <MoreVert
+                                    id="basic-button"
+                                    aria-controls={open ? 'basic-menu' : undefined}
+                                    aria-haspopup="true"
+                                    aria-expanded={open ? 'true' : undefined}
+                                    // onClick={handleClick} 
+                                    onClick={(event) => {
+                                      setIdData(item)
+                                      setAnchorEl(event.currentTarget)
+                                    }}
+                                    sx={{ cursor: 'pointer', color: "#1F1F1F" }} />
+                                </div>
+                                <Menu
+                                  id="basic-menu"
+                                  anchorEl={anchorEl}
+                                  open={open}
+                                  onClose={handleClose}
+                                  MenuListProps={{
+                                    'aria-labelledby': 'basic-button',
+                                  }}
+                                  PaperProps={{
+
+                                    sx: {
+                                      // overflow: 'visible',
+                                      // filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.22))',
+                                      mt: 1.5,
+                                      '& .MuiAvatar-root': {
+                                        width: 32,
+                                        height: 32,
+                                        ml: -0.5,
+                                        mr: 1,
+                                      },
+                                      '&:before': {
+                                        content: '""',
+                                        display: 'block',
+                                        position: 'absolute',
+                                        top: 0,
+                                        right: 5,
+                                        width: 10,
+                                        height: 10,
+                                        bgcolor: 'background.paper',
+                                        transform: 'translateY(-50%) rotate(45deg)',
+                                        zIndex: 0,
+                                      },
+                                    },
+                                  }}
+                                  transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+                                  anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+                                >
+                                  <MenuItem
+                                    onClick={() => {
+                                      console.log(idData);
+                                      navigate('/UserDetails', {
+                                        state: {
+                                          id: idData.id,
+                                        }
+                                      })
+                                    }
+                                    }
+
+                                  // onClick={() => updatefood(idData.food_id)}
+                                  >
+                                    <Visibility sx={{ color: "#40E0D0" }} /><span style={{ marginLeft: 10 }}>View</span>
+                                  </MenuItem>
+                                  <Grid container spacing={0}>
+                                    <Grid xs={12} align="center">
+                                      <Divider sx={{ width: "80%" }} />
+                                    </Grid>
+                                  </Grid>
+                                  <MenuItem
+
+                                    onClick={() => {
+                                      handleOpendelmodalStatus(idData); setDeleteData(idData);
+                                    }}>
+                                    <AutorenewIcon sx={{ color: "#E10006" }} /><span style={{ marginLeft: 10 }}>Change Status</span>
+                                  </MenuItem>
+                                  <MenuItem
+
+                                    onClick={() => {
+                                      setDeleteID(idData.id)
+                                      setOpendelmodal(true)
+                                    }}>
+                                    <Delete sx={{ color: "#E10006" }} /><span style={{ marginLeft: 10 }}>Delete</span>
+                                  </MenuItem>
+
+                                </Menu>
+
+                              </Grid>
+
+                              <Grid onClick={() => {
+                                navigate('/UserDetails', {
+                                  state: {
+                                    id: item.id,
+                                  }
+                                })
+                              }
+                              } xs={6} sx={{ mt: '4%', pb: 1 }} align="left" >
+                                <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
+                                  email :
+                                </Typography>
+                              </Grid>
+
+                              <Grid onClick={() => {
+                                navigate('/UserDetails', {
+                                  state: {
+                                    id: item.id,
+                                  }
+                                })
+                              }
+                              } xs={6} sx={{ mt: '4%', pb: 1 }} align="left" >
+                                <PerfectScrollbar  >
+                                  <Typography variant="h6" fontWeight={600} pb={1} fontSize="12px" sx={{ letterSpacing: "1px" }} color="#808080">
+                                    {item.email}
+                                  </Typography>
+                                </PerfectScrollbar  >
+                              </Grid>
+                              <Grid xs={6} sx={{ pb: 1 }} align="left" onClick={() => {
+                                navigate('/UserDetails', {
+                                  state: {
+                                    id: item.id,
+                                  }
+                                })
+                              }
+                              }>
+                                <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
+                                  Type :
+                                </Typography>
+                              </Grid>
+
+                              <Grid sx={{ pb: 1, width: '100%', height: '50px' }} xs={6} align="left" onClick={() => {
+                                navigate('/UserDetails', {
+                                  state: {
+                                    id: item.id,
+                                  }
+                                })
+                              }
+                              } >
+                                <PerfectScrollbar  >
+                                  <Typography variant="h6" fontWeight={600} pb={1} fontSize="12px" sx={{ letterSpacing: "1px" }} color="#808080">
+                                    {item.type}
+                                  </Typography>
+                                </PerfectScrollbar  >
+                              </Grid>
+
+                              <Grid xs={6} sx={{ pb: 1 }} align="left" onClick={() => {
+                                navigate('/UserDetails', {
+                                  state: {
+                                    id: item.id,
+                                  }
+                                })
+                              }
+                              } >
+                                <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
+                                  status :
+                                </Typography>
+                              </Grid>
+
+                              <Grid sx={{ cursor: 'pointer', pb: 1, width: '100%', height: '50px' }} xs={6} align="left" onClick={() => { handleOpendelmodalStatus(item); setDeleteData(item); }} >
+                                <PerfectScrollbar  >
+                                  {item.status === 'block'
+                                    ?
+                                    <Chip
+                                      onClick={() => { handleOpendelmodalStatus(item); setDeleteData(item); }} sx={{ cursor: 'pointer' }}
+                                      label={item.status} color="success" variant="outlined" />
+                                    :
+                                    <Chip
+                                      onClick={() => { handleOpendelmodalStatus(item); setDeleteData(item); }} sx={{ cursor: 'pointer' }}
+                                      label={item.status} color='secondary' variant="outlined" />
+                                  }
+                                </PerfectScrollbar  >
+                              </Grid>
 
 
-        <Grid sx={{ mb: '13px' }} container spacing={0} pt={2} pl={2} pr={2} >
-        </Grid>
 
+                            </Grid>
+                          </CardContent>
+                        </Card>
+                      </Grid>
+                    ))}
+
+                  </>
+              }
+            </Grid>
+
+            <Grid sx={{ mb: '13px' }} container spacing={0} pt={2} pl={2} pr={2} >
+            </Grid>
+          </>
+        }
         {/* view */}
         <Modal
           open={openmodal}
@@ -921,6 +941,7 @@ const Team = () => {
         </Modal>
 
       </Box>
+
     </>
   );
 };

@@ -70,7 +70,7 @@ const Team = () => {
                     <Grid container spacing={0}>
                         <Grid xs={12} md={5} lg={5} xl={5} p={1} align="">
                             <Box sx={{
-                                backgroundColor: "#EEEEEE", width: "100%", borderRadius: "10px", height: "40vh",
+                                backgroundColor: "darkgray", width: "100%", borderRadius: "10px", height: "40vh",
                                 backgroundImage: `url(${workout1})`,
                                 backgroundSize: "cover",
                                 backgroundRepeat: "no-repeat"
@@ -142,7 +142,7 @@ const Team = () => {
 
                             <Grid container spacing={0}>
                                 <Grid xs={12} md={6} lg={6} p={1} align="center">
-                                    <Box sx={{ backgroundColor: "#EEEEEE", width: "100%", borderRadius: "10px" }} >
+                                    <Box sx={{ backgroundColor: "darkgray", width: "100%", borderRadius: "10px" }} >
                                         <Stack sx={{
                                             backgroundImage: `url(${workout1})`,
                                             backgroundRepeat: "no-repeat",
@@ -173,7 +173,7 @@ const Team = () => {
                                 </Grid>
 
                                 <Grid xs={12} md={6} lg={6} p={1} align="center">
-                                    <Box sx={{ backgroundColor: "#EEEEEE", width: "100%", borderRadius: "10px" }} >
+                                    <Box sx={{ backgroundColor: "darkgray", width: "100%", borderRadius: "10px" }} >
                                         <Stack sx={{
                                             backgroundImage: `url(${workout2})`,
                                             backgroundRepeat: "no-repeat",
@@ -204,7 +204,7 @@ const Team = () => {
                                 </Grid>
 
                                 <Grid xs={12} md={6} lg={6} p={1} align="center">
-                                    <Box sx={{ backgroundColor: "#EEEEEE", width: "100%", borderRadius: "10px" }} >
+                                    <Box sx={{ backgroundColor: "darkgray", width: "100%", borderRadius: "10px" }} >
                                         <Stack sx={{
                                             backgroundImage: `url(${workout3})`,
                                             backgroundRepeat: "no-repeat",
@@ -235,7 +235,7 @@ const Team = () => {
                                 </Grid>
 
                                 <Grid xs={12} md={6} lg={6} p={1} align="center">
-                                    <Box sx={{ backgroundColor: "#EEEEEE", width: "100%", borderRadius: "10px" }} >
+                                    <Box sx={{ backgroundColor: "darkgray", width: "100%", borderRadius: "10px" }} >
                                         <Stack sx={{
                                             backgroundImage: `url(${workout4})`,
                                             backgroundRepeat: "no-repeat",
@@ -266,7 +266,7 @@ const Team = () => {
                                 </Grid>
 
                                 <Grid xs={12} md={6} lg={6} p={1} align="center">
-                                    <Box sx={{ backgroundColor: "#EEEEEE", width: "100%", borderRadius: "10px" }} >
+                                    <Box sx={{ backgroundColor: "darkgray", width: "100%", borderRadius: "10px" }} >
                                         <Stack sx={{
                                             backgroundImage: `url(${workout5})`,
                                             backgroundRepeat: "no-repeat",
@@ -297,7 +297,7 @@ const Team = () => {
                                 </Grid>
 
                                 <Grid xs={12} md={6} lg={6} p={1} align="center">
-                                    <Box sx={{ backgroundColor: "#EEEEEE", width: "100%", borderRadius: "10px" }} >
+                                    <Box sx={{ backgroundColor: "darkgray", width: "100%", borderRadius: "10px" }} >
                                         <Stack sx={{
                                             backgroundImage: `url(${workout6})`,
                                             backgroundRepeat: "no-repeat",

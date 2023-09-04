@@ -279,9 +279,9 @@ const Team = () => {
                                     <OutlinedInput
                                         id="input-with-icon-adornment"
                                         sx={{
-                                            backgroundColor: "#EEEEEE",
+                                            backgroundColor: "darkgray",
                                             "& fieldset": { border: 'none' },
-                                            "& ::placeholder": { ml: 1, fontWeight: 600, color: "#000000" }
+                                            "& ::placeholder": { ml: 1, fontWeight: 600, color: "white" }
                                         }}
                                     />
 
@@ -291,9 +291,9 @@ const Team = () => {
                                         multiline={true}
                                         rows={5}
                                         sx={{
-                                            backgroundColor: "#EEEEEE",
+                                            backgroundColor: "darkgray",
                                             "& fieldset": { border: 'none' },
-                                            "& ::placeholder": { ml: 1, fontWeight: 600, color: "#000000" }
+                                            "& ::placeholder": { ml: 1, fontWeight: 600, color: "white" }
                                         }}
                                     />
 
@@ -366,9 +366,9 @@ const Team = () => {
                                             id="input-with-icon-adornment"
                                             defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,"
                                             sx={{
-                                                backgroundColor: "#EEEEEE",
+                                                backgroundColor: "darkgray",
                                                 "& fieldset": { border: 'none' },
-                                                "& ::placeholder": { ml: 1, fontWeight: 600, color: "#000000" }
+                                                "& ::placeholder": { ml: 1, fontWeight: 600, color: "white" }
                                             }}
                                         />
 
@@ -379,9 +379,9 @@ const Team = () => {
                                             multiline={true}
                                             rows={5}
                                             sx={{
-                                                backgroundColor: "#EEEEEE",
+                                                backgroundColor: "darkgray",
                                                 "& fieldset": { border: 'none' },
-                                                "& ::placeholder": { ml: 1, fontWeight: 600, color: "#000000" }
+                                                "& ::placeholder": { ml: 1, fontWeight: 600, color: "white" }
                                             }}
                                         />
 

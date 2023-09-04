@@ -402,7 +402,7 @@ const Team = () => {
                                                 id="input-with-icon-adornment"
                                                 sx={{
                                                     borderRadius: "50px",
-                                                    backgroundColor: "#EEEEEE",
+                                                    backgroundColor: "darkgray",
                                                     "& fieldset": { border: 'none' },
                                                 }}
                                             />
@@ -417,7 +417,7 @@ const Team = () => {
                                                 id="input-with-icon-adornment"
                                                 sx={{
                                                     borderRadius: "50px",
-                                                    backgroundColor: "#EEEEEE",
+                                                    backgroundColor: "darkgray",
                                                     "& fieldset": { border: 'none' },
                                                 }}
                                             />
@@ -439,7 +439,7 @@ const Team = () => {
                                             <Select
                                                 sx={{
                                                     borderRadius: "50px",
-                                                    backgroundColor: "#EEEEEE",
+                                                    backgroundColor: "darkgray",
                                                     "& fieldset": { border: 'none' },
                                                 }}
                                                 labelId="demo-simple-select-label"
@@ -473,7 +473,7 @@ const Team = () => {
                                                 id="input-with-icon-adornment"
                                                 sx={{
                                                     borderRadius: "50px",
-                                                    backgroundColor: "#EEEEEE",
+                                                    backgroundColor: "darkgray",
                                                     "& fieldset": { border: 'none' },
                                                 }}
                                             />
@@ -501,7 +501,7 @@ const Team = () => {
                                                 id="input-with-icon-adornment"
                                                 sx={{
                                                     borderRadius: "50px",
-                                                    backgroundColor: "#EEEEEE",
+                                                    backgroundColor: "darkgray",
                                                     "& fieldset": { border: 'none' },
                                                 }}
                                             />
@@ -537,7 +537,7 @@ const Team = () => {
                                             <Select
                                                 sx={{
                                                     borderRadius: "50px",
-                                                    backgroundColor: "#EEEEEE",
+                                                    backgroundColor: "darkgray",
                                                     "& fieldset": { border: 'none' },
                                                 }}
                                                 labelId="demo-simple-select-label"
