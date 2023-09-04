@@ -55,6 +55,8 @@ const MenuProps = {
 };
 
 const Team = () => {
+    const [BannerName, setBannerName] = React.useState('');
+
     const [addName, setAddName] = React.useState('');
     const navigate = useNavigate();
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -144,6 +146,9 @@ const Team = () => {
     const [selectedFile, setSelectedFile] = useState(null);
     const [Screens, setScreens] = useState([]);
     const [isloading, setIsloading] = useState(false);
+    const [isloading1, setIsloading1] = useState(false);
+    const [isloading2, setIsloading2] = useState(false);
+
     useEffect(() => {
         getAllPlans();
         getAllScreens();
@@ -151,14 +156,14 @@ const Team = () => {
 
     const handleAddBanner = async () => {
         console.log("1");
-        setIsloading(true);
+        setIsloading1(true);
         var InsertAPIURL = `${url}ads/add_ad`
         var headers = {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
         };
-        if (addName === '' || selectedFileBanner === null) {
-            setIsloading(false);
+        if (BannerName === '' || selectedFileBanner === null) {
+            setIsloading1(false);
             setOpenaddmodal(false);
             Swal.fire({
                 icon: 'warning',
@@ -170,7 +175,7 @@ const Team = () => {
         } else {
             var Data = {
                 "screen_id": "16",
-                "link": addName
+                "link": BannerName
             };
             await fetch(InsertAPIURL, {
                 method: 'POST',
@@ -197,16 +202,16 @@ const Team = () => {
                                     console.log("4");
                                     setImages(prevSkills => [...prevSkills, response.data.result[0].image]);
                                     setOpenaddmodal(false);
-                                    console.log(addName);
-                                    setIsloading(false)
+                                    setIsloading1(false)
                                 } else {
                                     setOpenaddmodal(false);
-                                    setIsloading(false)
+                                    setIsloading1(false)
                                     console.log("5");
                                 }
                             }
                             )
                                 .catch(error => {
+                                    setIsloading1(false)
                                     Swal.fire({
                                         icon: 'error',
                                         title: 'Oops...',
@@ -217,9 +222,9 @@ const Team = () => {
                         } else {
                             console.log("6");
                             setOpenaddmodal(false);
-                            setIsloading(false)
+                            setIsloading1(false)
                         }
-                        setIsloading(false)
+                        setIsloading1(false)
                         setSelectedFileBanner(null);
                         setHidecrossiconBanner(false);
                         setHidelabelBanner(false);
@@ -230,7 +235,7 @@ const Team = () => {
                             text: 'Banner Added Successfully!',
                         })
                     } else {
-                        setIsloading(false);
+                        setIsloading1(false);
                         setOpenaddmodal(false);
                         Swal.fire({
                             icon: 'error',
@@ -242,7 +247,7 @@ const Team = () => {
                 }
                 )
                 .catch(error => {
-                    setIsloading(false);
+                    setIsloading1(false);
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
@@ -254,15 +259,15 @@ const Team = () => {
     }
 
     const handleAdd = async () => {
-        setIsloading(true)
+        setIsloading2(true)
         var InsertAPIURL = `${url}category/add_category`
         var headers = {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
         };
         console.log(selectedFile)
-        if (addName === '' || Skills === "" || selectedFile === null || selectedFile === undefined) {
-            setIsloading(false)
+        if (addName === '' || Banners.length === 0 || selectedFile === null || selectedFile === undefined) {
+            setIsloading2(false)
             Swal.fire({
                 icon: 'warning',
                 title: 'warning',
@@ -292,13 +297,13 @@ const Team = () => {
                                     "Content-Type": "multipart/form-data"
                                 }
                             }).then((response) => {
-                                setIsloading(false)
+                                setIsloading2(false)
                                 console.log(response.data);
                                 if (response.data.status === true) {
                                     navigate("/categories")
-                                    setIsloading(false)
+                                    setIsloading2(false)
                                 } else {
-                                    setIsloading(false)
+                                    setIsloading2(false)
                                     Swal.fire({
                                         icon: 'error',
                                         title: 'Oops2...',
@@ -317,11 +322,11 @@ const Team = () => {
                                     })
                                 });
                         } else {
-                            setIsloading(false)
+                            setIsloading2(false)
                             navigate("/categories")
                         }
                     } else if (response.message == 'Please Enter screen ID') {
-                        setIsloading(false)
+                        setIsloading2(false)
                         Swal.fire({
                             icon: 'error',
                             title: 'Oops...',
@@ -329,7 +334,7 @@ const Team = () => {
                             text: 'Please Select Screen'
                         })
                     } else {
-                        setIsloading(false)
+                        setIsloading2(false)
                         Swal.fire({
                             icon: 'error',
                             title: 'Oops...',
@@ -337,7 +342,7 @@ const Team = () => {
                             text: 'Try Again'
                         })
                     }
-                    setIsloading(false)
+                    setIsloading2(false)
                     Swal.fire({
                         icon: 'success',
                         title: 'Success!',
@@ -348,7 +353,7 @@ const Team = () => {
                 }
                 )
                 .catch(error => {
-                    setIsloading(false)
+                    setIsloading2(false)
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
@@ -513,11 +518,11 @@ const Team = () => {
                                                 color: "#1F1F1F",
                                             }}
                                         >
-                                            Link
+                                            Name
                                         </Typography>
                                         <OutlinedInput
                                             id="input-with-icon-adornment"
-                                            placeholder="Link..."
+                                            placeholder="Category Name..."
                                             onChange={(event) => {
                                                 setAddName(event.target.value);
                                             }}
@@ -603,10 +608,10 @@ const Team = () => {
                                 </FormControl>
 
                             </Grid>
-                            {isloading ?
+                            {isloading2 ?
                                 <Grid sx={{ mt: '3%' }} xs={12} align="center">
                                     <Button variant="contained" style={btn}>
-                                        <ClipLoader loading={isloading}
+                                        <ClipLoader loading={isloading2}
                                             css={override}
                                             size={10}
                                         />
@@ -616,7 +621,7 @@ const Team = () => {
                                 :
 
                                 <Grid sx={{ mt: '3%' }} xs={12} align="center">
-                                    <Button variant="contained" style={btn} onClick={() => { handleAdd() }} >Add</Button>
+                                    <Button variant="contained" style={btn} onClick={() => { handleAdd() }} >Add Category</Button>
                                 </Grid>
                             }
                         </Grid>
@@ -692,9 +697,9 @@ const Team = () => {
 
                                 <OutlinedInput
                                     id="input-with-icon-adornment"
-                                    placeholder="Category Name"
+                                    placeholder="Banner Link"
                                     onChange={(event) => {
-                                        setAddName(event.target.value);
+                                        setBannerName(event.target.value);
                                     }}
 
                                     sx={{
@@ -710,10 +715,10 @@ const Team = () => {
 
                     <Grid container spacing={0} pt={7}>
 
-                        {isloading ?
+                        {isloading1 ?
                             <Grid xs={12} align="center">
                                 <Button variant="contained" style={btn}>
-                                    <ClipLoader loading={isloading}
+                                    <ClipLoader loading={isloading1}
                                         css={override}
                                         size={10}
                                     />

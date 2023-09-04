@@ -28,7 +28,7 @@ const ProfileCard = ({ name, role, createdat, imageUrl, email, address, gender, 
             justifyContent: 'stretch',
             borderRadius: '8px',
         }}>
-            <p>Order By</p>
+            <span style={{ fontSize: '16px', fontWeight: '600' }}>Order By</span>
 
             <div style={{
                 display: 'flex',
@@ -42,10 +42,10 @@ const ProfileCard = ({ name, role, createdat, imageUrl, email, address, gender, 
                     height: theme => theme.spacing(7),
                 }} src={imageUrl} alt={`${name} Avatar`} />
                 <div style={{ flex: 1, marginLeft: '10px', display: 'flex', flexDirection: 'column' }}>
-                    <Typography variant="subtitle2" component="div" sx={{ fontSize: '14px' }}>
+                    <Typography variant="subtitle2" component="div" sx={{ fontWeight: '600', fontSize: '16px' }}>
                         {name}
                     </Typography>
-                    <Typography variant="caption" component="div" sx={{ fontSize: '14px', marginBottom: '4px' }}>
+                    <Typography variant="caption" component="div" sx={{ fontWeight: '600', fontSize: '16px', marginBottom: '4px' }}>
                         {email}
                     </Typography>
                 </div>
@@ -59,12 +59,12 @@ const ProfileCard = ({ name, role, createdat, imageUrl, email, address, gender, 
                 flexGrow: 1,
             }}>
                 <div className="profile-card">
-                    <p style={{ display: 'flex', justifyContent: 'space-between' }}><span></span> {role}</p>
+                <span style={{ fontSize: '16px', fontWeight: '600' }}>{role}</span>
                     {/* <p style={{ display: 'flex', justifyContent: 'space-between' }}><span>Details:</span> {gender}</p> */}
                     {/* <p style={{ display: 'flex', justifyContent: 'space-between' }}><span>Status:</span> {BlockStatus}</p> */}
                     {/* <p style={{ display: 'flex', justifyContent: 'space-between' }}><span>Account Type:</span> {accountType}</p> */}
                     {/* <p style={{ display: 'flex', justifyContent: 'space-between' }}><span>Creation Date:</span> {formattedDate}</p> */}
-                    <p style={{ display: 'flex', justifyContent: 'space-between' }}><span>Phone Number:</span> {phoneNumber}</p>
+                    <p style={{ fontWeight: '600', fontSize: '16px', display: 'flex', justifyContent: 'space-between' }}><span>Phone Number:</span> {phoneNumber}</p>
                 </div>
 
             </CardContent>

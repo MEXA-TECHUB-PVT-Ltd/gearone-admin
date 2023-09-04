@@ -121,7 +121,9 @@ const Team = () => {
     const [Screens, setScreens] = useState([]);
     const [isloading, setIsloading] = useState(false);
     useEffect(() => {
-        if (location.state.row.banners !== undefined && location.state.row.banners.length !== 0) {
+        if (location.state.row.banners !== undefined &&
+            location.state.row.banners !== null
+            && location.state.row.banners.length !== 0) {
             const bannerIds = location.state.row.banners.map(banner => banner.id);
             setSkill(bannerIds)
         }
@@ -426,7 +428,7 @@ const Team = () => {
                                                 color: "#1F1F1F",
                                             }}
                                         >
-                                            Selected Banners
+                                            Category Banners
                                         </Typography>
 
                                         <Grid

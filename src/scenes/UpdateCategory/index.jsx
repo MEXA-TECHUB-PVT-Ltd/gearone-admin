@@ -56,6 +56,7 @@ const MenuProps = {
 
 const Team = () => {
         const location = useLocation();
+        const [BannerLink, setBannerLink] = React.useState('');
 
     const [addName, setAddName] = React.useState('');
     const navigate = useNavigate();
@@ -67,56 +68,12 @@ const Team = () => {
     const handleClose = () => {
         setAnchorEl(null);
     }
-    const [searchQuery, setSearchQuery] = useState("");
-    const getAllPlans = async () => {
+        const getAllPlans = async () => {
                 if (location.state.row.image !== undefined && location.state.row.image !== null && location.state.row.image !== '') {
             setHidelabel(true)
-        }
-        var InsertAPIURL = `${url}ads/get_all_ads`
-        var headers = {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-        };
-        await fetch(InsertAPIURL, {
-            method: 'POST',
-            headers: headers,
-        })
-            .then(response => response.json())
-            .then(response => {
-                if (response.status == true) {
-                    // setLogos(response.count);
-                    console.log("response");
-                    setSkills(response.result);
-                } else {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        confirmButtonColor: "#FF8B94",
-                        text: ''
-                    })
+            selectedFile(location.state.row.image)
                 }
-            }
-            )
-            .catch(error => {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    confirmButtonColor: "#FF8B94",
-                    text: "Server Down!"
-                })
-            });
     }
-    const handleImageClick = (imageId) => {
-        // Assuming `Skill` is an array that stores the selected image IDs
-        if (Skill.includes(imageId)) {
-            // If the image is already selected, remove it from the selection
-            setSkill(Skill.filter(id => id !== imageId));
-        } else {
-            // If the image is not selected, add it to the selection
-            setSkill([...Skill, imageId]);
-        }
-    };
-
 
     const [openaddsuccess, setOpenaddsuccess] = useState(false);
     const [openaddmodal, setOpenaddmodal] = useState(false);
@@ -126,25 +83,11 @@ const Team = () => {
         setOpenaddsuccess(true)
     };
 
-    const handleChangeSkill = (event) => {
-        const {
-            target: { value },
-        } = event;
-        setSkill(
-            // On autofill we get a stringified value.
-            typeof value === 'string' ? value.split(',') : value,
-        );
-
-    };
     const [Skill, setSkill] = React.useState([]);
-        let imagePaths = [];
-                if(location.state.row.banners){
-         imagePaths = location.state.row.banners.map(banner => banner.image);
-        }  
-        console.log(imagePaths);  
+
 
     
-    const [Images, setImages] = useState(imagePaths);
+    const [Images, setImages] = useState([]);
     const [Skills, setSkills] = useState([]);
     const [Banners, setBanners] = useState([]);
     const [hidelabelBanner, setHidelabelBanner] = useState(false);
@@ -155,22 +98,39 @@ const Team = () => {
     const [hidecrossicon, setHidecrossicon] = useState(false);
     const [selectedFile, setSelectedFile] = useState(null);
     const [Screens, setScreens] = useState([]);
+    const [isloading1, setIsloading1] = useState(false);
+    const [isloading2, setIsloading2] = useState(false);
     const [isloading, setIsloading] = useState(false);
     useEffect(() => {
+
+        let imagePaths = [];
+                if(location.state.row.banners){
+         imagePaths = location.state.row.banners.map(banner => banner);
+        }  
+        setImages(imagePaths);  
+
+
+            if (location.state.row.banners !== undefined &&
+                location.state.row.banners !== null
+                && location.state.row.banners.length !== 0) {
+                const bannerIds = location.state.row.banners.map(banner => banner.id);
+                setBanners(bannerIds)
+            }
+    
         getAllPlans();
         getAllScreens();
     }, [])
 
     const handleAddBanner = async () => {
         console.log("1");
-        setIsloading(true);
+        setIsloading1(true);
         var InsertAPIURL = `${url}ads/add_ad`
         var headers = {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
         };
-        if (addName === '' || selectedFileBanner === null) {
-            setIsloading(false);
+        if (BannerLink === '' || selectedFileBanner === null) {
+            setIsloading1(false);
             setOpenaddmodal(false);
             Swal.fire({
                 icon: 'warning',
@@ -182,7 +142,7 @@ const Team = () => {
         } else {
             var Data = {
                 "screen_id": "16",
-                "link": addName
+                "link": BannerLink
             };
             await fetch(InsertAPIURL, {
                 method: 'POST',
@@ -207,13 +167,12 @@ const Team = () => {
                             }).then((response) => {
                                 if (response.data.status === true) {
                                     console.log("4");
-                                    setImages(prevSkills => [...prevSkills, response.data.result[0].image]);
+                                    setImages(prevSkills => [...prevSkills, response.data.result[0]]);
                                     setOpenaddmodal(false);
-                                    console.log(addName);
-                                    setIsloading(false)
+                                    setIsloading1(false)
                                 } else {
                                     setOpenaddmodal(false);
-                                    setIsloading(false)
+                                    setIsloading1(false)
                                     console.log("5");
                                 }
                             }
@@ -229,9 +188,9 @@ const Team = () => {
                         } else {
                             console.log("6");
                             setOpenaddmodal(false);
-                            setIsloading(false)
+                            setIsloading1(false)
                         }
-                        setIsloading(false)
+                        setIsloading1(false)
                         setSelectedFileBanner(null);
                         setHidecrossiconBanner(false);
                         setHidelabelBanner(false);
@@ -242,7 +201,7 @@ const Team = () => {
                             text: 'Banner Added Successfully!',
                         })
                     } else {
-                        setIsloading(false);
+                        setIsloading1(false);
                         setOpenaddmodal(false);
                         Swal.fire({
                             icon: 'error',
@@ -254,7 +213,7 @@ const Team = () => {
                 }
                 )
                 .catch(error => {
-                    setIsloading(false);
+                    setIsloading1(false);
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
@@ -266,15 +225,25 @@ const Team = () => {
     }
 
     const handleAdd = async () => {
-        setIsloading(true)
-        var InsertAPIURL = `${url}category/add_category`
+        setIsloading2(true)
+        var InsertAPIURL = `${url}category/update_category`
         var headers = {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
         };
         console.log(selectedFile)
-        if (addName === '' || Skills === "" || selectedFile === null || selectedFile === undefined) {
-            setIsloading(false)
+        console.log(Skills)
+//         if(AddName === ''){
+//             setAddName(location.state.row.name);
+//         }
+//         if(selectedFile === ''){
+//             setAddName(location.state.row.image);
+//         }
+//         if(Skill === ''){
+//             setSkill(location.state.row.banners);
+//         }
+if ( Skills === "" ) {
+            setIsloading2(false)
             Swal.fire({
                 icon: 'warning',
                 title: 'warning',
@@ -282,12 +251,13 @@ const Team = () => {
                 text: 'All Fields Required',
             })
         } else {
-            var Data = {
+             var Data = {
+                "Category_ID": location.state.row.id,
                 "name": addName,
                 "banners": Banners
             };
-            await fetch(InsertAPIURL, {
-                method: 'POST',
+await fetch(InsertAPIURL, {
+                method: 'PUT',
                 headers: headers,
                 body: JSON.stringify(Data),
             })
@@ -304,13 +274,13 @@ const Team = () => {
                                     "Content-Type": "multipart/form-data"
                                 }
                             }).then((response) => {
-                                setIsloading(false)
+                                setIsloading2(false)
                                 console.log(response.data);
                                 if (response.data.status === true) {
                                     navigate("/categories")
-                                    setIsloading(false)
+                                    setIsloading2(false)
                                 } else {
-                                    setIsloading(false)
+                                    setIsloading2(false)
                                     Swal.fire({
                                         icon: 'error',
                                         title: 'Oops2...',
@@ -333,7 +303,7 @@ const Team = () => {
                             navigate("/categories")
                         }
                     } else if (response.message == 'Please Enter screen ID') {
-                        setIsloading(false)
+                        setIsloading2(false)
                         Swal.fire({
                             icon: 'error',
                             title: 'Oops...',
@@ -341,7 +311,7 @@ const Team = () => {
                             text: 'Please Select Screen'
                         })
                     } else {
-                        setIsloading(false)
+                        setIsloading2(false)
                         Swal.fire({
                             icon: 'error',
                             title: 'Oops...',
@@ -349,18 +319,18 @@ const Team = () => {
                             text: 'Try Again'
                         })
                     }
-                    setIsloading(false)
+                    setIsloading2(false)
                     Swal.fire({
                         icon: 'success',
                         title: 'Success!',
                         confirmButtonColor: "#B5030B",
-                        text: 'Logo Added Successfully!',
+                        text: 'Category Updated Successfully!',
                     })
 
                 }
                 )
                 .catch(error => {
-                    setIsloading(false)
+                    setIsloading2(false)
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
@@ -426,6 +396,13 @@ const Team = () => {
         setHidecrossicon(true);
         setHidelabel(true);
     };
+    const ClearBanner = (data) => {
+        const newImages = Images.filter(myData => myData.image !== data.image);
+        setImages(newImages);
+        const NewBanners = Banners.filter(id => id !== data.id);
+        setBanners(NewBanners);
+
+    }
 
     const clearpreviewimage = () => {
         location.state.row.image = null
@@ -576,44 +553,33 @@ const Team = () => {
                                         >
                                             Banners
                                         </Typography>
-                                        {isloading ?
-                                            <Grid sx={{ mt: '3%' }} xs={12} align="center">
-                                                <Button variant="contained" style={btn}>
-                                                    <ClipLoader loading={isloading}
-                                                        css={override}
-                                                        size={10}
-                                                    />
-                                                </Button>
-                                            </Grid>
-
-                                            :
-
-                                            <Grid sx={{ mt: '3%' }} xs={12} align="center">
-                                                <Button variant="contained" style={btn} onClick={() => { handleOpenadd() }} >Add More Banners</Button>
-                                            </Grid>
-                                        }
-                                        <Grid sx={12} >
+                                        <Grid  sx={12} >
                                             <div style={{ display: 'flex', justifyContent: 'center' }}>
-                                                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '16px', maxWidth: '1000px' }}>
+                                                <div style={{ display: 'grid', 
+                                                gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '16px', maxWidth: '1000px' }}>
                                                     {Images.map((data) => {
-                                                        const isSelected = Skill.includes(data.id);
-                                                        const backgroundColor = isSelected ? 'blue' : 'red';
 
                                                         return (
                                                             <div
                                                                 key={data.id}
                                                                 // onClick={() => handleImageClick(data.id)}
                                                                 style={{
-                                                                    cursor: 'pointer', backgroundColor, padding: '2px',
+                                                                    cursor: 'pointer', 
                                                                     borderRadius: '3px', display: 'flex', flexDirection: 'column', alignItems: 'center'
                                                                 }}
                                                             >
+                                                <Box sx={{ display: "flex", justifyContent: "right", alignContent: "right" }}>
+                                                <Close sx={{
+                                                    padding: 0.2, backgroundColor: "#B5030B", borderRadius: "50px",
+                                                    color: "white", 
+                                                }} onClick={() => ClearBanner(data)} />
+                                            </Box>
+
                                                                 <img
                                                                     alt=""
-                                                                    src={`${url}${data}`}
+                                                                    src={`${url}${data.image}`}
                                                                     style={{ width: '100%', height: '100%', maxHeight: '300px', maxWidth: '300px' }}
                                                                 />
-                                                                <div>{data.plan_name}</div>
                                                             </div>
                                                         );
                                                     })}
@@ -624,24 +590,37 @@ const Team = () => {
 
                                 </FormControl>
 
-                            </Grid>
-                            {isloading ?
-                                <Grid sx={{ mt: '3%' }} xs={12} align="center">
-                                    <Button variant="contained" style={btn}>
-                                        <ClipLoader loading={isloading}
-                                            css={override}
-                                            size={10}
-                                        />
-                                    </Button>
-                                </Grid>
 
-                                :
+                                
+                                <Grid sx={{mt:'5%'}} container justifyContent="center" spacing={0}>
+      <Grid md={6} xs={12} item>
+        {isloading ? (
+          <Button variant="contained" style={btn}>
+            <ClipLoader loading={isloading} css={override} size={10} />
+          </Button>
+        ) : (
+          <Button variant="contained" style={btn} onClick={() => handleOpenadd()}>
+            Add More Banners
+          </Button>
+        )}
+      </Grid>
 
-                                <Grid sx={{ mt: '3%' }} xs={12} align="center">
-                                    <Button variant="contained" style={btn} onClick={() => { handleAdd() }} >Update</Button>
-                                </Grid>
-                            }
+      <Grid md={6} xs={12} item>
+        {isloading2 ? (
+          <Button variant="contained" style={btn}>
+            <ClipLoader loading={isloading2} css={override} size={10} />
+          </Button>
+        ) : (
+          <Button variant="contained" style={btn} onClick={() => handleAdd()}>
+            Update category
+          </Button>
+        )}
+      </Grid>
+    </Grid>
                         </Grid>
+                            </Grid>
+
+
                     </Container>
                 </Container>
 
@@ -714,9 +693,9 @@ const Team = () => {
 
                                 <OutlinedInput
                                     id="input-with-icon-adornment"
-                                    placeholder="Category Name"
+                                    placeholder="Banner Link"
                                     onChange={(event) => {
-                                        setAddName(event.target.value);
+                                        setBannerLink(event.target.value);
                                     }}
 
                                     sx={{
@@ -732,10 +711,10 @@ const Team = () => {
 
                     <Grid container spacing={0} pt={7}>
 
-                        {isloading ?
+                        {isloading1 ?
                             <Grid xs={12} align="center">
                                 <Button variant="contained" style={btn}>
-                                    <ClipLoader loading={isloading}
+                                    <ClipLoader loading={isloading1}
                                         css={override}
                                         size={10}
                                     />
