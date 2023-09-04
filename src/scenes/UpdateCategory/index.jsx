@@ -737,10 +737,6 @@ await fetch(InsertAPIURL, {
 }
 
 export default Team
-
-
-
-// import { Box, Typography, Grid, Button, Stack, Divider, Avatar, Container, InputAdornment, OutlinedInput, FormControl, Select, MenuItem, InputLabel, Input, TextField, Breadcrumbs } from "@mui/material";
 // import React, { useState, useEffect } from "react";
 // import { Subscriptions, Notifications, Settings, Person, Close, Upload, Add } from '@mui/icons-material';
 // import url from "../url"
