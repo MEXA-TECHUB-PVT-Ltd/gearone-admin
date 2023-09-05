@@ -186,6 +186,7 @@ const Dashboard = () => {
 
 
   const getAllItem = async () => {
+    setIsloading(true);
     var InsertAPIURL = `${url}ads/get_all_ads`
     var headers = {
       'Accept': 'application/json',
@@ -197,20 +198,23 @@ const Dashboard = () => {
     })
       .then(response => response.json())
       .then(response => {
-        if (response.message == `Ad's Data`) {
+        if (response.status === true) {
+          setIsloading(false);
           setItems(response.result);
           setAllItems(response.result.length)
         } else {
+          setIsloading(false);
           Swal.fire({
             icon: 'error',
-            title: 'Oops...',
+            title: 'Error...',
             confirmButtonColor: "#B5030B",
-            text: ''
+            text: 'Server Error!'
           })
         }
       }
       )
       .catch(error => {
+        setIsloading(false);
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
@@ -561,219 +565,233 @@ const Dashboard = () => {
         </Grid>
 
         <Divider sx={{ pb: 2 }} />
+        {isloading ?
+          <Grid sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignContent: "center",
+            alignItems: 'center',
+            height: "100%", width: "100%"
+            // backgroundColor:'red'
 
-        <Grid container spacing={0} mt={2} p={2} >
-
-          <Grid xs={10} md={4} lg={4} xl={4} p={1} align="center">
-            <Card
-              sx={{
-                overflow: { xs: 'scroll', md: 'hidden' },
-                borderRadius: '10px',
-                boxShadow: '0px 3px 6px white29',
-                transition: 'transform 0.2s',
-                '&:hover': {
-                  transform: 'scale(1.05)',
-                },
-              }}
-            >
-              <CardContent>
-                <Grid container spacing={0} mt={1}>
-                  <Grid xs={5} md={8} lg={8} xl={8} pt={0.5} align="left" >
-                    <Stack direction="column" spacing={1}>
-                      <Typography variant="paragraph" fontWeight={750} bold sx={{ font: "normal normal normal 18px/32px Roboto", letterSpacing: "1px" }} fontSize="15px" color="black" >Total Categories</Typography>
-
-                      <Typography variant="h6" fontWeight={850} fontSize="18px" color="#1F1F1F" sx={{ letterSpacing: "2px" }}>{allUsers}</Typography>
-
-                    </Stack>
-                  </Grid>
-
-                  <Grid xs={6} md={4} lg={4} xl={4} p={1} align="right" >
-                    <img src={totalusers} alt="..." style={{ width: "10vh" }} />
-                  </Grid>
-                </Grid>
-              </CardContent>
-            </Card>
+          }} >
+            <div className="loader">
+            </div>
           </Grid>
 
+          :
+          <Grid container spacing={0} mt={2} p={2} >
 
-          <Grid xs={10} md={4} lg={4} xl={4} p={1} align="center">
-            <Card
-              sx={{
-                overflow: { xs: 'scroll', md: 'hidden' },
-                borderRadius: '10px',
-                boxShadow: '0px 3px 6px white29',
-                transition: 'transform 0.2s',
-                '&:hover': {
-                  transform: 'scale(1.05)',
-                },
-              }}
+            <Grid xs={10} md={4} lg={4} xl={4} p={1} align="center">
+              <Card
+                sx={{
+                  overflow: { xs: 'scroll', md: 'hidden' },
+                  borderRadius: '10px',
+                  boxShadow: '0px 3px 6px white29',
+                  transition: 'transform 0.2s',
+                  '&:hover': {
+                    transform: 'scale(1.05)',
+                  },
+                }}
+              >
+                <CardContent>
+                  <Grid container spacing={0} mt={1}>
+                    <Grid xs={5} md={8} lg={8} xl={8} pt={0.5} align="left" >
+                      <Stack direction="column" spacing={1}>
+                        <Typography variant="paragraph" fontWeight={750} bold sx={{ font: "normal normal normal 18px/32px Roboto", letterSpacing: "1px" }} fontSize="15px" color="black" >Total Categories</Typography>
 
-            >
-              <CardContent>
-                <Grid container spacing={0} mt={1}>
-                  <Grid xs={6} md={8} lg={8} xl={8} pt={0.5} align="left" >
-                    <Stack direction="column" spacing={1}>
-                      <Typography variant="paragraph" fontWeight={750} sx={{ font: "normal normal normal 18px/32px Roboto", letterSpacing: "1px" }} fontSize="15px" color="black" >Total Ads</Typography>
+                        <Typography variant="h6" fontWeight={850} fontSize="18px" color="#1F1F1F" sx={{ letterSpacing: "2px" }}>{allUsers}</Typography>
 
-                      <Typography variant="h6" fontWeight={850} fontSize="18px" color="#1F1F1F" sx={{ letterSpacing: "2px" }}>{allItems}</Typography>
+                      </Stack>
+                    </Grid>
 
-                    </Stack>
+                    <Grid xs={6} md={4} lg={4} xl={4} p={1} align="right" >
+                      <img src={totalusers} alt="..." style={{ width: "10vh" }} />
+                    </Grid>
                   </Grid>
-
-                  <Grid xs={6} md={4} lg={4} xl={4} p={1} align="right" >
-                    <img src={categoriesofworkout} alt="..." style={{ width: "10vh" }} />
-                  </Grid>
-                </Grid>
-              </CardContent>
-            </Card>
-          </Grid>
-
-
-
-
-          <Grid xs={10} md={4} lg={4} xl={4} p={1} align="left">
-            <Card
-              sx={{
-                overflow: { xs: 'scroll', md: 'hidden' },
-                borderRadius: '10px',
-                boxShadow: '0px 3px 6px white29',
-                transition: 'transform 0.2s',
-                '&:hover': {
-                  transform: 'scale(1.05)',
-                },
-              }}
-            >
-              <CardContent>
-                <Grid container spacing={0} mt={1}>
-                  <Grid xs={6} md={8} lg={8} xl={8} pt={0.5} align="left" >
-                    <Stack direction="column" spacing={1}>
-                      <Typography variant="paragraph" fontWeight={750} sx={{ font: "normal normal normal 18px/32px Roboto", letterSpacing: "1px" }} fontSize="15px" color="black" >Total Merchandise</Typography>
-
-                      <Typography variant="h6" fontWeight={850} fontSize="18px" color="#1F1F1F" sx={{ letterSpacing: "2px" }}>{allMerchandise}</Typography>
-                    </Stack>
-                  </Grid>
-
-                  <Grid xs={6} md={4} lg={4} xl={4} p={1} align="right" >
-                    <img src={totalworkoutplans} alt="..." style={{ width: "10vh" }} />
-                  </Grid>
-                </Grid>
-              </CardContent>
-            </Card>
-          </Grid>
-
-          <Grid xs={7} md={7} lg={6} xl={7} p={1} align="">
-            <Typography variant="h5" fontWeight={750} fontSize="20px" sx={{ font: "normal normal bold 22px/32px Roboto", letterSpacing: "1px" }} color="#1F1F1F">
-              Recent Ads
-            </Typography>
-          </Grid>
-
-
-
-          <Grid xs={10} md={7} lg={7} xl={7} p={1} align="">
-            <Grid container spacing={0}>
-              {/* list view */}
-              {showtable ?
-                <Grid xs={12} md={12} >
-                  <Box sx={{ width: '100%' }}>
-                    <Paper sx={{ backgroundColor: "white", width: '100%', mb: 2 }}>
-                      <EnhancedTableHead
-                        numSelected={selected.length}
-                        order={order}
-                        orderBy={orderBy}
-                        onSelectAllClick={handleSelectAllClick}
-                        onRequestSort={handleRequestSort}
-                        rowCount={Items.length}
-                      />
-                    </Paper>
-                  </Box>
-                </Grid>
-                : ""
-              }
-
-
-            </Grid>
-          </Grid>
-
-          <Grid xs={12} md={5} lg={5} xl={5} sx={{ mb: '10%', pt: { xs: 1, lg: 1 } }} pl={1}>
-
-            <Grid xs={12} >
-              <Card sx={{ overflow: { xs: 'scroll', md: 'hidden' }, borderRadius: "10px", boxShadow: "0px 3px 6px white29" }}>
-                <CardContent style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                  <div>
-                    <Typography variant="h5" fontWeight={750} fontSize="15px" sx={{ font: "normal normal medium 16px/21px Roboto", letterSpacing: "1px" }} color="black">
-                      Total User
-                    </Typography>
-                  </div>
-                  <div style={{
-                    display: 'flex', alignItems: 'right',
-                    justifyContent: 'right'
-                  }}>
-                    <Typography variant="h5" fontWeight={750} fontSize="15px"
-                      sx={{
-                        mt: '5px',
-                        font: "normal normal medium 16px/21px Roboto",
-                        letterSpacing: "1px"
-                      }} color="#1F1F1F">Year </Typography>
-
-                    <Select
-                      sx={{
-                        ml: '20px',
-                        borderRadius: "50px",
-                        backgroundColor: "darkgray", height: "35px",
-                        "& fieldset": { border: 'none' },
-                      }}
-                      labelId="demo-simple-select-label"
-                      id="demo-simple-select"
-                      displayEmpty
-                      defaultValue={year}
-                      onChange={handleChange}
-                    >
-                      <MenuItem value="Year " disabled>
-                        <em>select a Year</em>
-                      </MenuItem>
-                      {Years.map((data) => (
-                        <MenuItem key={data.id} value={data.year}>{`${data.year}`}</MenuItem>
-                      ))}
-
-                    </Select>
-                  </div>
-
-                </CardContent>
-                <CardContent >
-
-                  <LineChart
-                    width={600}
-                    height={300}
-                    data={MonthUser}
-                    margin={{
-                      top: 5,
-                      right: 220,
-                      left: 20,
-                      bottom: 5
-                    }}
-                  >
-                    {""}
-                    <XAxis dataKey="month" />
-                    <YAxis type="number" domain={[0, count]} />
-                    {/* <YAxis dataKey="count" /> */}
-                    <Tooltip />
-                    <CartesianGrid strokeDasharray="1 1" />
-                    <Line
-                      type="monotone"
-                      dataKey="count"
-                      stroke="black"
-                      dot={{ r: 3, stroke: "#B5030B", fill: '#B5030B' }}
-                    />
-                  </LineChart>
                 </CardContent>
               </Card>
             </Grid>
 
+
+            <Grid xs={10} md={4} lg={4} xl={4} p={1} align="center">
+              <Card
+                sx={{
+                  overflow: { xs: 'scroll', md: 'hidden' },
+                  borderRadius: '10px',
+                  boxShadow: '0px 3px 6px white29',
+                  transition: 'transform 0.2s',
+                  '&:hover': {
+                    transform: 'scale(1.05)',
+                  },
+                }}
+
+              >
+                <CardContent>
+                  <Grid container spacing={0} mt={1}>
+                    <Grid xs={6} md={8} lg={8} xl={8} pt={0.5} align="left" >
+                      <Stack direction="column" spacing={1}>
+                        <Typography variant="paragraph" fontWeight={750} sx={{ font: "normal normal normal 18px/32px Roboto", letterSpacing: "1px" }} fontSize="15px" color="black" >Total Ads</Typography>
+
+                        <Typography variant="h6" fontWeight={850} fontSize="18px" color="#1F1F1F" sx={{ letterSpacing: "2px" }}>{allItems}</Typography>
+
+                      </Stack>
+                    </Grid>
+
+                    <Grid xs={6} md={4} lg={4} xl={4} p={1} align="right" >
+                      <img src={categoriesofworkout} alt="..." style={{ width: "10vh" }} />
+                    </Grid>
+                  </Grid>
+                </CardContent>
+              </Card>
+            </Grid>
+
+
+
+
+            <Grid xs={10} md={4} lg={4} xl={4} p={1} align="left">
+              <Card
+                sx={{
+                  overflow: { xs: 'scroll', md: 'hidden' },
+                  borderRadius: '10px',
+                  boxShadow: '0px 3px 6px white29',
+                  transition: 'transform 0.2s',
+                  '&:hover': {
+                    transform: 'scale(1.05)',
+                  },
+                }}
+              >
+                <CardContent>
+                  <Grid container spacing={0} mt={1}>
+                    <Grid xs={6} md={8} lg={8} xl={8} pt={0.5} align="left" >
+                      <Stack direction="column" spacing={1}>
+                        <Typography variant="paragraph" fontWeight={750} sx={{ font: "normal normal normal 18px/32px Roboto", letterSpacing: "1px" }} fontSize="15px" color="black" >Total Merchandise</Typography>
+
+                        <Typography variant="h6" fontWeight={850} fontSize="18px" color="#1F1F1F" sx={{ letterSpacing: "2px" }}>{allMerchandise}</Typography>
+                      </Stack>
+                    </Grid>
+
+                    <Grid xs={6} md={4} lg={4} xl={4} p={1} align="right" >
+                      <img src={totalworkoutplans} alt="..." style={{ width: "10vh" }} />
+                    </Grid>
+                  </Grid>
+                </CardContent>
+              </Card>
+            </Grid>
+
+            <Grid xs={7} md={7} lg={6} xl={7} p={1} align="">
+              <Typography variant="h5" fontWeight={750} fontSize="20px" sx={{ font: "normal normal bold 22px/32px Roboto", letterSpacing: "1px" }} color="#1F1F1F">
+                Recent Ads
+              </Typography>
+            </Grid>
+
+
+
+            <Grid xs={10} md={7} lg={7} xl={7} p={1} align="">
+              <Grid container spacing={0}>
+                {/* list view */}
+                {showtable ?
+                  <Grid xs={12} md={12} >
+                    <Box sx={{ width: '100%' }}>
+                      <Paper sx={{ backgroundColor: "white", width: '100%', mb: 2 }}>
+                        <EnhancedTableHead
+                          numSelected={selected.length}
+                          order={order}
+                          orderBy={orderBy}
+                          onSelectAllClick={handleSelectAllClick}
+                          onRequestSort={handleRequestSort}
+                          rowCount={Items.length}
+                        />
+                      </Paper>
+                    </Box>
+                  </Grid>
+                  : ""
+                }
+
+
+              </Grid>
+            </Grid>
+
+            <Grid xs={12} md={5} lg={5} xl={5} sx={{ mb: '10%', pt: { xs: 1, lg: 1 } }} pl={1}>
+
+              <Grid xs={12} >
+                <Card sx={{ overflow: { xs: 'scroll', md: 'hidden' }, borderRadius: "10px", boxShadow: "0px 3px 6px white29" }}>
+                  <CardContent style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                    <div>
+                      <Typography variant="h5" fontWeight={750} fontSize="15px" sx={{ font: "normal normal medium 16px/21px Roboto", letterSpacing: "1px" }} color="black">
+                        Total User
+                      </Typography>
+                    </div>
+                    <div style={{
+                      display: 'flex', alignItems: 'right',
+                      justifyContent: 'right'
+                    }}>
+                      <Typography variant="h5" fontWeight={750} fontSize="15px"
+                        sx={{
+                          mt: '5px',
+                          font: "normal normal medium 16px/21px Roboto",
+                          letterSpacing: "1px"
+                        }} color="#1F1F1F">Year </Typography>
+
+                      <Select
+                        sx={{
+                          ml: '20px',
+                          borderRadius: "50px",
+                          backgroundColor: "darkgray", height: "35px",
+                          "& fieldset": { border: 'none' },
+                        }}
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        displayEmpty
+                        defaultValue={year}
+                        onChange={handleChange}
+                      >
+                        <MenuItem value="Year " disabled>
+                          <em>select a Year</em>
+                        </MenuItem>
+                        {Years.map((data) => (
+                          <MenuItem key={data.id} value={data.year}>{`${data.year}`}</MenuItem>
+                        ))}
+
+                      </Select>
+                    </div>
+
+                  </CardContent>
+                  <CardContent >
+
+                    <LineChart
+                      width={600}
+                      height={300}
+                      data={MonthUser}
+                      margin={{
+                        top: 5,
+                        right: 220,
+                        left: 20,
+                        bottom: 5
+                      }}
+                    >
+                      {""}
+                      <XAxis dataKey="month" />
+                      <YAxis type="number" domain={[0, count]} />
+                      {/* <YAxis dataKey="count" /> */}
+                      <Tooltip />
+                      <CartesianGrid strokeDasharray="1 1" />
+                      <Line
+                        type="monotone"
+                        dataKey="count"
+                        stroke="black"
+                        dot={{ r: 3, stroke: "#B5030B", fill: '#B5030B' }}
+                      />
+                    </LineChart>
+                  </CardContent>
+                </Card>
+              </Grid>
+
+            </Grid>
+
           </Grid>
 
-        </Grid>
-
-
+        }
 
 
 

@@ -1,4 +1,4 @@
-import { Box, Tooltip, Select, Typography, useTheme, IconButton, TextField, Grid, Modal, Button, Stack, Card, CardContent, MenuItem, Menu, Paper, Divider, Avatar } from "@mui/material";
+import { Box, Autocomplete, Tooltip, Select, Typography, useTheme, IconButton, TextField, Grid, Modal, Button, Stack, Card, CardContent, MenuItem, Menu, Paper, Divider, Avatar } from "@mui/material";
 import Chip from '@mui/material/Chip';
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import PerfectScrollbar from 'react-perfect-scrollbar'
@@ -209,6 +209,15 @@ const Team = () => {
         console.log(response);
         if (response.message == `All screens Details`) {
           // setLogos(response.count);
+          const newData = {
+            createdat: "2023-08-31T13:39:06.520Z",
+            id: 0,
+            name: "ALL Screens",
+            updatedat: "your_updated_value_here",
+          };
+
+          // Assuming you have an existing array called response.result
+          response.result.unshift(newData);
           setScreens(response.result);
         } else {
           Swal.fire({
@@ -289,13 +298,14 @@ const Team = () => {
       });
   }
 
-  const handleChangeScreen = (event) => {
-    if (event.target.value === "ALL Screens") {
+  const handleChangeScreen = (newValue) => {
+    console.log(newValue)
+    if (newValue.name === "ALL Screens") {
       getAllLogos();
     } else {
-      getAllLogos_ByScreen(event.target.value)
+      getAllLogos_ByScreen(newValue)
     }
-    setScreen(event.target.value);
+    setScreen(newValue);
 
   };
 
@@ -352,12 +362,14 @@ const Team = () => {
 
 
   const columns = [
-    { field: 'screen_name', headerName: <span style={{ color: "black", fontWeight: 600 }}>Screen</span>,
-    minWidth:300},
+    {
+      field: 'screen_name', headerName: <span style={{ color: "black", fontWeight: 600 }}>Screen</span>,
+      minWidth: 300
+    },
     {
       field: 'active_status',
       headerName: <span style={{ color: "black", fontWeight: 600 }}>Status</span>,
-      minWidth:150, flex:2,
+      minWidth: 150, flex: 2,
       renderCell: (row) => {
         return (
           <>
@@ -378,7 +390,7 @@ const Team = () => {
     {
       field: 'id',
       headerName: <span style={{ color: "black", fontWeight: 600 }}>Actions</span>,
-      minWidth:250,
+      minWidth: 250,
       renderCell: (row) => {
         return (
           <>
@@ -408,7 +420,7 @@ const Team = () => {
                 window.open(row.row.link, '_blank');
               }} >
                 <Tooltip title="View Link" >
-                  <InsertLink sx={{ color: "#40E0D0" }} 
+                  <InsertLink sx={{ color: "#40E0D0" }}
                   />
                 </Tooltip>
               </IconButton>
@@ -465,18 +477,23 @@ const Team = () => {
       },
     },
   ];
-  const [Screen, setScreen] = React.useState("ALL Screens");
+  const [Screen, setScreen] = React.useState({
+    createdat: "2023-08-31T13:39:06.520Z",
+    id: 0,
+    name: "ALL Screens",
+    updatedat: "your_updated_value_here", 
+  });
 
-  const getAllLogos_ByScreen = async (screen_id) => {
+  const getAllLogos_ByScreen = async (newValue) => {
     var InsertAPIURL = `${url}logos/get_logos_by_screen`
     var headers = {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
     };
     const Data = {
-      "screen_id": screen_id
+      "screen_id": newValue.id
     }
-    console.log(screen_id)
+    console.log(newValue)
     await fetch(InsertAPIURL, {
       method: 'POST',
       headers: headers,
@@ -518,7 +535,6 @@ const Team = () => {
 
   const getAllLogos = async () => {
     setIsloading(true)
-    setScreen("ALL Screens");
     var InsertAPIURL = `${url}logos/get_all_logos`
     var headers = {
       'Accept': 'application/json',
@@ -569,27 +585,25 @@ const Team = () => {
             </Typography>
           </Grid>
 
-          <Grid item md={4} xs={12} align="right" pt={0} sx={{ mr: { xs: '3%', md: '0%' }, mb: { xs: '3%', md: '0%' }, height: '42px' }}>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              displayEmpty
+          <Grid item md={4} xs={12} align="right" pt={0} sx={{ mr: { xs: '3%', md: '0%' }, mb: { xs: '3%', md: '0%' }, height: '22px' }}>
+
+            <Autocomplete
               sx={{ height: '100%' }}
-              defaultValue={Screen}
-              onChange={handleChangeScreen}
-            >
-              <MenuItem key="ALL Screens" value="ALL Screens" >
-                <em>ALL Screens</em>
-              </MenuItem>
-
-              {Screens.map((data) => (
-                <MenuItem key={data.id} value={data.id}>{`${data.name}`}</MenuItem>
-              ))}
-            </Select>
-
+              id="demo-simple-select"
+              options={Screens}
+              getOptionLabel={(option) => option.name}
+              value={Screen} // Set the value to the selectedScreen state
+              onChange={(event, newValue) => handleChangeScreen(newValue)}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  placeholder={Screen ? Screen.name : ''} // Set the label of the selected option as the placeholder
+                />
+              )}
+            />
           </Grid>
 
-          <Grid item md={2.7} xs={12} align="right">
+          <Grid sx={{ mt: { md: '0', xs: '10%' } }} item md={2.7} xs={12} align="right">
             <div style={{ display: 'flex', justifyContent: 'right', alignItems: 'right', gap: '10px', width: '100%' }}>
               <div style={{ width: '100px', borderRadius: "5px", border: "1px solid #D8D8D8", padding: "5px", paddingBottom: "0px", display: "flex", justifyContent: "center", alignContent: "center", gap: "3px" }}>
                 {
@@ -717,7 +731,7 @@ const Team = () => {
                                       position: 'fixed',
                                       top: '-9999px',
                                       left: '-9999px',
-                                      elevation: 0, 
+                                      elevation: 0,
                                       mt: 1.5,
                                       '& .MuiAvatar-root': {
                                         width: 32,
