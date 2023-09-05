@@ -659,10 +659,10 @@ const Team = () => {
 
 
     const columns = [
-        { field: 'name', headerName: <span style={{ color: "black", fontWeight: 600 }}>Category Name</span>, flex: 1 },
+        { field: 'name', headerName: <span style={{ color: "black", fontWeight: 600 }}>Category Name</span>, minWidth: 300 },
         {
             field: 'image', headerName: <span style={{ color: "black", fontWeight: 600 }}>Profile</span>,
-            flex: 1,
+            minWidth: 250 , flex:1,
             renderCell: (row) => {
                 return (
                     <>
@@ -685,7 +685,7 @@ const Team = () => {
         {
             field: 'id',
             headerName: <Stack sx={{ pl: { xs: 0, md: 15, lg: 17 }, color: "black", fontWeight: 600 }}>Actions</Stack>,
-            flex: 1,
+            minWidth: 250,
             renderCell: (row) => {
                 return (
                     <>
@@ -832,7 +832,7 @@ const Team = () => {
                         {
                             showtable ?
                                 <Grid xs={12} p={1} align="center">
-                                    <div style={{ height: 600, width: '100%' }}>
+                                    <div style={{ height: '76vh', width: '100%', overflowX: 'auto', maxWidth: '100%' }}>
                                         <DataGrid
                                             rows={Catagory}
                                             columns={columns}
@@ -888,6 +888,10 @@ const Team = () => {
                                                                 PaperProps={{
 
                                                                     sx: {
+                                                                        position: 'fixed',
+                                                                        top: '-9999px',
+                                                                        left: '-9999px',
+                                                                        elevation: 0,                                     
                                                                         // overflow: 'visible',
                                                                         // filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.22))',
                                                                         mt: 1.5,
@@ -916,13 +920,13 @@ const Team = () => {
                                                             >
                                                                 <MenuItem
                                                                     onClick={() => {
-                                                                        console.log(idData);
-                                                                        setActionData(idData);
-                                                                        if (idData.image !== null) {
-                                                                            setHidelabelUpload(true);
-                                                                        }
-                                                                        handleOpenedit();
-
+                                                                        navigate('/UpdateCategory', {
+                                                                            state: {
+                                                                                row: idData
+                                                                            }
+                                                                        });
+                                                                        const bannerIds = idData.banners.map(banner => banner.id);
+                                                                        setSkill(bannerIds)
                                                                     }
                                                                     }
                                                                 >
@@ -943,7 +947,13 @@ const Team = () => {
 
                                                         </Grid>
 
-                                                        <Grid xs={12} align="left">
+                                                        <Grid sx={{cursor:'pointer'}} onClick={() => {
+                                                            navigate('/ViewCategory', {
+                                                                state: {
+                                                                    row: idData
+                                                                }
+                                                            });
+                                                        }} xs={12} align="center">
                                                             {ActionData.image !== null ?
                                                                 <img src={`${url}${item.image}`}
                                                                     alt="" style={{ width: "200px", height: "200px" }} />

@@ -1,4 +1,4 @@
-import { Box, Typography, Grid, Button, Stack, Divider, Avatar, Container, InputAdornment, OutlinedInput, FormControl, Select, MenuItem, InputLabel, Input, TextField, Breadcrumbs } from "@mui/material";
+import { Box, Typography, Grid, Button,Autocomplete, Stack, Divider, Avatar, Container, InputAdornment, OutlinedInput, FormControl, Select, MenuItem, InputLabel, Input, TextField, Breadcrumbs } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import { Subscriptions, Notifications, Settings, Person, Close, Upload, Add } from '@mui/icons-material';
 import url from "../url"
@@ -62,105 +62,116 @@ const Team = () => {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
         };
-        var Data = {
-            "adID": location.state.id,
-            "link": Link,
-            "screen_id": Screen,
-            "active_status": Status
-        };
-        await fetch(InsertAPIURL, {
-            method: 'PUT',
-            headers: headers,
-            body: JSON.stringify(Data),
-        })
-            .then(response => response.json())
-            .then(async response => {
-                console.log(response);
-                if (response.message == `Ad Updated Successfully!`) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Success!',
-                        confirmButtonColor: "#B5030B",
-                        text: 'Banner Updated Successfully!',
-                      })                    
-                    if (selectedFile !== null && selectedFile !== undefined) {
-                        var Data = {
-                            "id": response.result[0].id,
-                            "image": selectedFile,
-                        };
+        const urlPattern = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i;
+        if (Link !== '' && !urlPattern.test(Link)) {
+            setIsloading(false)
+            Swal.fire({
+                icon: 'warning',
+                title: 'warning',
+                confirmButtonColor: "#B5030B",
+                text: 'Enter Valid Link',
+            })
+        } else {
+            var Data = {
+                "adID": location.state.id,
+                "link": Link,   
+                "screen_id": Screen.id,
+                "active_status": Status
+            };
+            await fetch(InsertAPIURL, {
+                method: 'PUT',
+                headers: headers,
+                body: JSON.stringify(Data),
+            })
+                .then(response => response.json())
+                .then(async response => {
+                    console.log(response);
+                    if (response.message == `Ad Updated Successfully!`) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success!',
+                            confirmButtonColor: "#B5030B",
+                            text: 'Banner Updated Successfully!',
+                        })
+                        if (selectedFile !== null && selectedFile !== undefined) {
+                            var Data = {
+                                "id": response.result[0].id,
+                                "image": selectedFile,
+                            };
 
-                        await axios.put(url + "ads/add_ad_image", Data, {
-                            headers: {
-                                "Content-Type": "multipart/form-data"
+                            await axios.put(url + "ads/add_ad_image", Data, {
+                                headers: {
+                                    "Content-Type": "multipart/form-data"
+                                }
+                            }).then((response) => {
+                                setIsloading(false)
+
+
+                                // var InsertAPIURL = `${url}logos/add_logos_image`
+                                // var headers = {
+                                //     // 'Accept': 'application/json',
+                                //     // 'Content-Type': 'application/json',
+                                //     "Content-Type": "multipart/form-data"
+
+                                // };
+                                // var Data = {
+                                //     "id": response.result[0].id,
+                                //     "image": selectedFile,
+                                // };
+                                // await fetch(InsertAPIURL, {
+                                //     method: 'PUT',
+                                //     headers: headers,
+                                //     body: JSON.stringify(Data),
+                                // })
+                                //     .then(response => response.json())
+                                //     .then(response => {
+                                console.log(response.data);
+                                if (response.data.message == `Ad Image added Successfully!`) {
+                                    navigate("/manage_banners_ads")
+                                    setIsloading(false)
+                                } else {
+                                    setIsloading(false)
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Oops2...',
+                                        confirmButtonColor: "#B5030B",
+                                        text: ''
+                                    })
+                                }
                             }
-                        }).then((response) => {
+                            )
+                                .catch(error => {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Oops...',
+                                        confirmButtonColor: "#B5030B",
+                                        text: "Server Error"
+                                    })
+                                });
+                        } else {
                             setIsloading(false)
-
-
-                            // var InsertAPIURL = `${url}logos/add_logos_image`
-                            // var headers = {
-                            //     // 'Accept': 'application/json',
-                            //     // 'Content-Type': 'application/json',
-                            //     "Content-Type": "multipart/form-data"
-
-                            // };
-                            // var Data = {
-                            //     "id": response.result[0].id,
-                            //     "image": selectedFile,
-                            // };
-                            // await fetch(InsertAPIURL, {
-                            //     method: 'PUT',
-                            //     headers: headers,
-                            //     body: JSON.stringify(Data),
-                            // })
-                            //     .then(response => response.json())
-                            //     .then(response => {
-                            console.log(response.data);
-                            if (response.data.message == `Ad Image added Successfully!`) {
-                                navigate("/manage_banners_ads")
-                                setIsloading(false)
-                            } else {
-                                setIsloading(false)
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Oops2...',
-                                    confirmButtonColor: "#B5030B",
-                                    text: ''
-                                })
-                            }
+                            navigate("/manage_banners_ads")
                         }
-                        )
-                            .catch(error => {
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Oops...',
-                                    confirmButtonColor: "#B5030B",
-                                    text: "Server Error"
-                                })
-                            });
                     } else {
                         setIsloading(false)
-                        navigate("/manage_banners_ads")
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            confirmButtonColor: "#B5030B",
+                            text: ''
+                        })
                     }
-                } else {
-                    setIsloading(false)
+                }
+                )
+                .catch(error => {
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
                         confirmButtonColor: "#B5030B",
-                        text: ''
+                        text: "Server Error"
                     })
-                }
-            }
-            )
-            .catch(error => {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    confirmButtonColor: "#B5030B",
-                    text: "Server Error"
-                })
-            });
+                });
+        }
     }
 
 
@@ -221,10 +232,10 @@ const Team = () => {
     const [Screen, setScreen] = React.useState('');
     const [Link, setLink] = React.useState('');
 
-    const handleChangeScreen = (event) => {
-        setScreen(event.target.value);
+    const handleChangeScreen = (event, newValue) => {
+        console.log(newValue)
+        setScreen(newValue);
     };
-
     const handleChange = (event) => {
         setStatus(event.target.value);
     };
@@ -329,27 +340,29 @@ const Team = () => {
                                         <Typography variant="paragraph" pl={1} pb={1} sx={{ font: "normal normal normal 17px/26px Roboto", fontSize: "12px", fontWeight: "medium" }} color="#1F1F1F">
                                             Screen
                                         </Typography>
-                                        <Select
+                                        <Autocomplete
                                             sx={{
-                                                borderRadius: "50px",
-                                                backgroundColor: "darkgray",
-                                                "& fieldset": { border: 'none' },
+                                                borderRadius: '50px',
+                                                backgroundColor: 'darkgray',
+                                                '& .MuiOutlinedInput-notchedOutline': {
+                                                    border: 'none', // Remove the border
+                                                },
                                             }}
-                                            labelId="demo-simple-select-label"
                                             id="demo-simple-select"
-                                            placeholder={location.state.screen}
+                                            options={Screens}
+                                            getOptionLabel={(option) => option.name}
                                             onChange={handleChangeScreen}
                                             displayEmpty
-                                            defaultValue={catagory_name}
-                                            >
+                                            renderInput={(params) => (
+                                                <TextField
+                                                    {...params}
+                                                    displayEmpty
+                                                    defaultValue={location.state.screen}
+                                                    placeholder={location.state.screen}
+                                                />
+                                            )}
+                                        />
 
-                                            <MenuItem value="" >
-                                                <em>{location.state.screen}</em>
-                                            </MenuItem>
-                                            {Screens.map((data) => (
-                                                <MenuItem key={data.id} value={data.id}>{`${data.name}`}</MenuItem>
-                                            ))}
-                                        </Select>
 
                                         {/* <TextField
                                             id="outlined-multiline-static"

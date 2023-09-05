@@ -389,17 +389,17 @@ const Team = () => {
 
 
     const columns = [
-        { field: 'name', headerName: <span style={{ color: "black", fontWeight: 600 }}>Name</span>, flex: 1 },
-        { field: 'price', headerName: <span style={{ color: "black", fontWeight: 600 }}>Price</span>, flex: 1 },
+        { field: 'name', headerName: <span style={{ color: "black", fontWeight: 600 }}>Name</span>, minWidth: 150 },
+        { field: 'price', headerName: <span style={{ color: "black", fontWeight: 600 }}>Price</span>, minWidth: 150 },
         {
             field: 'location',
             headerName: <span style={{ color: "black", fontWeight: 600 }}>Location</span>,
-            flex: 1,
+            minWidth: 150,
         },
         {
             field: 'promoted',
             headerName: <span style={{ color: "black", fontWeight: 600 }}>Promoted</span>,
-            flex: 1,
+            minWidth: 150,
             renderCell: (row) => {
                 return (
                     <>
@@ -418,19 +418,19 @@ const Team = () => {
         {
             field: 'added_by',
             headerName: <span style={{ color: "black", fontWeight: 600 }}>Added_by</span>,
-            flex: 1,
+            minWidth: 150,
         },
 
         {
             field: 'description',
             headerName: <span style={{ color: "black", fontWeight: 600 }}>Description</span>,
-            flex: 1,
+            minWidth: 240 , flex:1,
         },
 
         {
             field: 'id',
             headerName: <span style={{ color: "black", fontWeight: 600 }}>Actions</span>,
-            flex: 1,
+            minWidth: 150,
             renderCell: (row) => {
                 return (
                     <>
@@ -627,7 +627,7 @@ const Team = () => {
                         {
                             showtable ?
                                 <Grid xs={12} p={1} align="center">
-                                    <div style={{ height: 600, width: '100%' }}>
+                                    <div style={{ height: '76vh', width: '100%', overflowX: 'auto', maxWidth: '100%' }}>
                                         <DataGrid
                                             rows={Logos}
                                             getRowId={Logos.id}
@@ -692,6 +692,10 @@ const Team = () => {
                                                                 PaperProps={{
 
                                                                     sx: {
+                                                                        position: 'fixed',
+                                                                        top: '-9999px',
+                                                                        left: '-9999px',
+                                                                        elevation: 0,                                     
                                                                         mt: 1.5,
                                                                         '& .MuiAvatar-root': {
                                                                             width: 32,

@@ -279,7 +279,7 @@ const Team = () => {
         {
             field: 'username',
             headerName: <span style={{ color: "black", fontWeight: 600 }}>Order By</span>,
-            flex: 1,
+            minWidth:150,
             renderCell: (row) => {
                 return (
                     < Button sx={{ border: 'none', cursor: 'pointer' }}
@@ -300,28 +300,27 @@ const Team = () => {
 
         },
 
-        { field: 'email', headerName: <span style={{ color: "black", fontWeight: 600 }}>Email</span>, flex: 1 },
         {
             field: 'phone',
             headerName: <span style={{ color: "black", fontWeight: 600 }}>Phone</span>,
-            flex: 1,
+            minWidth:150,
         },
         {
             field: 'ordered_at',
             headerName: <span style={{ color: "black", fontWeight: 600 }}>Location</span>,
-            flex: 1,
+            minWidth:150 , flex:1,
         },
 
         {
             field: 'merchandise_name',
             headerName: <span style={{ color: "black", fontWeight: 600 }}>Merchandise</span>,
-            flex: 1,
+            minWidth:150,
         },
 
         {
             field: `status`,
             headerName: <span style={{ color: "black", fontWeight: 600 }}>Status</span>,
-            flex: 1.5,
+            minWidth:150,
             renderCell: (row) => {
                 return (
                     <>
@@ -359,17 +358,17 @@ const Team = () => {
         {
             field: 'price',
             headerName: <span style={{ color: "black", fontWeight: 600 }}>Price</span>,
-            flex: 1,
+            minWidth:100,
         },
 
         {
             field: 'createdat',
             headerName: <span style={{ color: "black", fontWeight: 600 }}>Order On</span>,
-            flex: 1,
+            minWidth:150,
             renderCell: (row) => {
                 return (
                     <>
-                        {moment(row.createdat).format("MMMM Do, YYYY")}
+                        {moment(row.createdat).format("Do-MM-YYYY")}
                     </>
 
                 );
@@ -377,15 +376,9 @@ const Team = () => {
         },
 
         {
-            field: 'merchandise_description',
-            headerName: <span style={{ color: "black", fontWeight: 600 }}>Description</span>,
-            flex: 1,
-        },
-
-        {
             field: 'id',
             headerName: <span style={{ color: "black", fontWeight: 600 }}>Actions</span>,
-            flex: 1,
+            minWidth:100,
             renderCell: (row) => {
                 return (
                     <>
@@ -495,8 +488,8 @@ const Team = () => {
                 if (response.status === true) {
                     setIsloading(false)
                     setLogos(response.result);
-                } else {       
-                     setIsloading(false)
+                } else {
+                    setIsloading(false)
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
@@ -586,7 +579,7 @@ const Team = () => {
                         {
                             showtable ?
                                 <Grid xs={12} p={1} align="center">
-                                    <div style={{ height: 600, width: '100%' }}>
+                  <div style={{ height: '76vh', width: '100%', overflowX: 'auto', maxWidth: '100%' }}>
                                         <DataGrid
                                             rows={Logos}
                                             getRowId={Logos.id}
@@ -615,14 +608,6 @@ const Team = () => {
                                     {Logos.map((item, index) => (
                                         <Grid sx={{ cursor: 'pointer', mb: '20px' }} xs={12} md={3} lg={3} align="center" p={1}>
                                             <Card
-                                                onClick={() => {
-                                                    navigate('/UserDetails', {
-                                                        state: {
-                                                            id: item.id,
-                                                        }
-                                                    })
-                                                }
-                                                }
                                                 width="100%" sx={{ padding: 0, boxShadow: "none", borderRadius: "10px", border: "1px solid #D8D8D8" }}>
                                                 <CardContent>
                                                     <Grid container spacing={0} >
@@ -650,9 +635,10 @@ const Team = () => {
                                                         <Grid sx={{ pb: 1, width: '100px', height: '50px' }} xs={6} align="right">
                                                             <Typography
                                                                 onClick={() => {
-                                                                    navigate('/UserDetails', {
+                                                                    navigate('/OrderDetails', {
                                                                         state: {
                                                                             id: item.id,
+                                                                            row: item,
                                                                         }
                                                                     })
                                                                 }
@@ -663,7 +649,15 @@ const Team = () => {
                                                             </Typography>
                                                         </Grid>
 
-                                                        <Grid xs={6} sx={{ pb: 1 }} align="left" >
+                                                        <Grid onClick={() => {
+                                                            navigate('/OrderDetails', {
+                                                                state: {
+                                                                    id: item.id,
+                                                                    row: item,
+                                                                }
+                                                            })
+                                                        }
+                                                        } xs={6} sx={{ pb: 1 }} align="left" >
                                                             <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
                                                                 email :
                                                             </Typography>
@@ -679,7 +673,51 @@ const Team = () => {
 
                                                         </Grid>
 
+
                                                         <Grid xs={6} sx={{ pb: 1 }} align="left" >
+                                                            <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
+                                                                status :
+                                                            </Typography>
+                                                        </Grid>
+
+                                                        <Grid sx={{ pb: 1, mt:'-5%', width: '100px', height: '50px' }} xs={6} align="right" >
+                                                            <Select
+                                                                sx={{
+                                                                    width: "100%",
+                                                                    backgroundColor: "darkgray",
+                                                                    "& fieldset": { border: 'none' },
+                                                                }}
+                                                                labelId="demo-simple-select-label"
+                                                                id="demo-simple-select"
+                                                                displayEmpty
+                                                                defaultValue={item.status}
+                                                                onChange={(event) => {
+                                                                    setId(item.id);
+                                                                    changeStatus(event.target.value, item.id);
+                                                                }}
+                                                            >
+                                                                <MenuItem value="" disabled>
+                                                                    <em>select Status</em>
+                                                                </MenuItem>
+
+                                                                <MenuItem key='pending' value='pending'>pending</MenuItem>
+                                                                <MenuItem key='in-progress' value='in-progress'>in-progress</MenuItem>
+                                                                <MenuItem key='confirmed' value='confirmed'>confirmed</MenuItem>
+                                                                <MenuItem key='completed' value='completed'>completed</MenuItem>
+
+                                                            </Select>
+                                                        </Grid>
+
+
+                                                        <Grid onClick={() => {
+                                                            navigate('/OrderDetails', {
+                                                                state: {
+                                                                    id: item.id,
+                                                                    row: item,
+                                                                }
+                                                            })
+                                                        }
+                                                        } xs={6} sx={{ pb: 1 }} align="left" >
                                                             <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
                                                                 Location :
                                                             </Typography>
@@ -696,7 +734,15 @@ const Team = () => {
                                                         </Grid>
 
 
-                                                        <Grid xs={6} sx={{ pb: 1 }} align="left" >
+                                                        <Grid onClick={() => {
+                                                            navigate('/OrderDetails', {
+                                                                state: {
+                                                                    id: item.id,
+                                                                    row: item,
+                                                                }
+                                                            })
+                                                        }
+                                                        } xs={6} sx={{ pb: 1 }} align="left" >
                                                             <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
                                                                 Merchandise
                                                             </Typography>

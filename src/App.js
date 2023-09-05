@@ -65,68 +65,73 @@ function App() {
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-
         <div className="app">
-          {pathname === '/' ? null :
-            pathname === '/emailverification' ? null :
-              pathname === '/setnewpassword' ? null :
-                <Sidebar isSidebar={isSidebar} />
+          {localStorage.getItem('jwtoken') &&
+            <Sidebar isSidebar={isSidebar} />
           }
           <main className="content">
-            {pathname === '/' ? null :
-              pathname === '/emailverification' ? null :
-                pathname === '/setnewpassword' ? null :
-                  <Topbar setIsSidebar={setIsSidebar} />
+            {localStorage.getItem('jwtoken') &&
+              <Topbar setIsSidebar={setIsSidebar} />
             }
+            {localStorage.getItem('jwtoken') ?
+              <Routes>
+                <Route path="/" element={<LoginPage />} />
+                <Route path="/emailverification" element={<Emailverification />} />
+                <Route path="/setnewpassword" element={<Setnewpassword />} />
+                <Route path="/settings" element={<Settings />} />
+                <Route path="/updatepassword" element={<Updatepassword />} />
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/UpdateCategory" element={<UpdateCategory />} />
+                <Route path="/ManageLogos" element={<ManageLogos />} />
+                <Route path="/addworkoutplans" element={<Addworkoutplans />} />
+                <Route path="/addexercises" element={<AddworkoutplanExercises />} />
+                <Route path="/updateworkoutplan" element={<Updateworkoutplan />} />
+                <Route path="/workoutdetail" element={<WorkoutDetail />} />
+                <Route path="/ReportItems" element={<ReportItems />} />
+                <Route path="/Orders" element={<Orders />} />
+                <Route path="/ReportedItemDetails" element={<ReportedItemDetails />} />
+                <Route path="/AddCategory" element={<AddCategory />} />
+                <Route path="/OrderDetails" element={<OrderDetails />} />
 
-            <Routes>
-              <Route path="/" element={<LoginPage />} />
-              <Route path="/emailverification" element={<Emailverification />} />
-              <Route path="/setnewpassword" element={<Setnewpassword />} />
-              <Route path="/settings" element={<Settings />} />
-              <Route path="/updatepassword" element={<Updatepassword />} />
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/UpdateCategory" element={<UpdateCategory />} />
-              <Route path="/ManageLogos" element={<ManageLogos />} />
-              <Route path="/addworkoutplans" element={<Addworkoutplans />} />
-              <Route path="/addexercises" element={<AddworkoutplanExercises />} />
-              <Route path="/updateworkoutplan" element={<Updateworkoutplan />} />
-              <Route path="/workoutdetail" element={<WorkoutDetail />} />
-              <Route path="/ReportItems" element={<ReportItems />} />
-              <Route path="/Orders" element={<Orders />} />
-              <Route path="/ReportedItemDetails" element={<ReportedItemDetails />} />
-              <Route path="/AddCategory" element={<AddCategory />} />
-              <Route path="/OrderDetails" element={<OrderDetails />} />
+                <Route path="/Terms" element={<Terms />} />
+                <Route path="/Privacy" element={<Privacy />} />
+                <Route path="/AddMerchandise" element={<AddMerchandise />} />
+                <Route path="/addDailyDeals" element={<AddDailyDeals />} />
+                <Route path="/updateMerchandise" element={<UpdateMerchandise />} />
+                <Route path="/UpdateLogo" element={<UpdateLogo />} />
+                <Route path="/ManageUsers" element={<ManageUsers />} />
+                <Route path="/ViewCategory" element={<ViewCategory />} />
 
-              <Route path="/Terms" element={<Terms />} />
-              <Route path="/Privacy" element={<Privacy />} />
-              <Route path="/AddMerchandise" element={<AddMerchandise />} />
-              <Route path="/addDailyDeals" element={<AddDailyDeals />} />
-              <Route path="/updateMerchandise" element={<UpdateMerchandise />} />
-              <Route path="/UpdateLogo" element={<UpdateLogo />} />
-              <Route path="/ManageUsers" element={<ManageUsers />} />
-              <Route path="/ViewCategory" element={<ViewCategory />} />
+                <Route path="/EditMerchandise" element={<EditMerchandise />} />
+                <Route path="/AddLogo" element={<AddLogo />} />
+                <Route path="/updateDailyDeals" element={<UpdateDailyDeals />} />
+                <Route path="/manage_banners_ads" element={<ManageBannersAds />} />
+                <Route path="/addexercise" element={<AddExercise />} />
+                <Route path="/exercisedetail" element={<ExerciseDetail />} />
+                <Route path="/updateexercise" element={<UpdateExercise />} />
+                <Route path="/dietplan" element={<Dietplan />} />
+                <Route path="/addfood" element={<Addfood />} />
+                <Route path="/updatedietplan" element={<UpdateDietplan />} />
+                <Route path="/categories" element={<Categories />} />
+                <Route path="/users" element={<Users />} />
+                <Route path="/UserDetails" element={<UserDetails />} />
+                <Route path="/subscription" element={<Subscription />} />
+                <Route path="/faqs" element={<Faqs />} />
+                <Route path="/pivacy&policy" element={<PrivacyPolicy />} />
+                <Route path="/term&conditions" element={<TermConditions />} />
+                <Route path="/settings" element={<SettingsData />} />
+                <Route path="/profile" element={<Profile />} />
+              </Routes>
+              :
+              <Routes>
+                <Route path={`/*`} element={<LoginPage />} />
+                <Route path="/" element={<LoginPage />} />
+                <Route path="/emailverification" element={<Emailverification />} />
+                <Route path="/setnewpassword" element={<Setnewpassword />} />
 
-              <Route path="/EditMerchandise" element={<EditMerchandise />} />
-              <Route path="/AddLogo" element={<AddLogo />} />
-              <Route path="/updateDailyDeals" element={<UpdateDailyDeals />} />
-              <Route path="/manage_banners_ads" element={<ManageBannersAds />} />
-              <Route path="/addexercise" element={<AddExercise />} />
-              <Route path="/exercisedetail" element={<ExerciseDetail />} />
-              <Route path="/updateexercise" element={<UpdateExercise />} />
-              <Route path="/dietplan" element={<Dietplan />} />
-              <Route path="/addfood" element={<Addfood />} />
-              <Route path="/updatedietplan" element={<UpdateDietplan />} />
-              <Route path="/categories" element={<Categories />} />
-              <Route path="/users" element={<Users />} />
-              <Route path="/UserDetails" element={<UserDetails />} />
-              <Route path="/subscription" element={<Subscription />} />
-              <Route path="/faqs" element={<Faqs />} />
-              <Route path="/pivacy&policy" element={<PrivacyPolicy />} />
-              <Route path="/term&conditions" element={<TermConditions />} />
-              <Route path="/settings" element={<SettingsData />} />
-              <Route path="/profile" element={<Profile />} />
-            </Routes>
+                <Route path="*" element={<LoginPage />} />
+              </Routes>
+            }
           </main>
         </div>
       </ThemeProvider>

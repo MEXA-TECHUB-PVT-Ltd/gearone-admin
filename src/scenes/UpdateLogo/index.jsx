@@ -1,4 +1,4 @@
-import { Box,Autocomplete, Typography, Grid, Button, Stack, Divider, Avatar, Container, InputAdornment, OutlinedInput, FormControl, Select, MenuItem, InputLabel, Input, TextField, Breadcrumbs } from "@mui/material";
+import { Box, Autocomplete, Typography, Grid, Button, Stack, Divider, Avatar, Container, InputAdornment, OutlinedInput, FormControl, Select, MenuItem, InputLabel, Input, TextField, Breadcrumbs } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import { Subscriptions, Notifications, Settings, Person, Close, Upload, Add } from '@mui/icons-material';
 import url from "../url"
@@ -61,86 +61,111 @@ const Team = () => {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
         };
-        var Data = {
-            "logo_id": location.state.id,
-            "link": Link,
-            "screen_id": Screen,
-            "active_status": Status
-        };
-        await fetch(InsertAPIURL, {
-            method: 'PUT',
-            headers: headers,
-            body: JSON.stringify(Data),
-        })
-            .then(response => response.json())
-            .then(async response => {
-                console.log(response);
-                if (response.message == `Logo Updated Successfully!`) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Success!',
-                        confirmButtonColor: "#B5030B",
-                        text: 'Logo Updated Successfully!',
-                      })                    
-                    if (selectedFile !== null && selectedFile !== undefined) {
-                        var Data = {
-                            "id": response.result[0].id,
-                            "image": selectedFile,
-                        };
+        const urlPattern = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i;
+        if (Link !== '' && !urlPattern.test(Link)) {
+            setIsloading(false)
+            Swal.fire({
+                icon: 'warning',
+                title: 'warning',
+                confirmButtonColor: "#B5030B",
+                text: 'Enter Valid Link',
+            })
+        } else {
+            let status = Status
+            if (status === '') {
+                status = location.state.status
+            }
+            let link = Link
+            if (link === '') {
+                link = location.state.link
+            }
+            let screen = Screen
+            if (screen === '') {
+                screen = location.state.screen
+            }
+            console.log(screen);
+            var Data = {
+                "logo_id": location.state.id,
+                "link": link,
+                "screen_id": screen.id,
+                "active_status": status
+            };
+            console.log(Data)
+            await fetch(InsertAPIURL, {
+                method: 'PUT',
+                headers: headers,
+                body: JSON.stringify(Data),
+            })
+                .then(response => response.json())
+                .then(async response => {
+                    console.log(response);
+                    if (response.message == `Logo Updated Successfully!`) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success!',
+                            confirmButtonColor: "#B5030B",
+                            text: 'Logo Updated Successfully!',
+                        })
+                        if (selectedFile !== null && selectedFile !== undefined) {
+                            var Data = {
+                                "id": response.result[0].id,
+                                "image": selectedFile,
+                            };
 
-                        await axios.put(url + "logos/add_logos_image", Data, {
-                            headers: {
-                                "Content-Type": "multipart/form-data"
+                            await axios.put(url + "logos/add_logos_image", Data, {
+                                headers: {
+                                    "Content-Type": "multipart/form-data"
+                                }
+                            }).then((response) => {
+                                setIsloading(false)
+                                console.log(response.data);
+                                if (response.data.message == `Logo Image added Successfully!`) {
+                                    navigate("/ManageLogos")
+                                    setIsloading(false)
+                                } else {
+                                    setIsloading(false)
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Oops2...',
+                                        confirmButtonColor: "#B5030B",
+                                        text: ''
+                                    })
+                                }
                             }
-                        }).then((response) => {
+                            )
+                                .catch(error => {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Oops...',
+                                        confirmButtonColor: "#B5030B",
+                                        text: response.message
+                                    })
+                                });
+                        } else {
                             setIsloading(false)
-                            console.log(response.data);
-                            if (response.data.message == `Logo Image added Successfully!`) {
-                                navigate("/ManageLogos")
-                                setIsloading(false)
-                            } else {
-                                setIsloading(false)
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Oops2...',
-                                    confirmButtonColor: "#B5030B",
-                                    text: ''
-                                })
-                            }
+                            navigate("/ManageLogos")
                         }
-                        )
-                            .catch(error => {
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Oops...',
-                                    confirmButtonColor: "#B5030B",
-                                    text: response.message
-                                })
-                            });
                     } else {
                         setIsloading(false)
-                        navigate("/ManageLogos")
-                    }
-                } else {
-                    setIsloading(false)
-                    Swal.fire({
+                        Swal.fire({
 
+                            icon: 'error',
+                            title: 'Oops...',
+                            confirmButtonColor: "#B5030B",
+                            text: ''
+                        })
+                    }
+                }
+                )
+                .catch(error => {
+                    Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
                         confirmButtonColor: "#B5030B",
-                        text: ''
+                        text: "Server Down!"
                     })
-                }
-            }
-            )
-            .catch(error => {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    confirmButtonColor: "#B5030B",
-                    text: "Server Down!"
-                })
-            });
+                });
+        }
     }
 
 
@@ -163,7 +188,7 @@ const Team = () => {
             .then(response => {
                 console.log(response);
                 if (response.message == `All screens Details`) {
-                    // setLogos(response.count);
+                    console.log(response.result);
                     setScreens(response.result);
                 } else {
                     Swal.fire({
@@ -198,12 +223,17 @@ const Team = () => {
         setHidelabel(false);
     }
 
+
+    const [Screen, setScreen] = useState(location.state.screen || '');
+
     const [Status, setStatus] = React.useState('');
-    const [Screen, setScreen] = React.useState('');
     const [Link, setLink] = React.useState('');
 
-    const handleChangeScreen = (event) => {
-        setScreen(event.target.value);
+
+
+    const handleChangeScreen = (event, newValue) => {
+        console.log(newValue)
+        setScreen(newValue);
     };
 
     const handleChange = (event) => {
@@ -311,45 +341,30 @@ const Team = () => {
                                         <Typography variant="paragraph" pl={1} pb={1} sx={{ font: "normal normal normal 17px/26px Roboto", fontSize: "12px", fontWeight: "medium" }} color="#1F1F1F">
                                             Screen
                                         </Typography>
-
-
-
-
-
-                                        <Select
+                                        <Autocomplete
                                             sx={{
-                                                borderRadius: "50px",
-                                                backgroundColor: "darkgray",
-                                                "& fieldset": { border: 'none' },
+                                                borderRadius: '50px',
+                                                backgroundColor: 'darkgray',
+                                                '& .MuiOutlinedInput-notchedOutline': {
+                                                    border: 'none', // Remove the border
+                                                },
                                             }}
-                                            // displayEmpty
-                                            labelId="demo-simple-select-standard-label"
-                                            id="demo-simple-select-standard"
-                                            // className={classes.inner}
-                                            // input={<BootstrapInput name="currency" id="currency-customized-select" />}                                         
+                                            id="demo-simple-select"
+                                            options={Screens}
+                                            getOptionLabel={(option) => option.name}
                                             onChange={handleChangeScreen}
                                             displayEmpty
-                                            defaultValue={catagory_name}
-                                        >
+                                            renderInput={(params) => (
+                                                <TextField
+                                                    {...params}
+                                                    displayEmpty
+                                                    defaultValue={location.state.screen}
+                                                    placeholder={location.state.screen}
+                                                />
+                                            )}
+                                        />
 
-                                            <MenuItem value="" >
-                                                <em>{location.state.screen}</em>
-                                            </MenuItem>
-                                            {Screens.map((data) => (
-                                                <MenuItem key={data.id} value={data.id}>{`${data.name}`}</MenuItem>
-                                            ))}
-                                        </Select>
 
-                                        {/* <TextField
-                                            id="outlined-multiline-static"
-                                            multiline
-                                            rows={4}
-                                            sx={{
-                                                borderRadius: "20px",
-                                                backgroundColor: "darkgray",
-                                                "& fieldset": { border: 'none' },
-                                            }}
-                                        /> */}
 
                                     </Stack>
 
@@ -375,7 +390,7 @@ const Team = () => {
                                             onChange={(event) => { setStatus(event.target.value); }}
                                             displayEmpty
                                             defaultValue={location.state.status}
-                                            >
+                                        >
 
 
                                             <MenuItem value={'active'}>Active</MenuItem>

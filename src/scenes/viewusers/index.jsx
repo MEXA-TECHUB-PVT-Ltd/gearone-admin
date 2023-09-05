@@ -254,7 +254,7 @@ const Team = () => {
     {
       field: 'name',
       headerName: <span style={{ color: "black", fontWeight: 600 }}>Merchandise</span>,
-      flex: 1,
+      minWidth: 250,
       renderCell: (row) => {
         return (
           < Button sx={{ border: 'none', cursor: 'pointer' }}
@@ -273,28 +273,28 @@ const Team = () => {
         );
       },
 
-    }, { field: 'price', headerName: <span style={{ color: "black", fontWeight: 600 }}>Price</span>, flex: 1 },
+    }, { field: 'price', headerName: <span style={{ color: "black", fontWeight: 600 }}>Price</span>, minWidth: 150 },
     {
       field: 'location',
       headerName: <span style={{ color: "black", fontWeight: 600 }}>Location</span>,
-      flex: 1,
+      minWidth: 150,
     },
     {
       field: 'catagory_name',
       headerName: <span style={{ color: "black", fontWeight: 600 }}>Catagory </span>,
-      flex: 1,
+      minWidth: 150,
     },
 
     {
       field: 'description',
       headerName: <span style={{ color: "black", fontWeight: 600 }}>Description</span>,
-      flex: 1,
+      minWidth: 250 , flex:1,
     },
 
     {
       field: 'id',
       headerName: <span style={{ color: "black", fontWeight: 600 }}>Actions</span>,
-      flex: 1,
+      minWidth: 150,
       renderCell: (row) => {
         return (
           <>
@@ -502,7 +502,7 @@ const Team = () => {
             {
               showtable ?
                 <Grid xs={12} p={1} align="center">
-                  <div style={{ height: 600, width: '100%' }}>
+                                    <div style={{ height: '76vh', width: '100%', overflowX: 'auto', maxWidth: '100%' }}>
                     <DataGrid
                       rows={Logos}
                       getRowId={Logos.id}
@@ -545,7 +545,15 @@ const Team = () => {
                             }}>
                               <PerfectScrollbar>
 
-                                <Typography maxHeight='50px' variant="h5" pb={1} fontWeight={750} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#B5030B">
+                                <Typography  onClick={() => {
+                                  navigate('/Orders', {
+                                    state: {
+                                      id: item.id,
+                                    }
+                                  })
+                                }
+                                } maxHeight='50px' variant="h5" pb={1} fontWeight={750} fontSize="16px"
+                                 sx={{cursor:'pointer', letterSpacing: "2px" }} color="#B5030B">
                                   {item.name}
                                 </Typography>
                               </PerfectScrollbar>
@@ -577,6 +585,10 @@ const Team = () => {
                                 PaperProps={{
 
                                   sx: {
+                                    position: 'fixed',
+                                    top: '-9999px',
+                                    left: '-9999px',
+                                    elevation: 0,   
                                     // overflow: 'visible',
                                     // filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.22))',
                                     mt: 1.5,
@@ -745,13 +757,13 @@ const Team = () => {
                     }
                     {viewImage.length > 1 &&
                       <ImageListItem sx={{ ml: '2px' }} key={viewImage.name}>
-                        <img  alt="" src={`${url}${viewImage[1]}`} style={{ bgcolor: "#B5030B", width: '175px', height: 'auto' }}>
+                        <img alt="" src={`${url}${viewImage[1]}`} style={{ bgcolor: "#B5030B", width: '175px', height: 'auto' }}>
                         </img>
                       </ImageListItem>
                     }
                     {viewImage.length > 2 &&
                       <ImageListItem sx={{ ml: '2px' }} key={viewImage.name}>
-                        <img  alt="" src={`${url}${viewImage[2]}`} style={{ bgcolor: "#B5030B", width: '175px', height: 'auto' }}>
+                        <img alt="" src={`${url}${viewImage[2]}`} style={{ bgcolor: "#B5030B", width: '175px', height: 'auto' }}>
                         </img>
                       </ImageListItem>
 
@@ -764,7 +776,7 @@ const Team = () => {
                     }
                     {viewImage.length > 4 &&
                       <ImageListItem sx={{ ml: '2px' }} key={viewImage.name}>
-                        <img  alt="" src={`${url}${viewImage[4]}`} style={{ bgcolor: "#B5030B", width: '200px', height: 'auto' }}>
+                        <img alt="" src={`${url}${viewImage[4]}`} style={{ bgcolor: "#B5030B", width: '200px', height: 'auto' }}>
                         </img>
                       </ImageListItem>
                     }

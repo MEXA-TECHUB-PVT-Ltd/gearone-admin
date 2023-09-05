@@ -337,7 +337,7 @@ const Team = () => {
                             setTimeout(() => {
                                 Swal.fire({
                                     title: "Error",
-                                    text: "Incorrect Password",
+                                    text: "Incorrect Old Password",
                                     confirmButtonColor: "#B5030B",
                                     icon: "error",
                                     confirmButtonText: "OK",

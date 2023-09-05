@@ -285,11 +285,11 @@ const Team = () => {
 
 
   const columns = [
-    { field: 'title', headerName: <span style={{ color: "black", fontWeight: 600 }}>Title</span>, flex: 1 },
+    { field: 'title', headerName: <span style={{ color: "black", fontWeight: 600 }}>Title</span>, minWidth: 150 },
     {
       field: 'status',
       headerName: <span style={{ color: "black", fontWeight: 600 }}>Status</span>,
-      flex: 0.5,
+      minWidth: 150,
       renderCell: (row) => {
         return (
           <>
@@ -309,24 +309,24 @@ const Team = () => {
     {
       field: 'description',
       headerName: <span style={{ color: "black", fontWeight: 600 }}>Description</span>,
-      flex: 1,
+      minWidth: 250 , flex:1,
     },
     // {
     //   field: 'catagory_name',
     //   headerName: <span style={{ color: "black", fontWeight: 600 }}>Catagory </span>,
-    //   flex: 1,
+    //   minWidth: 150,
     // },
 
     // {
     //   field: 'description',
     //   headerName: <span style={{ color: "black", fontWeight: 600 }}>Description</span>,
-    //   flex: 1,
+    //   minWidth: 150,
     // },
 
     {
       field: 'id',
       headerName: <span style={{ color: "black", fontWeight: 600 }}>Actions</span>,
-      flex: 1,
+      minWidth: 150,
       renderCell: (row) => {
         return (
           <>
@@ -533,7 +533,7 @@ const Team = () => {
             {
               showtable ?
                 <Grid xs={12} p={1} align="center">
-                  <div style={{ height: 600, width: '100%' }}>
+                                    <div style={{ height: '76vh', width: '100%', overflowX: 'auto', maxWidth: '100%' }}>
                     <DataGrid
                       rows={Logos}
                       getRowClassName={(params) => {
@@ -599,6 +599,10 @@ const Team = () => {
                                 PaperProps={{
 
                                   sx: {
+                                    position: 'fixed',
+                                    top: '-9999px',
+                                    left: '-9999px',
+                                    elevation: 0,   
                                     // overflow: 'visible',
                                     // filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.22))',
                                     mt: 1.5,
