@@ -359,6 +359,7 @@ const Team = () => {
 
 
     const getAllOrders = async () => {
+        setIsloading(true);
         var InsertAPIURL = `${url}report_items/get_all_reports`
         var headers = {
             'Accept': 'application/json',
@@ -372,21 +373,24 @@ const Team = () => {
             .then(response => {
                 console.log(response);
                 if (response.status == true) {
+                    setIsloading(false)
                     setLogos(response.result);
                 } else {
+                    setIsloading(false)
                     Swal.fire({
                         icon: 'error',
-                        title: 'Oops...',
+                        title: 'Error...',
                         confirmButtonColor: "#B5030B",
-                        text: ''
+                        text: response.message
                     })
                 }
             }
             )
             .catch(error => {
+                setIsloading(false)
                 Swal.fire({
                     icon: 'error',
-                    title: 'Oops...',
+                    title: 'Error...',
                     confirmButtonColor: "#B5030B",
                     text: "Server Down!"
                 })
@@ -416,19 +420,19 @@ const Team = () => {
                                             showtable ?
                                                 <>
                                                     <Box sx={{ pl: 1 }}>
-                                                        <List fontSize="large" sx={{ color: "white", backgroundColor: "#B5030B", borderRadius: "5px" }} onClick={() => { setShowtable(true) }} />
+                                                        <List fontSize="large" sx={{cursor:'pointer', color: "white", backgroundColor: "#B5030B", borderRadius: "5px" }} onClick={() => { setShowtable(true) }} />
                                                     </Box>
                                                     <Box sx={{ pr: 1 }}>
-                                                        <Apps fontSize="large" sx={{ color: "#9B9B9B", backgroundColor: "transparent", borderRadius: "5px" }} onClick={() => setShowtable(false)} />
+                                                        <Apps fontSize="large" sx={{cursor:'pointer', color: "#9B9B9B", backgroundColor: "transparent", borderRadius: "5px" }} onClick={() => setShowtable(false)} />
                                                     </Box>
                                                 </>
                                                 :
                                                 <>
                                                     <Box sx={{ pl: 1 }}>
-                                                        <List fontSize="large" sx={{ color: "#9B9B9B", backgroundColor: "transparent", borderRadius: "5px" }} onClick={() => setShowtable(true)} />
+                                                        <List fontSize="large" sx={{cursor:'pointer', color: "#9B9B9B", backgroundColor: "transparent", borderRadius: "5px" }} onClick={() => setShowtable(true)} />
                                                     </Box>
                                                     <Box sx={{ pr: 1 }}>
-                                                        <Apps fontSize="large" sx={{ color: "white", backgroundColor: "#B5030B", borderRadius: "5px" }} onClick={() => setShowtable(false)} />
+                                                        <Apps fontSize="large" sx={{cursor:'pointer', color: "white", backgroundColor: "#B5030B", borderRadius: "5px" }} onClick={() => setShowtable(false)} />
                                                     </Box>
                                                 </>
                                         }
@@ -442,7 +446,21 @@ const Team = () => {
                 </Grid>
 
                 <Divider sx={{ pb: 2 }} />
+                {isloading ?
+                    <Grid sx={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignContent: "center",
+                        alignItems: 'center',
+                        height: "100%", width: "100%"
+                        // backgroundColor:'red'
 
+                    }} >
+                        <div className="loader">
+                        </div>
+                    </Grid>
+
+                    :
                 <Grid mb='6%' container spacing={0} pt={2} >
                     {
                         showtable ?
@@ -549,7 +567,7 @@ const Team = () => {
                             </>
                     }
                 </Grid>
-
+}
                 {/* view */}
                 <Modal
                     open={openmodal}

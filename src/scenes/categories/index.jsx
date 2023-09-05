@@ -617,6 +617,7 @@ const Team = () => {
 
 
     const getAllCatagory = async () => {
+        setIsloading(true)
         var InsertAPIURL = `${url}category/GetAll_only_Categories`
         var headers = {
             'Accept': 'application/json',
@@ -629,24 +630,27 @@ const Team = () => {
             .then(response => response.json())
             .then(response => {
                 console.log(response);
-                if (response.message == `categories Details`) {
+                if (response.status === true) {
                     // setLogos(response.count);
+                    setIsloading(false)
                     console.log(response.result);
                     setCatagory(response.result);
                 } else {
+                    setIsloading(false)
                     Swal.fire({
                         icon: 'error',
-                        title: 'Oops...',
+                        title: 'Error...',
                         confirmButtonColor: "#B5030B",
-                        text: ''
+                        text: response.message
                     })
                 }
             }
             )
             .catch(error => {
+                setIsloading(false)
                 Swal.fire({
                     icon: 'error',
-                    title: 'Oops...',
+                    title: 'Error...',
                     confirmButtonColor: "#B5030B",
                     text: "Server Down!"
                 })
@@ -703,7 +707,7 @@ const Team = () => {
                                             console.log(row.row);
                                             setActionData(row.row);
                                             navigate('/ViewCategory', {
-                                                state: {    
+                                                state: {
                                                     row: row.row
                                                 }
                                             });
@@ -772,19 +776,19 @@ const Team = () => {
                                     showtable ?
                                         <>
                                             <Box onClick={() => { setShowtable(true) }}>
-                                                <List fontSize="large" sx={{ color: "white", backgroundColor: "#B5030B", borderRadius: "5px" }} />
+                                                <List fontSize="large" sx={{ cursor: 'pointer', color: "white", backgroundColor: "#B5030B", borderRadius: "5px" }} />
                                             </Box>
                                             <Box onClick={() => setShowtable(false)}>
-                                                <Apps fontSize="large" sx={{ color: "#9B9B9B", backgroundColor: "transparent", borderRadius: "5px" }} />
+                                                <Apps fontSize="large" sx={{ cursor: 'pointer', color: "#9B9B9B", backgroundColor: "transparent", borderRadius: "5px" }} />
                                             </Box>
                                         </>
                                         :
                                         <>
                                             <Box onClick={() => setShowtable(true)}>
-                                                <List fontSize="large" sx={{ color: "#9B9B9B", backgroundColor: "transparent", borderRadius: "5px" }} />
+                                                <List fontSize="large" sx={{ cursor: 'pointer', color: "#9B9B9B", backgroundColor: "transparent", borderRadius: "5px" }} />
                                             </Box>
                                             <Box onClick={() => setShowtable(false)}>
-                                                <Apps fontSize="large" sx={{ color: "white", backgroundColor: "#B5030B", borderRadius: "5px" }} />
+                                                <Apps fontSize="large" sx={{ cursor: 'pointer', color: "white", backgroundColor: "#B5030B", borderRadius: "5px" }} />
                                             </Box>
                                         </>
                                 }
@@ -794,12 +798,12 @@ const Team = () => {
                                 <Stack direction="row" sx={{ display: "flex", justifyContent: "center", alignContent: "center", gap: "3px" }}>
                                     <div>
                                         <Stack sx={{ paddingLeft: "20px" }}>
-                                            <Add sx={{ fontWeight: 600, width: "24dpi" }} />
+                                            <Add sx={{ cursor: 'pointer', fontWeight: 600, width: "24dpi" }} />
                                         </Stack>
                                     </div>
 
                                     <div>
-                                        <Stack sx={{ marginLeft: "2vh", paddingTop: "0.5vh", paddingRight: "25px", fontWeight: "bold" }}>Add</Stack>
+                                        <Stack sx={{ cursor: 'pointer', marginLeft: "2vh", paddingTop: "0.5vh", paddingRight: "25px", fontWeight: "bold" }}>Add</Stack>
                                     </div>
                                 </Stack>
                             </button>
@@ -809,147 +813,162 @@ const Team = () => {
                 </Grid>
 
                 <Divider sx={{ pb: 2 }} />
+                {isloading ?
+                    <Grid sx={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignContent: "center",
+                        alignItems: 'center',
+                        height: "100%", width: "100%"
+                        // backgroundColor:'red'
 
-                <Grid mb='6%' container spacing={0} pt={2}  >
-                    {
-                        showtable ?
-                            <Grid xs={12} p={1} align="center">
-                                <div style={{ height: 600, width: '100%' }}>
-                                    <DataGrid
-                                        rows={Catagory}
-                                        columns={columns}
-                                        getRowClassName={(params) => {
-                                            return 'unblock-row'
-                                        }}
+                    }} >
+                        <div className="loader">
+                        </div>
+                    </Grid>
 
-                                        initialState={{
-                                            pagination: {
-                                                paginationModel: { page: 0, pageSize: 5 },
-                                            },
-                                        }}
-                                        pageSizeOptions={[5, 10]}
-                                        // checkboxSelection
-                                        components={{
-                                            Checkbox: ({ value }) => (
-                                                <Checkbox style={{ color: 'red' }} checked={value} />
-                                            ),
-                                        }}
-                                    />
-                                </div>
-                            </Grid>
-                            :
-                            <>
-                                {Catagory.map((item, index) => (
-                                    <Grid key={index} xs={12} md={3} lg={3} align="center" p={1} >
-                                        <Card width="95%" sx={{ padding: 0, boxShadow: "none", borderRadius: "10px", border: "1px solid #D8D8D8" }}>
-                                            <CardContent >
-                                                <Grid key={index} container spacing={0} >
+                    :
+                    <Grid mb='6%' container spacing={0} pt={2}  >
+                        {
+                            showtable ?
+                                <Grid xs={12} p={1} align="center">
+                                    <div style={{ height: 600, width: '100%' }}>
+                                        <DataGrid
+                                            rows={Catagory}
+                                            columns={columns}
+                                            getRowClassName={(params) => {
+                                                return 'unblock-row'
+                                            }}
 
-                                                    <Grid key={index} xs={12} align="right">
-                                                        <div>
-                                                            <MoreVert
-                                                                id="basic-button"
-                                                                aria-controls={open ? 'basic-menu' : undefined}
-                                                                aria-haspopup="true"
-                                                                aria-expanded={open ? 'true' : undefined}
-                                                                // onClick={handleClick} 
-                                                                onClick={(event) => {
-                                                                    setIdData(item)
-                                                                    setAnchorEl(event.currentTarget)
+                                            initialState={{
+                                                pagination: {
+                                                    paginationModel: { page: 0, pageSize: 5 },
+                                                },
+                                            }}
+                                            pageSizeOptions={[5, 10]}
+                                            // checkboxSelection
+                                            components={{
+                                                Checkbox: ({ value }) => (
+                                                    <Checkbox style={{ color: 'red' }} checked={value} />
+                                                ),
+                                            }}
+                                        />
+                                    </div>
+                                </Grid>
+                                :
+                                <>
+                                    {Catagory.map((item, index) => (
+                                        <Grid key={index} xs={12} md={3} lg={3} align="center" p={1} >
+                                            <Card width="95%" sx={{ padding: 0, boxShadow: "none", borderRadius: "10px", border: "1px solid #D8D8D8" }}>
+                                                <CardContent >
+                                                    <Grid key={index} container spacing={0} >
+
+                                                        <Grid key={index} xs={12} align="right">
+                                                            <div>
+                                                                <MoreVert
+                                                                    id="basic-button"
+                                                                    aria-controls={open ? 'basic-menu' : undefined}
+                                                                    aria-haspopup="true"
+                                                                    aria-expanded={open ? 'true' : undefined}
+                                                                    // onClick={handleClick} 
+                                                                    onClick={(event) => {
+                                                                        setIdData(item)
+                                                                        setAnchorEl(event.currentTarget)
+                                                                    }}
+                                                                    sx={{ cursor: 'pointer', color: "#1F1F1F" }} />
+                                                            </div>
+                                                            <Menu
+                                                                id="basic-menu"
+                                                                anchorEl={anchorEl}
+                                                                open={open}
+                                                                onClose={handleClose}
+                                                                MenuListProps={{
+                                                                    'aria-labelledby': 'basic-button',
                                                                 }}
-                                                                sx={{ color: "#1F1F1F" }} />
-                                                        </div>
-                                                        <Menu
-                                                            id="basic-menu"
-                                                            anchorEl={anchorEl}
-                                                            open={open}
-                                                            onClose={handleClose}
-                                                            MenuListProps={{
-                                                                'aria-labelledby': 'basic-button',
-                                                            }}
-                                                            PaperProps={{
+                                                                PaperProps={{
 
-                                                                sx: {
-                                                                    // overflow: 'visible',
-                                                                    // filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.22))',
-                                                                    mt: 1.5,
-                                                                    '& .MuiAvatar-root': {
-                                                                        width: 32,
-                                                                        height: 32,
-                                                                        ml: -0.5,
-                                                                        mr: 1,
+                                                                    sx: {
+                                                                        // overflow: 'visible',
+                                                                        // filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.22))',
+                                                                        mt: 1.5,
+                                                                        '& .MuiAvatar-root': {
+                                                                            width: 32,
+                                                                            height: 32,
+                                                                            ml: -0.5,
+                                                                            mr: 1,
+                                                                        },
+                                                                        '&:before': {
+                                                                            content: '""',
+                                                                            display: 'block',
+                                                                            position: 'absolute',
+                                                                            top: 0,
+                                                                            right: 5,
+                                                                            width: 10,
+                                                                            height: 10,
+                                                                            bgcolor: 'background.paper',
+                                                                            transform: 'translateY(-50%) rotate(45deg)',
+                                                                            zIndex: 0,
+                                                                        },
                                                                     },
-                                                                    '&:before': {
-                                                                        content: '""',
-                                                                        display: 'block',
-                                                                        position: 'absolute',
-                                                                        top: 0,
-                                                                        right: 5,
-                                                                        width: 10,
-                                                                        height: 10,
-                                                                        bgcolor: 'background.paper',
-                                                                        transform: 'translateY(-50%) rotate(45deg)',
-                                                                        zIndex: 0,
-                                                                    },
-                                                                },
-                                                            }}
-                                                            transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-                                                            anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-                                                        >
-                                                            <MenuItem
-                                                                onClick={() => {
-                                                                    console.log(idData);
-                                                                    setActionData(idData);
-                                                                    if (idData.image !== null) {
-                                                                        setHidelabelUpload(true);
-                                                                    }
-                                                                    handleOpenedit();
-
-                                                                }
-                                                                }
+                                                                }}
+                                                                transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+                                                                anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                                                             >
-                                                                <Edit sx={{ color: "#40E0D0" }} /><span style={{ marginLeft: 10 }}>Update</span>
-                                                            </MenuItem>
-                                                            <Grid container spacing={0}>
-                                                                <Grid xs={12} align="center">
-                                                                    <Divider sx={{ width: "80%" }} />
+                                                                <MenuItem
+                                                                    onClick={() => {
+                                                                        console.log(idData);
+                                                                        setActionData(idData);
+                                                                        if (idData.image !== null) {
+                                                                            setHidelabelUpload(true);
+                                                                        }
+                                                                        handleOpenedit();
+
+                                                                    }
+                                                                    }
+                                                                >
+                                                                    <Edit sx={{ color: "#40E0D0" }} /><span style={{ marginLeft: 10 }}>Update</span>
+                                                                </MenuItem>
+                                                                <Grid container spacing={0}>
+                                                                    <Grid xs={12} align="center">
+                                                                        <Divider sx={{ width: "80%" }} />
+                                                                    </Grid>
                                                                 </Grid>
-                                                            </Grid>
-                                                            <MenuItem onClick={() => {
-                                                                setDeleteID(idData.id);
-                                                                handleOpendel();
-                                                            }}>
-                                                                <Delete sx={{ color: "#E10006" }} /><span style={{ marginLeft: 10 }}>Delete</span>
-                                                            </MenuItem>
-                                                        </Menu>
+                                                                <MenuItem onClick={() => {
+                                                                    setDeleteID(idData.id);
+                                                                    handleOpendel();
+                                                                }}>
+                                                                    <Delete sx={{ color: "#E10006" }} /><span style={{ marginLeft: 10 }}>Delete</span>
+                                                                </MenuItem>
+                                                            </Menu>
+
+                                                        </Grid>
+
+                                                        <Grid xs={12} align="left">
+                                                            {ActionData.image !== null ?
+                                                                <img src={`${url}${item.image}`}
+                                                                    alt="" style={{ width: "200px", height: "200px" }} />
+                                                                :
+                                                                <Card sx={{ width: "200px", height: "200px" }} />
+                                                            }
+                                                            <PerfectScrollbar>
+
+                                                                <Typography maxHeight='50px' variant="h5" pb={1} fontWeight={750} fontSize="16px"
+                                                                    sx={{ letterSpacing: "2px" }} color="#B5030B">
+                                                                    {item.name}
+                                                                </Typography>
+                                                            </PerfectScrollbar>
+
+                                                        </Grid>
 
                                                     </Grid>
-
-                                                    <Grid xs={12} align="left">
-                                                        {ActionData.image !== null ?
-                                                            <img src={`${url}${item.image}`}
-                                                                alt="" style={{ width: "200px", height: "200px" }} />
-                                                            :
-                                                            <Card sx={{ width: "200px", height: "200px" }} />
-                                                        }
-                                                        <PerfectScrollbar>
-
-                                                            <Typography maxHeight='50px' variant="h5" pb={1} fontWeight={750} fontSize="16px"
-                                                                sx={{ letterSpacing: "2px" }} color="#B5030B">
-                                                                {item.name}
-                                                            </Typography>
-                                                        </PerfectScrollbar>
-
-                                                    </Grid>
-
-                                                </Grid>
-                                            </CardContent>
-                                        </Card>
-                                    </Grid>
-                                ))}
-                            </>
-                    }
-                </Grid>
+                                                </CardContent>
+                                            </Card>
+                                        </Grid>
+                                    ))}
+                                </>
+                        }
+                    </Grid>
+                }
             </Box>
 
             {/* addmodal */}
@@ -1027,9 +1046,9 @@ const Team = () => {
 
                                     sx={{
 
-                                        backgroundColor: "#EEEEEE",
+                                        backgroundColor: "darkgray",
                                         "& fieldset": { border: 'none' },
-                                        "& ::placeholder": { ml: 1, fontWeight: 600, color: "#000000" }
+                                        "& ::placeholder": { ml: 1, fontWeight: 600, color: "white" }
                                     }}
                                 />
 
@@ -1041,7 +1060,7 @@ const Team = () => {
                                     id="demo-multiple-chip"
                                     multiple
                                     sx={{
-                                        backgroundColor: "#EEEEEE",
+                                        backgroundColor: "darkgray",
                                         "& fieldset": { border: 'none' },
                                     }}
                                     value={Skill}
@@ -1193,9 +1212,9 @@ const Team = () => {
                                     value={ActionData.name}
 
                                     sx={{
-                                        backgroundColor: "#EEEEEE",
+                                        backgroundColor: "darkgray",
                                         "& fieldset": { border: 'none' },
-                                        "& ::placeholder": { ml: 1, fontWeight: 600, color: "#000000" }
+                                        "& ::placeholder": { ml: 1, fontWeight: 600, color: "white" }
                                     }}
                                 />
 
@@ -1207,7 +1226,7 @@ const Team = () => {
                                     id="demo-multiple-chip"
                                     multiple
                                     sx={{
-                                        backgroundColor: "#EEEEEE",
+                                        backgroundColor: "darkgray",
                                         "& fieldset": { border: 'none' },
                                     }}
                                     value={Skill}
@@ -1339,9 +1358,9 @@ const Team = () => {
                                     }}
 
                                     sx={{
-                                        backgroundColor: "#EEEEEE",
+                                        backgroundColor: "darkgray",
                                         "& fieldset": { border: 'none' },
-                                        "& ::placeholder": { ml: 1, fontWeight: 600, color: "#000000" }
+                                        "& ::placeholder": { ml: 1, fontWeight: 600, color: "white" }
                                     }}
                                 />
 
@@ -1353,7 +1372,7 @@ const Team = () => {
                                     id="demo-multiple-chip"
                                     multiple
                                     sx={{
-                                        backgroundColor: "#EEEEEE",
+                                        backgroundColor: "darkgray",
                                         "& fieldset": { border: 'none' },
                                     }}
                                     value={Skill}

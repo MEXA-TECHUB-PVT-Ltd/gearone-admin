@@ -266,18 +266,18 @@ const Topbar = () => {
                           :
                           two_factor ?
                             <Tooltip title="Two Factor">
-                              <VpnKeyIcon sx={{ color: "white" }} onClick={() => { setChangeStatus(false); setOpendelmodal(true); }} />
+                              <VpnKeyIcon sx={{cursor:'pointer', color: "white" }} onClick={() => { setChangeStatus(false); setOpendelmodal(true); }} />
                             </Tooltip>
                             :
                             <Tooltip title="Two Factor">
-                              <VpnKeyOffIcon sx={{ color: "white" }} onClick={() => { setChangeStatus(true); setOpendelmodal(true); }} />
+                              <VpnKeyOffIcon sx={{cursor:'pointer', color: "white" }} onClick={() => { setChangeStatus(true); setOpendelmodal(true); }} />
                             </Tooltip>
                         }
                         <Tooltip title="Password Change">
-                          <Lock sx={{ color: "white" }} onClick={() => navigate("/updatepassword")} />
+                          <Lock sx={{cursor:'pointer', color: "white" }} onClick={() => navigate("/updatepassword")} />
                         </Tooltip>
                         <Tooltip title="Logout">
-                          <Logout onClick={() => { handleLogout(); }} sx={{ color: "white" }} />
+                          <Logout onClick={() => { handleLogout(); }} sx={{ cursor:'pointer',color: "white" }} />
                         </Tooltip>
 
                       </div>

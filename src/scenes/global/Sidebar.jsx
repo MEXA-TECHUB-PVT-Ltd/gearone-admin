@@ -62,7 +62,7 @@ const Sidebar = () => {
       sx={{
         // backgroundColor: "red",
         "& .pro-sidebar-inner": {
-          boxShadow: "0px 3px 8px #00000029",
+          boxShadow: "0px 3px 8px white29",
           background: `white !important`,
         },
         "& .pro-icon-wrapper": {

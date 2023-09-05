@@ -1,4 +1,4 @@
-import { Box, Typography, Grid, Button, Stack, Divider, Avatar, Container, InputAdornment, OutlinedInput, FormControl, Select, MenuItem, InputLabel, Input, TextField, Breadcrumbs } from "@mui/material";
+import { Box, Typography,Autocomplete, Grid, Button, Stack, Divider, Avatar, Container, InputAdornment, OutlinedInput, FormControl, Select, MenuItem, InputLabel, Input, TextField, Breadcrumbs } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import { Subscriptions, Notifications, Settings, Person, Close, Upload, Add } from '@mui/icons-material';
 import url from "../url"
@@ -59,7 +59,7 @@ const Team = () => {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
         };
-        if (Link === '' || Screen === "" || selectedFile === null || selectedFile === undefined) {
+        if (Link === '' || Screen === ""|| Screen === null || selectedFile === null || selectedFile === undefined) {
             setIsloading(false)
             Swal.fire({
                 icon: 'warning',
@@ -71,7 +71,7 @@ const Team = () => {
 
             var Data = {
                 "link": Link,
-                "screen_id": Screen,
+                "screen_id": Screen.id,
             };
             if (Screen === '') {
                 setIsloading(false);
@@ -214,8 +214,8 @@ const Team = () => {
     const [Screen, setScreen] = React.useState('');
     const [Link, setLink] = React.useState('');
 
-    const handleChangeScreen = (event) => {
-        setScreen(event.target.value);
+    const handleChangeScreen = (newValue) => {
+        setScreen(newValue);
     };
 
     const handleChange = (event) => {
@@ -303,7 +303,7 @@ const Team = () => {
                                             id="input-with-icon-adornment"
                                             sx={{
                                                 borderRadius: "50px",
-                                                backgroundColor: "#EEEEEE",
+                                                backgroundColor: "darkgray",
                                                 "& fieldset": { border: 'none' },
                                             }}
                                         />
@@ -314,7 +314,7 @@ const Team = () => {
                                         <Select
                                             sx={{
                                                 borderRadius: "50px",
-                                                backgroundColor: "#EEEEEE",
+                                                backgroundColor: "darkgray",
                                                 "& fieldset": { border: 'none' },
                                             }}
                                             labelId="demo-simple-select-label"
@@ -338,7 +338,7 @@ const Team = () => {
                                             rows={4}
                                             sx={{
                                                 borderRadius: "20px",
-                                                backgroundColor: "#EEEEEE",
+                                                backgroundColor: "darkgray",
                                                 "& fieldset": { border: 'none' },
                                             }}
                                         /> */}
@@ -356,26 +356,26 @@ const Team = () => {
                                         <Typography variant="paragraph" pl={1} pb={1} sx={{ font: "normal normal normal 17px/26px Roboto", fontSize: "12px", fontWeight: "medium" }} color="#1F1F1F">
                                             Screen
                                         </Typography>
-                                        <Select
+                                        <Autocomplete
                                             sx={{
-                                                borderRadius: "50px",
-                                                backgroundColor: "#EEEEEE",
-                                                "& fieldset": { border: 'none' },
+                                                borderRadius: '50px',
+                                                backgroundColor: 'darkgray',
+                                                '& .MuiOutlinedInput-notchedOutline': {
+                                                    border: 'none', // Remove the border
+                                                },
                                             }}
-                                            labelId="demo-simple-select-label"
                                             id="demo-simple-select"
-                                            placeholder={Screen}
-                                            label={Screen}
-                                            onChange={handleChangeScreen}
-                                        >
-                                            <MenuItem value="Image Aspects" disabled>
-                                                <em>select Screen</em>
-                                            </MenuItem>
-
-                                            {Screens.map((data) => (
-                                                <MenuItem key={data.id} value={data.id}>{`${data.name}`}</MenuItem>
-                                            ))}
-                                        </Select>
+                                            options={Screens}
+                                            getOptionLabel={(option) => option.name}
+                                            onChange={(event, newValue) => handleChangeScreen( newValue)}
+                                            renderInput={(params) => (
+                                                <TextField
+                                                    {...params}
+                                                    placeholder={Screen !== null && Screen.length > 0 ? Screen.name : ''}
+                                                />
+                                            )}
+                                        />
+                                       
 
                                         {/* <Typography variant="paragraph" pl={1} pb={1} sx={{ font: "normal normal normal 17px/26px Roboto", fontSize: "12px", fontWeight: "medium" }} color="#1F1F1F">
                                             Status
@@ -383,7 +383,7 @@ const Team = () => {
                                         <Select
                                             sx={{
                                                 borderRadius: "50px",
-                                                backgroundColor: "#EEEEEE",
+                                                backgroundColor: "darkgray",
                                                 "& fieldset": { border: 'none' },
                                             }}
                                             labelId="demo-simple-select-label"

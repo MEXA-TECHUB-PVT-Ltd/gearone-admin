@@ -130,7 +130,7 @@ const Team = () => {
 
                         {/* term and conditions */}
                         <Grid xs={12} md={6} p={1} align="center">
-                            <Card sx={{ borderRadius: "13px", boxShadow: "0px 3px 6px #00000029", opacity: 1, width: "98%" }}>
+                            <Card sx={{ borderRadius: "13px", boxShadow: "0px 3px 6px white29", opacity: 1, width: "98%" }}>
                                 <CardContent>
                                     <Typography variant="h5" fontWeight={700} fontSize="22px" pb={1} sx={{ letterSpacing: "1px" }} align="left" color="#1F1F1F">
                                         Term & Conditions
@@ -179,10 +179,10 @@ const Team = () => {
                                         rows={12}
                                         defaultValue="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam "
                                         sx={{
-                                            ml: 1, fontWeight: "medium", color: "#000000", lineHeight: "25px",
-                                            backgroundColor: "#EEEEEE",
+                                            ml: 1, fontWeight: "medium", color: "white", lineHeight: "25px",
+                                            backgroundColor: "darkgray",
                                             "& fieldset": { border: 'none' },
-                                            "& ::placeholder": { ml: 1, fontWeight: 600, color: "#000000" }
+                                            "& ::placeholder": { ml: 1, fontWeight: 600, color: "white" }
                                         }}
                                     />
 
@@ -255,10 +255,10 @@ const Team = () => {
                                         rows={12}
                                         defaultValue="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam "
                                         sx={{
-                                            ml: 1, fontWeight: "medium", color: "#000000", lineHeight: "25px",
-                                            backgroundColor: "#EEEEEE",
+                                            ml: 1, fontWeight: "medium", color: "white", lineHeight: "25px",
+                                            backgroundColor: "darkgray",
                                             "& fieldset": { border: 'none' },
-                                            "& ::placeholder": { ml: 1, fontWeight: 600, color: "#000000" }
+                                            "& ::placeholder": { ml: 1, fontWeight: 600, color: "white" }
                                         }}
                                     />
 

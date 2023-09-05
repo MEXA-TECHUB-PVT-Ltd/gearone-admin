@@ -144,7 +144,7 @@ const Team = () => {
                                             defaultValue="Category1"
                                             sx={{
                                                 borderRadius: "50px",
-                                                backgroundColor: "#EEEEEE",
+                                                backgroundColor: "darkgray",
                                                 "& fieldset": { border: 'none' },
                                             }}
                                         >
@@ -161,7 +161,7 @@ const Team = () => {
                                             defaultValue="2 hrs 32 mins"
                                             sx={{
                                                 borderRadius: "50px",
-                                                backgroundColor: "#EEEEEE",
+                                                backgroundColor: "darkgray",
                                                 "& fieldset": { border: 'none' },
                                             }}
                                         />
@@ -177,7 +177,7 @@ const Team = () => {
                                             defaultValue="Paid"
                                             sx={{
                                                 borderRadius: "50px",
-                                                backgroundColor: "#EEEEEE",
+                                                backgroundColor: "darkgray",
                                                 "& fieldset": { border: 'none' },
                                             }}
                                         >
@@ -195,7 +195,7 @@ const Team = () => {
                                             defaultValue="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet,"
                                             sx={{
                                                 borderRadius: "20px",
-                                                backgroundColor: "#EEEEEE",
+                                                backgroundColor: "darkgray",
                                                 "& fieldset": { border: 'none' },
                                             }}
                                         />
@@ -218,7 +218,7 @@ const Team = () => {
                                             defaultValue="Workout Title"
                                             sx={{
                                                 borderRadius: "50px",
-                                                backgroundColor: "#EEEEEE",
+                                                backgroundColor: "darkgray",
                                                 "& fieldset": { border: 'none' },
                                             }}
                                         />
@@ -234,7 +234,7 @@ const Team = () => {
                                             defaultValue="Advance"
                                             sx={{
                                                 borderRadius: "50px",
-                                                backgroundColor: "#EEEEEE",
+                                                backgroundColor: "darkgray",
                                                 "& fieldset": { border: 'none' },
                                             }}
                                         >
@@ -253,7 +253,7 @@ const Team = () => {
                                             defaultValue="Arms"
                                             sx={{
                                                 borderRadius: "50px",
-                                                backgroundColor: "#EEEEEE",
+                                                backgroundColor: "darkgray",
                                                 "& fieldset": { border: 'none' },
                                             }}
                                         >
@@ -279,7 +279,7 @@ const Team = () => {
                     <Container>
                         <Grid container spacing={0} pt={1}>
                             <Grid xs={11} md={2.5} lg={2.5} xl={2.5} p={1} align="center" >
-                                <Box sx={{ backgroundColor: "#EEEEEE", borderRadius: "10px" }}>
+                                <Box sx={{ backgroundColor: "darkgray", borderRadius: "10px" }}>
                                     <Stack sx={{
                                         backgroundImage: `url(${workout1})`,
                                         backgroundRepeat: "no-repeat",
@@ -304,7 +304,7 @@ const Team = () => {
                             </Grid>
 
                             <Grid xs={11} md={2.5} lg={2.5} xl={2.5} p={1} align="center" >
-                                <Box sx={{ backgroundColor: "#EEEEEE", borderRadius: "10px" }}>
+                                <Box sx={{ backgroundColor: "darkgray", borderRadius: "10px" }}>
                                     <Stack sx={{
                                         backgroundImage: `url(${workout2})`,
                                         backgroundRepeat: "no-repeat",
@@ -329,7 +329,7 @@ const Team = () => {
                             </Grid>
 
                             <Grid xs={11} md={2.5} lg={2.5} xl={2.5} p={1} align="center" >
-                                <Box sx={{ backgroundColor: "#EEEEEE", borderRadius: "10px" }}>
+                                <Box sx={{ backgroundColor: "darkgray", borderRadius: "10px" }}>
                                     <Stack sx={{
                                         backgroundImage: `url(${workout3})`,
                                         backgroundRepeat: "no-repeat",
@@ -354,7 +354,7 @@ const Team = () => {
                             </Grid>
 
                             <Grid xs={11} md={2.5} lg={2.5} xl={2.5} p={1} align="center" >
-                                <Box sx={{ backgroundColor: "#EEEEEE", borderRadius: "10px" }}>
+                                <Box sx={{ backgroundColor: "darkgray", borderRadius: "10px" }}>
                                     <Stack sx={{
                                         backgroundImage: `url(${workout4})`,
                                         backgroundRepeat: "no-repeat",

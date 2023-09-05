@@ -133,7 +133,7 @@ const ProfileCard = ({ id, reported_items, name, role, createdat, imageUrl, emai
                 justifyContent: 'stretch',
                 borderRadius: '8px',
             }}>
-                            <p>Reported By</p>
+            <span style={{ fontSize: '16px', fontWeight: '600' }}>Reported By</span>
 
                 <div style={{
                     display: 'flex',
@@ -147,10 +147,10 @@ const ProfileCard = ({ id, reported_items, name, role, createdat, imageUrl, emai
                         height: theme => theme.spacing(7),
                     }} src={imageUrl} alt={`${name} Avatar`} />
                     <div style={{ flex: 1, marginLeft: '10px', display: 'flex', flexDirection: 'column' }}>
-                        <Typography variant="subtitle2" component="div" sx={{ fontSize: '14px' }}>
+                    <Typography variant="subtitle2" component="div" sx={{ fontWeight: '600', fontSize: '16px' }}>
                             {name}
                         </Typography>
-                        <Typography variant="caption" component="div" sx={{ fontSize: '14px', marginBottom: '4px' }}>
+                        <Typography variant="caption" component="div" sx={{ fontWeight: '600', fontSize: '16px', marginBottom: '4px' }}>
                             {email}
                         </Typography>
                     </div>
@@ -164,26 +164,28 @@ const ProfileCard = ({ id, reported_items, name, role, createdat, imageUrl, emai
                 }}>
 
                     <div className="profile-card">
-                        <p style={{ display: 'flex', justifyContent: 'space-between' }}><span></span> {role}</p>
-                        <p style={{ display: 'flex', justifyContent: 'space-between' }}><span>Details:</span> {gender}</p>
-                        <p style={{ display: 'flex', justifyContent: 'space-between' }}><span>All Reports:</span> {reported_items}</p>
-                        <p style={{ display: 'flex', justifyContent: 'space-between' }}><span>Status:</span> {BlockStatus === 'block' ?
+                        <p style={{ fontWeight: '600', fontSize: '16px', display: 'flex', justifyContent: 'space-between' }}><span></span> {role}</p>
+                        <p style={{fontWeight: '600', fontSize: '16px',  display: 'flex', justifyContent: 'space-between' }}><span>Details:</span> {gender}</p>
+                        <p style={{fontWeight: '600', fontSize: '16px',  display: 'flex', justifyContent: 'space-between' }}><span>All Reports:</span> {reported_items}</p>
+                        <p style={{fontWeight: '600', fontSize: '16px',  display: 'flex', justifyContent: 'space-between' }}><span>Status:</span> {BlockStatus === 'block' ?
                             <Chip
+                            sx={{fontWeight: '600', fontSize: '16px', }}
                                 label={BlockStatus}
                                 color="primary"
                                 onClick={() => { setOpendelmodalStatus(true) }}
                             />
                             :
                             <Chip
+                            sx={{fontWeight: '600', fontSize: '16px', }}
                                 label={BlockStatus}
                                 variant='outlined'
                                 color="secondary"
                                 onClick={() => { setOpendelmodalStatus(true) }}
                             />
                         }</p>
-                        <p style={{ display: 'flex', justifyContent: 'space-between' }}><span>Account Type:</span> {accountType}</p>
-                        <p style={{ display: 'flex', justifyContent: 'space-between' }}><span>Creation Date:</span> {formattedDate}</p>
-                        <p style={{ display: 'flex', justifyContent: 'space-between' }}><span>Phone Number:</span> {phoneNumber}</p>
+                        <p style={{ fontWeight: '600', fontSize: '16px', display: 'flex', justifyContent: 'space-between' }}><span>Account Type:</span> {accountType}</p>
+                        <p style={{ fontWeight: '600', fontSize: '16px', display: 'flex', justifyContent: 'space-between' }}><span>Creation Date:</span> {formattedDate}</p>
+                        <p style={{ fontWeight: '600', fontSize: '16px', display: 'flex', justifyContent: 'space-between' }}><span>Phone Number:</span> {phoneNumber}</p>
                     </div>
 
                 </CardContent>

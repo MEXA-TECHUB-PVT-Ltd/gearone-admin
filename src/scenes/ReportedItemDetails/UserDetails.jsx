@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { styled } from '@mui/material/styles';
 import List from '@mui/material/List';
-import moment from 'moment'; 
+import moment from 'moment';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Chip from '@mui/material/Chip';
@@ -77,7 +77,7 @@ const StyledListItem = styled(ListItem)(({ theme }) => ({
 export default function UserDetails({
     id,
 
-    block, name, price, promoted, added_by, createdat, location, user,email,phone
+    block, name, price, promoted, added_by, createdat, location, user, email, phone
 }) {
     const [DeleteData, setDeleteData] = useState([]);
     const [dense, setDense] = React.useState(false);
@@ -155,97 +155,92 @@ export default function UserDetails({
                 <Grid container spacing={2}>
                     <Grid item xs={24} md={12}>
                         <List dense={dense}>
-                        <p>Reported Item</p>
+                            <span style={{ fontSize: '16px', fontWeight: '600' }}>Reported Item</span>
 
                             <StyledListItem
                                 secondaryAction={
                                     <ListItemText
-                                        primary={name}
-                                        secondary={secondary ? 'Secondary text' : null}
-                                    />
-                                }
-                            >
-                                <ListItemText
-                                    primary="Item"
-                                    secondary={secondary ? 'Secondary text' : null}
-                                />
-                            </StyledListItem>
-                            <StyledListItem
-                                secondaryAction={
-                                    <ListItemText
-                                        primary={price}
-                                        secondary={secondary ? 'Secondary text' : null}
-                                    />
-                                }
-                            >
-                                <ListItemText
-                                    primary="Price"
-                                    secondary={secondary ? 'Secondary text' : null}
-                                />
-                            </StyledListItem>
-                            <StyledListItem
-                                secondaryAction={
-                                    <ListItemText
-                                        primary={location}
-                                        secondary={secondary ? 'Secondary text' : null}
-                                    />
-                                }
-                            >
-                                <ListItemText
-                                    primary="Location"
-                                    secondary={secondary ? 'Secondary text' : null}
-                                />
-                            </StyledListItem>
-                            <StyledListItem
-                                secondaryAction={
-                                    <ListItemText
-                                        primary={promoted}
-                                        secondary={secondary ? 'Secondary text' : null}
-                                    />
-                                }
-                            >
-                                <ListItemText
-                                    primary="Promoted"
-                                    secondary={secondary ? 'Secondary text' : null}
-                                />
-                            </StyledListItem>
-                            <StyledListItem
-                                secondaryAction={
-                                    <ListItemText
-                                        primary={added_by}
-                                        secondary={secondary ? 'Secondary text' : null}
-                                    />
-                                }
-                            >
-                                <ListItemText
-                                    primary="Added By"
-                                    secondary={secondary ? 'Secondary text' : null}
-                                />
-                            </StyledListItem>
-                            <StyledListItem
-                                secondaryAction={
-                                    <ListItemText
-                                        primary={formattedDate}
-                                        secondary={secondary ? 'Secondary text' : null}
-                                    />
-                                }
-                            >
-                                <ListItemText
-                                    primary="Creation Date"
-                                    secondary={secondary ? 'Secondary text' : null}
-                                />
-                            </StyledListItem>
+                                        primary={<span style={{ fontSize: '16px', fontWeight: '600' }}>{name}</span>}
 
-                            <StyledListItem
-                                secondaryAction={
-                                    <ListItemText
-                                        primary={user}
                                         secondary={secondary ? 'Secondary text' : null}
                                     />
                                 }
                             >
                                 <ListItemText
-                                    primary="User"
+                                    primary={<span style={{ fontSize: '16px', fontWeight: '600' }}>Item</span>}
+                                    secondary={secondary ? 'Secondary text' : null}
+                                />
+                            </StyledListItem>
+                            <StyledListItem
+                                secondaryAction={
+                                    <ListItemText
+                                        primary={<span style={{ fontSize: '16px', fontWeight: '600' }}>{price}</span>}
+
+                                        secondary={secondary ? 'Secondary text' : null}
+                                    />
+                                }
+                            >
+                                <ListItemText
+                                    primary={<span style={{ fontSize: '16px', fontWeight: '600' }}>Price</span>}
+
+                                    secondary={secondary ? 'Secondary text' : null}
+                                />
+                            </StyledListItem>
+                            <StyledListItem
+                                secondaryAction={
+                                    <ListItemText
+                                        primary={<span style={{ fontSize: '16px', fontWeight: '600' }}>{location}</span>}
+                                        secondary={secondary ? 'Secondary text' : null}
+                                    />
+                                }
+                            >
+                                <ListItemText
+                                    primary={<span style={{ fontSize: '16px', fontWeight: '600' }}>Location</span>}
+
+                                    secondary={secondary ? 'Secondary text' : null}
+                                />
+                            </StyledListItem>
+                            <StyledListItem
+                                secondaryAction={
+                                    <ListItemText
+                                        primary={<span style={{ fontSize: '16px', fontWeight: '600' }}>{promoted}</span>}
+
+                                        secondary={secondary ? 'Secondary text' : null}
+                                    />
+                                }
+                            >
+                                <ListItemText
+                                    primary={<span style={{ fontSize: '16px', fontWeight: '600' }}>Promoted</span>}
+                                    secondary={secondary ? 'Secondary text' : null}
+                                />
+                            </StyledListItem>
+                            <StyledListItem
+                                secondaryAction={
+                                    <ListItemText
+                                        primary={<span style={{ fontSize: '16px', fontWeight: '600' }}>{added_by}</span>}
+
+                                        secondary={secondary ? 'Secondary text' : null}
+                                    />
+                                }
+                            >
+                                <ListItemText
+                                    primary={<span style={{ fontSize: '16px', fontWeight: '600' }}>Added By</span>}
+
+                                    secondary={secondary ? 'Secondary text' : null}
+                                />
+                            </StyledListItem>
+                            <StyledListItem
+                                secondaryAction={
+                                    <ListItemText
+                                        primary={<span style={{ fontSize: '16px', fontWeight: '600' }}>{formattedDate}</span>}
+
+                                        secondary={secondary ? 'Secondary text' : null}
+                                    />
+                                }
+                            >
+                                <ListItemText
+                                    primary={<span style={{ fontSize: '16px', fontWeight: '600' }}>Creation Date</span>}
+
                                     secondary={secondary ? 'Secondary text' : null}
                                 />
                             </StyledListItem>
@@ -253,13 +248,14 @@ export default function UserDetails({
                             <StyledListItem
                                 secondaryAction={
                                     <ListItemText
-                                        primary={email}
+                                        primary={<span style={{ fontSize: '16px', fontWeight: '600' }}>{user}</span>}
                                         secondary={secondary ? 'Secondary text' : null}
                                     />
                                 }
                             >
                                 <ListItemText
-                                    primary="Email"
+                                    primary={<span style={{ fontSize: '16px', fontWeight: '600' }}>User</span>}
+
                                     secondary={secondary ? 'Secondary text' : null}
                                 />
                             </StyledListItem>
@@ -267,13 +263,30 @@ export default function UserDetails({
                             <StyledListItem
                                 secondaryAction={
                                     <ListItemText
-                                        primary={phone}
+                                        primary={<span style={{ fontSize: '16px', fontWeight: '600' }}>{email}</span>}
                                         secondary={secondary ? 'Secondary text' : null}
                                     />
                                 }
                             >
                                 <ListItemText
-                                    primary="Phone"
+                                    primary={<span style={{ fontSize: '16px', fontWeight: '600' }}>Email</span>}
+
+                                    secondary={secondary ? 'Secondary text' : null}
+                                />
+                            </StyledListItem>
+
+                            <StyledListItem
+                                secondaryAction={
+                                    <ListItemText
+                                        primary={<span style={{ fontSize: '16px', fontWeight: '600' }}>{phone}</span>}
+
+                                        secondary={secondary ? 'Secondary text' : null}
+                                    />
+                                }
+                            >
+                                <ListItemText
+                                    primary={<span style={{ fontSize: '16px', fontWeight: '600' }}>Phone</span>}
+
                                     secondary={secondary ? 'Secondary text' : null}
                                 />
                             </StyledListItem>

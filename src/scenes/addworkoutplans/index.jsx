@@ -153,7 +153,7 @@ const Team = () => {
                                             renderValue="Select Category"
                                             sx={{
                                                 borderRadius: "50px",
-                                                backgroundColor: "#EEEEEE",
+                                                backgroundColor: "darkgray",
                                                 "& fieldset": { border: 'none' },
                                             }}
                                         >
@@ -169,7 +169,7 @@ const Team = () => {
                                             id="input-with-icon-adornment"
                                             sx={{
                                                 borderRadius: "50px",
-                                                backgroundColor: "#EEEEEE",
+                                                backgroundColor: "darkgray",
                                                 "& fieldset": { border: 'none' },
                                             }}
                                         />
@@ -185,7 +185,7 @@ const Team = () => {
                                             renderValue="Select Type"
                                             sx={{
                                                 borderRadius: "50px",
-                                                backgroundColor: "#EEEEEE",
+                                                backgroundColor: "darkgray",
                                                 "& fieldset": { border: 'none' },
                                             }}
                                         >
@@ -203,7 +203,7 @@ const Team = () => {
                                             rows={4}
                                             sx={{
                                                 borderRadius: "20px",
-                                                backgroundColor: "#EEEEEE",
+                                                backgroundColor: "darkgray",
                                                 "& fieldset": { border: 'none' },
                                             }}
                                         />
@@ -225,7 +225,7 @@ const Team = () => {
                                             id="input-with-icon-adornment"
                                             sx={{
                                                 borderRadius: "50px",
-                                                backgroundColor: "#EEEEEE",
+                                                backgroundColor: "darkgray",
                                                 "& fieldset": { border: 'none' },
                                             }}
                                         />
@@ -241,7 +241,7 @@ const Team = () => {
                                             renderValue="Select Level of Workout"
                                             sx={{
                                                 borderRadius: "50px",
-                                                backgroundColor: "#EEEEEE",
+                                                backgroundColor: "darkgray",
                                                 "& fieldset": { border: 'none' },
                                             }}
                                         >
@@ -259,7 +259,7 @@ const Team = () => {
                                             onChange={handleChange}
                                             sx={{
                                                 borderRadius: "50px",
-                                                backgroundColor: "#EEEEEE",
+                                                backgroundColor: "darkgray",
                                                 "& fieldset": { border: 'none' },
                                             }}
                                         >

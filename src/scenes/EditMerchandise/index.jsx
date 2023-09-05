@@ -795,7 +795,7 @@ const Team = () => {
                                                 id="input-with-icon-adornment"
                                                 sx={{
                                                     borderRadius: "50px",
-                                                    backgroundColor: "#EEEEEE",
+                                                    backgroundColor: "darkgray",
                                                     "& fieldset": { border: 'none' },
                                                 }}
                                             />
@@ -811,7 +811,7 @@ const Team = () => {
                                                 id="input-with-icon-adornment"
                                                 sx={{
                                                     borderRadius: "50px",
-                                                    backgroundColor: "#EEEEEE",
+                                                    backgroundColor: "darkgray",
                                                     "& fieldset": { border: 'none' },
                                                 }}
                                             />
@@ -837,7 +837,7 @@ const Team = () => {
                                                 onChange={(e) => { setCategory_id(e.target.value) }}
                                                 sx={{
                                                     borderRadius: "50px",
-                                                    backgroundColor: "#EEEEEE", height: "35px",
+                                                    backgroundColor: "darkgray", height: "35px",
                                                     "& fieldset": { border: 'none' },
                                                 }}
                                             >
@@ -865,7 +865,7 @@ const Team = () => {
                                                 id="input-with-icon-adornment"
                                                 sx={{
                                                     borderRadius: "50px",
-                                                    backgroundColor: "#EEEEEE",
+                                                    backgroundColor: "darkgray",
                                                     "& fieldset": { border: 'none' },
                                                 }}
                                             />
@@ -898,7 +898,7 @@ const Team = () => {
                                                 id="input-with-icon-adornment"
                                                 sx={{
                                                     borderRadius: "50px",
-                                                    backgroundColor: "#EEEEEE",
+                                                    backgroundColor: "darkgray",
                                                     "& fieldset": { border: 'none' },
                                                 }}
                                             />

@@ -314,7 +314,7 @@ const Team = () => {
                                             maxRows={6}
                                             sx={{
                                                 borderRadius: "50px",
-                                                backgroundColor: "#EEEEEE",
+                                                backgroundColor: "darkgray",
                                                 "& fieldset": { border: 'none' },
                                             }}
                                         />
@@ -332,7 +332,7 @@ const Team = () => {
                                             maxRows={6}
                                             sx={{
                                                 borderRadius: "50px",
-                                                backgroundColor: "#EEEEEE",
+                                                backgroundColor: "darkgray",
                                                 "& fieldset": { border: 'none' },
                                             }}
                                         />
@@ -342,7 +342,7 @@ const Team = () => {
                                             rows={4}
                                             sx={{
                                                 borderRadius: "20px",
-                                                backgroundColor: "#EEEEEE",
+                                                backgroundColor: "darkgray",
                                                 "& fieldset": { border: 'none' },
                                             }}
                                         /> */}
@@ -363,7 +363,7 @@ const Team = () => {
                                         <Select
                                             sx={{
                                                 borderRadius: "50px",
-                                                backgroundColor: "#EEEEEE",
+                                                backgroundColor: "darkgray",
                                                 "& fieldset": { border: 'none' },
                                             }}
                                             // input={<Input name="circle" id="demo-simple-select" />}

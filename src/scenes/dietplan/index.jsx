@@ -513,6 +513,7 @@ const Team = () => {
     }, [])
 
     const getAllLogos = async () => {
+        setIsloading(true);
         var InsertAPIURL = `${url}items/get_all_items_admin`
         var headers = {
             'Accept': 'application/json',
@@ -529,21 +530,25 @@ const Team = () => {
             .then(response => response.json())
             .then(response => {
                 console.log(response);
-                if (response.message == `User's items data`) {
+                if (response.status === true) {
                     // setLogos(response.count);
+                    setIsloading(false);
+
                     console.log(response.result);
                     setLogos(response.result);
                 } else {
+                    setIsloading(false);
                     Swal.fire({
                         icon: 'error',
-                        title: 'Oops...',
+                        title: "Error...",
                         confirmButtonColor: "#B5030B",
-                        text: ''
+                        text: response.message
                     })
                 }
             }
             )
             .catch(error => {
+                setIsloading(false);
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
@@ -576,19 +581,19 @@ const Team = () => {
                                             showtable ?
                                                 <>
                                                     <Box sx={{ pl: 1 }}>
-                                                        <List fontSize="large" sx={{ color: "white", backgroundColor: "#B5030B", borderRadius: "5px" }} onClick={() => { setShowtable(true) }} />
+                                                        <List fontSize="large" sx={{ cursor: 'pointer', color: "white", backgroundColor: "#B5030B", borderRadius: "5px" }} onClick={() => { setShowtable(true) }} />
                                                     </Box>
                                                     <Box sx={{ pr: 1 }}>
-                                                        <Apps fontSize="large" sx={{ color: "#9B9B9B", backgroundColor: "transparent", borderRadius: "5px" }} onClick={() => setShowtable(false)} />
+                                                        <Apps fontSize="large" sx={{ cursor: 'pointer', color: "#9B9B9B", backgroundColor: "transparent", borderRadius: "5px" }} onClick={() => setShowtable(false)} />
                                                     </Box>
                                                 </>
                                                 :
                                                 <>
                                                     <Box sx={{ pl: 1 }}>
-                                                        <List fontSize="large" sx={{ color: "#9B9B9B", backgroundColor: "transparent", borderRadius: "5px" }} onClick={() => setShowtable(true)} />
+                                                        <List fontSize="large" sx={{ cursor: 'pointer', color: "#9B9B9B", backgroundColor: "transparent", borderRadius: "5px" }} onClick={() => setShowtable(true)} />
                                                     </Box>
                                                     <Box sx={{ pr: 1 }}>
-                                                        <Apps fontSize="large" sx={{ color: "white", backgroundColor: "#B5030B", borderRadius: "5px" }} onClick={() => setShowtable(false)} />
+                                                        <Apps fontSize="large" sx={{ cursor: 'pointer', color: "white", backgroundColor: "#B5030B", borderRadius: "5px" }} onClick={() => setShowtable(false)} />
                                                     </Box>
                                                 </>
                                         }
@@ -602,178 +607,195 @@ const Team = () => {
                 </Grid>
 
                 <Divider sx={{ pb: 2 }} />
+                {isloading ?
+                    <Grid sx={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignContent: "center",
+                        alignItems: 'center',
+                        height: "100%", width: "100%"
+                        // backgroundColor:'red'
 
-                <Grid mb='6%' container spacing={0} pt={2} >
-                    {
-                        showtable ?
-                            <Grid xs={12} p={1} align="center">
-                                <div style={{ height: 600, width: '100%' }}>
-                                    <DataGrid
-                                        rows={Logos}
-                                        getRowId={Logos.id}
-                                        id={Logos.id}
-                                        getRowClassName={(params) => {
-                                            return 'unblock-row'
-                                        }}
+                    }} >
+                        <div className="loader">
+                        </div>
+                    </Grid>
 
-                                        columns={columns}
-                                        initialState={{
-                                            pagination: {
-                                                paginationModel: { page: 0, pageSize: 5 },
-                                            },
-                                        }}
-                                        pageSizeOptions={[5, 10]}
-                                        // checkboxSelection
-                                        components={{
-                                            Checkbox: ({ value }) => (
-                                                <Checkbox style={{ color: 'red' }} checked={Logos.id} />
-                                            ),
-                                        }}
-                                    />
-                                </div>
-                            </Grid>
-                            :
-                            <>
-                                {Logos.map((item, index) => (
-                                    <Grid sx={{ mb: '20px' }} xs={12} md={3} lg={3} align="center" p={1}>
-                                        <Card width="100%" sx={{ padding: 0, boxShadow: "none", borderRadius: "10px", border: "1px solid #D8D8D8" }}>
-                                            <CardContent>
-                                                <Grid container spacing={0} >
-                                                    <Grid sx={{ width: '100px', height: '50px' }} xs={6} align="left" onClick={() => { setViewImage(item.images); setViewData(item); handleOpenmodal(); }}>
-                                                        <Typography variant="h5" pb={1} fontWeight={750} fontSize="16px" color="#B5030B">
-                                                            {item.name}
-                                                        </Typography>
-                                                    </Grid>
+                    :
+
+                    <Grid mb='6%' container spacing={0} pt={2} >
+                        {
+                            showtable ?
+                                <Grid xs={12} p={1} align="center">
+                                    <div style={{ height: 600, width: '100%' }}>
+                                        <DataGrid
+                                            rows={Logos}
+                                            getRowId={Logos.id}
+                                            id={Logos.id}
+                                            getRowClassName={(params) => {
+                                                return 'unblock-row'
+                                            }}
+
+                                            columns={columns}
+                                            initialState={{
+                                                pagination: {
+                                                    paginationModel: { page: 0, pageSize: 5 },
+                                                },
+                                            }}
+                                            pageSizeOptions={[5, 10]}
+                                            // checkboxSelection
+                                            components={{
+                                                Checkbox: ({ value }) => (
+                                                    <Checkbox style={{ color: 'red' }} checked={Logos.id} />
+                                                ),
+                                            }}
+                                        />
+                                    </div>
+                                </Grid>
+                                :
+                                <>
+                                    {Logos.map((item, index) => (
+                                        <Grid sx={{ mb: '20px' }} xs={12} md={3} lg={3} align="center" p={1}>
+                                            <Card width="100%" sx={{ padding: 0, boxShadow: "none", borderRadius: "10px", border: "1px solid #D8D8D8" }}>
+                                                <CardContent>
+                                                    <Grid container spacing={0} >
+                                                        <Grid sx={{ width: '100px', height: '50px' }} xs={6} align="left" onClick={() => { setViewImage(item.images); setViewData(item); handleOpenmodal(); }}>
+                                                            <Typography variant="h5" pb={1} fontWeight={750} fontSize="16px" color="#B5030B">
+                                                                {item.name}
+                                                            </Typography>
+                                                        </Grid>
 
 
-                                                    <Grid xs={6} align="right">
-                                                        <div>
-                                                            <MoreVert
-                                                                id="basic-button"
-                                                                aria-controls={open ? 'basic-menu' : undefined}
-                                                                aria-haspopup="true"
-                                                                aria-expanded={open ? 'true' : undefined}
-                                                                // onClick={handleClick} 
-                                                                onClick={(event) => {
-                                                                    setIdData(item)
-                                                                    setAnchorEl(event.currentTarget)
+                                                        <Grid xs={6} align="right">
+                                                            <div>
+                                                                <MoreVert
+                                                                    id="basic-button"
+                                                                    aria-controls={open ? 'basic-menu' : undefined}
+                                                                    aria-haspopup="true"
+                                                                    aria-expanded={open ? 'true' : undefined}
+                                                                    // onClick={handleClick} 
+                                                                    onClick={(event) => {
+                                                                        setIdData(item)
+                                                                        setAnchorEl(event.currentTarget)
+                                                                    }}
+                                                                    sx={{ cursor: 'pointer' }}
+                                                                />
+                                                            </div>
+                                                            <Menu
+                                                                id="basic-menu"
+                                                                anchorEl={anchorEl}
+                                                                open={open}
+                                                                onClose={handleClose}
+                                                                MenuListProps={{
+                                                                    'aria-labelledby': 'basic-button',
                                                                 }}
-                                                            />
-                                                        </div>
-                                                        <Menu
-                                                            id="basic-menu"
-                                                            anchorEl={anchorEl}
-                                                            open={open}
-                                                            onClose={handleClose}
-                                                            MenuListProps={{
-                                                                'aria-labelledby': 'basic-button',
-                                                            }}
-                                                            PaperProps={{
+                                                                PaperProps={{
 
-                                                                sx: {
-                                                                    mt: 1.5,
-                                                                    '& .MuiAvatar-root': {
-                                                                        width: 32,
-                                                                        height: 32,
-                                                                        ml: -0.5,
-                                                                        mr: 1,
+                                                                    sx: {
+                                                                        mt: 1.5,
+                                                                        '& .MuiAvatar-root': {
+                                                                            width: 32,
+                                                                            height: 32,
+                                                                            ml: -0.5,
+                                                                            mr: 1,
+                                                                        },
+                                                                        '&:before': {
+                                                                            content: '""',
+                                                                            display: 'block',
+                                                                            position: 'absolute',
+                                                                            top: 0,
+                                                                            right: 5,
+                                                                            width: 10,
+                                                                            height: 10,
+                                                                            bgcolor: 'background.paper',
+                                                                            transform: 'translateY(-50%) rotate(45deg)',
+                                                                            zIndex: 0,
+                                                                        },
                                                                     },
-                                                                    '&:before': {
-                                                                        content: '""',
-                                                                        display: 'block',
-                                                                        position: 'absolute',
-                                                                        top: 0,
-                                                                        right: 5,
-                                                                        width: 10,
-                                                                        height: 10,
-                                                                        bgcolor: 'background.paper',
-                                                                        transform: 'translateY(-50%) rotate(45deg)',
-                                                                        zIndex: 0,
-                                                                    },
-                                                                },
-                                                            }}
-                                                            transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-                                                            anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-                                                        >
-
-                                                            <MenuItem
-                                                                onClick={() => {
-                                                                    setID(item.id)
-                                                                    setPromoted_status(item.promoted)
-                                                                    handleOpenadd();
                                                                 }}
+                                                                transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+                                                                anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                                                             >
-                                                                <Autorenew sx={{ color: "#40E0D0" }} /><span style={{ marginLeft: 10 }}>Change Status</span>
-                                                            </MenuItem>
 
-                                                        </Menu>
+                                                                <MenuItem
+                                                                    onClick={() => {
+                                                                        setID(item.id)
+                                                                        setPromoted_status(item.promoted)
+                                                                        handleOpenadd();
+                                                                    }}
+                                                                >
+                                                                    <Autorenew sx={{ color: "#40E0D0" }} /><span style={{ marginLeft: 10 }}>Change Status</span>
+                                                                </MenuItem>
 
+                                                            </Menu>
+
+                                                        </Grid>
+
+                                                        <Grid xs={6} sx={{ pb: 1 }} align="left" onClick={() => {
+                                                            if (item.images.length == 5) {
+                                                                setImgsWidth(900);
+                                                            } else if (item.images.length == 4) {
+                                                                setImgsWidth(800);
+                                                            } else {
+                                                                setImgsWidth(550);
+                                                            } setViewImage(item.images); setViewData(item); handleOpenmodal();
+                                                        }}>
+                                                            <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
+                                                                Price :
+                                                            </Typography>
+                                                        </Grid>
+
+                                                        <Grid sx={{ pb: 1, width: '100px', height: '50px' }} xs={6} align="right" onClick={() => {
+                                                            setViewImage(item.images); if (item.images.length == 5) {
+                                                                setImgsWidth(900);
+                                                            } else if (item.images.length == 4) {
+                                                                setImgsWidth(800);
+                                                            } else {
+                                                                setImgsWidth(550);
+                                                            } setViewData(item); handleOpenmodal();
+                                                        }}>
+                                                            <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#808080">
+                                                                {item.price}
+                                                            </Typography>
+                                                        </Grid>
+
+                                                        <Grid xs={6} sx={{ pb: 1 }} align="left" onClick={() => {
+                                                            setViewImage(item.images); if (item.images.length == 5) {
+                                                                setImgsWidth(900);
+                                                            } else if (item.images.length == 4) {
+                                                                setImgsWidth(800);
+                                                            } else {
+                                                                setImgsWidth(550);
+                                                            } setViewData(item); handleOpenmodal();
+                                                        }}>
+                                                            <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
+                                                                Location :
+                                                            </Typography>
+                                                        </Grid>
+
+                                                        <Grid sx={{ pb: 1, width: '100px', height: '50px' }} xs={6} align="right" onClick={() => {
+                                                            setViewImage(item.images); if (item.images.length == 5) {
+                                                                setImgsWidth(900);
+                                                            } else if (item.images.length == 4) {
+                                                                setImgsWidth(800);
+                                                            } else {
+                                                                setImgsWidth(550);
+                                                            } setViewData(item); handleOpenmodal();
+                                                        }}>
+                                                            <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#808080">
+                                                                {item.location}
+                                                            </Typography>
+                                                        </Grid>
                                                     </Grid>
+                                                </CardContent>
+                                            </Card>
+                                        </Grid>
+                                    ))}
 
-                                                    <Grid xs={6} sx={{ pb: 1 }} align="left" onClick={() => {
-                                                        if (item.images.length == 5) {
-                                                            setImgsWidth(900);
-                                                        } else if (item.images.length == 4) {
-                                                            setImgsWidth(800);
-                                                        } else {
-                                                            setImgsWidth(550);
-                                                        } setViewImage(item.images); setViewData(item); handleOpenmodal();
-                                                    }}>
-                                                        <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
-                                                            Price :
-                                                        </Typography>
-                                                    </Grid>
-
-                                                    <Grid sx={{ pb: 1, width: '100px', height: '50px' }} xs={6} align="right" onClick={() => {
-                                                        setViewImage(item.images); if (item.images.length == 5) {
-                                                            setImgsWidth(900);
-                                                        } else if (item.images.length == 4) {
-                                                            setImgsWidth(800);
-                                                        } else {
-                                                            setImgsWidth(550);
-                                                        } setViewData(item); handleOpenmodal();
-                                                    }}>
-                                                        <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#808080">
-                                                            {item.price}
-                                                        </Typography>
-                                                    </Grid>
-
-                                                    <Grid xs={6} sx={{ pb: 1 }} align="left" onClick={() => {
-                                                        setViewImage(item.images); if (item.images.length == 5) {
-                                                            setImgsWidth(900);
-                                                        } else if (item.images.length == 4) {
-                                                            setImgsWidth(800);
-                                                        } else {
-                                                            setImgsWidth(550);
-                                                        } setViewData(item); handleOpenmodal();
-                                                    }}>
-                                                        <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#1F1F1F">
-                                                            Location :
-                                                        </Typography>
-                                                    </Grid>
-
-                                                    <Grid sx={{ pb: 1, width: '100px', height: '50px' }} xs={6} align="right" onClick={() => {
-                                                        setViewImage(item.images); if (item.images.length == 5) {
-                                                            setImgsWidth(900);
-                                                        } else if (item.images.length == 4) {
-                                                            setImgsWidth(800);
-                                                        } else {
-                                                            setImgsWidth(550);
-                                                        } setViewData(item); handleOpenmodal();
-                                                    }}>
-                                                        <Typography variant="h5" fontWeight={600} pb={1} fontSize="16px" sx={{ letterSpacing: "2px" }} color="#808080">
-                                                            {item.location}
-                                                        </Typography>
-                                                    </Grid>
-                                                </Grid>
-                                            </CardContent>
-                                        </Card>
-                                    </Grid>
-                                ))}
-
-                            </>
-                    }
-                </Grid>
+                                </>
+                        }
+                    </Grid>
+                }
                 {/* addmodal */}
                 <Modal
                     open={openaddmodal}
@@ -804,7 +826,7 @@ const Team = () => {
                                         onChange={(e) => { setPromoted_status(e.target.value) }}
                                         sx={{
                                             borderRadius: "50px",
-                                            backgroundColor: "#EEEEEE", height: "35px",
+                                            backgroundColor: "darkgray", height: "35px",
                                             "& fieldset": { border: 'none' },
                                         }}
                                     >
@@ -832,9 +854,9 @@ const Team = () => {
                                         }}
                                         type="datetime-local"
                                         sx={{
-                                            backgroundColor: "#EEEEEE",
+                                            backgroundColor: "darkgray",
                                             "& fieldset": { border: 'none' },
-                                            "& ::placeholder": { ml: 1, fontWeight: 600, color: "#000000" }
+                                            "& ::placeholder": { ml: 1, fontWeight: 600, color: "white" }
                                         }}
                                     />
                                 </FormControl>
@@ -853,9 +875,9 @@ const Team = () => {
                                         disabled={promoted_status === 'false' ? true : false}
                                         type="datetime-local"
                                         sx={{
-                                            backgroundColor: "#EEEEEE",
+                                            backgroundColor: "darkgray",
                                             "& fieldset": { border: 'none' },
-                                            "& ::placeholder": { ml: 1, fontWeight: 600, color: "#000000" }
+                                            "& ::placeholder": { ml: 1, fontWeight: 600, color: "white" }
                                         }}
                                     />
                                 </FormControl>

@@ -565,7 +565,7 @@ const Dashboard = () => {
         <Grid container spacing={0} mt={2} p={2} >
 
           <Grid xs={10} md={4} lg={4} xl={4} p={1} align="center">
-            <Card sx={{ width: "99%", height: "auto", boxShadow: "0px 3px 6px #00000029" }}>
+            <Card sx={{ width: "99%", height: "auto", boxShadow: "0px 3px 6px white29" }}>
               <CardContent>
                 <Grid container spacing={0} mt={1}>
                   <Grid xs={5} md={8} lg={8} xl={8} pt={0.5} align="left" >
@@ -587,7 +587,7 @@ const Dashboard = () => {
 
 
           <Grid xs={10} md={4} lg={4} xl={4} p={1} align="center">
-            <Card sx={{ width: "99%", height: "auto", boxShadow: "0px 3px 6px #00000029" }}>
+            <Card sx={{ width: "99%", height: "auto", boxShadow: "0px 3px 6px white29" }}>
               <CardContent>
                 <Grid container spacing={0} mt={1}>
                   <Grid xs={6} md={8} lg={8} xl={8} pt={0.5} align="left" >
@@ -611,7 +611,7 @@ const Dashboard = () => {
 
 
           <Grid xs={10} md={4} lg={4} xl={4} p={1} align="left">
-            <Card sx={{ width: "99%", height: "auto", boxShadow: "0px 3px 6px #00000029" }}>
+            <Card sx={{ width: "99%", height: "auto", boxShadow: "0px 3px 6px white29" }}>
               <CardContent>
                 <Grid container spacing={0} mt={1}>
                   <Grid xs={6} md={8} lg={8} xl={8} pt={0.5} align="left" >
@@ -666,7 +666,7 @@ const Dashboard = () => {
           <Grid xs={12} md={5} lg={5} xl={5} sx={{ mb: '10%', pt: { xs: 1, lg: 1 } }} pl={1}>
 
             <Grid xs={12} >
-              <Card sx={{overflow: { xs: 'scroll', md: 'hidden' }, borderRadius: "10px", boxShadow: "0px 3px 6px #00000029" }}>
+              <Card sx={{overflow: { xs: 'scroll', md: 'hidden' }, borderRadius: "10px", boxShadow: "0px 3px 6px white29" }}>
                 <CardContent style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                   <div>
                     <Typography variant="h5" fontWeight={750} fontSize="15px" sx={{ font: "normal normal medium 16px/21px Roboto", letterSpacing: "1px" }} color="black">
@@ -687,7 +687,7 @@ const Dashboard = () => {
                       sx={{
                         ml:'20px',
                         borderRadius: "50px",
-                        backgroundColor: "#EEEEEE", height: "35px",
+                        backgroundColor: "darkgray", height: "35px",
                         "& fieldset": { border: 'none' },
                       }}
                       labelId="demo-simple-select-label"

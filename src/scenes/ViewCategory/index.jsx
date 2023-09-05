@@ -121,7 +121,9 @@ const Team = () => {
     const [Screens, setScreens] = useState([]);
     const [isloading, setIsloading] = useState(false);
     useEffect(() => {
-        if (location.state.row.banners !== undefined && location.state.row.banners.length !== 0) {
+        if (location.state.row.banners !== undefined &&
+            location.state.row.banners !== null
+            && location.state.row.banners.length !== 0) {
             const bannerIds = location.state.row.banners.map(banner => banner.id);
             setSkill(bannerIds)
         }
@@ -316,7 +318,7 @@ const Team = () => {
                             </Typography>
 
                             <Typography variant="h5" fontWeight={600} fontSize="15px" sx={{ letterSpacing: "2px" }} color="#404040">
-                                Update Category
+                                View Category
                             </Typography>
                         </Breadcrumbs>
                     </Grid>
@@ -354,9 +356,9 @@ const Team = () => {
                                                 </Grid>
                                             </Grid>
                                         }
-                                        {selectedFile ? <img src={URL.createObjectURL(selectedFile)} alt="Preview" style={{ width: "300px", height: "200px" }} />
+                                        {selectedFile ? <img src={URL.createObjectURL(selectedFile)} alt="Preview" style={{ width: "300px", height: "auto" }} />
                                             :
-                                            location.state.row.image && <img src={`${url}${location.state.row.image}`} alt="Preview" style={{ width: "300px", height: "200px" }} />
+                                            location.state.row.image && <img src={`${url}${location.state.row.image}`} alt="Preview" style={{ width: "300px", height: "auto" }} />
                                         }
                                     </Box>
 
@@ -398,7 +400,7 @@ const Team = () => {
                                             }}
 
                                             sx={{
-                                                backgroundColor: "#EEEEEE",
+                                                backgroundColor: "darkgray",
                                                 "& fieldset": { border: 'none' },
                                                 "& ::placeholder": { ml: 1, fontWeight: 600, color: "#000000" }
                                             }}
@@ -426,7 +428,7 @@ const Team = () => {
                                                 color: "#1F1F1F",
                                             }}
                                         >
-                                            Selected Banners
+                                            Category Banners
                                         </Typography>
 
                                         <Grid
@@ -473,7 +475,7 @@ const Team = () => {
                                                                         style={{
                                                                             width: '100%',
                                                                             height: '100%',
-                                                                            maxHeight: '300px',
+                                                                            maxHeight: 'auto',
                                                                             maxWidth: '300px',
                                                                         }}
                                                                     />

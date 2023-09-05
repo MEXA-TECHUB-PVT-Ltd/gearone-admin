@@ -1,4 +1,4 @@
-import { Box, Typography, Grid, Button, Stack, Divider, Avatar, Container, InputAdornment, OutlinedInput, FormControl, Select, MenuItem, InputLabel, Input, TextField, Breadcrumbs } from "@mui/material";
+import { Box , Autocomplete, Typography, Grid, Button, Stack, Divider, Avatar, Container, InputAdornment, OutlinedInput, FormControl, Select, MenuItem, InputLabel, Input, TextField, Breadcrumbs } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import { Subscriptions, Notifications, Settings, Person, Close, Upload, Add } from '@mui/icons-material';
 import url from "../url"
@@ -522,8 +522,8 @@ const Team = () => {
     const [Screen, setScreen] = React.useState('');
     const [Link, setLink] = React.useState('');
 
-    const handleChangeScreen = (event) => {
-        setCategory_id(event.target.value);
+    const handleChangeScreen = (newValue) => {
+        setCategory_id(newValue.id);
     };
 
     const handleChange = (event) => {
@@ -873,9 +873,16 @@ const Team = () => {
                                                 id="input-with-icon-adornment"
                                                 sx={{
                                                     borderRadius: "50px",
-                                                    backgroundColor: "#EEEEEE",
+                                                    backgroundColor: "darkgray",
                                                     "& fieldset": { border: 'none' },
                                                 }}
+                                                // inputProps={{
+                                                //     style: {
+                                                //         color: "black",
+                                                //         fontWeight: '600',
+                                                //         fontSize: '16px'
+                                                //     },
+                                                // }}
                                             />
                                             <br />
                                             <Typography variant="paragraph" pl={1} pb={1} sx={{ font: "normal normal normal 17px/26px Roboto", fontSize: "12px", fontWeight: "medium" }} color="#1F1F1F">
@@ -888,7 +895,7 @@ const Team = () => {
                                                 id="input-with-icon-adornment"
                                                 sx={{
                                                     borderRadius: "50px",
-                                                    backgroundColor: "#EEEEEE",
+                                                    backgroundColor: "darkgray",
                                                     "& fieldset": { border: 'none' },
                                                 }}
                                             />
@@ -910,27 +917,26 @@ const Team = () => {
 
 
 
-
-                                            <Select
-                                                sx={{
-                                                    borderRadius: "50px",
-                                                    backgroundColor: "#EEEEEE",
-                                                    "& fieldset": { border: 'none' },
-                                                }}
-                                                labelId="demo-simple-select-label"
-                                                id="demo-simple-select"
-                                                placeholder={Screen}
-                                                label={Screen}
-                                                onChange={handleChangeScreen}
-                                            >
-                                                <MenuItem value="Image Aspects " disabled>
-                                                    <em>select Category</em>
-                                                </MenuItem>
-
-                                                {Screens.map((data) => (
-                                                    <MenuItem key={data.id} value={data.id}>{`${data.name}`}</MenuItem>
-                                                ))}
-                                            </Select>
+                                            <Autocomplete
+                                            sx={{
+                                                borderRadius: '50px',
+                                                backgroundColor: 'darkgray',
+                                                '& .MuiOutlinedInput-notchedOutline': {
+                                                    border: 'none', // Remove the border
+                                                },
+                                            }}
+                                            id="demo-simple-select"
+                                            options={Screens}
+                                            getOptionLabel={(option) => option.name}
+                                            onChange={(event, newValue) => handleChangeScreen( newValue)}
+                                            renderInput={(params) => (
+                                                <TextField
+                                                    {...params}
+                                                    placeholder={Screen !== null && Screen.length > 0 ? Screen.name : ''}
+                                                />
+                                            )}
+                                        />
+                                         
                                             <br />
                                             <Typography variant="paragraph" pl={1} pb={1} sx={{ font: "normal normal normal 17px/26px Roboto", fontSize: "12px", fontWeight: "medium" }} color="#1F1F1F">
                                                 location
@@ -942,7 +948,7 @@ const Team = () => {
                                                 id="input-with-icon-adornment"
                                                 sx={{
                                                     borderRadius: "50px",
-                                                    backgroundColor: "#EEEEEE",
+                                                    backgroundColor: "darkgray",
                                                     "& fieldset": { border: 'none' },
                                                 }}
                                             />
@@ -968,7 +974,7 @@ const Team = () => {
                                                 id="input-with-icon-adornment"
                                                 sx={{
                                                     borderRadius: "50px",
-                                                    backgroundColor: "#EEEEEE",
+                                                    backgroundColor: "darkgray",
                                                     "& fieldset": { border: 'none' },
                                                     resize: 'none',
                                                     overflow: 'hidden',
