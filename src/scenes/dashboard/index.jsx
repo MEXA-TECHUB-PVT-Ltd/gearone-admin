@@ -565,12 +565,22 @@ const Dashboard = () => {
         <Grid container spacing={0} mt={2} p={2} >
 
           <Grid xs={10} md={4} lg={4} xl={4} p={1} align="center">
-            <Card sx={{ width: "99%", height: "auto", boxShadow: "0px 3px 6px white29" }}>
+            <Card
+              sx={{
+                overflow: { xs: 'scroll', md: 'hidden' },
+                borderRadius: '10px',
+                boxShadow: '0px 3px 6px white29',
+                transition: 'transform 0.2s',
+                '&:hover': {
+                  transform: 'scale(1.05)',
+                },
+              }}
+            >
               <CardContent>
                 <Grid container spacing={0} mt={1}>
                   <Grid xs={5} md={8} lg={8} xl={8} pt={0.5} align="left" >
                     <Stack direction="column" spacing={1}>
-                      <Typography variant="paragraph" fontWeight={750} bold sx={{ font: "normal normal normal 18px/32px Roboto", letterSpacing: "1px" }}  fontSize="15px" color="black" >Total Categories</Typography>
+                      <Typography variant="paragraph" fontWeight={750} bold sx={{ font: "normal normal normal 18px/32px Roboto", letterSpacing: "1px" }} fontSize="15px" color="black" >Total Categories</Typography>
 
                       <Typography variant="h6" fontWeight={850} fontSize="18px" color="#1F1F1F" sx={{ letterSpacing: "2px" }}>{allUsers}</Typography>
 
@@ -587,7 +597,18 @@ const Dashboard = () => {
 
 
           <Grid xs={10} md={4} lg={4} xl={4} p={1} align="center">
-            <Card sx={{ width: "99%", height: "auto", boxShadow: "0px 3px 6px white29" }}>
+            <Card
+              sx={{
+                overflow: { xs: 'scroll', md: 'hidden' },
+                borderRadius: '10px',
+                boxShadow: '0px 3px 6px white29',
+                transition: 'transform 0.2s',
+                '&:hover': {
+                  transform: 'scale(1.05)',
+                },
+              }}
+
+            >
               <CardContent>
                 <Grid container spacing={0} mt={1}>
                   <Grid xs={6} md={8} lg={8} xl={8} pt={0.5} align="left" >
@@ -611,7 +632,17 @@ const Dashboard = () => {
 
 
           <Grid xs={10} md={4} lg={4} xl={4} p={1} align="left">
-            <Card sx={{ width: "99%", height: "auto", boxShadow: "0px 3px 6px white29" }}>
+            <Card
+              sx={{
+                overflow: { xs: 'scroll', md: 'hidden' },
+                borderRadius: '10px',
+                boxShadow: '0px 3px 6px white29',
+                transition: 'transform 0.2s',
+                '&:hover': {
+                  transform: 'scale(1.05)',
+                },
+              }}
+            >
               <CardContent>
                 <Grid container spacing={0} mt={1}>
                   <Grid xs={6} md={8} lg={8} xl={8} pt={0.5} align="left" >
@@ -666,7 +697,7 @@ const Dashboard = () => {
           <Grid xs={12} md={5} lg={5} xl={5} sx={{ mb: '10%', pt: { xs: 1, lg: 1 } }} pl={1}>
 
             <Grid xs={12} >
-              <Card sx={{overflow: { xs: 'scroll', md: 'hidden' }, borderRadius: "10px", boxShadow: "0px 3px 6px white29" }}>
+              <Card sx={{ overflow: { xs: 'scroll', md: 'hidden' }, borderRadius: "10px", boxShadow: "0px 3px 6px white29" }}>
                 <CardContent style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                   <div>
                     <Typography variant="h5" fontWeight={750} fontSize="15px" sx={{ font: "normal normal medium 16px/21px Roboto", letterSpacing: "1px" }} color="black">
@@ -678,14 +709,15 @@ const Dashboard = () => {
                     justifyContent: 'right'
                   }}>
                     <Typography variant="h5" fontWeight={750} fontSize="15px"
-                      sx={{ mt:'5px',
+                      sx={{
+                        mt: '5px',
                         font: "normal normal medium 16px/21px Roboto",
                         letterSpacing: "1px"
                       }} color="#1F1F1F">Year </Typography>
 
                     <Select
                       sx={{
-                        ml:'20px',
+                        ml: '20px',
                         borderRadius: "50px",
                         backgroundColor: "darkgray", height: "35px",
                         "& fieldset": { border: 'none' },
@@ -724,7 +756,7 @@ const Dashboard = () => {
                     <XAxis dataKey="month" />
                     <YAxis type="number" domain={[0, count]} />
                     {/* <YAxis dataKey="count" /> */}
-                    <Tooltip/>
+                    <Tooltip />
                     <CartesianGrid strokeDasharray="1 1" />
                     <Line
                       type="monotone"

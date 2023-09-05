@@ -1,4 +1,4 @@
-import { Box, Typography,Autocomplete, Grid, Button, Stack, Divider, Avatar, Container, InputAdornment, OutlinedInput, FormControl, Select, MenuItem, InputLabel, Input, TextField, Breadcrumbs } from "@mui/material";
+import { Box, Typography, Autocomplete, Grid, Button, Stack, Divider, Avatar, Container, InputAdornment, OutlinedInput, FormControl, Select, MenuItem, InputLabel, Input, TextField, Breadcrumbs } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import { Subscriptions, Notifications, Settings, Person, Close, Upload, Add } from '@mui/icons-material';
 import url from "../url"
@@ -59,13 +59,24 @@ const Team = () => {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
         };
-        if (Link === '' || Screen === ""|| Screen === null || selectedFile === null || selectedFile === undefined) {
+        const urlPattern = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i;
+
+        if (Link === '' || Screen === "" || Screen === null || selectedFile === null || selectedFile === undefined) {
             setIsloading(false)
             Swal.fire({
                 icon: 'warning',
                 title: 'warning',
                 confirmButtonColor: "#B5030B",
                 text: 'All Fields Required',
+            })
+        }
+        else if (!urlPattern.test(Link)) {
+            setIsloading(false)
+            Swal.fire({
+                icon: 'warning',
+                title: 'warning',
+                confirmButtonColor: "#B5030B",
+                text: 'Enter Valid Link',
             })
         } else {
 
@@ -113,7 +124,7 @@ const Team = () => {
                                             title: 'Success!',
                                             confirmButtonColor: "#B5030B",
                                             text: 'Banner Added Successfully!',
-                                        })            
+                                        })
                                     } else {
                                         setIsloading(false)
                                         Swal.fire({
@@ -367,7 +378,7 @@ const Team = () => {
                                             id="demo-simple-select"
                                             options={Screens}
                                             getOptionLabel={(option) => option.name}
-                                            onChange={(event, newValue) => handleChangeScreen( newValue)}
+                                            onChange={(event, newValue) => handleChangeScreen(newValue)}
                                             renderInput={(params) => (
                                                 <TextField
                                                     {...params}
@@ -375,7 +386,7 @@ const Team = () => {
                                                 />
                                             )}
                                         />
-                                       
+
 
                                         {/* <Typography variant="paragraph" pl={1} pb={1} sx={{ font: "normal normal normal 17px/26px Roboto", fontSize: "12px", fontWeight: "medium" }} color="#1F1F1F">
                                             Status

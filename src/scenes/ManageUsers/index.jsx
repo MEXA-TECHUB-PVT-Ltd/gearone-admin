@@ -270,10 +270,13 @@ const Team = () => {
 
 
   const columns = [
-    { field: 'username', headerName: <span style={{ color: "black", fontWeight: 600 }}>Username</span>, flex: 1 },
+    {
+      field: 'username', headerName: <span style={{ color: "black", fontWeight: 600 }}>Username</span>,
+      minWidth: 150,
+    },
     {
       field: 'image', headerName: <span style={{ color: "black", fontWeight: 600 }}>Profile</span>,
-      flex: 1,
+      minWidth: 150,
       renderCell: (row) => {
         return (
           <>
@@ -291,11 +294,13 @@ const Team = () => {
       },
 
     },
-    { field: 'email', headerName: <span style={{ color: "black", fontWeight: 600 }}>Email</span>, flex: 1 },
-
+    {
+      field: 'email', headerName: <span style={{ color: "black", fontWeight: 600 }}>Email</span>,
+      minWidth: 150,
+    },
     {
       field: 'phone', headerName: <span style={{ color: "black", fontWeight: 600 }}>Phone</span>,
-      flex: 1,
+      minWidth: 150,
       renderCell: (row) => {
         return (
           <>
@@ -306,11 +311,14 @@ const Team = () => {
       },
     },
 
-    { field: 'address', headerName: <span style={{ color: "black", fontWeight: 600 }}>Address</span>, flex: 1 },
+    {
+      field: 'address', headerName: <span style={{ color: "black", fontWeight: 600 }}>Address</span>,
+      minWidth: 150 , flex:1,
+    },
     {
       field: `status`,
       headerName: <span style={{ color: "black", fontWeight: 600 }}>Status</span>,
-      flex: 1,
+      minWidth: 150,
       renderCell: (row) => {
         return (
           <>
@@ -332,7 +340,7 @@ const Team = () => {
     {
       field: 'id',
       headerName: <span style={{ color: "black", fontWeight: 600 }}>Actions</span>,
-      flex: 1,
+      minWidth: 150,
       renderCell: (row) => {
         return (
           <>
@@ -492,18 +500,18 @@ const Team = () => {
               {
                 showtable ?
                   <Grid xs={12} p={1} align="center">
-                    <div style={{ height: 600, width: '100%', overflowX: 'auto' }}>
+                    <div style={{ height: '76vh', width: '100%', overflowX: 'auto', maxWidth: '100%' }}>
                       <DataGrid
-                        className="custom-datagrid"
+                        style={{ maxWidth: '100%' }}
                         rows={Logos}
                         getRowId={Logos.id}
                         id={Logos.id}
                         getRowStyle={(params) => ({
                           color: 'red',
-                          fontWeight: '700'
+                          fontWeight: '700',
                         })}
                         getRowClassName={(params) => {
-                          return 'unblock-row'
+                          return 'unblock-row';
                         }}
                         columns={columns}
                         initialState={{
@@ -512,15 +520,10 @@ const Team = () => {
                           },
                         }}
                         pageSizeOptions={[5, 10]}
-                        //  checkboxSelection
-
-                        components={
-                          <Chip label='active_status' color="success" variant="outlined" />
-                        }
+                        components={<Chip label='active_status' color="success" variant="outlined" />}
                       />
                     </div>
-                  </Grid>
-                  :
+                  </Grid> :
                   <>
                     {Logos.map((item, index) => (
                       <Grid xs={12} md={3} lg={3} align="center" p={1}>
@@ -556,8 +559,11 @@ const Team = () => {
                                     'aria-labelledby': 'basic-button',
                                   }}
                                   PaperProps={{
-
                                     sx: {
+                                      position: 'fixed',
+                                      top: '-9999px',
+                                      left: '-9999px',
+                                      elevation: 0,   
                                       // overflow: 'visible',
                                       // filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.22))',
                                       mt: 1.5,

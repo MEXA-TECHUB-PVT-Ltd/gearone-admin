@@ -44,6 +44,7 @@ const Team = () => {
     const [searchQuery, setSearchQuery] = useState("");
 
 
+
     const [hidelabel, setHidelabel] = useState(false);
     const [hidecrossicon, setHidecrossicon] = useState(false);
     const [selectedFile, setSelectedFile] = useState(null);
@@ -61,6 +62,7 @@ const Team = () => {
             'Content-Type': 'application/json',
         };
         console.log(Screen)
+        const urlPattern = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i;
         if (Link === '' || Screen === "" || Screen === null || selectedFile === null || selectedFile === undefined) {
             setIsloading(false)
             Swal.fire({
@@ -69,6 +71,16 @@ const Team = () => {
                 confirmButtonColor: "#B5030B",
                 text: 'All Fields Required',
             })
+        }
+        else if (!urlPattern.test(Link)) {
+            setIsloading(false)
+            Swal.fire({
+                icon: 'warning',
+                title: 'warning',
+                confirmButtonColor: "#B5030B",
+                text: 'Enter Valid Link',
+            })
+
         } else {
             var Data = {
                 "link": Link,
@@ -340,7 +352,7 @@ const Team = () => {
                                             id="demo-simple-select"
                                             options={Screens}
                                             getOptionLabel={(option) => option.name}
-                                            onChange={(event, newValue) => handleChangeScreen( newValue)}
+                                            onChange={(event, newValue) => handleChangeScreen(newValue)}
                                             renderInput={(params) => (
                                                 <TextField
                                                     {...params}

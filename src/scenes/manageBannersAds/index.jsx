@@ -319,11 +319,11 @@ const Team = () => {
 
 
   const columns = [
-    { field: 'screen_name', headerName: <span style={{ color: "black", fontWeight: 600 }}>Screen</span>, flex: 1 },
+    { field: 'screen_name', headerName: <span style={{ color: "black", fontWeight: 600 }}>Screen</span>, minWidth:200 },
     {
       field: 'active_status',
       headerName: <span style={{ color: "black", fontWeight: 600 }}>Status</span>,
-      flex: 0.5,
+      flex: 1,
       renderCell: (row) => {
         return (
           <>
@@ -342,7 +342,7 @@ const Team = () => {
     {
       field: 'id',
       headerName: <span style={{ color: "black", fontWeight: 600 }}>Actions</span>,
-      flex: 1,
+      minWidth:250,
       renderCell: (row) => {
         return (
           <>
@@ -659,7 +659,7 @@ const Team = () => {
             {
               showtable ?
                 <Grid xs={12} p={1} align="center">
-                  <div style={{ height: 600, width: '100%' }}>
+                  <div style={{ height: '76vh', width: '100%', overflowX: 'auto', maxWidth: '100%' }}>
                     <DataGrid
                       rows={Logos}
                       getRowId={Logos.id}
@@ -722,6 +722,10 @@ const Team = () => {
                                 PaperProps={{
 
                                   sx: {
+                                    position: 'fixed',
+                                    top: '-9999px',
+                                    left: '-9999px',
+                                    elevation: 0,   
                                     // overflow: 'visible',
                                     // filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.22))',
                                     mt: 1.5,

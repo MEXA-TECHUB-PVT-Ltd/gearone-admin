@@ -352,11 +352,12 @@ const Team = () => {
 
 
   const columns = [
-    { field: 'screen_name', headerName: <span style={{ color: "black", fontWeight: 600 }}>Screen</span>, flex: 1 },
+    { field: 'screen_name', headerName: <span style={{ color: "black", fontWeight: 600 }}>Screen</span>,
+    minWidth:300},
     {
       field: 'active_status',
       headerName: <span style={{ color: "black", fontWeight: 600 }}>Status</span>,
-      flex: 1,
+      minWidth:150, flex:2,
       renderCell: (row) => {
         return (
           <>
@@ -377,7 +378,7 @@ const Team = () => {
     {
       field: 'id',
       headerName: <span style={{ color: "black", fontWeight: 600 }}>Actions</span>,
-      flex: 1,
+      minWidth:250,
       renderCell: (row) => {
         return (
           <>
@@ -648,11 +649,11 @@ const Team = () => {
 
           :
           <>
-            <Grid mb='6%' sx={{ mb: '23px' }} container spacing={0} pt={2} >
+            <Grid mb='6%' sx={{ mb: '20px' }} container spacing={0} pt={2} >
               {
                 showtable ?
                   <Grid xs={24} p={1} align="center">
-                    <div style={{ height: 600, width: '100%' }}>
+                    <div style={{ height: '76vh', width: '100%', overflowX: 'auto', maxWidth: '100%' }}>
                       <DataGrid
                         rows={Logos}
                         getRowId={Logos.id}
@@ -713,8 +714,10 @@ const Team = () => {
                                   PaperProps={{
 
                                     sx: {
-                                      // overflow: 'visible',
-                                      // filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.22))',
+                                      position: 'fixed',
+                                      top: '-9999px',
+                                      left: '-9999px',
+                                      elevation: 0, 
                                       mt: 1.5,
                                       '& .MuiAvatar-root': {
                                         width: 32,

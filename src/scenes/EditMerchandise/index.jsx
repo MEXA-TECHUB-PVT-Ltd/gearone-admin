@@ -1,4 +1,4 @@
-import { Box, Typography, Grid, Button, Stack, Divider, Avatar, Container, InputAdornment, OutlinedInput, FormControl, Select, MenuItem, InputLabel, Input, TextField, Breadcrumbs } from "@mui/material";
+import { Box, Typography, Grid,Autocomplete, Button, Stack, Divider, Avatar, Container, InputAdornment, OutlinedInput, FormControl, Select, MenuItem, InputLabel, Input, TextField, Breadcrumbs } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import { Subscriptions, Notifications, Settings, Person, Close, Upload, Add } from '@mui/icons-material';
 import url from "../url"
@@ -153,7 +153,7 @@ const Team = () => {
                 "Merchandise_ID": location.state.id,
                 "name": Name,
                 "price": Price,
-                "category_id": Category_id,
+                "category_id": Category_id.id,
                 "description": Description,
                 "location": Location
             };
@@ -379,8 +379,11 @@ const Team = () => {
     const [Screen, setScreen] = React.useState('');
     const [Link, setLink] = React.useState('');
 
-    const handleChangeScreen = (event) => {
-        setCategory_id(event.target.value);
+
+
+    const handleChangeScreen = (event, newValue) => {
+        console.log(newValue)
+        setCategory_id(newValue);
     };
 
     const handleChange = (event) => {
@@ -828,27 +831,28 @@ const Team = () => {
                                             <Typography variant="paragraph" pl={1} pb={1} sx={{ font: "normal normal normal 17px/26px Roboto", fontSize: "12px", fontWeight: "medium" }} color="#1F1F1F">
                                                 Category
                                             </Typography>
-                                            <Select
-                                                labelId="demo-simple-select-label"
-                                                id="demo-simple-select"
-                                                displayEmpty
-                                                defaultValue={catagory_name}
-                                                // input={<Input name="circle" id="demo-simple-select" />}
-                                                onChange={(e) => { setCategory_id(e.target.value) }}
-                                                sx={{
-                                                    borderRadius: "50px",
-                                                    backgroundColor: "darkgray", height: "35px",
-                                                    "& fieldset": { border: 'none' },
-                                                }}
-                                            >
-                                                <MenuItem value="" >
-                                                    <em>{location.state.catagory_name}</em>
-                                                </MenuItem>
-
-                                                {Screens.map((data) => (
-                                                    <MenuItem key={data.id} value={data.id}>{`${data.name}`}</MenuItem>
-                                                ))}
-                                            </Select>
+                                            <Autocomplete
+                                            sx={{
+                                                borderRadius: '50px',
+                                                backgroundColor: 'darkgray',
+                                                '& .MuiOutlinedInput-notchedOutline': {
+                                                    border: 'none', // Remove the border
+                                                },
+                                            }}
+                                            id="demo-simple-select"
+                                            options={Screens}
+                                            getOptionLabel={(option) => option.name}
+                                            onChange={handleChangeScreen}
+                                            displayEmpty
+                                            renderInput={(params) => (
+                                                <TextField
+                                                    {...params}
+                                                    displayEmpty
+                                                    defaultValue={location.state.catagory_name}
+                                                    placeholder={location.state.catagory_name}
+                                                />
+                                            )}
+                                        />
 
                                            
 

@@ -279,7 +279,7 @@ const Team = () => {
         {
             field: 'user_name',
             headerName: <span style={{ color: "black", fontWeight: 600 }}>Report By</span>,
-            flex: 1,
+            minWidth:200,
             renderCell: (row) => {
                 return (
                     < Button sx={{ border: 'none', cursor: 'pointer' }}
@@ -303,13 +303,13 @@ const Team = () => {
         {
             field: 'item_name',
             headerName: <span style={{ color: "black", fontWeight: 600 }}>Item</span>,
-            flex: 1,
+            minWidth:200 , flex:1,
         },
 
         {
             field: 'report_create_by',
             headerName: <span style={{ color: "black", fontWeight: 600 }}>Reported On</span>,
-            flex: 1,
+            minWidth:200,
             renderCell: (row) => {
                 return (
                     <>
@@ -323,7 +323,7 @@ const Team = () => {
         {
             field: 'id',
             headerName: <span style={{ color: "black", fontWeight: 600 }}>Actions</span>,
-            flex: 1,
+            minWidth:150,
             renderCell: (row) => {
                 return (
                     <>
@@ -465,7 +465,7 @@ const Team = () => {
                     {
                         showtable ?
                             <Grid xs={12} p={1} align="center">
-                                <div style={{ height: 600, width: '100%' }}>
+                  <div style={{ height: '76vh', width: '100%', overflowX: 'auto', maxWidth: '100%' }}>
                                     <DataGrid
                                         rows={Logos}
                                         getRowId={Logos.id}

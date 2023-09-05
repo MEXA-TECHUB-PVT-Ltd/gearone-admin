@@ -251,7 +251,7 @@ const Topbar = () => {
               <Box sx={{ borderRadius: "20px", backgroundColor: "#B5030B" }}>
                 <Stack sx={{ p: 2 }}>
                   <Grid container spacing={0} pt={{ lg: 2, xl: 1 }} >
-                    <Grid item xs={7} lg={10} xl={10} align="right">
+                    <Grid item xs={4} lg={10} xl={10} align="right">
                       <div style={{ display: "flex", justifyContent: "right", alignContent: "right", gap: "8px" }}>
                         {/* <Search sx={{ color: "white" }} onClick={() => setHide(false)} /> */}
                         {/* <Settings sx={{ color: "white" }} onClick={() => navigate("/settings")} /> */}
