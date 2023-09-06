@@ -1,49 +1,20 @@
-import { Box, Typography, Grid, Button, Stack, Divider, Avatar, Container, InputAdornment, OutlinedInput, FormControl, Select, MenuItem, InputLabel, Input, TextField, Breadcrumbs } from "@mui/material";
+import {
+    Box, Typography, Grid, Stack, Divider, Container
+    , FormControl, Select, MenuItem
+} from "@mui/material";
 import React, { useState, useEffect } from "react";
-import { Subscriptions, Notifications, Settings, Person, Close, Upload, Add } from '@mui/icons-material';
+import { Close } from '@mui/icons-material';
 import url from "../url"
 import { useNavigate, useLocation } from "react-router-dom"
 import Swal from 'sweetalert2'
 import axios from 'axios';
-import ClipLoader from "react-spinners/ClipLoader";
-const override = {
-    display: ' block',
-    margin: '0 auto',
-    borderColor: 'red',
-}
-
-const btn = {
-    letterSpacing: "1px",
-    width: '50%',
-    marginTop: '40px',
-    marginBottom: '40px',
-    color: 'white',
-    backgroundColor: '#B5030B',
-    borderColor: '#B5030B',
-    height: '50px',
-    padding: '0px',
-    font: 'normal normal normal 17px/26px Roboto',
-    borderRadius: "50px",
-    boxShadow: "none",
-    fontWeight: "medium",
-    boxShadow: "none",
-    borderRadius: "50px",
-    fontSize: "15px",
-    textTransform: "capitalize"
-}
+import CustomTextField from '../../components/CustomTextField.js'
+import CustomImageUpload from '../../components/CustomImageUpload.js'
+import ConditionalButton from '../../components/ConditionalButton.js'
 
 const Team = () => {
     const navigate = useNavigate();
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    const open = Boolean(anchorEl);
-    const handleClick = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
-    const handleClose = () => {
-        setAnchorEl(null);
-    }
     const location = useLocation();
-
     const [hidelabel, setHidelabel] = useState(false);
     const [hidecrossicon, setHidecrossicon] = useState(false);
     const [selectedFile, setSelectedFile] = useState(null);
@@ -78,7 +49,7 @@ const Team = () => {
             .then(response => response.json())
             .then(async response => {
                 console.log(response);
-                if (response.message == `Daily Deal Updated Successfully!`) {
+                if (response.status === true) {
                     if (selectedFile !== null && selectedFile !== undefined) {
                         var Data = {
                             "id": location.state.id,
@@ -92,16 +63,16 @@ const Team = () => {
                         }).then((response) => {
                             setIsloading(false);
                             console.log(response.data);
-                            if (response.data.message == `Deal Image Added Successfully!`) {
+                            if (response.data.status === true) {
                                 navigate("/subscription")
                                 setIsloading(false);
                             } else {
                                 setIsloading(false);
                                 Swal.fire({
                                     icon: 'error',
-                                    title: 'Oops2...',
+                                    title: 'Error...',
                                     confirmButtonColor: "#B5030B",
-                                    text: ''
+                                    text: 'Server Error! Try Again.'
                                 })
                             }
                         }
@@ -127,7 +98,7 @@ const Team = () => {
                         confirmButtonColor: "#B5030B",
                         text: 'Daily Deal Updated Successfully!',
                     })
-            
+
                 } else {
                     setIsloading(false);
                     Swal.fire({
@@ -167,7 +138,7 @@ const Team = () => {
             .then(response => response.json())
             .then(response => {
                 console.log(response);
-                if (response.message == `All screens Details`) {
+                if (response.status === true) {
                     // setLogos(response.count);
                     setScreens(response.result);
                 } else {
@@ -204,13 +175,8 @@ const Team = () => {
     }
 
     const [Status, setStatus] = React.useState('');
-    const [Screen, setScreen] = React.useState('');
     const [Title, setTitle] = React.useState('');
     const [Description, setDescription] = React.useState('');
-
-    const handleChangeScreen = (event) => {
-        setScreen(event.target.value);
-    };
 
     const handleChange = (event) => {
         setStatus(event.target.value);
@@ -221,51 +187,25 @@ const Team = () => {
             <Box sx={{ height: "85vh", width: "100%", overflowX: "scroll" }}>
                 <Grid container spacing={0} pt={{ lg: 2, xl: 1 }} p={2} >
                     <Grid item xs={6} align="" pt={3} >
-                        {/* <Breadcrumbs separator=">" > */}
                         <Typography variant="h5" fontWeight={550} pl={3} fontSize="15px" sx={{ letterSpacing: "2px", cursor: "pointer" }} color="#808080" onClick={() => navigate("/workoutplans")} >
                             update Daily Deal
                         </Typography>
-
-                        {/* <Typography variant="h5" fontWeight={600} fontSize="15px" sx={{ letterSpacing: "2px" }} color="#404040">
-                                update Logo
-                            </Typography>
-                        </Breadcrumbs> */}
                     </Grid>
 
                 </Grid>
 
                 <Divider sx={{ pb: 2 }} />
-
                 <Container>
                     <Container>
                         <Grid container spacing={0}>
                             <Grid xs={12} align="center" p={1}>
-
-
                                 <Box pt={2} pb={2}>
                                     <Box sx={{ pt: 2, width: "300px", height: "200px", p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
                                         {hidelabel ?
                                             null
                                             :
-                                            <Grid container spacing={0} pt={5}>
-                                                <Grid xs={12} align="">
-                                                    <Stack align="">
-                                                        <label htmlFor="fileInput" style={{ display: "flex", justifyContent: "center", alignContent: "center", color: "#808080" }}>
-                                                            <Stack direction="column" spacing={1} >
-                                                                <Upload sx={{ fontSize: "50px", color: "#808080", ml: 1.8, pb: 1 }} />
-                                                                <span style={{ paddingBottom: "2vh", font: "normal normal normal 16px/26px Arial" }}>Upload Image</span>
-                                                            </Stack>
-                                                        </label>
-                                                        <input
-                                                            style={{ display: "none" }}
-                                                            id="fileInput"
-                                                            type="file"
-                                                            onChange={handleImageChange}
-                                                            accept="image/*"
-                                                        />
-                                                    </Stack>
-                                                </Grid>
-                                            </Grid>
+                                            <CustomImageUpload handleImageChange={handleImageChange} />
+
                                         }
 
                                         {selectedFile ? <img src={URL.createObjectURL(selectedFile)} alt="Preview" style={{ width: "300px", height: "200px" }} />
@@ -300,60 +240,25 @@ const Team = () => {
 
                                 <FormControl sx={{ width: "90%" }} align="left">
                                     <Stack direction="column" spacing={0} pt={2}>
-                                        <Typography variant="paragraph" pl={1} pb={1} sx={{ font: "normal normal normal 17px/26px Roboto", fontSize: "12px", fontWeight: "medium" }} color="#1F1F1F">
-                                            Title
-                                        </Typography>
-                                        <OutlinedInput
+                                        <CustomTextField
+                                            label="Title"
+                                            defaultValue={location.state.title}
                                             onChange={(event) => {
                                                 setTitle(event.target.value);
                                             }}
-                                            id="input-with-icon-adornment"
-                                            defaultValue={location.state.title}
-                                            placeholder={location.state.title}
-                                            multiline
-                                            maxRows={6}
-                                            sx={{
-                                                borderRadius: "50px",
-                                                backgroundColor: "darkgray",
-                                                "& fieldset": { border: 'none' },
-                                            }}
                                         />
                                         <br />
-                                        <Typography variant="paragraph" pl={1} pb={1} sx={{ font: "normal normal normal 17px/26px Roboto", fontSize: "12px", fontWeight: "medium" }} color="#1F1F1F">
-                                            Description
-                                        </Typography>
-                                        <OutlinedInput
+                                        <CustomTextField
+                                            label="Description"
+                                            defaultValue={location.state.description}
                                             onChange={(event) => {
                                                 setDescription(event.target.value);
                                             }}
-                                            id="input-with-icon-adornment"
-                                            defaultValue={location.state.description}
-                                            multiline
-                                            maxRows={6}
-                                            sx={{
-                                                borderRadius: "50px",
-                                                backgroundColor: "darkgray",
-                                                "& fieldset": { border: 'none' },
-                                            }}
                                         />
-                                        {/* <TextField
-                                            id="outlined-multiline-static"
-                                            multiline
-                                            rows={4}
-                                            sx={{
-                                                borderRadius: "20px",
-                                                backgroundColor: "darkgray",
-                                                "& fieldset": { border: 'none' },
-                                            }}
-                                        /> */}
-
                                     </Stack>
-
                                 </FormControl>
-
                             </Grid>
-
-                            <Grid xs={12} md={6} lg={6} xl={6} p={1} align="right" >
+                            <Grid sx={{ mt: '20px' }} xs={12} md={6} lg={6} xl={6} p={1} align="right" >
 
                                 <FormControl sx={{ width: "90%" }} align="left">
                                     <Stack direction="column" spacing={0} pt={2}>
@@ -366,9 +271,6 @@ const Team = () => {
                                                 backgroundColor: "darkgray",
                                                 "& fieldset": { border: 'none' },
                                             }}
-                                            // input={<Input name="circle" id="demo-simple-select" />}
-                                            // onChange={(e) => { setCategory_id(e.target.value) }}
-
                                             labelId="demo-simple-select-label"
                                             id="demo-simple-select"
                                             placeholder={location.state.status}
@@ -388,22 +290,8 @@ const Team = () => {
                                 </FormControl>
 
                             </Grid>
-                            {isloading ?
-                                <Grid xs={12} align="center">
-                                    <Button variant="contained" style={btn}>
-                                        <ClipLoader loading={isloading}
-                                            css={override}
-                                            size={10}
-                                        />
-                                    </Button>
-                                </Grid>
+                            <ConditionalButton Title="update Deal" isloading={isloading} handleAdd={handleAdd} />
 
-                                :
-
-                                <Grid xs={12} align="center">
-                                    <Button variant="contained" style={btn} onClick={() => { handleAdd() }} >Update</Button>
-                                </Grid>
-                            }
                         </Grid>
                     </Container>
                 </Container>

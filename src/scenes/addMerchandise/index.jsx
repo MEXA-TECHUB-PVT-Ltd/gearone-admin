@@ -1,7 +1,14 @@
-import { Box , Autocomplete, Typography, Grid, Button, Stack, Divider, Avatar, Container, InputAdornment, OutlinedInput, FormControl, Select, MenuItem, InputLabel, Input, TextField, Breadcrumbs } from "@mui/material";
+import {
+    Box, Autocomplete, Typography, Grid, Button, Stack, Divider
+    , Container, OutlinedInput, FormControl, TextField, Breadcrumbs
+} from "@mui/material";
 import React, { useState, useEffect } from "react";
-import { Subscriptions, Notifications, Settings, Person, Close, Upload, Add } from '@mui/icons-material';
+import { Close, Upload } from '@mui/icons-material';
 import url from "../url"
+import CustomTextField from '../../components/CustomTextField.js'
+import CustomAutocomplete from '../../components/CustomAutocomplete.js'
+import CustomImageUpload from '../../components/CustomImageUpload.js'
+import ConditionalButton from '../../components/ConditionalButton.js'
 import { useLocation, useNavigate } from "react-router-dom"
 import Swal from 'sweetalert2'
 import axios from 'axios';
@@ -49,7 +56,7 @@ const Team = () => {
     const [Name, setName] = useState('');
     const [Price, setPrice] = useState('');
     const [catagory_name, setCatagory_name] = useState('');
-    const [Category_id, setCategory_id] = useState('');
+    const [Category_id, setCategory_id] = useState(null);
     const [Description, setDescription] = useState('');
     const [Location, setLocation] = useState('');
     const [selectedFile, setSelectedFile] = useState(null);
@@ -189,7 +196,7 @@ const Team = () => {
                 "adminID": localStorage.getItem("adminID"),
                 "name": Name,
                 "price": Price,
-                "category_id": Category_id,
+                "category_id": Category_id.id,
                 "description": Description,
                 "location": Location
             };
@@ -262,7 +269,7 @@ const Team = () => {
                             text: 'Merchandise Added Successfully!',
                         })
 
-                    } else if(response.message === 'Entered Admin ID is not present'){
+                    } else if (response.message === 'Entered Admin ID is not present') {
                         setIsloading(false);
                         Swal.fire({
                             icon: 'error',
@@ -270,7 +277,7 @@ const Team = () => {
                             confirmButtonColor: "#B5030B",
                             text: 'Session Expired, Login Again!'
                         })
-                    }else{
+                    } else {
                         Swal.fire({
                             icon: 'error',
                             title: 'Oops',
@@ -294,123 +301,6 @@ const Team = () => {
         }
     }
 
-    const uploadImage = async (e, num) => {
-        if (ID === '') {
-            var InsertAPIURL = `${url}merchandise/add_merchandise`
-            var headers = {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            };
-            var Data = {
-                "adminID": localStorage.getItem('adminID'),
-                "name": '1',
-                "price": '1',
-                "category_id": '1',
-                "description": '1',
-                "location": '1'
-            };
-            console.log(Data)
-            await fetch(InsertAPIURL, {
-                method: 'POST',
-                headers: headers,
-                body: JSON.stringify(Data),
-            })
-                .then(response => response.json())
-                .then(async response => {
-                    if (response.message == `Merchandise added Successfully!`) {
-                        console.log(response)
-                        setID(response.result.id);
-                        e.preventDefault();
-                        setIsloading(true);
-                        const formData = new FormData();
-                        formData.append("image", e.target.files[0]);
-                        console.log(e.target.files[0])
-                        if (e.target.files[0] !== null && e.target.files[0] !== undefined) {
-                            var Data = {
-                                "id": response.result.id,
-                                "image": selectedFile,
-                            };
-                            formData.append("id", ID)
-                            formData.append("location", num)
-
-                            await axios.put(url + "merchandise/edit_merchandise_image", formData, {
-                                headers: {
-                                    "Content-Type": "multipart/form-data"
-                                }
-                            }).then((response) => {
-                                setIsloading(false);
-                                console.log(response.data);
-                                if (response.data.message == `merchandise Images Updated Successfully!`) {
-                                    setIsloading(false);
-                                } else {
-                                    setIsloading(false);
-                                    Swal.fire({
-                                        icon: 'error',
-                                        title: 'Oops2...',
-                                        confirmButtonColor: "#B5030B",
-                                        text: ''
-                                    })
-                                }
-                            }
-                            )
-                                .catch(error => {
-                                    setIsloading(false);
-                                    Swal.fire({
-                                        icon: 'error',
-                                        title: 'Oops...',
-                                        confirmButtonColor: "#B5030B",
-                                        text: "Server Down!"
-                                    })
-                                });
-                        }
-                    }
-                });
-        } else {
-            e.preventDefault();
-            setIsloading(true);
-            const formData = new FormData();
-            formData.append("image", e.target.files[0]);
-            if (e.target.files[0] !== null && e.target.files[0] !== undefined) {
-                var Data = {
-                    "id": ID,
-                    "image": selectedFile,
-                };
-                formData.append("id", ID)
-                formData.append("location", num)
-
-                await axios.put(url + "merchandise/edit_merchandise_image", formData, {
-                    headers: {
-                        "Content-Type": "multipart/form-data"
-                    }
-                }).then((response) => {
-                    setIsloading(false);
-                    console.log(response.data);
-                    if (response.data.message == `merchandise Images Updated Successfully!`) {
-                        setIsloading(false);
-                        console.log(response)
-                    } else {
-                        setIsloading(false);
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops2...',
-                            confirmButtonColor: "#B5030B",
-                            text: ''
-                        })
-                    }
-                }
-                )
-                    .catch(error => {
-                        setIsloading(false);
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            confirmButtonColor: "#B5030B",
-                            text: "Server Down!"
-                        })
-                    });
-            }
-        }
-    }
 
 
 
@@ -523,7 +413,7 @@ const Team = () => {
     const [Link, setLink] = React.useState('');
 
     const handleChangeScreen = (newValue) => {
-        setCategory_id(newValue.id);
+        setCategory_id(newValue);
     };
 
     const handleChange = (event) => {
@@ -863,40 +753,19 @@ const Team = () => {
 
                                     <FormControl sx={{ width: "90%" }} align="left">
                                         <Stack direction="column" spacing={0} pt={2}>
-                                            <Typography variant="paragraph" pl={1} pb={1} sx={{ font: "normal normal normal 17px/26px Roboto", fontSize: "12px", fontWeight: "medium" }} color="#1F1F1F">
-                                                Name
-                                            </Typography>
-                                            <OutlinedInput
+                                            <CustomTextField
+                                                label="Name"
+                                                value={Name}
                                                 onChange={(event) => {
                                                     setName(event.target.value);
                                                 }}
-                                                id="input-with-icon-adornment"
-                                                sx={{
-                                                    borderRadius: "50px",
-                                                    backgroundColor: "darkgray",
-                                                    "& fieldset": { border: 'none' },
-                                                }}
-                                                // inputProps={{
-                                                //     style: {
-                                                //         color: "black",
-                                                //         fontWeight: '600',
-                                                //         fontSize: '16px'
-                                                //     },
-                                                // }}
                                             />
                                             <br />
-                                            <Typography variant="paragraph" pl={1} pb={1} sx={{ font: "normal normal normal 17px/26px Roboto", fontSize: "12px", fontWeight: "medium" }} color="#1F1F1F">
-                                                Price
-                                            </Typography>
-                                            <OutlinedInput
+                                            <CustomTextField
+                                                label="Price"
+                                                value={Price}
                                                 onChange={(event) => {
                                                     setPrice(event.target.value);
-                                                }}
-                                                id="input-with-icon-adornment"
-                                                sx={{
-                                                    borderRadius: "50px",
-                                                    backgroundColor: "darkgray",
-                                                    "& fieldset": { border: 'none' },
                                                 }}
                                             />
 
@@ -911,48 +780,24 @@ const Team = () => {
 
                                     <FormControl sx={{ width: "90%" }} align="left">
                                         <Stack direction="column" spacing={0} pt={2}>
-                                            <Typography variant="paragraph" pl={1} pb={1} sx={{ font: "normal normal normal 17px/26px Roboto", fontSize: "12px", fontWeight: "medium" }} color="#1F1F1F">
-                                                Category
-                                            </Typography>
+
+                                            <CustomAutocomplete
+                                                label="Category"
+                                                options={Screens}
+                                                value={Category_id}
+                                                onChange={(event, newValue) => handleChangeScreen(newValue)}
+                                            />
 
 
 
-                                            <Autocomplete
-                                            sx={{
-                                                borderRadius: '50px',
-                                                backgroundColor: 'darkgray',
-                                                '& .MuiOutlinedInput-notchedOutline': {
-                                                    border: 'none', // Remove the border
-                                                },
-                                            }}
-                                            id="demo-simple-select"
-                                            options={Screens}
-                                            getOptionLabel={(option) => option.name}
-                                            onChange={(event, newValue) => handleChangeScreen( newValue)}
-                                            renderInput={(params) => (
-                                                <TextField
-                                                    {...params}
-                                                    placeholder={Screen !== null && Screen.length > 0 ? Screen.name : ''}
-                                                />
-                                            )}
-                                        />
-                                         
                                             <br />
-                                            <Typography variant="paragraph" pl={1} pb={1} sx={{ font: "normal normal normal 17px/26px Roboto", fontSize: "12px", fontWeight: "medium" }} color="#1F1F1F">
-                                                location
-                                            </Typography>
-                                            <OutlinedInput
+                                            <CustomTextField
+                                                label="location"
+                                                value={Location}
                                                 onChange={(event) => {
                                                     setLocation(event.target.value);
                                                 }}
-                                                id="input-with-icon-adornment"
-                                                sx={{
-                                                    borderRadius: "50px",
-                                                    backgroundColor: "darkgray",
-                                                    "& fieldset": { border: 'none' },
-                                                }}
                                             />
-                                            <br />
 
                                         </Stack>
 
@@ -960,48 +805,22 @@ const Team = () => {
 
                                 </Grid>
 
-                                <Grid xs={12} md={6} lg={6} xl={6} p={1} align="">
+                                <Grid sx={{mb:'20px'}} xs={12} md={6} lg={6} xl={6} p={1} align="">
                                     <FormControl sx={{ width: "90%" }} align="left">
                                         <Stack direction="column" spacing={0} pt={2}>
-                                            <Typography variant="paragraph" pl={1} pb={1} sx={{ font: "normal normal normal 17px/26px Roboto", fontSize: "12px", fontWeight: "medium" }} color="#1F1F1F">
-                                                Description
-                                            </Typography>
-                                            <OutlinedInput
-                                                multiline
+                                            <CustomTextField
+                                                label="Description"
+                                                value={Description}
                                                 onChange={(event) => {
                                                     setDescription(event.target.value);
                                                 }}
-                                                id="input-with-icon-adornment"
-                                                sx={{
-                                                    borderRadius: "50px",
-                                                    backgroundColor: "darkgray",
-                                                    "& fieldset": { border: 'none' },
-                                                    resize: 'none',
-                                                    overflow: 'hidden',
-                                                    transition: 'height 0.2s',
-                                                    height: 'auto',
-                                                }}
                                             />
-                                            <br />
                                         </Stack>
                                     </FormControl>
                                 </Grid>
-                                {isloading ?
-                                    <Grid xs={12} align="center">
-                                        <Button variant="contained" style={btn}>
-                                            <ClipLoader loading={isloading}
-                                                css={override}
-                                                size={10}
-                                            />
-                                        </Button>
-                                    </Grid>
 
-                                    :
-                                    <Grid xs={12} align="center">
-                                        <Button type='submit' value='Upload'
-                                            variant="contained" style={btn} onClick={() => { handleAdd() }} >Add</Button>
-                                    </Grid>
-                                }
+                                <ConditionalButton isloading={isloading} handleAdd={handleAdd} />
+
                             </Grid>
                         </form>
                     </Container>

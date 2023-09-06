@@ -1,47 +1,20 @@
-import { Box, Typography, Autocomplete, Grid, Button, Stack, Divider, Avatar, Container, InputAdornment, OutlinedInput, FormControl, Select, MenuItem, InputLabel, Input, TextField, Breadcrumbs } from "@mui/material";
+import { Box, Typography, Grid, Stack, Divider, Container, FormControl, Breadcrumbs } from "@mui/material";
 import React, { useState, useEffect } from "react";
-import { Subscriptions, Notifications, Settings, Person, Close, Upload, Add } from '@mui/icons-material';
+import { Close } from '@mui/icons-material';
 import url from "../url"
+import CustomTextField from '../../components/CustomTextField.js'
+import CustomAutocomplete from '../../components/CustomAutocomplete.js'
+import CustomImageUpload from '../../components/CustomImageUpload.js'
+import ConditionalButton from '../../components/ConditionalButton.js'
+
 import { useNavigate } from "react-router-dom"
 import Swal from 'sweetalert2'
 import axios from 'axios';
-import ClipLoader from "react-spinners/ClipLoader";
-const override = {
-    display: ' block',
-    margin: '0 auto',
-    borderColor: 'red',
-}
 
-const btn = {
-    letterSpacing: "1px",
-    width: '50%',
-    marginTop: '40px',
-    marginBottom: '40px',
-    color: 'white',
-    backgroundColor: '#B5030B',
-    borderColor: '#B5030B',
-    height: '50px',
-    padding: '0px',
-    font: 'normal normal normal 17px/26px Roboto',
-    borderRadius: "50px",
-    boxShadow: "none",
-    fontWeight: "medium",
-    boxShadow: "none",
-    borderRadius: "50px",
-    fontSize: "15px",
-    textTransform: "capitalize"
-}
 
 const Team = () => {
+
     const navigate = useNavigate();
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    const open = Boolean(anchorEl);
-    const handleClick = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
-    const handleClose = () => {
-        setAnchorEl(null);
-    }
 
     const [hidelabel, setHidelabel] = useState(false);
     const [hidecrossicon, setHidecrossicon] = useState(false);
@@ -222,7 +195,7 @@ const Team = () => {
     }
 
     const [Status, setStatus] = React.useState('');
-    const [Screen, setScreen] = React.useState('');
+    const [Screen, setScreen] = React.useState(null);
     const [Link, setLink] = React.useState('');
 
     const handleChangeScreen = (newValue) => {
@@ -262,30 +235,11 @@ const Team = () => {
                                         {hidelabel ?
                                             null
                                             :
-                                            <Grid container spacing={0} pt={5}>
-                                                <Grid xs={12} align="">
-                                                    <Stack align="">
-                                                        <label htmlFor="fileInput" style={{ display: "flex", justifyContent: "center", alignContent: "center", color: "#808080" }}>
-                                                            <Stack direction="column" spacing={1} >
-                                                                <Upload sx={{ fontSize: "50px", color: "#808080", ml: 1.8, pb: 1 }} />
-                                                                <span style={{ paddingBottom: "2vh", font: "normal normal normal 16px/26px Arial" }}>Upload Image</span>
-                                                            </Stack>
-                                                        </label>
-                                                        <input
-                                                            style={{ display: "none" }}
-                                                            id="fileInput"
-                                                            type="file"
-                                                            onChange={handleImageChange}
-                                                            accept="image/*"
-                                                        />
-                                                    </Stack>
-                                                </Grid>
-                                            </Grid>
+                                            <CustomImageUpload handleImageChange={handleImageChange} />
                                         }
 
                                         {selectedFile && <img src={URL.createObjectURL(selectedFile)} alt="Preview" style={{ width: "300px", height: "200px" }} />}
                                     </Box>
-
                                     {
                                         hidecrossicon ?
                                             <Box sx={{ display: "flex", justifyContent: "center", alignContent: "center" }}>
@@ -299,135 +253,35 @@ const Team = () => {
                                     }
                                 </Box>
                             </Grid>
-
                             <Grid xs={12} md={6} lg={6} xl={6} p={1} align="" >
-
                                 <FormControl sx={{ width: "90%" }} align="left">
                                     <Stack direction="column" spacing={0} pt={2}>
-                                        <Typography variant="paragraph" pl={1} pb={1} sx={{ font: "normal normal normal 17px/26px Roboto", fontSize: "12px", fontWeight: "medium" }} color="#1F1F1F">
-                                            link
-                                        </Typography>
-                                        <OutlinedInput
+                                        <CustomTextField
+                                            label="Link"
+                                            value={Link}
                                             onChange={(event) => {
                                                 setLink(event.target.value);
                                             }}
-                                            id="input-with-icon-adornment"
-                                            sx={{
-                                                borderRadius: "50px",
-                                                backgroundColor: "darkgray",
-                                                "& fieldset": { border: 'none' },
-                                            }}
                                         />
-                                        <br />
-                                        {/* <Typography variant="paragraph" pl={1} pb={1} sx={{ font: "normal normal normal 17px/26px Roboto", fontSize: "12px", fontWeight: "medium" }} color="#1F1F1F">
-                                            Screen
-                                        </Typography>
-                                        <Select
-                                            sx={{
-                                                borderRadius: "50px",
-                                                backgroundColor: "darkgray",
-                                                "& fieldset": { border: 'none' },
-                                            }}
-                                            labelId="demo-simple-select-label"
-                                            id="demo-simple-select"
-                                            placeholder={Screen}
-                                            label={Screen}
-                                            onChange={handleChangeScreen}
-                                        >
-                                            <MenuItem value="Image Aspects " disabled>
-                                                <em>select Screen</em>
-                                            </MenuItem>
-
-                                            {Screens.map((data) => (
-                                                <MenuItem key={data.id} value={data.id}>{`${data.name}`}</MenuItem>
-                                            ))}
-                                        </Select> */}
-
-                                        {/* <TextField
-                                            id="outlined-multiline-static"
-                                            multiline
-                                            rows={4}
-                                            sx={{
-                                                borderRadius: "20px",
-                                                backgroundColor: "darkgray",
-                                                "& fieldset": { border: 'none' },
-                                            }}
-                                        /> */}
-
                                     </Stack>
-
                                 </FormControl>
-
                             </Grid>
 
-                            <Grid xs={12} md={6} lg={6} xl={6} p={1} align="right" >
+                            <Grid sx={{mb:'30px'}} xs={12} md={6} lg={6} xl={6} p={1} align="right" >
 
                                 <FormControl sx={{ width: "90%" }} align="left">
                                     <Stack direction="column" spacing={0} pt={2}>
-                                        <Typography variant="paragraph" pl={1} pb={1} sx={{ font: "normal normal normal 17px/26px Roboto", fontSize: "12px", fontWeight: "medium" }} color="#1F1F1F">
-                                            Screen
-                                        </Typography>
-                                        <Autocomplete
-                                            sx={{
-                                                borderRadius: '50px',
-                                                backgroundColor: 'darkgray',
-                                                '& .MuiOutlinedInput-notchedOutline': {
-                                                    border: 'none', // Remove the border
-                                                },
-                                            }}
-                                            id="demo-simple-select"
+                                        <CustomAutocomplete
+                                            label="Screen"
                                             options={Screens}
-                                            getOptionLabel={(option) => option.name}
+                                            value={Screen}
                                             onChange={(event, newValue) => handleChangeScreen(newValue)}
-                                            renderInput={(params) => (
-                                                <TextField
-                                                    {...params}
-                                                    placeholder={Screen !== null && Screen.length > 0 ? Screen.name : ''}
-                                                />
-                                            )}
                                         />
-
-
-                                        {/* <Typography variant="paragraph" pl={1} pb={1} sx={{ font: "normal normal normal 17px/26px Roboto", fontSize: "12px", fontWeight: "medium" }} color="#1F1F1F">
-                                            Status
-                                        </Typography>
-                                        <Select
-                                            sx={{
-                                                borderRadius: "50px",
-                                                backgroundColor: "darkgray",
-                                                "& fieldset": { border: 'none' },
-                                            }}
-                                            labelId="demo-simple-select-label"
-                                            id="demo-simple-select"
-                                            value={Status}
-                                            label="status"
-                                            onChange={handleChange}
-                                        >
-                                            <MenuItem value={true}>True</MenuItem>
-                                            <MenuItem value={false}>False</MenuItem>
-                                        </Select> */}
-                                        <br />
-                                        <br />
-
                                     </Stack>
-
                                 </FormControl>
-
                             </Grid>
-                            {isloading ?
-                                <Grid xs={12} align="center">
-                                    <Button variant="contained" style={btn}>
-                                        <ClipLoader loading={isloading}
-                                            css={override}
-                                            size={10}
-                                        />
-                                    </Button>
-                                </Grid>
-                                :
-                                <Grid xs={12} align="center">
-                                    <Button variant="contained" style={btn} onClick={() => { handleAdd() }} >Add</Button>
-                                </Grid>
-                            }
+                                <ConditionalButton isloading={isloading} handleAdd={handleAdd} />
+
                         </Grid>
                     </Container>
                 </Container>
