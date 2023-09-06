@@ -1,9 +1,13 @@
-import { Box, Typography, Grid, Button, Stack, Divider, Avatar, Container, InputAdornment, OutlinedInput, FormControl, Select, MenuItem, InputLabel, Input, TextField, Card, CardContent, Modal, IconButton, Breadcrumbs } from "@mui/material";
-import { Subscriptions, Notifications, Settings, Person, Add, Upload, Email, MoreVert, Close, Lock, VisibilityOff, Visibility } from '@mui/icons-material';
+import {
+    Box, Typography, Grid, Button, Stack, Divider
+    , InputAdornment, OutlinedInput, FormControl, Modal, IconButton
+} from "@mui/material";
+import { Close, Lock, VisibilityOff, Visibility } from '@mui/icons-material';
 import React, { useState, useEffect } from 'react'
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2'
 import ClipLoader from "react-spinners/ClipLoader";
+import ConditionalButton from '../../components/ConditionalButton.js'
 
 import url from '../url'
 import OtpInput from 'react-otp-input';
@@ -174,7 +178,7 @@ const Team = () => {
             Swal.fire({
                 title: "Warning",
                 text: "Old Password Is Required",
-                confirmButtonColor: "#E79628",
+                confirmButtonColor: "#B5030B",
                 icon: "warning",
                 confirmButtonText: "OK",
             });
@@ -183,7 +187,7 @@ const Team = () => {
             Swal.fire({
                 title: "Warning",
                 text: "Password Is Required",
-                confirmButtonColor: "#E79628",
+                confirmButtonColor: "#B5030B",
                 icon: "warning",
                 confirmButtonText: "OK",
             });
@@ -192,7 +196,7 @@ const Team = () => {
             Swal.fire({
                 title: "Warning",
                 text: "Confirm Password Is Required",
-                confirmButtonColor: "#E79628",
+                confirmButtonColor: "#B5030B",
                 icon: "warning",
                 confirmButtonText: "OK",
             });
@@ -203,7 +207,7 @@ const Team = () => {
                 Swal.fire({
                     title: "Warning",
                     text: "Password & Confirm Password Should be same",
-                    confirmButtonColor: "#E79628",
+                    confirmButtonColor: "#B5030B",
                     icon: "warning",
                     confirmButtonText: "OK",
                 });
@@ -273,7 +277,7 @@ const Team = () => {
             Swal.fire({
                 title: "Warning",
                 text: "Old Password Is Required",
-                confirmButtonColor: "#E79628",
+                confirmButtonColor: "#B5030B",
                 icon: "warning",
                 confirmButtonText: "OK",
             });
@@ -282,7 +286,7 @@ const Team = () => {
             Swal.fire({
                 title: "Warning",
                 text: "Password Is Required",
-                confirmButtonColor: "#E79628",
+                confirmButtonColor: "#B5030B",
                 icon: "warning",
                 confirmButtonText: "OK",
             });
@@ -291,7 +295,7 @@ const Team = () => {
             Swal.fire({
                 title: "Warning",
                 text: "Confirm Password Is Required",
-                confirmButtonColor: "#E79628",
+                confirmButtonColor: "#B5030B",
                 icon: "warning",
                 confirmButtonText: "OK",
             });
@@ -302,7 +306,7 @@ const Team = () => {
                 Swal.fire({
                     title: "Warning",
                     text: "Password & Confirm Password Should be same",
-                    confirmButtonColor: "#E79628",
+                    confirmButtonColor: "#B5030B",
                     icon: "warning",
                     confirmButtonText: "OK",
                 });
@@ -539,24 +543,18 @@ const Team = () => {
                                     />
 
                                     <br />
-                                    {isloading ?
-                                        <Button variant="contained" style={btn}>
-                                            <ClipLoader color={'white'} loading={isloading}
-                                                css={override}
-                                                size={10}
-                                            />
-                                        </Button>
-                                        :
 
-                                        <Button variant="contained" style={btn} onClick={() => {
+                                    <ConditionalButton Title="Change Password" isloading={isloading} handleAdd={
+                                        () => {
                                             if (localStorage.getItem('two_factor') === true) {
                                                 updatepassword()
                                             } else {
                                                 updatepasswordWithoutOTP()
                                             }
                                         }
-                                        } >Change Password</Button>
                                     }
+                                    />
+
                                 </Stack>
 
                             </FormControl>

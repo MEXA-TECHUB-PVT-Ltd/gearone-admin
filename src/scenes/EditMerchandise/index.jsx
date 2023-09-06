@@ -1,52 +1,22 @@
-import { Box, Typography, Grid,Autocomplete, Button, Stack, Divider, Avatar, Container, InputAdornment, OutlinedInput, FormControl, Select, MenuItem, InputLabel, Input, TextField, Breadcrumbs } from "@mui/material";
+import {
+    Box, Typography, Grid, Autocomplete, Stack, Divider, Container
+    , FormControl, TextField, Breadcrumbs
+} from "@mui/material";
 import React, { useState, useEffect } from "react";
-import { Subscriptions, Notifications, Settings, Person, Close, Upload, Add } from '@mui/icons-material';
+import { Close, Upload } from '@mui/icons-material';
 import url from "../url"
 import { useLocation, useNavigate } from "react-router-dom"
 import Swal from 'sweetalert2'
+import CustomTextField from '../../components/CustomTextField.js'
+import ConditionalButton from '../../components/ConditionalButton.js'
 import axios from 'axios';
-import ClipLoader from "react-spinners/ClipLoader";
-const override = {
-    display: ' block',
-    margin: '0 auto',
-    borderColor: 'red',
-}
-
-const btn = {
-    letterSpacing: "1px",
-    width: '50%',
-    marginTop: '40px',
-    marginBottom: '40px',
-    color: 'white',
-    backgroundColor: '#B5030B',
-    borderColor: '#B5030B',
-    height: '50px',
-    padding: '0px',
-    font: 'normal normal normal 17px/26px Roboto',
-    borderRadius: "50px",
-    boxShadow: "none",
-    fontWeight: "medium",
-    boxShadow: "none",
-    borderRadius: "50px",
-    fontSize: "15px",
-    textTransform: "capitalize"
-}
 
 const Team = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    const open = Boolean(anchorEl);
-    const handleClick = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
-    const handleClose = () => {
-        setAnchorEl(null);
-    }
     const [Name, setName] = useState('');
     const [Price, setPrice] = useState(location.state.price);
-    const [catagory_name, setCatagory_name] = useState('');
     const [Category_id, setCategory_id] = useState('');
     const [Description, setDescription] = useState('');
     const [Location, setLocation] = useState('');
@@ -69,10 +39,6 @@ const Team = () => {
 
     // let selectedFile = [];
     const [files, setFiles] = useState([]);
-    const onChange = e => {
-        console.log(e.target.files);
-        setFiles(e.target.files)
-    };
 
     const [Screens, setScreens] = useState([]);
     const [Data, setData] = useState([]);
@@ -99,15 +65,15 @@ const Team = () => {
         })
             .then(response => response.json())
             .then(async response => {
-                if (response.message == `merchandise data`) {
+                if (response.status === true) {
                     setData(response.result);
                 } else {
                     setIsloading(false);
                     Swal.fire({
                         icon: 'error',
-                        title: 'Oops',
+                        title: 'Error',
                         confirmButtonColor: "#B5030B",
-                        text: ''
+                        text: 'Server Error, Load Again!'
                     })
                 }
             }
@@ -116,7 +82,7 @@ const Team = () => {
                 setIsloading(false);
                 Swal.fire({
                     icon: 'error',
-                    title: 'Oops...',
+                    title: 'Error...',
                     confirmButtonColor: "#B5030B",
                     text: "Server Down!"
                 })
@@ -168,7 +134,7 @@ const Team = () => {
                 .then(async response => {
                     console.log(response);
                     console.log(selectedFile)
-                    if (response.message == `Merchandise Updated Successfully!`) {
+                    if (response.status === true) {
                         setIsloading(false);
                         console.log("Data5")
                         Swal.fire({
@@ -184,9 +150,9 @@ const Team = () => {
                         setIsloading(false);
                         Swal.fire({
                             icon: 'error',
-                            title: 'Oops',
+                            title: 'Error',
                             confirmButtonColor: "#B5030B",
-                            text: 'Try Again'
+                            text: 'Server Error, Try Again'
                         })
                     }
                 }
@@ -195,7 +161,7 @@ const Team = () => {
                     setIsloading(false);
                     Swal.fire({
                         icon: 'error',
-                        title: 'Oops...',
+                        title: 'Error...',
                         confirmButtonColor: "#B5030B",
                         text: "Server Down!"
                     })
@@ -212,10 +178,6 @@ const Team = () => {
         formData.append("image", e.target.files[0]);
         console.log(e.target.files[0])
         if (e.target.files[0] !== null && e.target.files[0] !== undefined) {
-            var Data = {
-                "id": location.state.id,
-                "image": selectedFile,
-            };
             formData.append("id", location.state.id)
             formData.append("location", num)
 
@@ -226,15 +188,15 @@ const Team = () => {
             }).then((response) => {
                 setIsloading(false);
                 console.log(response.data);
-                if (response.data.message == `merchandise Images Updated Successfully!`) {
+                if (response.data.status === true) {
                     setIsloading(false);
                 } else {
                     setIsloading(false);
                     Swal.fire({
                         icon: 'error',
-                        title: 'Oops2...',
+                        title: 'Error...',
                         confirmButtonColor: "#B5030B",
-                        text: ''
+                        text: 'Server Error'
                     })
                 }
             }
@@ -283,26 +245,13 @@ const Team = () => {
             .then(response => response.json())
             .then(response => {
                 console.log(response);
-                if (response.message == `categories Details`) {
+                if (response.status === true) {
                     // setLogos(response.count);
                     setScreens(response.result);
-                } else {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops..',
-                        confirmButtonColor: "#B5030B",
-                        text: ''
-                    })
                 }
             }
             )
             .catch(error => {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    confirmButtonColor: "#B5030B",
-                    text: "Server Down!"
-                })
             });
     }
 
@@ -375,9 +324,6 @@ const Team = () => {
 
     }
 
-    const [Status, setStatus] = React.useState('');
-    const [Screen, setScreen] = React.useState('');
-    const [Link, setLink] = React.useState('');
 
 
 
@@ -386,9 +332,6 @@ const Team = () => {
         setCategory_id(newValue);
     };
 
-    const handleChange = (event) => {
-        setStatus(event.target.value);
-    };
 
     return (
         <>
@@ -787,35 +730,19 @@ const Team = () => {
 
                                     <FormControl sx={{ width: "90%" }} align="left">
                                         <Stack direction="column" spacing={0} pt={2}>
-                                            <Typography variant="paragraph" pl={1} pb={1} sx={{ font: "normal normal normal 17px/26px Roboto", fontSize: "12px", fontWeight: "medium" }} color="#1F1F1F">
-                                                Name
-                                            </Typography>
-                                            <OutlinedInput
+                                            <CustomTextField
+                                                label="Name"
                                                 defaultValue={location.state.name}
                                                 onChange={(event) => {
                                                     setName(event.target.value);
                                                 }}
-                                                id="input-with-icon-adornment"
-                                                sx={{
-                                                    borderRadius: "50px",
-                                                    backgroundColor: "darkgray",
-                                                    "& fieldset": { border: 'none' },
-                                                }}
                                             />
                                             <br />
-                                            <Typography variant="paragraph" pl={1} pb={1} sx={{ font: "normal normal normal 17px/26px Roboto", fontSize: "12px", fontWeight: "medium" }} color="#1F1F1F">
-                                                Price
-                                            </Typography>
-                                            <OutlinedInput
+                                            <CustomTextField
+                                                label="Price"
                                                 defaultValue={location.state.price}
                                                 onChange={(event) => {
                                                     setPrice(event.target.value);
-                                                }}
-                                                id="input-with-icon-adornment"
-                                                sx={{
-                                                    borderRadius: "50px",
-                                                    backgroundColor: "darkgray",
-                                                    "& fieldset": { border: 'none' },
                                                 }}
                                             />
                                         </Stack>
@@ -832,51 +759,38 @@ const Team = () => {
                                                 Category
                                             </Typography>
                                             <Autocomplete
-                                            sx={{
-                                                borderRadius: '50px',
-                                                backgroundColor: 'darkgray',
-                                                '& .MuiOutlinedInput-notchedOutline': {
-                                                    border: 'none', // Remove the border
-                                                },
-                                            }}
-                                            id="demo-simple-select"
-                                            options={Screens}
-                                            getOptionLabel={(option) => option.name}
-                                            onChange={handleChangeScreen}
-                                            displayEmpty
-                                            renderInput={(params) => (
-                                                <TextField
-                                                    {...params}
-                                                    displayEmpty
-                                                    defaultValue={location.state.catagory_name}
-                                                    placeholder={location.state.catagory_name}
-                                                />
-                                            )}
-                                        />
+                                                sx={{
+                                                    borderRadius: '50px',
+                                                    backgroundColor: 'darkgray',
+                                                    '& .MuiOutlinedInput-notchedOutline': {
+                                                        border: 'none', // Remove the border
+                                                    },
+                                                }}
+                                                id="demo-simple-select"
+                                                options={Screens}
+                                                getOptionLabel={(option) => option.name}
+                                                onChange={handleChangeScreen}
+                                                displayEmpty
+                                                renderInput={(params) => (
+                                                    <TextField
+                                                        {...params}
+                                                        displayEmpty
+                                                        defaultValue={location.state.catagory_name}
+                                                        placeholder={location.state.catagory_name}
+                                                    />
+                                                )}
+                                            />
 
-                                           
+
 
                                             <br />
-
-                                            <Typography variant="paragraph" pl={1} pb={1} sx={{ font: "normal normal normal 17px/26px Roboto", fontSize: "12px", fontWeight: "medium" }} color="#1F1F1F">
-                                                location
-                                            </Typography>
-                                            <OutlinedInput
+                                            <CustomTextField
+                                                label="Location"
                                                 defaultValue={location.state.location}
                                                 onChange={(event) => {
                                                     setLocation(event.target.value);
                                                 }}
-                                                id="input-with-icon-adornment"
-                                                sx={{
-                                                    borderRadius: "50px",
-                                                    backgroundColor: "darkgray",
-                                                    "& fieldset": { border: 'none' },
-                                                }}
                                             />
-
-
-                                            <br />
-
                                         </Stack>
 
                                     </FormControl>
@@ -884,53 +798,26 @@ const Team = () => {
                                 </Grid>
 
 
-                                <Grid xs={12} md={6} lg={6} xl={6} p={1} align="" >
+                                <Grid sx={{mt:'20px'}} xs={12} md={6} lg={6} xl={6} p={1} align="" >
 
                                     <FormControl sx={{ width: "90%" }} align="left">
 
                                         <Stack direction="column" spacing={0} pt={2}>
-                                            <Typography variant="paragraph" pl={1} pb={1} sx={{ font: "normal normal normal 17px/26px Roboto", fontSize: "12px", fontWeight: "medium" }} color="#1F1F1F">
-                                                Description
-                                            </Typography>
-                                            <OutlinedInput
-                                                multiline
-                                                maxRows={6}
+
+                                            <CustomTextField
+                                                label="Description"
                                                 defaultValue={location.state.description}
                                                 onChange={(event) => {
                                                     setDescription(event.target.value);
                                                 }}
-                                                id="input-with-icon-adornment"
-                                                sx={{
-                                                    borderRadius: "50px",
-                                                    backgroundColor: "darkgray",
-                                                    "& fieldset": { border: 'none' },
-                                                }}
                                             />
-
-                                            <br />
-
                                         </Stack>
 
                                     </FormControl>
 
                                 </Grid>
+                                <ConditionalButton Title="update Logo" isloading={isloading} handleAdd={handleAdd} />
 
-                                {isloading ?
-                                    <Grid xs={12} align="center">
-                                        <Button variant="contained" style={btn}>
-                                            <ClipLoader loading={isloading}
-                                                css={override}
-                                                size={10}
-                                            />
-                                        </Button>
-                                    </Grid>
-
-                                    :
-                                    <Grid xs={12} align="center">
-                                        <Button type='submit' value='Upload'
-                                            variant="contained" style={btn} onClick={() => { handleAdd() }} >Update</Button>
-                                    </Grid>
-                                }
                             </Grid>
                         </form>
                     </Container>

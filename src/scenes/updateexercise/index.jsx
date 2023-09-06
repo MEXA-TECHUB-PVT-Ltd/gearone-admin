@@ -1,47 +1,19 @@
-import { Box, Typography, Grid, Button,Autocomplete, Stack, Divider, Avatar, Container, InputAdornment, OutlinedInput, FormControl, Select, MenuItem, InputLabel, Input, TextField, Breadcrumbs } from "@mui/material";
+import {
+    Box, Typography, Grid, Autocomplete, Stack, Divider
+    , Container, FormControl, Select, MenuItem, TextField, Breadcrumbs
+} from "@mui/material";
 import React, { useState, useEffect } from "react";
-import { Subscriptions, Notifications, Settings, Person, Close, Upload, Add } from '@mui/icons-material';
+import { Close } from '@mui/icons-material';
 import url from "../url"
 import { useNavigate, useLocation } from "react-router-dom"
 import Swal from 'sweetalert2'
 import axios from 'axios';
-import ClipLoader from "react-spinners/ClipLoader";
-const override = {
-    display: ' block',
-    margin: '0 auto',
-    borderColor: 'red',
-}
-
-const btn = {
-    letterSpacing: "1px",
-    width: '50%',
-    marginTop: '40px',
-    marginBottom: '40px',
-    color: 'white',
-    backgroundColor: '#B5030B',
-    borderColor: '#B5030B',
-    height: '50px',
-    padding: '0px',
-    font: 'normal normal normal 17px/26px Roboto',
-    borderRadius: "50px",
-    boxShadow: "none",
-    fontWeight: "medium",
-    boxShadow: "none",
-    borderRadius: "50px",
-    fontSize: "15px",
-    textTransform: "capitalize"
-}
+import ConditionalButton from '../../components/ConditionalButton.js'
+import CustomTextField from '../../components/CustomTextField.js'
+import CustomImageUpload from '../../components/CustomImageUpload.js'
 
 const Team = () => {
     const navigate = useNavigate();
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    const open = Boolean(anchorEl);
-    const handleClick = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
-    const handleClose = () => {
-        setAnchorEl(null);
-    }
     const location = useLocation();
 
     const [hidelabel, setHidelabel] = useState(false);
@@ -53,7 +25,6 @@ const Team = () => {
     }, [])
     const [isloading, setIsloading] = useState(false);
 
-    const [catagory_name, setCatagory_name] = useState('');
 
     const handleAdd = async () => {
         setIsloading(true)
@@ -74,7 +45,7 @@ const Team = () => {
         } else {
             var Data = {
                 "adID": location.state.id,
-                "link": Link,   
+                "link": Link,
                 "screen_id": Screen.id,
                 "active_status": Status
             };
@@ -86,7 +57,7 @@ const Team = () => {
                 .then(response => response.json())
                 .then(async response => {
                     console.log(response);
-                    if (response.message == `Ad Updated Successfully!`) {
+                    if (response.status === true) {
                         Swal.fire({
                             icon: 'success',
                             title: 'Success!',
@@ -107,36 +78,13 @@ const Team = () => {
                                 setIsloading(false)
 
 
-                                // var InsertAPIURL = `${url}logos/add_logos_image`
-                                // var headers = {
-                                //     // 'Accept': 'application/json',
-                                //     // 'Content-Type': 'application/json',
-                                //     "Content-Type": "multipart/form-data"
 
-                                // };
-                                // var Data = {
-                                //     "id": response.result[0].id,
-                                //     "image": selectedFile,
-                                // };
-                                // await fetch(InsertAPIURL, {
-                                //     method: 'PUT',
-                                //     headers: headers,
-                                //     body: JSON.stringify(Data),
-                                // })
-                                //     .then(response => response.json())
-                                //     .then(response => {
                                 console.log(response.data);
-                                if (response.data.message == `Ad Image added Successfully!`) {
+                                if (response.data.status === true) {
                                     navigate("/manage_banners_ads")
                                     setIsloading(false)
                                 } else {
                                     setIsloading(false)
-                                    Swal.fire({
-                                        icon: 'error',
-                                        title: 'Oops2...',
-                                        confirmButtonColor: "#B5030B",
-                                        text: ''
-                                    })
                                 }
                             }
                             )
@@ -156,9 +104,9 @@ const Team = () => {
                         setIsloading(false)
                         Swal.fire({
                             icon: 'error',
-                            title: 'Oops...',
+                            title: 'Error...',
                             confirmButtonColor: "#B5030B",
-                            text: ''
+                            text: 'Server Error! Try Again'
                         })
                     }
                 }
@@ -192,26 +140,13 @@ const Team = () => {
             .then(response => response.json())
             .then(response => {
                 console.log(response);
-                if (response.message == `All screens Details`) {
+                if (response.status === true) {
                     // setLogos(response.count);
                     setScreens(response.result);
-                } else {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        confirmButtonColor: "#B5030B",
-                        text: ''
-                    })
                 }
             }
             )
             .catch(error => {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    confirmButtonColor: "#B5030B",
-                    text: "Server Error"
-                })
             });
     }
 
@@ -269,25 +204,8 @@ const Team = () => {
                                         {hidelabel ?
                                             null
                                             :
-                                            <Grid container spacing={0} pt={5}>
-                                                <Grid xs={12} align="">
-                                                    <Stack align="">
-                                                        <label htmlFor="fileInput" style={{ display: "flex", justifyContent: "center", alignContent: "center", color: "#808080" }}>
-                                                            <Stack direction="column" spacing={1} >
-                                                                <Upload sx={{ fontSize: "50px", color: "#808080", ml: 1.8, pb: 1 }} />
-                                                                <span style={{ paddingBottom: "2vh", font: "normal normal normal 16px/26px Arial" }}>Upload Image</span>
-                                                            </Stack>
-                                                        </label>
-                                                        <input
-                                                            style={{ display: "none" }}
-                                                            id="fileInput"
-                                                            type="file"
-                                                            onChange={handleImageChange}
-                                                            accept="image/*"
-                                                        />
-                                                    </Stack>
-                                                </Grid>
-                                            </Grid>
+                                            <CustomImageUpload handleImageChange={handleImageChange} />
+
                                         }
                                         {selectedFile ? <img src={URL.createObjectURL(selectedFile)} alt="Preview" style={{ width: "300px", height: "200px" }} />
                                             :
@@ -320,20 +238,11 @@ const Team = () => {
 
                                 <FormControl sx={{ width: "90%" }} align="left">
                                     <Stack direction="column" spacing={0} pt={2}>
-                                        <Typography variant="paragraph" pl={1} pb={1} sx={{ font: "normal normal normal 17px/26px Roboto", fontSize: "12px", fontWeight: "medium" }} color="#1F1F1F">
-                                            link
-                                        </Typography>
-                                        <OutlinedInput
+                                        <CustomTextField
+                                            label="Link"
+                                            defaultValue={location.state.link}
                                             onChange={(event) => {
                                                 setLink(event.target.value);
-                                            }}
-                                            id="input-with-icon-adornment"
-                                            defaultValue={location.state.link}
-                                            placeholder={location.state.link}
-                                            sx={{
-                                                borderRadius: "50px",
-                                                backgroundColor: "darkgray",
-                                                "& fieldset": { border: 'none' },
                                             }}
                                         />
                                         <br />
@@ -362,19 +271,6 @@ const Team = () => {
                                                 />
                                             )}
                                         />
-
-
-                                        {/* <TextField
-                                            id="outlined-multiline-static"
-                                            multiline
-                                            rows={4}
-                                            sx={{
-                                                borderRadius: "20px",
-                                                backgroundColor: "darkgray",
-                                                "& fieldset": { border: 'none' },
-                                            }}
-                                        /> */}
-
                                     </Stack>
 
                                 </FormControl>
@@ -406,28 +302,11 @@ const Team = () => {
                                         </Select>
                                         <br />
                                         <br />
-
                                     </Stack>
-
                                 </FormControl>
-
                             </Grid>
-                            {isloading ?
-                                <Grid xs={12} align="center">
-                                    <Button variant="contained" style={btn}>
-                                        <ClipLoader loading={isloading}
-                                            css={override}
-                                            size={10}
-                                        />
-                                    </Button>
-                                </Grid>
+                            <ConditionalButton Title="update Banner" isloading={isloading} handleAdd={handleAdd} />
 
-                                :
-
-                                <Grid xs={12} align="center">
-                                    <Button variant="contained" style={btn} onClick={() => { handleAdd() }} >Update</Button>
-                                </Grid>
-                            }
                         </Grid>
                     </Container>
                 </Container>

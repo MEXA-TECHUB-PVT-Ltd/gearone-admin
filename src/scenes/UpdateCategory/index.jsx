@@ -1,16 +1,14 @@
-import { Box, Typography, Modal, Grid, Button, Stack, Divider, Avatar, Container, InputAdornment, OutlinedInput, FormControl, Select, MenuItem, InputLabel, Input, TextField, Breadcrumbs } from "@mui/material";
+import { Box, Typography, Modal, Grid, Stack, Divider
+    , Container, FormControl, Breadcrumbs } from "@mui/material";
 import React, { useState, useEffect } from "react";
-import { Subscriptions, Notifications, Settings, Person, Close, Upload, Add } from '@mui/icons-material';
+import { Close} from '@mui/icons-material';
 import url from "../url"
 import { useNavigate , useLocation} from "react-router-dom"
 import Swal from 'sweetalert2'
+import CustomTextField from '../../components/CustomTextField.js'
+import CustomImageUpload from '../../components/CustomImageUpload.js'
+import ConditionalButton from '../../components/ConditionalButton.js'
 import axios from 'axios';
-import ClipLoader from "react-spinners/ClipLoader";
-const override = {
-    display: ' block',
-    margin: '0 auto',
-    borderColor: 'red',
-}
 const style = {
     position: 'absolute',
     top: '50%',
@@ -24,35 +22,6 @@ const style = {
     p: 4,
     borderRadius: 5
 };
-const btn = {
-    letterSpacing: "1px",
-    width: '50%',
-    marginTop: '40pxs',
-    marginBottom: '40px',
-    color: 'white',
-    backgroundColor: '#B5030B',
-    borderColor: '#B5030B',
-    height: '50px',
-    padding: '0px',
-    font: 'normal normal normal 17px/26px Roboto',
-    borderRadius: "50px",
-    boxShadow: "none",
-    fontWeight: "medium",
-    boxShadow: "none",
-    borderRadius: "50px",
-    fontSize: "15px",
-    textTransform: "capitalize"
-}
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-    PaperProps: {
-        style: {
-            maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-            width: 250,
-        },
-    },
-};
 
 const Team = () => {
         const location = useLocation();
@@ -60,14 +29,6 @@ const Team = () => {
 
     const [addName, setAddName] = React.useState('');
     const navigate = useNavigate();
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    const open = Boolean(anchorEl);
-    const handleClick = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
-    const handleClose = () => {
-        setAnchorEl(null);
-    }
         const getAllPlans = async () => {
                 if (location.state.row.image !== undefined && location.state.row.image !== null && location.state.row.image !== '') {
             setHidelabel(true)
@@ -75,15 +36,9 @@ const Team = () => {
                 }
     }
 
-    const [openaddsuccess, setOpenaddsuccess] = useState(false);
     const [openaddmodal, setOpenaddmodal] = useState(false);
     const handleOpenadd = () => setOpenaddmodal(true);
-    const handleCloseadd = () => {
-        setOpenaddmodal(false);
-        setOpenaddsuccess(true)
-    };
 
-    const [Skill, setSkill] = React.useState([]);
 
 
     
@@ -231,17 +186,6 @@ const Team = () => {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
         };
-        console.log(selectedFile)
-        console.log(Skills)
-//         if(AddName === ''){
-//             setAddName(location.state.row.name);
-//         }
-//         if(selectedFile === ''){
-//             setAddName(location.state.row.image);
-//         }
-//         if(Skill === ''){
-//             setSkill(location.state.row.banners);
-//         }
 if ( Skills === "" ) {
             setIsloading2(false)
             Swal.fire({
@@ -302,14 +246,7 @@ await fetch(InsertAPIURL, {
                             setIsloading(false)
                             navigate("/categories")
                         }
-                    } else if (response.message == 'Please Enter screen ID') {
-                        setIsloading2(false)
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            confirmButtonColor: "#B5030B",
-                            text: 'Please Select Screen'
-                        })
+                    
                     } else {
                         setIsloading2(false)
                         Swal.fire({
@@ -355,26 +292,13 @@ await fetch(InsertAPIURL, {
             .then(response => response.json())
             .then(response => {
                 console.log(response);
-                if (response.message == `All screens Details`) {
+                if (response.status === true) {
                     // setLogos(response.count);
                     setScreens(response.result);
-                } else {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        confirmButtonColor: "#B5030B",
-                        text: ''
-                    })
                 }
             }
             )
             .catch(error => {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    confirmButtonColor: "#B5030B",
-                    text: "Server Down!"
-                })
             });
     }
 
@@ -410,18 +334,6 @@ await fetch(InsertAPIURL, {
         setHidecrossicon(false);
         setHidelabel(false);
     }
-
-    const [Status, setStatus] = React.useState('');
-    const [Screen, setScreen] = React.useState('');
-
-    const handleChangeScreen = (event) => {
-        setScreen(event.target.value);
-    };
-
-    const handleChange = (event) => {
-        setStatus(event.target.value);
-    };
-
     return (
         <>
             <Box sx={{ height: "85vh", width: "100%", overflowX: "scroll" }}>
@@ -451,25 +363,8 @@ await fetch(InsertAPIURL, {
                                     {hidelabel ?
                                             null
                                             :
-                                            <Grid container spacing={0} pt={5}>
-                                                <Grid xs={12} align="">
-                                                    <Stack align="">
-                                                        <label htmlFor="fileInput" style={{ display: "flex", justifyContent: "center", alignContent: "center", color: "#808080" }}>
-                                                            <Stack direction="column" spacing={1} >
-                                                                <Upload sx={{ fontSize: "50px", color: "#808080", ml: 1.8, pb: 1 }} />
-                                                                <span style={{ paddingBottom: "2vh", font: "normal normal normal 16px/26px Arial" }}>Upload Image</span>
-                                                            </Stack>
-                                                        </label>
-                                                        <input
-                                                            style={{ display: "none" }}
-                                                            id="fileInput"
-                                                            type="file"
-                                                            onChange={handleImageChange}
-                                                            accept="image/*"
-                                                        />
-                                                    </Stack>
-                                                </Grid>
-                                            </Grid>
+                                            <CustomImageUpload handleImageChange={handleImageChange} />
+
                                         }
                                         {selectedFile ? <img src={URL.createObjectURL(selectedFile)} alt="Preview" style={{ width: "300px", height: "200px" }} />
                                             :
@@ -502,40 +397,16 @@ await fetch(InsertAPIURL, {
 
                                 <FormControl sx={{ width: "50%" }} align="center">
                                     <Stack direction="column" spacing={0} pt={2}>
-                                        <Typography
-                                            variant="paragraph"
-                                            pl={1}
-                                            pb={1}
-                                            sx={{
-                                                fontFamily: "Roboto",
-                                                fontSize: "18px",
-                                                fontWeight: "bold",
-                                                color: "#1F1F1F",
-                                            }}
-                                        >
-                                            Name
-                                        </Typography>
-                                        <OutlinedInput
-                                            id={location.state.row.id}
+                                    <CustomTextField
+                                            label="Name"
                                             defaultValue={location.state.row.name}
                                             onChange={(event) => {
                                                 setAddName(event.target.value);
                                             }}
-
-                                            sx={{
-                                                backgroundColor: "darkgray",
-                                                "& fieldset": { border: 'none' },
-                                                "& ::placeholder": { ml: 1, fontWeight: 600, fontWeight: 'bold', color: "white" }
-                                            }}
                                         />
-
-
                                     </Stack>
-
                                 </FormControl>
-
                             </Grid>
-
                             <Grid xs={24} md={12} lg={12} xl={12} p={1} align="center" >
 
                                 <FormControl sx={{ width: "100%" }} align="center">
@@ -594,27 +465,11 @@ await fetch(InsertAPIURL, {
                                 
                                 <Grid sx={{mt:'5%'}} container justifyContent="center" spacing={0}>
       <Grid md={6} xs={12} item>
-        {isloading ? (
-          <Button variant="contained" style={btn}>
-            <ClipLoader loading={isloading} css={override} size={10} />
-          </Button>
-        ) : (
-          <Button variant="contained" style={btn} onClick={() => handleOpenadd()}>
-            Add More Banners
-          </Button>
-        )}
+      <ConditionalButton Title="Add More Banners" isloading={isloading} handleAdd={()=>{handleOpenadd()}} />
       </Grid>
 
       <Grid md={6} xs={12} item>
-        {isloading2 ? (
-          <Button variant="contained" style={btn}>
-            <ClipLoader loading={isloading2} css={override} size={10} />
-          </Button>
-        ) : (
-          <Button variant="contained" style={btn} onClick={() => handleAdd()}>
-            Update category
-          </Button>
-        )}
+      <ConditionalButton Title="Update category" isloading={isloading2} handleAdd={handleAdd} />
       </Grid>
     </Grid>
                         </Grid>
@@ -651,30 +506,11 @@ await fetch(InsertAPIURL, {
                                         {hidelabelBanner ?
                                             null
                                             :
-                                            <Grid container spacing={0} pt={5}>
-                                                <Grid xs={12} align="">
-                                                    <Stack align="">
-                                                        <label htmlFor="fileInputs" style={{ display: "flex", justifyContent: "center", alignContent: "center", color: "#808080" }}>
-                                                            <Stack direction="column" spacing={1} >
-                                                                <Upload sx={{ fontSize: "50px", color: "#808080", ml: 1.8, pb: 1 }} />
-                                                                <span style={{ paddingBottom: "2vh", font: "normal normal normal 16px/26px Arial" }}>Upload Image</span>
-                                                            </Stack>
-                                                        </label>
-                                                        <input
-                                                            style={{ display: "none" }}
-                                                            id="fileInputs"
-                                                            type="file"
-                                                            onChange={handleImageChangeBanner}
-                                                            accept="image/*"
-                                                        />
-                                                    </Stack>
-                                                </Grid>
-                                            </Grid>
-                                        }
+                                            <CustomImageUpload handleImageChange={handleImageChangeBanner} />
 
+                                        }
                                         {selectedFileBanner && <img src={URL.createObjectURL(selectedFileBanner)} alt="Preview" style={{ width: "300px", height: "200px" }} />}
                                     </Box>
-
                                     {
                                         hidecrossiconBanner ?
                                             <Box sx={{ display: "flex", justifyContent: "center", alignContent: "center" }}>
@@ -690,43 +526,18 @@ await fetch(InsertAPIURL, {
 
 
 
-
-                                <OutlinedInput
-                                    id="input-with-icon-adornment"
-                                    placeholder="Banner Link"
-                                    onChange={(event) => {
-                                        setBannerLink(event.target.value);
-                                    }}
-
-                                    sx={{
-
-                                        backgroundColor: "darkgray",
-                                        "& fieldset": { border: 'none' },
-                                        "& ::placeholder": { ml: 1, fontWeight: 600, color: "white" }
-                                    }}
-                                />
-                            </FormControl>
+                                <CustomTextField
+                                            label="Banner Link"
+                                            onChange={(event) => {
+                                                setBannerLink(event.target.value);
+                                            }}
+                                        />
+                                </FormControl>
                         </Grid>
                     </Grid>
 
                     <Grid container spacing={0} pt={7}>
-
-                        {isloading1 ?
-                            <Grid xs={12} align="center">
-                                <Button variant="contained" style={btn}>
-                                    <ClipLoader loading={isloading1}
-                                        css={override}
-                                        size={10}
-                                    />
-                                </Button>
-                            </Grid>
-
-                            :
-
-                            <Grid xs={12} align="center">
-                                <Button variant="contained" style={btn} onClick={handleAddBanner}>Add</Button>
-                            </Grid>
-                        }
+                    <ConditionalButton Title="Add Banner" isloading={isloading1} handleAdd={handleAddBanner} />
                     </Grid>
 
                 </Box>
@@ -737,7 +548,6 @@ await fetch(InsertAPIURL, {
 }
 
 export default Team
-// import React, { useState, useEffect } from "react";
 // import { Subscriptions, Notifications, Settings, Person, Close, Upload, Add } from '@mui/icons-material';
 // import url from "../url"
 // import { useLocation, useNavigate } from "react-router-dom"

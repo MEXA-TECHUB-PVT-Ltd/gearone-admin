@@ -1,16 +1,13 @@
-import { Box, Typography, Modal, Grid, Button, Stack, Divider, Avatar, Container, InputAdornment, OutlinedInput, FormControl, Select, MenuItem, InputLabel, Input, TextField, Breadcrumbs } from "@mui/material";
+import { Box, Typography, Modal, Grid, Stack, Divider, Container, FormControl, Breadcrumbs } from "@mui/material";
 import React, { useState, useEffect } from "react";
-import { Subscriptions, Notifications, Settings, Person, Close, Upload, Add } from '@mui/icons-material';
+import { Close, Upload } from '@mui/icons-material';
 import url from "../url"
+import CustomTextField from '../../components/CustomTextField.js'
+import CustomImageUpload from '../../components/CustomImageUpload.js'
+import ConditionalButton from '../../components/ConditionalButton.js'
 import { useNavigate } from "react-router-dom"
 import Swal from 'sweetalert2'
 import axios from 'axios';
-import ClipLoader from "react-spinners/ClipLoader";
-const override = {
-    display: ' block',
-    margin: '0 auto',
-    borderColor: 'red',
-}
 const style = {
     position: 'absolute',
     top: '50%',
@@ -24,50 +21,12 @@ const style = {
     p: 4,
     borderRadius: 5
 };
-const btn = {
-    letterSpacing: "1px",
-    width: '50%',
-    marginTop: '40pxs',
-    marginBottom: '40px',
-    color: 'white',
-    backgroundColor: '#B5030B',
-    borderColor: '#B5030B',
-    height: '50px',
-    padding: '0px',
-    font: 'normal normal normal 17px/26px Roboto',
-    borderRadius: "50px",
-    boxShadow: "none",
-    fontWeight: "medium",
-    boxShadow: "none",
-    borderRadius: "50px",
-    fontSize: "15px",
-    textTransform: "capitalize"
-}
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-    PaperProps: {
-        style: {
-            maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-            width: 250,
-        },
-    },
-};
 
 const Team = () => {
     const [BannerName, setBannerName] = React.useState('');
 
     const [addName, setAddName] = React.useState('');
     const navigate = useNavigate();
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    const open = Boolean(anchorEl);
-    const handleClick = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
-    const handleClose = () => {
-        setAnchorEl(null);
-    }
-    const [searchQuery, setSearchQuery] = useState("");
     const getAllPlans = async () => {
         var InsertAPIURL = `${url}ads/get_all_ads`
         var headers = {
@@ -80,7 +39,7 @@ const Team = () => {
         })
             .then(response => response.json())
             .then(response => {
-                if (response.status == true) {
+                if (response.status === true) {
                     // setLogos(response.count);
                     console.log("response");
                     setSkills(response.result);
@@ -103,36 +62,31 @@ const Team = () => {
                 })
             });
     }
-    const handleImageClick = (imageId) => {
-        // Assuming `Skill` is an array that stores the selected image IDs
-        if (Skill.includes(imageId)) {
-            // If the image is already selected, remove it from the selection
-            setSkill(Skill.filter(id => id !== imageId));
-        } else {
-            // If the image is not selected, add it to the selection
-            setSkill([...Skill, imageId]);
-        }
-    };
+    const [selectedFile, setSelectedFile] = useState(null);
+    const [selectedFile1, setSelectedFile1] = useState(null);
+    const [selectedFile2, setSelectedFile2] = useState(null);
+    const [selectedFile3, setSelectedFile3] = useState(null);
+    const [selectedFile4, setSelectedFile4] = useState(null);
 
+    const [hidelabel, setHidelabel] = useState(false);
+    const [hidelabel1, setHidelabel1] = useState(false);
+    const [hidelabel2, setHidelabel2] = useState(false);
+    const [hidelabel3, setHidelabel3] = useState(false);
+    const [hidelabel4, setHidelabel4] = useState(false);
+    const [hidecrossicon, setHidecrossicon] = useState(false);
+    const [hidecrossicon1, setHidecrossicon1] = useState(false);
+    const [hidecrossicon2, setHidecrossicon2] = useState(false);
+    const [hidecrossicon3, setHidecrossicon3] = useState(false);
+    const [hidecrossicon4, setHidecrossicon4] = useState(false);
+    const [Link1, setLink1] = useState('');
+    const [Link2, setLink2] = useState('');
+    const [Link3, setLink3] = useState('');
+    const [Link4, setLink4] = useState('');
+    const [Link5, setLink5] = useState('');
 
-    const [openaddsuccess, setOpenaddsuccess] = useState(false);
     const [openaddmodal, setOpenaddmodal] = useState(false);
     const handleOpenadd = () => setOpenaddmodal(true);
-    const handleCloseadd = () => {
-        setOpenaddmodal(false);
-        setOpenaddsuccess(true)
-    };
 
-    const handleChangeSkill = (event) => {
-        const {
-            target: { value },
-        } = event;
-        setSkill(
-            // On autofill we get a stringified value.
-            typeof value === 'string' ? value.split(',') : value,
-        );
-
-    };
     const [Skill, setSkill] = React.useState([]);
     const [Images, setImages] = useState([]);
     const [Skills, setSkills] = useState([]);
@@ -141,13 +95,17 @@ const Team = () => {
     const [hidecrossiconBanner, setHidecrossiconBanner] = useState(false);
     const [selectedFileBanner, setSelectedFileBanner] = useState(null);
 
-    const [hidelabel, setHidelabel] = useState(false);
-    const [hidecrossicon, setHidecrossicon] = useState(false);
-    const [selectedFile, setSelectedFile] = useState(null);
+    const [hidelabelIcon, setHidelabelIcon] = useState(false);
+    const [hidecrossiconIcon, setHidecrossiconIcon] = useState(false);
+    const [selectedFileIcon, setSelectedFileIcon] = useState(null);
     const [Screens, setScreens] = useState([]);
     const [isloading, setIsloading] = useState(false);
     const [isloading1, setIsloading1] = useState(false);
     const [isloading2, setIsloading2] = useState(false);
+
+
+
+
 
     useEffect(() => {
         getAllPlans();
@@ -155,212 +113,211 @@ const Team = () => {
     }, [])
 
     const handleAddBanner = async () => {
-        console.log("1");
-        setIsloading1(true);
         var InsertAPIURL = `${url}ads/add_ad`
         var headers = {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
         };
-        if (BannerName === '' || selectedFileBanner === null) {
-            setIsloading1(false);
-            setOpenaddmodal(false);
-            Swal.fire({
-                icon: 'warning',
-                title: 'Warning...',
-                confirmButtonColor: "#B5030B",
-                text: "All Fields Required"
-            })
-            console.log("2");
-        } else {
-            var Data = {
-                "screen_id": "16",
-                "link": BannerName
-            };
-            await fetch(InsertAPIURL, {
-                method: 'POST',
-                headers: headers,
-                body: JSON.stringify(Data),
-            })
-                .then(response => response.json())
-                .then(async response => {
-                    console.log(response);
-                    if (response.status === true) {
-                        if (selectedFileBanner !== null && selectedFileBanner !== undefined) {
-
-                            setBanners(prevSkills => [...prevSkills, response.result[0].id]);
-                            var Data = {
-                                "id": response.result[0].id,
-                                "image": selectedFileBanner,
-                            };
-                            await axios.put(url + "ads/add_ad_image", Data, {
-                                headers: {
-                                    "Content-Type": "multipart/form-data"
-                                }
-                            }).then((response) => {
-                                if (response.data.status === true) {
-                                    console.log("4");
-                                    setImages(prevSkills => [...prevSkills, response.data.result[0].image]);
-                                    setOpenaddmodal(false);
-                                    setIsloading1(false)
-                                } else {
-                                    setOpenaddmodal(false);
-                                    setIsloading1(false)
-                                    console.log("5");
+        const urlPattern = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i;
+        let NewData = [
+            {
+                link: Link1,
+                image: selectedFile
+            },
+            {
+                link: Link2,
+                image: selectedFile1
+            },
+            {
+                link: Link3,
+                image: selectedFile2
+            },
+            {
+                link: Link4,
+                image: selectedFile3
+            },
+            {
+                link: Link5,
+                image: selectedFile4
+            },
+        ];
+        let check = false;
+        NewData.map(async (item) => {
+            if (item.link === '' && item.image !== null && item.image !== undefined) {
+                if (!urlPattern.test(item.link)) {
+                    check = true;
+                }
+                check = true;
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    confirmButtonColor: "#B5030B",
+                    text: "All Fields Required"
+                })
+            }
+        })
+        let arr = []
+        if (!check) {
+            arr = []
+            await Promise.all(
+                NewData.map(async (item) => {
+                    if (item.link !== '') {
+                        var Data = {
+                            "screen_id": "16",
+                            "link": item.link
+                        };
+                        await fetch(InsertAPIURL, {
+                            method: 'POST',
+                            headers: headers,
+                            body: JSON.stringify(Data),
+                        })
+                            .then(response => response.json())
+                            .then(async response => {
+                                if (response.status === true) {
+                                    if (item.image !== null && item.image !== undefined) {
+                                        setBanners(prevSkills => [...prevSkills, response.result[0].id]);
+                                        arr.push(response.result[0].id);
+                                        var Data = {
+                                            "id": response.result[0].id,
+                                            "image": item.image
+                                        };
+                                        await axios.put(url + "ads/add_ad_image", Data, {
+                                            headers: {
+                                                "Content-Type": "multipart/form-data"
+                                            }
+                                        }).then((response) => {
+                                            if (response.data.status === true) {
+                                                setIsloading1(false)
+                                            }
+                                        }
+                                        )
+                                            .catch(error => {
+                                                setIsloading1(false)
+                                            });
+                                    } else {
+                                        setIsloading1(false)
+                                    }
                                 }
                             }
                             )
-                                .catch(error => {
-                                    setIsloading1(false)
-                                    Swal.fire({
-                                        icon: 'error',
-                                        title: 'Oops...',
-                                        confirmButtonColor: "#B5030B",
-                                        text: response.message
-                                    })
-                                });
-                        } else {
-                            console.log("6");
-                            setOpenaddmodal(false);
-                            setIsloading1(false)
-                        }
-                        setIsloading1(false)
-                        setSelectedFileBanner(null);
-                        setHidecrossiconBanner(false);
-                        setHidelabelBanner(false);
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Success!',
-                            confirmButtonColor: "#B5030B",
-                            text: 'Banner Added Successfully!',
-                        })
-                    } else {
-                        setIsloading1(false);
-                        setOpenaddmodal(false);
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            confirmButtonColor: "#B5030B",
-                            text: ''
-                        })
+                            .catch(error => {
+                                setIsloading1(false);
+                            });
                     }
-                }
-                )
-                .catch(error => {
-                    setIsloading1(false);
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        confirmButtonColor: "#B5030B",
-                        text: "Server Down!"
-                    })
-                });
+                })
+            )
+            return arr;
         }
+        return arr;
     }
 
     const handleAdd = async () => {
         setIsloading2(true)
-        var InsertAPIURL = `${url}category/add_category`
-        var headers = {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-        };
-        console.log(selectedFile)
-        if (addName === '' || Banners.length === 0 || selectedFile === null || selectedFile === undefined) {
-            setIsloading2(false)
-            Swal.fire({
-                icon: 'warning',
-                title: 'warning',
-                confirmButtonColor: "#B5030B",
-                text: 'All Fields Required',
-            })
-        } else {
-            var Data = {
-                "name": addName,
-                "banners": Banners
+        const bann = await handleAddBanner();
+        if (bann.length > 0) {
+            var InsertAPIURL = `${url}category/add_category`
+            var headers = {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
             };
-            await fetch(InsertAPIURL, {
-                method: 'POST',
-                headers: headers,
-                body: JSON.stringify(Data),
-            })
-                .then(response => response.json())
-                .then(async response => {
-                    if (response.status === true) {
-                        if (selectedFile !== null && selectedFile !== undefined) {
-                            var Data = {
-                                "id": response.result[0].id,
-                                "image": selectedFile,
-                            };
-                            await axios.put(url + "category/add_category_image", Data, {
-                                headers: {
-                                    "Content-Type": "multipart/form-data"
+            console.log(selectedFileIcon)
+            if (addName === '' || bann.length === 0 || selectedFileIcon === null || selectedFileIcon === undefined) {
+                setIsloading2(false)
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'warning',
+                    confirmButtonColor: "#B5030B",
+                    text: 'All Fields Required',
+                })
+            } else {
+                var Data = {
+                    "name": addName,
+                    "banners": bann
+                };
+                console.log(Data);
+                await fetch(InsertAPIURL, {
+                    method: 'POST',
+                    headers: headers,
+                    body: JSON.stringify(Data),
+                })
+                    .then(response => response.json())
+                    .then(async response => {
+                        if (response.status === true) {
+                            if (selectedFileIcon !== null && selectedFileIcon !== undefined) {
+                                var Data = {
+                                    "id": response.result[0].id,
+                                    "image": selectedFileIcon,
+                                };
+                                await axios.put(url + "category/add_category_image", Data, {
+                                    headers: {
+                                        "Content-Type": "multipart/form-data"
+                                    }
+                                }).then((response) => {
+                                    setIsloading2(false)
+                                    console.log(response.data);
+                                    if (response.data.status === true) {
+                                        navigate("/categories")
+                                        setIsloading2(false)
+                                    } else {
+                                        setIsloading2(false)
+                                        Swal.fire({
+                                            icon: 'error',
+                                            title: 'Error...',
+                                            confirmButtonColor: "#B5030B",
+                                            text: 'Server Error, Try Again'
+                                        })
+                                    }
                                 }
-                            }).then((response) => {
+                                )
+                                    .catch(error => {
+                                        Swal.fire({
+                                            icon: 'error',
+                                            title: 'Oops...',
+                                            confirmButtonColor: "#B5030B",
+                                            text: response.message
+                                        })
+                                    });
+                            } else {
                                 setIsloading2(false)
-                                console.log(response.data);
-                                if (response.data.status === true) {
-                                    navigate("/categories")
-                                    setIsloading2(false)
-                                } else {
-                                    setIsloading2(false)
-                                    Swal.fire({
-                                        icon: 'error',
-                                        title: 'Oops2...',
-                                        confirmButtonColor: "#B5030B",
-                                        text: ''
-                                    })
-                                }
+                                navigate("/categories")
                             }
-                            )
-                                .catch(error => {
-                                    Swal.fire({
-                                        icon: 'error',
-                                        title: 'Oops...',
-                                        confirmButtonColor: "#B5030B",
-                                        text: response.message
-                                    })
-                                });
+
                         } else {
                             setIsloading2(false)
-                            navigate("/categories")
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error...',
+                                confirmButtonColor: "#B5030B",
+                                text: 'Server Error! Try Again'
+                            })
                         }
-                    } else if (response.message == 'Please Enter screen ID') {
                         setIsloading2(false)
                         Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
+                            icon: 'success',
+                            title: 'Success!',
                             confirmButtonColor: "#B5030B",
-                            text: 'Please Select Screen'
+                            text: 'Category Added Successfully!',
                         })
-                    } else {
-                        setIsloading2(false)
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            confirmButtonColor: "#B5030B",
-                            text: 'Try Again'
-                        })
-                    }
-                    setIsloading2(false)
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Success!',
-                        confirmButtonColor: "#B5030B",
-                        text: 'Category Added Successfully!',
-                    })
 
-                }
-                )
-                .catch(error => {
-                    setIsloading2(false)
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        confirmButtonColor: "#B5030B",
-                        text: "Server Down!"
-                    })
-                });
+                    }
+                    )
+                    .catch(error => {
+                        setIsloading2(false)
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            confirmButtonColor: "#B5030B",
+                            text: "Server Down!"
+                        })
+                    });
+            }
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                confirmButtonColor: "#B5030B",
+                text: "All Fields Required/Valid Links"
+            })
         }
     }
 
@@ -378,16 +335,9 @@ const Team = () => {
             .then(response => response.json())
             .then(response => {
                 console.log(response);
-                if (response.message == `All screens Details`) {
+                if (response.status === true) {
                     // setLogos(response.count);
                     setScreens(response.result);
-                } else {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        confirmButtonColor: "#B5030B",
-                        text: ''
-                    })
                 }
             }
             )
@@ -414,28 +364,84 @@ const Team = () => {
         setHidelabelBanner(false);
     }
 
-    const handleImageChange = (e) => {
-        setSelectedFile(e.target.files[0]);
-        setHidecrossicon(true);
-        setHidelabel(true);
+    const handleImageChangeIcon = (e) => {
+        setSelectedFileIcon(e.target.files[0]);
+        setHidecrossiconIcon(true);
+        setHidelabelIcon(true);
     };
 
-    const clearpreviewimage = () => {
-        setSelectedFile(null);
-        setHidecrossicon(false);
-        setHidelabel(false);
+    const clearpreviewimageIcon = () => {
+        setSelectedFileIcon(null);
+        setHidecrossiconIcon(false);
+        setHidelabelIcon(false);
     }
+    const handleImageChange = (e, num) => {
+        if (num === 0) {
+            setSelectedFile(e.target.files[0]);
+            setHidecrossicon(true);
+            setHidelabel(true);
+            // uploadImage(e, num);
+        } else if (num === 1) {
+            setSelectedFile1(e.target.files[0]);
+            setHidecrossicon1(true);
+            setHidelabel1(true);
+            // uploadImage(e, num);
+        } else if (num === 2) {
+            setSelectedFile2(e.target.files[0]);
+            setHidecrossicon2(true);
+            setHidelabel2(true);
+            // uploadImage(e, num);
+        } else if (num === 3) {
+            setSelectedFile3(e.target.files[0]);
+            setHidecrossicon3(true);
+            setHidelabel3(true);
+            // uploadImage(e, num);
+        } else if (num === 4) {
+            setSelectedFile4(e.target.files[0]);
+            setHidecrossicon4(true);
+            setHidelabel4(true);
+            // uploadImage(e, num);
+        }
 
-    const [Status, setStatus] = React.useState('');
-    const [Screen, setScreen] = React.useState('');
-
-    const handleChangeScreen = (event) => {
-        setScreen(event.target.value);
     };
 
-    const handleChange = (event) => {
-        setStatus(event.target.value);
-    };
+    const clearpreviewimage = (e, num) => {
+        if (num === 0) {
+            setSelectedFile(null);
+            setHidecrossicon(false);
+            setHidelabel(false);
+            // DeleteImage( num);
+
+        } else if (num === 1) {
+            setSelectedFile1(null);
+            setHidecrossicon1(false);
+            setHidelabel1(false);
+            // DeleteImage( num);
+
+        }
+        else if (num === 2) {
+            setSelectedFile2(null);
+            setHidecrossicon2(false);
+            setHidelabel2(false);
+            // DeleteImage(num);
+
+        }
+        else if (num === 3) {
+            setSelectedFile3(null);
+            setHidecrossicon3(false);
+            setHidelabel3(false);
+            // DeleteImage( num);
+
+        }
+        else if (num === 4) {
+            setSelectedFile4(null);
+            setHidecrossicon4(false);
+            setHidelabel4(false);
+            // DeleteImage( num);
+
+        }
+
+    }
 
     return (
         <>
@@ -460,171 +466,523 @@ const Team = () => {
                 <Container>
                     <Container>
                         <Grid container spacing={0}>
+
                             <Grid xs={12} align="center" p={1}>
                                 <Box pt={2} pb={2}>
                                     <Box sx={{ width: '300px', height: '200px', pt: 2, p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
-                                        {hidelabel ?
+                                        {hidelabelIcon ?
                                             null
                                             :
-                                            <Grid container spacing={0} pt={5}>
-                                                <Grid xs={12} align="">
-                                                    <Stack align="">
-                                                        <label htmlFor="fileInput" style={{ display: "flex", justifyContent: "center", alignContent: "center", color: "#808080" }}>
-                                                            <Stack direction="column" spacing={1} >
-                                                                <Upload sx={{ fontSize: "50px", color: "#808080", ml: 1.8, pb: 1 }} />
-                                                                <span style={{ paddingBottom: "2vh", font: "normal normal normal 16px/26px Arial" }}>Upload Image</span>
-                                                            </Stack>
-                                                        </label>
-                                                        <input
-                                                            style={{ display: "none" }}
-                                                            id="fileInput"
-                                                            type="file"
-                                                            onChange={handleImageChange}
-                                                            accept="image/*"
-                                                        />
-                                                    </Stack>
-                                                </Grid>
-                                            </Grid>
+                                            <CustomImageUpload handleImageChange={handleImageChangeIcon} />
+
                                         }
 
-                                        {selectedFile && <img src={URL.createObjectURL(selectedFile)} alt="Preview" style={{ width: "300px", height: "200px" }} />}
+                                        {selectedFileIcon && <img src={URL.createObjectURL(selectedFileIcon)} alt="Preview" style={{ width: "300px", height: "200px" }} />}
                                     </Box>
 
                                     {
-                                        hidecrossicon ?
+                                        hidecrossiconIcon ?
                                             <Box sx={{ display: "flex", justifyContent: "center", alignContent: "center" }}>
                                                 <Close sx={{
                                                     padding: 0.2, backgroundColor: "#B5030B", borderRadius: "50px",
                                                     color: "white", ml: 32, mt: -24
-                                                }} onClick={() => clearpreviewimage()} />
+                                                }} onClick={() => clearpreviewimageIcon()} />
                                             </Box>
                                             :
                                             null
                                     }
-                                </Box>                            </Grid>
+                                </Box>
+                            </Grid>
+
 
                             <Grid xs={12} md={12} lg={12} xl={12} p={1} align="center" >
 
                                 <FormControl sx={{ width: "50%" }} align="center">
                                     <Stack direction="column" spacing={0} pt={2}>
-                                        <Typography
-                                            variant="paragraph"
-                                            pl={1}
-                                            pb={1}
-                                            sx={{
-                                                fontFamily: "Roboto",
-                                                fontSize: "18px",
-                                                fontWeight: "bold",
-                                                color: "#1F1F1F",
-                                            }}
-                                        >
-                                            Name
-                                        </Typography>
-                                        <OutlinedInput
-                                            id="input-with-icon-adornment"
-                                            placeholder="Category Name..."
+                                        <CustomTextField
+                                            label="Category Name"
+                                            value={addName}
                                             onChange={(event) => {
                                                 setAddName(event.target.value);
                                             }}
-
-                                            sx={{
-
-                                                backgroundColor: "#EEEEEE",
-                                                "& fieldset": { border: 'none' },
-                                                "& ::placeholder": { ml: 1, fontWeight: 600, color: "#000000" }
-                                            }}
                                         />
-
-
                                     </Stack>
-
                                 </FormControl>
-
                             </Grid>
 
-                            <Grid xs={24} md={12} lg={12} xl={12} p={1} align="center" >
 
-                                <FormControl sx={{ width: "100%" }} align="center">
-                                    <Stack direction="column" spacing={0} pt={2}>
-                                        <Typography
-                                            variant="paragraph"
-                                            pl={1}
-                                            pb={1}
-                                            sx={{
-                                                fontFamily: "Roboto",
-                                                fontSize: "18px",
-                                                fontWeight: "bold",
-                                                color: "#1F1F1F",
-                                            }}
-                                        >
-                                            Banners
-                                        </Typography>
-                                        {isloading ?
-                                            <Grid sx={{ mt: '3%' }} xs={12} align="center">
-                                                <Button variant="contained" style={btn}>
-                                                    <ClipLoader loading={isloading}
-                                                        css={override}
-                                                        size={10}
-                                                    />
-                                                </Button>
-                                            </Grid>
 
-                                            :
-
-                                            <Grid sx={{ mt: '3%' }} xs={12} align="center">
-                                                <Button variant="contained" style={btn} onClick={() => { handleOpenadd() }} >Add Banners</Button>
-                                            </Grid>
-                                        }
-                                        <Grid sx={12} >
-                                            <div style={{ display: 'flex', justifyContent: 'center' }}>
-                                                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '16px', maxWidth: '1000px' }}>
-                                                    {Images.map((data) => {
-                                                        const isSelected = Skill.includes(data.id);
-                                                        const backgroundColor = isSelected ? 'blue' : 'red';
-
-                                                        return (
-                                                            <div
-                                                                key={data.id}
-                                                                // onClick={() => handleImageClick(data.id)}
-                                                                style={{
-                                                                    cursor: 'pointer', backgroundColor, padding: '2px',
-                                                                    borderRadius: '3px', display: 'flex', flexDirection: 'column', alignItems: 'center'
-                                                                }}
-                                                            >
-                                                                <img
-                                                                    alt=""
-                                                                    src={`${url}${data}`}
-                                                                    style={{ width: '100%', height: '100%', maxHeight: '300px', maxWidth: '300px' }}
-                                                                />
-                                                                <div>{data.plan_name}</div>
-                                                            </div>
-                                                        );
-                                                    })}
-                                                </div>
-                                            </div>
-                                        </Grid>
-                                    </Stack>
-
-                                </FormControl>
-
-                            </Grid>
-                            {isloading2 ?
-                                <Grid sx={{ mt: '3%' }} xs={12} align="center">
-                                    <Button variant="contained" style={btn}>
-                                        <ClipLoader loading={isloading2}
-                                            css={override}
-                                            size={10}
-                                        />
-                                    </Button>
-                                </Grid>
-
-                                :
-
-                                <Grid sx={{ mt: '3%' }} xs={12} align="center">
-                                    <Button variant="contained" style={btn} onClick={() => { handleAdd() }} >Add Category</Button>
-                                </Grid>
-                            }
                         </Grid>
+
+                        <Grid xs={24} md={12} lg={12} xl={12} p={1} align="center" >
+
+                            <FormControl sx={{ width: "100%" }} align="center">
+                                <Stack direction="column" spacing={0} pt={2}>
+                                    <Typography
+                                        variant="paragraph"
+                                        pl={1}
+                                        pb={1}
+                                        sx={{
+                                            fontFamily: "Roboto",
+                                            fontSize: "18px",
+                                            fontWeight: "bold",
+                                            color: "#1F1F1F",
+                                        }}
+                                    >
+                                        Banners
+                                    </Typography>
+
+
+                                </Stack>
+                            </FormControl >
+                        </Grid >
+                        <Grid xs={12} md={12} lg={12} xl={12} p={1} align="center" >
+
+                            <FormControl sx={{ width: "50%" }} align="center">
+                                <Stack direction="column" spacing={0} pt={2}>
+                                    <Grid pt={2} pb={2}>
+
+                                        {hidelabel ?
+                                            null
+                                            :
+                                            hidelabel || hidelabel1 || hidelabel2 || hidelabel3 ?
+                                                <Box sx={{ pt: 2, width: "200px", height: "200px", p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
+                                                    <Grid container spacing={0} pt={5}>
+                                                        <Grid xs={12} align="">
+                                                            <Stack align="">
+                                                                <label htmlFor="fileInputs" style={{ display: "flex", justifyContent: "center", alignContent: "center", color: "#808080" }}>
+                                                                    <Stack direction="column" spacing={1} >
+                                                                        <Upload sx={{ fontSize: "50px", color: "#808080", ml: 1.8, pb: 1 }} />
+                                                                        <span style={{ paddingBottom: "2vh", font: "normal normal normal 16px/26px Arial" }}>Upload Image</span>
+                                                                    </Stack>
+                                                                </label>
+                                                                <input
+                                                                    style={{ display: "none" }}
+                                                                    id="fileInputs"
+                                                                    type="file"
+                                                                    multiple
+                                                                    onChange={(e) => { handleImageChange(e, 0) }}
+                                                                    accept="image/*"
+                                                                />
+                                                            </Stack>
+                                                        </Grid>
+                                                    </Grid>
+                                                </Box>
+                                                :
+                                                <Box sx={{ ml: '400px', pt: 2, width: "200px", height: "200px", p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
+                                                    <Grid container spacing={0} pt={5}>
+                                                        <Grid xs={12} align="">
+                                                            <Stack align="">
+                                                                <label htmlFor="fileInput" style={{ display: "flex", justifyContent: "center", alignContent: "center", color: "#808080" }}>
+                                                                    <Stack direction="column" spacing={1} >
+                                                                        <Upload sx={{ fontSize: "50px", color: "#808080", ml: 1.8, pb: 1 }} />
+                                                                        <span style={{ paddingBottom: "2vh", font: "normal normal normal 16px/26px Arial" }}>Upload Image</span>
+                                                                    </Stack>
+                                                                </label>
+                                                                <input
+                                                                    style={{ display: "none" }}
+                                                                    id="fileInput"
+                                                                    type="file"
+                                                                    onChange={(e) => { handleImageChange(e, 0) }}
+                                                                    accept="image/*"
+                                                                />
+                                                            </Stack>
+                                                        </Grid>
+                                                    </Grid>
+                                                </Box>
+
+                                        }
+
+                                        {selectedFile ?
+                                            <Box sx={{ pt: 2, width: "200px", height: "200px", p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
+                                                <img src={URL.createObjectURL(selectedFile)} alt="Preview" style={{ width: "200px", height: "200px" }} />
+
+                                            </Box>
+                                            :
+                                            null
+                                        }
+                                    </Grid>
+
+                                    {
+                                        hidecrossicon ?
+                                            <>
+                                                <Box sx={{ mb: '5%', display: "flex", justifyContent: "center", alignContent: "center" }}>
+                                                    <Close sx={{
+                                                        padding: 0.2, backgroundColor: "#B5030B", borderRadius: "50px",
+                                                        color: "white", ml: 22, mt: -26
+                                                    }} onClick={(e) => clearpreviewimage(e, 0)} />
+                                                </Box>
+                                                <CustomTextField
+                                                    value={Link1}
+                                                    onChange={(event) => {
+                                                        setLink1(event.target.value);
+                                                    }}
+                                                />
+                                            </>
+                                            :
+                                            selectedFile ?
+                                                <>
+                                                    <Box sx={{ mb: '4%', display: "flex", justifyContent: "center", alignContent: "center" }}>
+                                                        <Close sx={{
+                                                            padding: 0.2, backgroundColor: "#B5030B", borderRadius: "50px",
+                                                            color: "white", ml: 22, mt: -24
+                                                        }} onClick={(e) => clearpreviewimage(e, 0)} />
+
+                                                    </Box>
+                                                    <CustomTextField
+                                                        value={Link1}
+                                                        onChange={(event) => {
+                                                            setLink1(event.target.value);
+                                                        }}
+                                                    />
+                                                </>
+                                                : null
+                                    }
+
+
+
+                                    <Grid pt={2} pb={2}>
+                                        {hidelabel ?
+                                            hidelabel1 ?
+                                                null
+                                                :
+                                                <Box sx={{ pt: 2, width: "200px", height: "200px", p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
+                                                    <Grid container spacing={0} pt={5}>
+                                                        <Grid xs={12} align="">
+                                                            <Stack align="">
+                                                                <label htmlFor="fileInput" style={{ display: "flex", justifyContent: "center", alignContent: "center", color: "#808080" }}>
+                                                                    <Stack direction="column" spacing={1} >
+                                                                        <Upload sx={{ fontSize: "50px", color: "#808080", ml: 1.8, pb: 1 }} />
+                                                                        <span style={{ paddingBottom: "2vh", font: "normal normal normal 16px/26px Arial" }}>Upload Image</span>
+                                                                    </Stack>
+                                                                </label>
+                                                                <input
+                                                                    style={{ display: "none" }}
+                                                                    id="fileInput"
+                                                                    type="file"
+                                                                    onChange={(e) => { handleImageChange(e, 1) }}
+                                                                    accept="image/*"
+                                                                />
+                                                            </Stack>
+                                                        </Grid>
+                                                    </Grid>
+                                                </Box>
+                                            :
+                                            null
+                                        }
+
+                                        {selectedFile1 ?
+                                            <Box sx={{ pt: 2, width: "200px", height: "200px", p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
+
+                                                <img src={URL.createObjectURL(selectedFile1)} alt="Preview" style={{ width: "200px", height: "200px" }} />
+                                            </Box>
+                                            :
+                                            null
+                                        }
+                                    </Grid>
+
+                                    {
+                                        hidecrossicon1 ?
+                                            <>
+                                                <Box sx={{ mb: '5%', display: "flex", justifyContent: "center", alignContent: "center" }}>
+                                                    <Close sx={{
+                                                        padding: 0.2, backgroundColor: "#B5030B", borderRadius: "50px",
+                                                        color: "white", ml: 22, mt: -24
+                                                    }} onClick={(e) => clearpreviewimage(e, 1)} />
+                                                </Box>
+                                                <CustomTextField
+                                                    value={Link2}
+                                                    onChange={(event) => {
+                                                        setLink2(event.target.value);
+                                                    }}
+                                                />
+                                            </>
+                                            : null
+                                    }
+                                </Stack>
+                            </FormControl >
+                        </Grid>
+
+                        <Grid xs={12} md={12} lg={12} xl={12} p={1} align="center" >
+
+                            <FormControl sx={{ width: "50%" }} align="center">
+                                <Stack direction="column" spacing={0} pt={2}>
+                                    <Grid pt={2} pb={2}>
+
+                                        {hidelabel && hidelabel1 ?
+                                            hidelabel2 ?
+                                                null
+                                                :
+                                                <Box sx={{ pt: 2, width: "200px", height: "200px", p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
+                                                    <Grid container spacing={0} pt={5}>
+                                                        <Grid xs={12} align="">
+                                                            <Stack align="">
+                                                                <label htmlFor="fileInputs" style={{ display: "flex", justifyContent: "center", alignContent: "center", color: "#808080" }}>
+                                                                    <Stack direction="column" spacing={1} >
+                                                                        <Upload sx={{ fontSize: "50px", color: "#808080", ml: 1.8, pb: 1 }} />
+                                                                        <span style={{ paddingBottom: "2vh", font: "normal normal normal 16px/26px Arial" }}>Upload Image</span>
+                                                                    </Stack>
+                                                                </label>
+                                                                <input
+                                                                    style={{ display: "none" }}
+                                                                    id="fileInputs"
+                                                                    type="file"
+                                                                    multiple
+                                                                    onChange={(e) => { handleImageChange(e, 2) }}
+                                                                    accept="image/*"
+                                                                />
+                                                            </Stack>
+                                                        </Grid>
+                                                    </Grid>
+                                                </Box>
+                                            :
+                                            <Box sx={{ ml: '400px', pt: 2, width: "200px", height: "200px", p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
+                                                <Grid container spacing={0} pt={5}>
+                                                    <Grid xs={12} align="">
+                                                        <Stack align="">
+                                                            <label htmlFor="fileInput" style={{ display: "flex", justifyContent: "center", alignContent: "center", color: "#808080" }}>
+                                                                <Stack direction="column" spacing={1} >
+                                                                    <Upload sx={{ fontSize: "50px", color: "#808080", ml: 1.8, pb: 1 }} />
+                                                                    <span style={{ paddingBottom: "2vh", font: "normal normal normal 16px/26px Arial" }}>Upload Image</span>
+                                                                </Stack>
+                                                            </label>
+                                                            <input
+                                                                style={{ display: "none" }}
+                                                                id="fileInput"
+                                                                type="file"
+                                                                onChange={(e) => { handleImageChange(e, 2) }}
+                                                                accept="image/*"
+                                                            />
+                                                        </Stack>
+                                                    </Grid>
+                                                </Grid>
+                                            </Box>
+
+                                        }
+
+                                        {selectedFile2 ?
+                                            <Box sx={{ pt: 2, width: "200px", height: "200px", p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
+                                                <img src={URL.createObjectURL(selectedFile2)} alt="Preview" style={{ width: "200px", height: "200px" }} />
+
+                                            </Box>
+                                            :
+                                            null
+                                        }
+                                    </Grid>
+
+                                    {
+                                        hidecrossicon2 ?
+                                            <>
+                                                <Box sx={{ mb: '5%', display: "flex", justifyContent: "center", alignContent: "center" }}>
+                                                    <Close sx={{
+                                                        padding: 0.2, backgroundColor: "#B5030B", borderRadius: "50px",
+                                                        color: "white", ml: 22, mt: -26
+                                                    }} onClick={(e) => clearpreviewimage(e, 2)} />
+                                                </Box>
+                                                <CustomTextField
+                                                    value={Link3}
+                                                    onChange={(event) => {
+                                                        setLink3(event.target.value);
+                                                    }}
+                                                />
+                                            </>
+                                            :
+                                            selectedFile2 ?
+                                                <>
+                                                    <Box sx={{ mb: '4%', display: "flex", justifyContent: "center", alignContent: "center" }}>
+                                                        <Close sx={{
+                                                            padding: 0.2, backgroundColor: "#B5030B", borderRadius: "50px",
+                                                            color: "white", ml: 22, mt: -24
+                                                        }} onClick={(e) => clearpreviewimage(e, 2)} />
+
+                                                    </Box>
+                                                    <CustomTextField
+                                                        value={Link3}
+                                                        onChange={(event) => {
+                                                            setLink3(event.target.value);
+                                                        }}
+                                                    />
+                                                </>
+                                                : null
+                                    }
+
+
+
+                                    <Grid pt={2} pb={2}>
+                                        {hidelabel && hidelabel1 && hidelabel2 ?
+                                            hidelabel3 ?
+                                                null
+                                                :
+                                                <Box sx={{ pt: 2, width: "200px", height: "200px", p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
+                                                    <Grid container spacing={0} pt={5}>
+                                                        <Grid xs={12} align="">
+                                                            <Stack align="">
+                                                                <label htmlFor="fileInput" style={{ display: "flex", justifyContent: "center", alignContent: "center", color: "#808080" }}>
+                                                                    <Stack direction="column" spacing={1} >
+                                                                        <Upload sx={{ fontSize: "50px", color: "#808080", ml: 1.8, pb: 1 }} />
+                                                                        <span style={{ paddingBottom: "2vh", font: "normal normal normal 16px/26px Arial" }}>Upload Image</span>
+                                                                    </Stack>
+                                                                </label>
+                                                                <input
+                                                                    style={{ display: "none" }}
+                                                                    id="fileInput"
+                                                                    type="file"
+                                                                    onChange={(e) => { handleImageChange(e, 3) }}
+                                                                    accept="image/*"
+                                                                />
+                                                            </Stack>
+                                                        </Grid>
+                                                    </Grid>
+                                                </Box>
+                                            :
+                                            null
+                                        }
+
+                                        {selectedFile3 ?
+                                            <Box sx={{ pt: 2, width: "200px", height: "200px", p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
+
+                                                <img src={URL.createObjectURL(selectedFile3)} alt="Preview" style={{ width: "200px", height: "200px" }} />
+                                            </Box>
+                                            :
+                                            null
+                                        }
+                                    </Grid>
+
+                                    {
+                                        hidecrossicon3 ?
+                                            <>
+                                                <Box sx={{ mb: '5%', display: "flex", justifyContent: "center", alignContent: "center" }}>
+                                                    <Close sx={{
+                                                        padding: 0.2, backgroundColor: "#B5030B", borderRadius: "50px",
+                                                        color: "white", ml: 22, mt: -24
+                                                    }} onClick={(e) => clearpreviewimage(e, 3)} />
+                                                </Box>
+                                                <CustomTextField
+                                                    value={Link3}
+                                                    onChange={(event) => {
+                                                        setLink3(event.target.value);
+                                                    }}
+                                                />
+                                            </>
+                                            : null
+                                    }
+                                </Stack>
+                            </FormControl >
+                        </Grid>
+
+
+                        <Grid xs={12} md={12} lg={12} xl={12} p={1} align="center" >
+
+                            <FormControl sx={{ width: "50%" }} align="center">
+                                <Stack direction="column" spacing={0} pt={2}>
+                                    <Grid pt={2} pb={2}>
+
+                                        {hidelabel && hidelabel1 && hidelabel2 && hidelabel3 ?
+                                            hidelabel4 ?
+                                                null
+                                                :
+                                                <Box sx={{ pt: 2, width: "200px", height: "200px", p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
+                                                    <Grid container spacing={0} pt={5}>
+                                                        <Grid xs={12} align="">
+                                                            <Stack align="">
+                                                                <label htmlFor="fileInputs" style={{ display: "flex", justifyContent: "center", alignContent: "center", color: "#808080" }}>
+                                                                    <Stack direction="column" spacing={1} >
+                                                                        <Upload sx={{ fontSize: "50px", color: "#808080", ml: 1.8, pb: 1 }} />
+                                                                        <span style={{ paddingBottom: "2vh", font: "normal normal normal 16px/26px Arial" }}>Upload Image</span>
+                                                                    </Stack>
+                                                                </label>
+                                                                <input
+                                                                    style={{ display: "none" }}
+                                                                    id="fileInputs"
+                                                                    type="file"
+                                                                    multiple
+                                                                    onChange={(e) => { handleImageChange(e, 4) }}
+                                                                    accept="image/*"
+                                                                />
+                                                            </Stack>
+                                                        </Grid>
+                                                    </Grid>
+                                                </Box>
+                                            :
+                                            <Box sx={{ ml: '400px', pt: 2, width: "200px", height: "200px", p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
+                                                <Grid container spacing={0} pt={5}>
+                                                    <Grid xs={12} align="">
+                                                        <Stack align="">
+                                                            <label htmlFor="fileInput" style={{ display: "flex", justifyContent: "center", alignContent: "center", color: "#808080" }}>
+                                                                <Stack direction="column" spacing={1} >
+                                                                    <Upload sx={{ fontSize: "50px", color: "#808080", ml: 1.8, pb: 1 }} />
+                                                                    <span style={{ paddingBottom: "2vh", font: "normal normal normal 16px/26px Arial" }}>Upload Image</span>
+                                                                </Stack>
+                                                            </label>
+                                                            <input
+                                                                style={{ display: "none" }}
+                                                                id="fileInput"
+                                                                type="file"
+                                                                onChange={(e) => { handleImageChange(e, 4) }}
+                                                                accept="image/*"
+                                                            />
+                                                        </Stack>
+                                                    </Grid>
+                                                </Grid>
+                                            </Box>
+
+                                        }
+
+                                        {selectedFile4 ?
+                                            <Box sx={{ pt: 2, width: "200px", height: "200px", p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
+                                                <img src={URL.createObjectURL(selectedFile4)} alt="Preview" style={{ width: "200px", height: "200px" }} />
+
+                                            </Box>
+                                            :
+                                            null
+                                        }
+                                    </Grid>
+
+                                    {
+                                        hidecrossicon4 ?
+                                            <>
+                                                <Box sx={{ mb: '5%', display: "flex", justifyContent: "center", alignContent: "center" }}>
+                                                    <Close sx={{
+                                                        padding: 0.2, backgroundColor: "#B5030B", borderRadius: "50px",
+                                                        color: "white", ml: 22, mt: -26
+                                                    }} onClick={(e) => clearpreviewimage(e, 2)} />
+                                                </Box>
+                                                <CustomTextField
+                                                    value={Link5}
+                                                    onChange={(event) => {
+                                                        setLink5(event.target.value);
+                                                    }}
+                                                />
+                                            </>
+                                            :
+                                            selectedFile4 ?
+                                                <>
+                                                    <Box sx={{ mb: '4%', display: "flex", justifyContent: "center", alignContent: "center" }}>
+                                                        <Close sx={{
+                                                            padding: 0.2, backgroundColor: "#B5030B", borderRadius: "50px",
+                                                            color: "white", ml: 22, mt: -24
+                                                        }} onClick={(e) => clearpreviewimage(e, 4)} />
+
+                                                    </Box>
+                                                    <CustomTextField
+                                                        value={Link5}
+                                                        onChange={(event) => {
+                                                            setLink5(event.target.value);
+                                                        }}
+                                                    />
+                                                </>
+                                                : null
+                                    }
+                                </Stack>
+                            </FormControl >
+                        </Grid>
+
+
+
+
+
+                        <ConditionalButton Title="Add Category" isloading={isloading2} handleAdd={handleAdd} />
+
                     </Container>
                 </Container>
 
@@ -655,25 +1013,7 @@ const Team = () => {
                                         {hidelabelBanner ?
                                             null
                                             :
-                                            <Grid container spacing={0} pt={5}>
-                                                <Grid xs={12} align="">
-                                                    <Stack align="">
-                                                        <label htmlFor="fileInputs" style={{ display: "flex", justifyContent: "center", alignContent: "center", color: "#808080" }}>
-                                                            <Stack direction="column" spacing={1} >
-                                                                <Upload sx={{ fontSize: "50px", color: "#808080", ml: 1.8, pb: 1 }} />
-                                                                <span style={{ paddingBottom: "2vh", font: "normal normal normal 16px/26px Arial" }}>Upload Image</span>
-                                                            </Stack>
-                                                        </label>
-                                                        <input
-                                                            style={{ display: "none" }}
-                                                            id="fileInputs"
-                                                            type="file"
-                                                            onChange={handleImageChangeBanner}
-                                                            accept="image/*"
-                                                        />
-                                                    </Stack>
-                                                </Grid>
-                                            </Grid>
+                                            <CustomImageUpload handleImageChange={handleImageChangeBanner} />
                                         }
 
                                         {selectedFileBanner && <img src={URL.createObjectURL(selectedFileBanner)} alt="Preview" style={{ width: "300px", height: "200px" }} />}
@@ -692,21 +1032,11 @@ const Team = () => {
                                     }
                                 </Box>
 
-
-
-
-                                <OutlinedInput
-                                    id="input-with-icon-adornment"
-                                    placeholder="Banner Link"
+                                <CustomTextField
+                                    label="Banner Link"
+                                    value={BannerName}
                                     onChange={(event) => {
                                         setBannerName(event.target.value);
-                                    }}
-
-                                    sx={{
-
-                                        backgroundColor: "darkgray",
-                                        "& fieldset": { border: 'none' },
-                                        "& ::placeholder": { ml: 1, fontWeight: 600, color: "white" }
                                     }}
                                 />
                             </FormControl>
@@ -714,23 +1044,7 @@ const Team = () => {
                     </Grid>
 
                     <Grid container spacing={0} pt={7}>
-
-                        {isloading1 ?
-                            <Grid xs={12} align="center">
-                                <Button variant="contained" style={btn}>
-                                    <ClipLoader loading={isloading1}
-                                        css={override}
-                                        size={10}
-                                    />
-                                </Button>
-                            </Grid>
-
-                            :
-
-                            <Grid xs={12} align="center">
-                                <Button variant="contained" style={btn} onClick={handleAddBanner}>Add</Button>
-                            </Grid>
-                        }
+                        <ConditionalButton Title="Add Banner" isloading={isloading1} handleAdd={handleAddBanner} />
                     </Grid>
 
                 </Box>

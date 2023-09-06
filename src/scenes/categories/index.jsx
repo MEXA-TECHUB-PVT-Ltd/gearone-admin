@@ -2,23 +2,28 @@ import Swal from 'sweetalert2'
 import axios from 'axios';
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import PerfectScrollbar from 'react-perfect-scrollbar'
+import CustomTextField from '../../components/CustomTextField.js'
+import CustomAutocomplete from '../../components/CustomAutocomplete.js'
+import CustomImageUpload from '../../components/CustomImageUpload.js'
+import ConditionalButton from '../../components/ConditionalButton.js'
 
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
 import url from "../url"
 import { tokens } from "../../theme";
 import { Add, List, Apps, MoreVert, } from '@mui/icons-material';
 import React, { useState, useEffect } from "react";
 import ClipLoader from "react-spinners/ClipLoader";
-import { Box, Tooltip, Select, Chip, Typography, useTheme, IconButton, FormControl, OutlinedInput, Grid, Modal, Button, Stack, Card, CardContent, MenuItem, Menu, Paper, Divider, Avatar } from "@mui/material";
+import {
+    Box, Tooltip, Select, Typography, useTheme, IconButton,
+    FormControl, OutlinedInput, Grid, Modal, Button, Stack, Card, CardContent, MenuItem, Menu, Divider, Avatar
+} from "@mui/material";
 import { Checkbox } from '@mui/material';
 import {
     DataGrid,
     GridToolbarContainer,
     GridToolbarColumnsButton,
     GridToolbarFilterButton,
-    GridToolbarExport,
     GridToolbarDensitySelector,
 } from '@mui/x-data-grid';
 import { Close, Delete, Edit, Upload, Visibility } from "@mui/icons-material";
@@ -662,7 +667,7 @@ const Team = () => {
         { field: 'name', headerName: <span style={{ color: "black", fontWeight: 600 }}>Category Name</span>, minWidth: 300 },
         {
             field: 'image', headerName: <span style={{ color: "black", fontWeight: 600 }}>Profile</span>,
-            minWidth: 250 , flex:1,
+            minWidth: 250, flex: 1,
             renderCell: (row) => {
                 return (
                     <>
@@ -891,7 +896,7 @@ const Team = () => {
                                                                         position: 'fixed',
                                                                         top: '-9999px',
                                                                         left: '-9999px',
-                                                                        elevation: 0,                                     
+                                                                        elevation: 0,
                                                                         // overflow: 'visible',
                                                                         // filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.22))',
                                                                         mt: 1.5,
@@ -947,7 +952,7 @@ const Team = () => {
 
                                                         </Grid>
 
-                                                        <Grid sx={{cursor:'pointer'}} onClick={() => {
+                                                        <Grid sx={{ cursor: 'pointer' }} onClick={() => {
                                                             navigate('/ViewCategory', {
                                                                 state: {
                                                                     row: idData
@@ -1109,23 +1114,7 @@ const Team = () => {
                     </Grid>
 
                     <Grid container spacing={0} pt={7}>
-
-                        {isloading ?
-                            <Grid xs={12} align="center">
-                                <Button variant="contained" style={btn}>
-                                    <ClipLoader loading={isloading}
-                                        css={override}
-                                        size={10}
-                                    />
-                                </Button>
-                            </Grid>
-
-                            :
-
-                            <Grid xs={12} align="center">
-                                <Button variant="contained" style={btn} onClick={handleAdd}>Add</Button>
-                            </Grid>
-                        }
+                        <ConditionalButton Title={"Add Banner"} isloading={isloading} handleAdd={handleAdd} />
                     </Grid>
 
                 </Box>
