@@ -312,6 +312,7 @@ const Team = () => {
                     });
             }
         } else {
+            setIsloading2(false)
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
@@ -536,6 +537,8 @@ const Team = () => {
                                 </Stack>
                             </FormControl >
                         </Grid >
+
+
                         <Grid xs={12} md={12} lg={12} xl={12} p={1} align="center" >
 
                             <FormControl sx={{ width: "50%" }} align="center">
@@ -546,14 +549,17 @@ const Team = () => {
                                             null
                                             :
                                             hidelabel || hidelabel1 || hidelabel2 || hidelabel3 ?
-                                                <Box sx={{ pt: 2, width: "200px", height: "200px", p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
+                                                <Box sx={{
+                                                    pt: 2, width: "200px", height: "200px", p: "0.5px",
+                                                    border: "dotted 1px lightgray", float: "center", borderRadius: "5px"
+                                                }} className="image_preview">
                                                     <Grid container spacing={0} pt={5}>
                                                         <Grid xs={12} align="">
                                                             <Stack align="">
                                                                 <label htmlFor="fileInputs" style={{ display: "flex", justifyContent: "center", alignContent: "center", color: "#808080" }}>
                                                                     <Stack direction="column" spacing={1} >
                                                                         <Upload sx={{ fontSize: "50px", color: "#808080", ml: 1.8, pb: 1 }} />
-                                                                        <span style={{ paddingBottom: "2vh", font: "normal normal normal 16px/26px Arial" }}>Upload Image</span>
+                                                                        <span style={{ paddingBottom: "2vh", font: "normal normal normal 16px/26px Arial" }}>Upload Image1</span>
                                                                     </Stack>
                                                                 </label>
                                                                 <input
@@ -569,7 +575,7 @@ const Team = () => {
                                                     </Grid>
                                                 </Box>
                                                 :
-                                                <Box sx={{ ml: '400px', pt: 2, width: "200px", height: "200px", p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
+                                                <Box sx={{ pt: 2, width: "200px", height: "200px", p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
                                                     <Grid container spacing={0} pt={5}>
                                                         <Grid xs={12} align="">
                                                             <Stack align="">
@@ -590,7 +596,6 @@ const Team = () => {
                                                         </Grid>
                                                     </Grid>
                                                 </Box>
-
                                         }
 
                                         {selectedFile ?
@@ -653,7 +658,7 @@ const Team = () => {
                                                                 <label htmlFor="fileInput" style={{ display: "flex", justifyContent: "center", alignContent: "center", color: "#808080" }}>
                                                                     <Stack direction="column" spacing={1} >
                                                                         <Upload sx={{ fontSize: "50px", color: "#808080", ml: 1.8, pb: 1 }} />
-                                                                        <span style={{ paddingBottom: "2vh", font: "normal normal normal 16px/26px Arial" }}>Upload Image</span>
+                                                                        <span style={{ paddingBottom: "2vh", font: "normal normal normal 16px/26px Arial" }}>Upload Image2</span>
                                                                     </Stack>
                                                                 </label>
                                                                 <input
@@ -720,7 +725,7 @@ const Team = () => {
                                                                 <label htmlFor="fileInputs" style={{ display: "flex", justifyContent: "center", alignContent: "center", color: "#808080" }}>
                                                                     <Stack direction="column" spacing={1} >
                                                                         <Upload sx={{ fontSize: "50px", color: "#808080", ml: 1.8, pb: 1 }} />
-                                                                        <span style={{ paddingBottom: "2vh", font: "normal normal normal 16px/26px Arial" }}>Upload Image</span>
+                                                                        <span style={{ paddingBottom: "2vh", font: "normal normal normal 16px/26px Arial" }}>Upload Image3</span>
                                                                     </Stack>
                                                                 </label>
                                                                 <input
@@ -736,28 +741,7 @@ const Team = () => {
                                                     </Grid>
                                                 </Box>
                                             :
-                                            <Box sx={{ ml: '400px', pt: 2, width: "200px", height: "200px", p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
-                                                <Grid container spacing={0} pt={5}>
-                                                    <Grid xs={12} align="">
-                                                        <Stack align="">
-                                                            <label htmlFor="fileInput" style={{ display: "flex", justifyContent: "center", alignContent: "center", color: "#808080" }}>
-                                                                <Stack direction="column" spacing={1} >
-                                                                    <Upload sx={{ fontSize: "50px", color: "#808080", ml: 1.8, pb: 1 }} />
-                                                                    <span style={{ paddingBottom: "2vh", font: "normal normal normal 16px/26px Arial" }}>Upload Image</span>
-                                                                </Stack>
-                                                            </label>
-                                                            <input
-                                                                style={{ display: "none" }}
-                                                                id="fileInput"
-                                                                type="file"
-                                                                onChange={(e) => { handleImageChange(e, 2) }}
-                                                                accept="image/*"
-                                                            />
-                                                        </Stack>
-                                                    </Grid>
-                                                </Grid>
-                                            </Box>
-
+                                            null
                                         }
 
                                         {selectedFile2 ?
@@ -805,13 +789,9 @@ const Team = () => {
                                                 </>
                                                 : null
                                     }
-
-
-
                                     <Grid pt={2} pb={2}>
                                         {hidelabel && hidelabel1 && hidelabel2 ?
-                                            hidelabel3 ?
-                                                null
+                                            hidelabel3 ? null
                                                 :
                                                 <Box sx={{ pt: 2, width: "200px", height: "200px", p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
                                                     <Grid container spacing={0} pt={5}>
@@ -820,7 +800,7 @@ const Team = () => {
                                                                 <label htmlFor="fileInput" style={{ display: "flex", justifyContent: "center", alignContent: "center", color: "#808080" }}>
                                                                     <Stack direction="column" spacing={1} >
                                                                         <Upload sx={{ fontSize: "50px", color: "#808080", ml: 1.8, pb: 1 }} />
-                                                                        <span style={{ paddingBottom: "2vh", font: "normal normal normal 16px/26px Arial" }}>Upload Image</span>
+                                                                        <span style={{ paddingBottom: "2vh", font: "normal normal normal 16px/26px Arial" }}>Upload Image4</span>
                                                                     </Stack>
                                                                 </label>
                                                                 <input
@@ -858,9 +838,9 @@ const Team = () => {
                                                     }} onClick={(e) => clearpreviewimage(e, 3)} />
                                                 </Box>
                                                 <CustomTextField
-                                                    value={Link3}
+                                                    value={Link4}
                                                     onChange={(event) => {
-                                                        setLink3(event.target.value);
+                                                        setLink4(event.target.value);
                                                     }}
                                                 />
                                             </>
@@ -888,7 +868,7 @@ const Team = () => {
                                                                 <label htmlFor="fileInputs" style={{ display: "flex", justifyContent: "center", alignContent: "center", color: "#808080" }}>
                                                                     <Stack direction="column" spacing={1} >
                                                                         <Upload sx={{ fontSize: "50px", color: "#808080", ml: 1.8, pb: 1 }} />
-                                                                        <span style={{ paddingBottom: "2vh", font: "normal normal normal 16px/26px Arial" }}>Upload Image</span>
+                                                                        <span style={{ paddingBottom: "2vh", font: "normal normal normal 16px/26px Arial" }}>Upload Image5</span>
                                                                     </Stack>
                                                                 </label>
                                                                 <input
@@ -904,27 +884,7 @@ const Team = () => {
                                                     </Grid>
                                                 </Box>
                                             :
-                                            <Box sx={{ ml: '400px', pt: 2, width: "200px", height: "200px", p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
-                                                <Grid container spacing={0} pt={5}>
-                                                    <Grid xs={12} align="">
-                                                        <Stack align="">
-                                                            <label htmlFor="fileInput" style={{ display: "flex", justifyContent: "center", alignContent: "center", color: "#808080" }}>
-                                                                <Stack direction="column" spacing={1} >
-                                                                    <Upload sx={{ fontSize: "50px", color: "#808080", ml: 1.8, pb: 1 }} />
-                                                                    <span style={{ paddingBottom: "2vh", font: "normal normal normal 16px/26px Arial" }}>Upload Image</span>
-                                                                </Stack>
-                                                            </label>
-                                                            <input
-                                                                style={{ display: "none" }}
-                                                                id="fileInput"
-                                                                type="file"
-                                                                onChange={(e) => { handleImageChange(e, 4) }}
-                                                                accept="image/*"
-                                                            />
-                                                        </Stack>
-                                                    </Grid>
-                                                </Grid>
-                                            </Box>
+                                            null
 
                                         }
 
@@ -976,9 +936,6 @@ const Team = () => {
                                 </Stack>
                             </FormControl >
                         </Grid>
-
-
-
 
 
                         <ConditionalButton Title="Add Category" isloading={isloading2} handleAdd={handleAdd} />
