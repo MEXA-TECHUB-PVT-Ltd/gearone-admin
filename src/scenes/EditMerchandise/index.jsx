@@ -816,7 +816,7 @@ const Team = () => {
                                     </FormControl>
 
                                 </Grid>
-                                <ConditionalButton Title="update Logo" isloading={isloading} handleAdd={handleAdd} />
+                                <ConditionalButton Title="update Merchandise" isloading={isloading} handleAdd={handleAdd} />
 
                             </Grid>
                         </form>

@@ -701,7 +701,7 @@ const Team = () => {
                                 <IconButton onClick={() => {
                                     console.log(row.row);
                                     setActionData(row.row);
-                                    navigate('/ViewCategory', {
+                                    navigate(`/ViewCategory`, {
                                         state: {
                                             row: row.row
                                         }
@@ -725,7 +725,7 @@ const Team = () => {
 
 
                                 <IconButton onClick={() => {
-                                    navigate('/UpdateCategory', {
+                                    navigate(`/UpdateCategory?id=${row.row.id}`, {
                                         state: {
                                             row: row.row
                                         }
@@ -733,7 +733,7 @@ const Team = () => {
                                 }}>
                                     <Tooltip title="edit" >
                                         <Edit sx={{ color: "#40E0D0" }} onClick={() => {
-                                            navigate('/UpdateCategory', {
+                                            navigate(`UpdateCategory?id=${row.row.id}`, {
                                                 state: {
                                                     row: row.row
                                                 }
@@ -925,7 +925,7 @@ const Team = () => {
                                                             >
                                                                 <MenuItem
                                                                     onClick={() => {
-                                                                        navigate('/UpdateCategory', {
+                                                                        navigate(`/UpdateCategory?id=${idData.id}`, {
                                                                             state: {
                                                                                 row: idData
                                                                             }

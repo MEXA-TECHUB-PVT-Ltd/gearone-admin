@@ -218,7 +218,13 @@ const Team = () => {
                                                                             maxWidth: '300px',
                                                                         }}
                                                                     />
-                                                                    <div>{data.plan_name}</div>
+                                                                    <Grid container spacing={2} alignItems="center" justifyContent="center">
+                                                                        <Grid item>
+                                                                            <a href={data.link} target="_blank" rel="noopener noreferrer">
+                                                                                Banner Link!
+                                                                            </a>
+                                                                        </Grid>
+                                                                    </Grid>
                                                                 </div>
                                                             }
                                                         </>
