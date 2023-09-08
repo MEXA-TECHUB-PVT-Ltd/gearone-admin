@@ -319,11 +319,11 @@ const Team = () => {
 
 
   const columns = [
-    { field: 'screen_name', headerName: <span style={{ color: "black", fontWeight: 600 }}>Screen</span>, minWidth: 200 },
+    { field: 'screen_name', headerName: <span style={{ color: "black", fontWeight: 600 }}>Screen</span>, minWidth: 200, flex: 1 },
     {
       field: 'active_status',
       headerName: <span style={{ color: "black", fontWeight: 600 }}>Status</span>,
-      flex: 1,
+      minWidth: 300 ,
       renderCell: (row) => {
         return (
           <>

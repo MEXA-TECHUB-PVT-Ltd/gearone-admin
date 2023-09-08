@@ -610,7 +610,7 @@ const Team = () => {
                                                                             color: "white"
                                                                         }} onClick={(e) => clearpreviewimage(e, 0)} />
                                                                         <OutlinedInput
-                                                                            placeholder="1st Link"
+                                                                            placeholder="Enter Link"
                                                                             onChange={(event) => {
                                                                                 setLink1(event.target.value);
                                                                             }}
@@ -633,7 +633,7 @@ const Team = () => {
                                                                                 color: "white"
                                                                             }} onClick={(e) => clearpreviewimage(e, 0)} />
                                                                             <OutlinedInput
-                                                                                placeholder="1st Link"
+                                                                                placeholder="Enter Link"
                                                                                 onChange={(event) => {
                                                                                     setLink1(event.target.value);
                                                                                 }}
@@ -703,7 +703,7 @@ const Team = () => {
                                                                             color: "white"
                                                                         }} onClick={(e) => clearpreviewimage(e, 1)} />
                                                                         <OutlinedInput
-                                                                            placeholder="2nd Link"
+                                                                            placeholder="Enter Link"
                                                                             onChange={(event) => {
                                                                                 setLink2(event.target.value);
                                                                             }}
@@ -771,7 +771,7 @@ const Team = () => {
                                                                             color: "white"
                                                                         }} onClick={(e) => clearpreviewimage(e, 2)} />
                                                                         <OutlinedInput
-                                                                            placeholder="3rd Link"
+                                                                            placeholder="Enter Link"
                                                                             onChange={(event) => {
                                                                                 setLink3(event.target.value);
                                                                             }}
@@ -841,7 +841,7 @@ const Team = () => {
                                                                             color: "white"
                                                                         }} onClick={(e) => clearpreviewimage(e, 3)} />
                                                                         <OutlinedInput
-                                                                            placeholder="4th Link"
+                                                                            placeholder="Enter Link"
                                                                             onChange={(event) => {
                                                                                 setLink4(event.target.value);
                                                                             }}
@@ -908,7 +908,7 @@ const Team = () => {
                                                                             color: "white"
                                                                         }} onClick={(e) => clearpreviewimage(e, 4)} />
                                                                         <OutlinedInput
-                                                                            placeholder="5th Link"
+                                                                            placeholder="Enter Link"
                                                                             onChange={(event) => {
                                                                                 setLink5(event.target.value);
                                                                             }}

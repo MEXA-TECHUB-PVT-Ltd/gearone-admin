@@ -364,12 +364,12 @@ const Team = () => {
   const columns = [
     {
       field: 'screen_name', headerName: <span style={{ color: "black", fontWeight: 600 }}>Screen</span>,
-      minWidth: 300
+      minWidth: 300, flex: 2,
     },
     {
       field: 'active_status',
       headerName: <span style={{ color: "black", fontWeight: 600 }}>Status</span>,
-      minWidth: 150, flex: 2,
+      minWidth: 300,
       renderCell: (row) => {
         return (
           <>
@@ -481,7 +481,7 @@ const Team = () => {
     createdat: "2023-08-31T13:39:06.520Z",
     id: 0,
     name: "ALL Screens",
-    updatedat: "your_updated_value_here", 
+    updatedat: "your_updated_value_here",
   });
 
   const getAllLogos_ByScreen = async (newValue) => {

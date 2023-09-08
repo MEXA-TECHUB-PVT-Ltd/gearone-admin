@@ -664,10 +664,10 @@ const Team = () => {
 
 
     const columns = [
-        { field: 'name', headerName: <span style={{ color: "black", fontWeight: 600 }}>Category Name</span>, minWidth: 300 },
+        { field: 'name', headerName: <span style={{ color: "black", fontWeight: 600 }}>Category Name</span>, minWidth: 300,flex: 1 },
         {
             field: 'image', headerName: <span style={{ color: "black", fontWeight: 600 }}>Profile</span>,
-            minWidth: 250, flex: 1,
+            minWidth: 300,
             renderCell: (row) => {
                 return (
                     <>
