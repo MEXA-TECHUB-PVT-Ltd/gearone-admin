@@ -673,7 +673,7 @@ const Team = () => {
                     <>
                         {row.row.image !== null ?
                             // <img src={`https://staging-gearone-be.mtechub.com/${row.row.image}`} style={{ bgcolor: "#B5030B", width: '45px', height: '45px' }}>
-                            <Avatar src={`https://staging-gearone-be.mtechub.com/${row.row.image}`} style={{ bgcolor: "#B5030B", width: '45px', height: '45px' }}>
+                            <Avatar src={`${url}${row.row.image}`} style={{ bgcolor: "#B5030B", width: '45px', height: '45px' }}>
                             </Avatar>
                             :
                             <Avatar sx={{ width: '45px', height: '45px' }}>
@@ -699,8 +699,6 @@ const Team = () => {
 
 
                                 <IconButton onClick={() => {
-                                    console.log(row.row);
-                                    setActionData(row.row);
                                     navigate(`/ViewCategory`, {
                                         state: {
                                             row: row.row
@@ -709,23 +707,18 @@ const Team = () => {
                                 }}>
                                     <Tooltip title="view" >
                                         <Visibility sx={{ color: "#40E0D0" }} onClick={() => {
-                                            console.log(row.row);
-                                            setActionData(row.row);
                                             navigate('/ViewCategory', {
                                                 state: {
                                                     row: row.row
                                                 }
                                             });
-                                            const bannerIds = row.row.banners.map(banner => banner.id);
-                                            setSkill(bannerIds)
-                                            handleOpenView();
                                         }} />
                                     </Tooltip>
                                 </IconButton>
 
 
                                 <IconButton onClick={() => {
-                                    navigate(`/UpdateCategory?id=${row.row.id}`, {
+                                    navigate(`/UpdateCategory`, {
                                         state: {
                                             row: row.row
                                         }
@@ -733,7 +726,7 @@ const Team = () => {
                                 }}>
                                     <Tooltip title="edit" >
                                         <Edit sx={{ color: "#40E0D0" }} onClick={() => {
-                                            navigate(`UpdateCategory?id=${row.row.id}`, {
+                                            navigate(`UpdateCategory`, {
                                                 state: {
                                                     row: row.row
                                                 }
@@ -925,7 +918,7 @@ const Team = () => {
                                                             >
                                                                 <MenuItem
                                                                     onClick={() => {
-                                                                        navigate(`/UpdateCategory?id=${idData.id}`, {
+                                                                        navigate(`/UpdateCategory`, {
                                                                             state: {
                                                                                 row: idData
                                                                             }
@@ -953,9 +946,10 @@ const Team = () => {
                                                         </Grid>
 
                                                         <Grid sx={{ cursor: 'pointer' }} onClick={() => {
+                                                            console.log(item);
                                                             navigate('/ViewCategory', {
                                                                 state: {
-                                                                    row: idData
+                                                                    row: item
                                                                 }
                                                             });
                                                         }} xs={12} align="center">
@@ -967,7 +961,13 @@ const Team = () => {
                                                             }
                                                             <PerfectScrollbar>
 
-                                                                <Typography maxHeight='50px' variant="h5" pb={1} fontWeight={750} fontSize="16px"
+                                                                <Typography onClick={() => {
+                                                                    navigate('/ViewCategory', {
+                                                                        state: {
+                                                                            row: item
+                                                                        }
+                                                                    });
+                                                                }} maxHeight='50px' variant="h5" pb={1} fontWeight={750} fontSize="16px"
                                                                     sx={{ letterSpacing: "2px" }} color="#B5030B">
                                                                     {item.name}
                                                                 </Typography>
