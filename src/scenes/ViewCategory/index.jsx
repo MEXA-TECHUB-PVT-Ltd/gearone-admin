@@ -13,6 +13,7 @@ const Team = () => {
     const navigate = useNavigate();
 
     const getAllPlans = async () => {
+        setIsloading(true)
         if (location.state.row.image !== undefined && location.state.row.image !== null && location.state.row.image !== '') {
             setHidelabel(true)
         }
@@ -35,6 +36,8 @@ const Team = () => {
             )
             .catch(error => {
             });
+        setIsloading(false)
+
     }
     const [Skill, setSkill] = React.useState([]);
     const [Skills, setSkills] = useState([]);
@@ -138,14 +141,11 @@ const Team = () => {
 
                             <Grid xs={12} md={12} lg={12} xl={12} p={1} align="center" >
 
-                                <FormControl sx={{ width: "50%" }} align="center">
+                                <FormControl sx={{ width: "30%" }} align="center">
                                     <Stack direction="column" spacing={0} pt={2}>
                                         <CustomTextField
-                                            label="Name"
-                                            defaultValue={location.state.row.name}
-                                            onChange={(event) => {
-                                                setAddName(event.target.value);
-                                            }}
+                                            label="Category Name"
+                                            value={location.state.row.name}
                                         />
                                     </Stack>
 
@@ -175,63 +175,71 @@ const Team = () => {
                                             sx={{
                                                 display: 'flex',
                                                 justifyContent: 'center',
+                                                alignContent: "center",
+                                                alignItems: 'center',
                                             }}
                                         >
-                                            <Grid
-                                                style={{
-                                                    display: 'grid',
-                                                    gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
-                                                    gap: '16px',
-                                                    maxWidth: '1000px',
-                                                    '@media (max-width: 959px)': {
-                                                        gridTemplateColumns: '1fr',
-                                                    },
-                                                }}
-                                            >
-                                                {Skills.map((data) => {
-                                                    const isSelected = Skill.includes(data.id);
-                                                    const backgroundColor = isSelected ? '' : '';
+                                                {isloading ?
+                                                    <Grid sx={{
 
-                                                    return (
-                                                        <>
-                                                            {
-                                                                isSelected &&
-                                                                <div
-                                                                    key={data.id}
-                                                                    style={{
-                                                                        cursor: 'pointer',
-                                                                        backgroundColor,
-                                                                        padding: '5px',
-                                                                        borderRadius: '3px',
-                                                                        display: 'flex',
-                                                                        flexDirection: 'column',
-                                                                        alignItems: 'center',
-                                                                    }}
-                                                                >
-                                                                    <img
-                                                                        alt=""
-                                                                        src={`${url}${data.image}`}
+                                                        display: 'flex',
+                                                        justifyContent: 'center',
+                                                        alignContent: "center",
+                                                        alignItems: 'center',
+                                                        
+                                                        height: "300px", width: "100%"
+                                                        // backgroundColor:'red'
+
+                                                    }} >
+                                                        <center><div className="loader">
+                                                        </div></center></Grid>
+                                                    :
+
+                                                    Skills.map((data) => {
+                                                        const isSelected = Skill.includes(data.id);
+                                                        const backgroundColor = isSelected ? '' : '';
+
+                                                        return (
+                                                            <>
+                                                                {
+                                                                    isSelected &&
+                                                                    <div
+                                                                        key={data.id}
                                                                         style={{
-                                                                            width: '100%',
-                                                                            height: '100%',
-                                                                            maxHeight: 'auto',
-                                                                            maxWidth: '300px',
+                                                                            cursor: 'pointer',
+                                                                            backgroundColor,
+                                                                            padding: '5px',
+                                                                            borderRadius: '3px',
+                                                                            display: 'flex',
+                                                                            flexDirection: 'column',
+                                                                            alignItems: 'center',
                                                                         }}
-                                                                    />
-                                                                    <Grid container spacing={2} alignItems="center" justifyContent="center">
-                                                                        <Grid item>
-                                                                            <a href={data.link} target="_blank" rel="noopener noreferrer">
-                                                                                Banner Link!
-                                                                            </a>
+                                                                    >
+                                                                        <img
+                                                                            alt=""
+                                                                            src={`${url}${data.image}`}
+                                                                            style={{
+                                                                                width: '100%',
+                                                                                height: '100%',
+                                                                                maxHeight: 'auto',
+                                                                                maxWidth: '300px',
+                                                                            }}
+                                                                        />
+                                                                        <Grid container spacing={2} alignItems="center" justifyContent="center">
+                                                                            <Grid item>
+                                                                                <a href={data.link} target="_blank" rel="noopener noreferrer">
+                                                                                    Banner Link!
+                                                                                </a>
+                                                                            </Grid>
                                                                         </Grid>
-                                                                    </Grid>
-                                                                </div>
-                                                            }
-                                                        </>
+                                                                    </div>
+                                                                }
+                                                            </>
 
-                                                    );
-                                                })}
-                                            </Grid>
+                                                        );
+                                                    })
+
+                                                }
                                         </Grid>
                                     </Stack>
 

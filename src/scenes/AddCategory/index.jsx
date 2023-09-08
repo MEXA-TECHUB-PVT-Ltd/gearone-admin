@@ -122,39 +122,41 @@ const Team = () => {
         let NewData = [
             {
                 link: Link1,
-                image: selectedFile
+                image: selectedFile,
+                show:hidelabel
             },
             {
                 link: Link2,
-                image: selectedFile1
+                image: selectedFile1,
+                show:hidelabel1
             },
             {
                 link: Link3,
-                image: selectedFile2
+                image: selectedFile2,
+                show:hidelabel2
             },
             {
                 link: Link4,
-                image: selectedFile3
+                image: selectedFile3,
+                show:hidelabel3
             },
             {
                 link: Link5,
-                image: selectedFile4
+                image: selectedFile4,
+                show:hidelabel4
             },
         ];
         let check = false;
         NewData.map(async (item) => {
-            if (item.link === '' && item.image !== null && item.image !== undefined) {
+            if(item.show === true) {
+            if (item.link !== '' && item.image !== null && item.image !== undefined) {
                 if (!urlPattern.test(item.link)) {
                     check = true;
                 }
+            } else if (item.link === '' || item.image === null || item.image === undefined) {
                 check = true;
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    confirmButtonColor: "#B5030B",
-                    text: "All Fields Required"
-                })
             }
+        }
         })
         let arr = []
         if (!check) {
@@ -467,9 +469,9 @@ const Team = () => {
                 <Container>
                     <Container>
                         <Grid container spacing={0}>
-                            <Grid xs={12} align="center" p={1}>
+                            <Grid sx={{ mr: '2%' }} xs={12} align="center" p={1}>
                                 <Box pt={2} pb={2}>
-                                    <Box sx={{ width: '300px', height: '200px', pt: 2, p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
+                                    <Box sx={{ mr: '10%', width: '300px', height: '200px', pt: 2, p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
                                         {hidelabelIcon ?
                                             null
                                             :
@@ -485,7 +487,7 @@ const Team = () => {
                                             <Box sx={{ display: "flex", justifyContent: "center", alignContent: "center" }}>
                                                 <Close sx={{
                                                     padding: 0.2, backgroundColor: "#B5030B", borderRadius: "50px",
-                                                    color: "white", ml: 32, mt: -24
+                                                    color: "white", ml: 18, mt: -24
                                                 }} onClick={() => clearpreviewimageIcon()} />
                                             </Box>
                                             :
@@ -494,14 +496,15 @@ const Team = () => {
                                 </Box>
                             </Grid>
 
-                            <Grid xs={12} md={12} lg={12} xl={12} p={1} align="center" >
+                            <Grid sx={{ mr: '2%' }} xs={12} md={12} lg={12} xl={12} p={1} align="center" >
 
-                                <FormControl sx={{ width: "50%" }} align="center">
+                                <FormControl sx={{ mr: '10%', width: "30%" }} align="center">
                                     <Stack direction="column" spacing={0} pt={2}>
                                         <CustomTextField
                                             label="Category Name"
                                             value={addName}
                                             onChange={(event) => {
+
                                                 setAddName(event.target.value);
                                             }}
                                         />
@@ -517,6 +520,7 @@ const Team = () => {
                                             pl={1}
                                             pb={1}
                                             sx={{
+                                                mr: '10%',
                                                 fontFamily: "Roboto",
                                                 fontSize: "18px",
                                                 fontWeight: "bold",
@@ -525,469 +529,424 @@ const Team = () => {
                                         >
                                             Banners
                                         </Typography>
+                                        <FormControl sx={{ width: "100%" }} align="left">
+                                            <Stack direction="column" spacing={0} pt={2}>
 
+                                                <Grid sx={{ mr: '2%' }} container spacing={2} style={{
+                                                    display: 'flex',
+                                                    align: 'center',
+                                                    justifyContent: 'center',
+                                                }}
+                                                    p={1}>
+                                                    <Box pt={2} pb={2} sx={{ mr: '2%', position: 'relative' }}>
+                                                        <Grid item xs={6} sm={6} md={4} lg={4} >
 
+                                                            {hidelabel ?
+                                                                null
+                                                                :
+                                                                hidelabel || hidelabel1 || hidelabel2 || hidelabel3 ?
+                                                                    <Box sx={{ pt: 2, width: "300px", height: "200px", p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
+                                                                        <Grid container spacing={0} pt={5}>
+                                                                            <Grid xs={12} align="">
+                                                                                <Stack align="">
+                                                                                    <label htmlFor="fileInputs" style={{ display: "flex", justifyContent: "center", alignContent: "center", color: "#808080" }}>
+                                                                                        <Stack direction="column" spacing={1} >
+                                                                                            <Upload sx={{ fontSize: "50px", color: "#808080", ml: 1.8, pb: 1 }} />
+                                                                                            <span style={{ paddingBottom: "2vh", font: "normal normal normal 16px/26px Arial" }}>Upload Image</span>
+                                                                                        </Stack>
+                                                                                    </label>
+                                                                                    <input
+                                                                                        style={{ display: "none" }}
+                                                                                        id="fileInputs"
+                                                                                        type="file"
+                                                                                        multiple
+                                                                                        onChange={(e) => { handleImageChange(e, 0) }}
+                                                                                        accept="image/*"
+                                                                                    />
+                                                                                </Stack>
+                                                                            </Grid>
+                                                                        </Grid>
+                                                                    </Box>
+                                                                    :
+                                                                    <Box sx={{ pt: 2, width: "300px", height: "200px", p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
+                                                                        <Grid container spacing={0} pt={5}>
+                                                                            <Grid xs={12} align="">
+                                                                                <Stack align="">
+                                                                                    <label htmlFor="fileInput" style={{ display: "flex", justifyContent: "center", alignContent: "center", color: "#808080" }}>
+                                                                                        <Stack direction="column" spacing={1} >
+                                                                                            <Upload sx={{ fontSize: "50px", color: "#808080", ml: 1.8, pb: 1 }} />
+                                                                                            <span style={{ paddingBottom: "2vh", font: "normal normal normal 16px/26px Arial" }}>Upload Image</span>
+                                                                                        </Stack>
+                                                                                    </label>
+                                                                                    <input
+                                                                                        style={{ display: "none" }}
+                                                                                        id="fileInput"
+                                                                                        type="file"
+                                                                                        onChange={(e) => { handleImageChange(e, 0) }}
+                                                                                        accept="image/*"
+                                                                                    />
+                                                                                </Stack>
+                                                                            </Grid>
+                                                                        </Grid>
+                                                                    </Box>
 
+                                                            }
 
-
-                                        <Grid style={{
-                                            display: 'flex',
-                                            align: 'left',
-                                            justifyContent: 'left',
-
-                                        }}
-                                            p={1}>
-                                            <Grid pt={2} pb={2}>
-
-                                                {hidelabel ?
-                                                    null
-                                                    :
-                                                    hidelabel || hidelabel1 || hidelabel2 || hidelabel3 ?
-                                                        <Box sx={{ pt: 2, width: "200px", height: "200px", p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
-                                                            <Grid container spacing={0} pt={5}>
-                                                                <Grid xs={12} align="">
-                                                                    <Stack align="">
-                                                                        <label htmlFor="fileInputs" style={{ display: "flex", justifyContent: "center", alignContent: "center", color: "#808080" }}>
-                                                                            <Stack direction="column" spacing={1} >
-                                                                                <Upload sx={{ fontSize: "50px", color: "#808080", ml: 1.8, pb: 1 }} />
-                                                                                <span style={{ paddingBottom: "2vh", font: "normal normal normal 16px/26px Arial" }}>Upload Image</span>
-                                                                            </Stack>
-                                                                        </label>
-                                                                        <input
-                                                                            style={{ display: "none" }}
-                                                                            id="fileInputs"
-                                                                            type="file"
-                                                                            multiple
-                                                                            onChange={(e) => { handleImageChange(e, 0) }}
-                                                                            accept="image/*"
-                                                                        />
-                                                                    </Stack>
-                                                                </Grid>
-                                                            </Grid>
-                                                        </Box>
-                                                        :
-                                                        <Box sx={{ ml: '400px', pt: 2, width: "200px", height: "200px", p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
-                                                            <Grid container spacing={0} pt={5}>
-                                                                <Grid xs={12} align="">
-                                                                    <Stack align="">
-                                                                        <label htmlFor="fileInput" style={{ display: "flex", justifyContent: "center", alignContent: "center", color: "#808080" }}>
-                                                                            <Stack direction="column" spacing={1} >
-                                                                                <Upload sx={{ fontSize: "50px", color: "#808080", ml: 1.8, pb: 1 }} />
-                                                                                <span style={{ paddingBottom: "2vh", font: "normal normal normal 16px/26px Arial" }}>Upload Image</span>
-                                                                            </Stack>
-                                                                        </label>
-                                                                        <input
-                                                                            style={{ display: "none" }}
-                                                                            id="fileInput"
-                                                                            type="file"
-                                                                            onChange={(e) => { handleImageChange(e, 0) }}
-                                                                            accept="image/*"
-                                                                        />
-                                                                    </Stack>
-                                                                </Grid>
-                                                            </Grid>
-                                                        </Box>
-
-                                                }
-
-                                                {selectedFile ?
-                                                    <Box sx={{ pt: 2, width: "200px", height: "200px", p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
-                                                        <img src={URL.createObjectURL(selectedFile)} alt="Preview" style={{ width: "200px", height: "200px" }} />
-
-                                                    </Box>
-                                                    :
-                                                    null
-                                                }
-
-                                                {
-                                                    hidecrossicon ?
-                                                        <>
-                                                            <Box sx={{ mb: '5%', display: "flex", justifyContent: "center", alignContent: "center" }}>
-                                                                <Close sx={{
-                                                                    padding: 0.2, backgroundColor: "#B5030B", borderRadius: "50px",
-                                                                    color: "white", ml: 22, mt: -24
-                                                                }} onClick={(e) => clearpreviewimage(e, 0)} />
-                                                            </Box>
-                                                            <OutlinedInput
-                                                                PlaceHolder="1st Link"
-                                                                onChange={(event) => {
-                                                                    setLink1(event.target.value);
-                                                                }}
-                                                                id="input-with-icon-adornment"
-                                                                sx={{
-                                                                    borderRadius: "50px",
-                                                                    backgroundColor: "darkgray",
-                                                                    "& fieldset": { border: 'none' },
-                                                                }}
-                                                            />
-                                                        </>
-                                                        :
-                                                        selectedFile ?
-                                                            <>
-                                                                <Box sx={{ mb: '4%', display: "flex", justifyContent: "center", alignContent: "center" }}>
-                                                                    <Close sx={{
-                                                                        padding: 0.2, backgroundColor: "#B5030B", borderRadius: "50px",
-                                                                        color: "white", ml: 22, mt: -24
-                                                                    }} onClick={(e) => clearpreviewimage(e, 0)} />
+                                                            {selectedFile ?
+                                                                <Box sx={{ pt: 2, width: "300px", height: "200px", p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
+                                                                    <img src={URL.createObjectURL(selectedFile)} alt="Preview" style={{ width: "300px", height: "200px" }} />
 
                                                                 </Box>
-                                                                <OutlinedInput
-                                                                    PlaceHolder="1st Link"
-                                                                    onChange={(event) => {
-                                                                        setLink1(event.target.value);
-                                                                    }}
-                                                                    id="input-with-icon-adornment"
-                                                                    sx={{
-                                                                        borderRadius: "50px",
-                                                                        backgroundColor: "darkgray",
-                                                                        "& fieldset": { border: 'none' },
-                                                                    }}
-                                                                />
-                                                            </>
-                                                            : null
-                                                }
-                                            </Grid>
+                                                                :
+                                                                null
+                                                            }
 
-
-                                            <Grid pt={2} pb={2}>
-                                                {hidelabel ?
-                                                    hidelabel1 ?
-                                                        null
-                                                        :
-                                                        <Box sx={{ pt: 2, width: "200px", height: "200px", p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
-                                                            <Grid container spacing={0} pt={5}>
-                                                                <Grid xs={12} align="">
-                                                                    <Stack align="">
-                                                                        <label htmlFor="fileInput" style={{ display: "flex", justifyContent: "center", alignContent: "center", color: "#808080" }}>
-                                                                            <Stack direction="column" spacing={1} >
-                                                                                <Upload sx={{ fontSize: "50px", color: "#808080", ml: 1.8, pb: 1 }} />
-                                                                                <span style={{ paddingBottom: "2vh", font: "normal normal normal 16px/26px Arial" }}>Upload Image</span>
-                                                                            </Stack>
-                                                                        </label>
-                                                                        <input
-                                                                            style={{ display: "none" }}
-                                                                            id="fileInput"
-                                                                            type="file"
-                                                                            onChange={(e) => { handleImageChange(e, 1) }}
-                                                                            accept="image/*"
+                                                            {
+                                                                hidecrossicon ?
+                                                                    <>
+                                                                        <Close sx={{
+                                                                            position: "absolute", top: '12%', right: '2%',
+                                                                            padding: 0.2, backgroundColor: "#B5030B", borderRadius: "50px",
+                                                                            color: "white"
+                                                                        }} onClick={(e) => clearpreviewimage(e, 0)} />
+                                                                        <OutlinedInput
+                                                                            placeholder="1st Link"
+                                                                            onChange={(event) => {
+                                                                                setLink1(event.target.value);
+                                                                            }}
+                                                                            id="input-with-icon-adornment"
+                                                                            sx={{
+                                                                                mt: '10%',
+                                                                                width: '300px',
+                                                                                borderRadius: "50px",
+                                                                                backgroundColor: "darkgray",
+                                                                                "& fieldset": { border: 'none' },
+                                                                            }}
                                                                         />
-                                                                    </Stack>
-                                                                </Grid>
-                                                            </Grid>
-                                                        </Box>
-                                                    :
-                                                    null
-                                                }
+                                                                    </>
+                                                                    :
+                                                                    selectedFile ?
+                                                                        <>
+                                                                            <Close sx={{
+                                                                                position: "absolute", top: '12%', right: '2%',
+                                                                                padding: 0.2, backgroundColor: "#B5030B", borderRadius: "50px",
+                                                                                color: "white"
+                                                                            }} onClick={(e) => clearpreviewimage(e, 0)} />
+                                                                            <OutlinedInput
+                                                                                placeholder="1st Link"
+                                                                                onChange={(event) => {
+                                                                                    setLink1(event.target.value);
+                                                                                }}
+                                                                                id="input-with-icon-adornment"
+                                                                                sx={{
+                                                                                    mt: '10%',
+                                                                                    width: '300px',
+                                                                                    borderRadius: "50px",
+                                                                                    backgroundColor: "darkgray",
+                                                                                    "& fieldset": { border: 'none' },
+                                                                                }}
+                                                                            />
+                                                                        </>
+                                                                        : null
+                                                            }
 
-                                                {selectedFile1 ?
-                                                    <Box sx={{ pt: 2, width: "200px", height: "200px", p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
-
-                                                        <img src={URL.createObjectURL(selectedFile1)} alt="Preview" style={{ width: "200px", height: "200px" }} />
+                                                        </Grid>
                                                     </Box>
-                                                    :
-                                                    null
-                                                }
-
-                                                {
-                                                    hidecrossicon1 ?
-                                                        <>
-                                                            <Box sx={{ mb: '5%', display: "flex", justifyContent: "center", alignContent: "center" }}>
-                                                                <Close sx={{
-                                                                    padding: 0.2, backgroundColor: "#B5030B", borderRadius: "50px",
-                                                                    color: "white", ml: 22, mt: -24
-                                                                }} onClick={(e) => clearpreviewimage(e, 1)} />
-                                                            </Box>
-                                                            <OutlinedInput
-                                                                PlaceHolder="2nd Link"
-                                                                onChange={(event) => {
-                                                                    setLink2(event.target.value);
-                                                                }}
-                                                                id="input-with-icon-adornment"
-                                                                sx={{
-                                                                    borderRadius: "50px",
-                                                                    backgroundColor: "darkgray",
-                                                                    "& fieldset": { border: 'none' },
-                                                                }}
-                                                            />
-                                                        </>
-                                                        : null
-                                                }
-                                            </Grid>
+                                                    <Box pt={2} pb={2} sx={{ mr: '2%', position: 'relative' }}>
 
 
-                                            <Grid pt={2} pb={2}>
-                                                {hidelabel && hidelabel1 ?
-                                                    hidelabel2 ?
-                                                        null
-                                                        :
-                                                        <Box sx={{ pt: 2, width: "200px", height: "200px", p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
-                                                            <Grid container spacing={0} pt={5}>
-                                                                <Grid xs={12} align="">
-                                                                    <Stack align="">
-                                                                        <label htmlFor="fileInput" style={{ display: "flex", justifyContent: "center", alignContent: "center", color: "#808080" }}>
-                                                                            <Stack direction="column" spacing={1} >
-                                                                                <Upload sx={{ fontSize: "50px", color: "#808080", ml: 1.8, pb: 1 }} />
-                                                                                <span style={{ paddingBottom: "2vh", font: "normal normal normal 16px/26px Arial" }}>Upload Image</span>
-                                                                            </Stack>
-                                                                        </label>
-                                                                        <input
-                                                                            style={{ display: "none" }}
-                                                                            id="fileInput"
-                                                                            type="file"
-                                                                            onChange={(e) => { handleImageChange(e, 2) }}
-                                                                            accept="image/*"
+                                                        <Grid item xs={6} sm={6} md={4} lg={4} >
+                                                            {hidelabel ?
+                                                                hidelabel1 ?
+                                                                    null
+                                                                    :
+                                                                    <Box sx={{ pt: 2, width: "300px", height: "200px", p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
+                                                                        <Grid container spacing={0} pt={5}>
+                                                                            <Grid xs={12} align="">
+                                                                                <Stack align="">
+                                                                                    <label htmlFor="fileInput" style={{ display: "flex", justifyContent: "center", alignContent: "center", color: "#808080" }}>
+                                                                                        <Stack direction="column" spacing={1} >
+                                                                                            <Upload sx={{ fontSize: "50px", color: "#808080", ml: 1.8, pb: 1 }} />
+                                                                                            <span style={{ paddingBottom: "2vh", font: "normal normal normal 16px/26px Arial" }}>Upload Image</span>
+                                                                                        </Stack>
+                                                                                    </label>
+                                                                                    <input
+                                                                                        style={{ display: "none" }}
+                                                                                        id="fileInput"
+                                                                                        type="file"
+                                                                                        onChange={(e) => { handleImageChange(e, 1) }}
+                                                                                        accept="image/*"
+                                                                                    />
+                                                                                </Stack>
+                                                                            </Grid>
+                                                                        </Grid>
+                                                                    </Box>
+                                                                :
+                                                                null
+                                                            }
+
+                                                            {selectedFile1 ?
+                                                                <Box sx={{ pt: 2, width: "300px", height: "200px", p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
+
+                                                                    <img src={URL.createObjectURL(selectedFile1)} alt="Preview" style={{ width: "300px", height: "200px" }} />
+                                                                </Box>
+                                                                :
+                                                                null
+                                                            }
+
+                                                            {
+                                                                hidecrossicon1 ?
+                                                                    <>
+                                                                        <Close sx={{
+                                                                            position: "absolute", top: '12%', right: '2%',
+                                                                            padding: 0.2, backgroundColor: "#B5030B", borderRadius: "50px",
+                                                                            color: "white"
+                                                                        }} onClick={(e) => clearpreviewimage(e, 1)} />
+                                                                        <OutlinedInput
+                                                                            placeholder="2nd Link"
+                                                                            onChange={(event) => {
+                                                                                setLink2(event.target.value);
+                                                                            }}
+                                                                            id="input-with-icon-adornment"
+                                                                            sx={{
+                                                                                mt: '10%',
+                                                                                width: '300px',
+                                                                                borderRadius: "50px",
+                                                                                backgroundColor: "darkgray",
+                                                                                "& fieldset": { border: 'none' },
+                                                                            }}
                                                                         />
-                                                                    </Stack>
-                                                                </Grid>
-                                                            </Grid>
-                                                        </Box>
-                                                    :
-                                                    null
-                                                }
-
-                                                {selectedFile2 ?
-                                                    <Box sx={{ pt: 2, width: "200px", height: "200px", p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
-                                                        <img src={URL.createObjectURL(selectedFile2)} alt="Preview" style={{ width: "200px", height: "200px" }} />
-
+                                                                    </>
+                                                                    : null
+                                                            }
+                                                        </Grid>
                                                     </Box>
-                                                    :
-                                                    null
-                                                }
+                                                    <Box pt={2} pb={2} sx={{ mr: '2%', position: 'relative' }}>
 
-                                                {
-                                                    hidecrossicon2 ?
-                                                        <>
-                                                            <Box sx={{ mb: '5%', display: "flex", justifyContent: "center", alignContent: "center" }}>
-                                                                <Close sx={{
-                                                                    padding: 0.2, backgroundColor: "#B5030B", borderRadius: "50px",
-                                                                    color: "white", ml: 22, mt: -24
-                                                                }} onClick={(e) => clearpreviewimage(e, 2)} />
-                                                            </Box>
-                                                            <OutlinedInput
-                                                                PlaceHolder="3rd Link"
-                                                                onChange={(event) => {
-                                                                    setLink3(event.target.value);
-                                                                }}
-                                                                id="input-with-icon-adornment"
-                                                                sx={{
-                                                                    borderRadius: "50px",
-                                                                    backgroundColor: "darkgray",
-                                                                    "& fieldset": { border: 'none' },
-                                                                }}
-                                                            />                                                        </>
-                                                        : null
-                                                }
-                                            </Grid>
+                                                        <Grid item xs={6} sm={6} md={4} lg={4} >
+                                                            {hidelabel && hidelabel1 ?
+                                                                hidelabel2 ?
+                                                                    null
+                                                                    :
+                                                                    <Box sx={{ pt: 2, width: "300px", height: "200px", p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
+                                                                        <Grid container spacing={0} pt={5}>
+                                                                            <Grid xs={12} align="">
+                                                                                <Stack align="">
+                                                                                    <label htmlFor="fileInput" style={{ display: "flex", justifyContent: "center", alignContent: "center", color: "#808080" }}>
+                                                                                        <Stack direction="column" spacing={1} >
+                                                                                            <Upload sx={{ fontSize: "50px", color: "#808080", ml: 1.8, pb: 1 }} />
+                                                                                            <span style={{ paddingBottom: "2vh", font: "normal normal normal 16px/26px Arial" }}>Upload Image</span>
+                                                                                        </Stack>
+                                                                                    </label>
+                                                                                    <input
+                                                                                        style={{ display: "none" }}
+                                                                                        id="fileInput"
+                                                                                        type="file"
+                                                                                        onChange={(e) => { handleImageChange(e, 2) }}
+                                                                                        accept="image/*"
+                                                                                    />
+                                                                                </Stack>
+                                                                            </Grid>
+                                                                        </Grid>
+                                                                    </Box>
+                                                                :
+                                                                null
+                                                            }
 
-                                            <Grid pt={2} pb={2}>
-                                                {hidelabel && hidelabel1 && hidelabel2 ?
-                                                    hidelabel3 ?
-                                                        null
-                                                        :
-                                                        <Box sx={{ pt: 2, width: "200px", height: "200px", p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
-                                                            <Grid container spacing={0} pt={5}>
-                                                                <Grid xs={12} align="">
-                                                                    <Stack align="">
-                                                                        <label htmlFor="fileInput" style={{ display: "flex", justifyContent: "center", alignContent: "center", color: "#808080" }}>
-                                                                            <Stack direction="column" spacing={1} >
-                                                                                <Upload sx={{ fontSize: "50px", color: "#808080", ml: 1.8, pb: 1 }} />
-                                                                                <span style={{ paddingBottom: "2vh", font: "normal normal normal 16px/26px Arial" }}>Upload Image</span>
-                                                                            </Stack>
-                                                                        </label>
-                                                                        <input
-                                                                            style={{ display: "none" }}
-                                                                            id="fileInput"
-                                                                            type="file"
-                                                                            onChange={(e) => { handleImageChange(e, 3) }}
-                                                                            accept="image/*"
+                                                            {selectedFile2 ?
+                                                                <Box sx={{ pt: 2, width: "300px", height: "200px", p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
+                                                                    <img src={URL.createObjectURL(selectedFile2)} alt="Preview" style={{ width: "200px", height: "200px" }} />
+
+                                                                </Box>
+                                                                :
+                                                                null
+                                                            }
+
+                                                            {
+                                                                hidecrossicon2 ?
+                                                                    <>
+                                                                        <Close sx={{
+                                                                            position: "absolute", top: '12%', right: '2%',
+                                                                            padding: 0.2, backgroundColor: "#B5030B", borderRadius: "50px",
+                                                                            color: "white"
+                                                                        }} onClick={(e) => clearpreviewimage(e, 2)} />
+                                                                        <OutlinedInput
+                                                                            placeholder="3rd Link"
+                                                                            onChange={(event) => {
+                                                                                setLink3(event.target.value);
+                                                                            }}
+                                                                            id="input-with-icon-adornment"
+                                                                            sx={{
+                                                                                mt: '10%',
+                                                                                width: '300px',
+                                                                                borderRadius: "50px",
+                                                                                backgroundColor: "darkgray",
+                                                                                "& fieldset": { border: 'none' },
+                                                                            }}
                                                                         />
-                                                                    </Stack>
-                                                                </Grid>
-                                                            </Grid>
-                                                        </Box>
-
-                                                    :
-                                                    null
-                                                }
-
-                                                {selectedFile3 ?
-                                                    <Box sx={{ pt: 2, width: "200px", height: "200px", p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
-
-                                                        <img src={URL.createObjectURL(selectedFile3)} alt="Preview" style={{ width: "200px", height: "200px" }} />
+                                                                    </>
+                                                                    : null
+                                                            }
+                                                        </Grid>
                                                     </Box>
+                                                    <Box pt={2} pb={2} sx={{ mr: '2%', position: 'relative' }}>
+                                                        <Grid item xs={6} sm={6} md={4} lg={4} >
 
-                                                    :
-                                                    null
-                                                }
+                                                            {hidelabel && hidelabel1 && hidelabel2 ?
+                                                                hidelabel3 ?
+                                                                    null
+                                                                    :
+                                                                    <Box sx={{ pt: 2, width: "300px", height: "200px", p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
+                                                                        <Grid container spacing={0} pt={5}>
+                                                                            <Grid xs={12} align="">
+                                                                                <Stack align="">
+                                                                                    <label htmlFor="fileInput" style={{ display: "flex", justifyContent: "center", alignContent: "center", color: "#808080" }}>
+                                                                                        <Stack direction="column" spacing={1} >
+                                                                                            <Upload sx={{ fontSize: "50px", color: "#808080", ml: 1.8, pb: 1 }} />
+                                                                                            <span style={{ paddingBottom: "2vh", font: "normal normal normal 16px/26px Arial" }}>Upload Image</span>
+                                                                                        </Stack>
+                                                                                    </label>
+                                                                                    <input
+                                                                                        style={{ display: "none" }}
+                                                                                        id="fileInput"
+                                                                                        type="file"
+                                                                                        onChange={(e) => { handleImageChange(e, 3) }}
+                                                                                        accept="image/*"
+                                                                                    />
+                                                                                </Stack>
+                                                                            </Grid>
+                                                                        </Grid>
+                                                                    </Box>
 
-                                                {
-                                                    hidecrossicon3 ?
-                                                        <>
-                                                            <Box sx={{ mb: '5%', display: "flex", justifyContent: "center", alignContent: "center" }}>
-                                                                <Close sx={{
-                                                                    padding: 0.2, backgroundColor: "#B5030B", borderRadius: "50px",
-                                                                    color: "white", ml: 22, mt: -24
-                                                                }} onClick={(e) => clearpreviewimage(e, 3)} />
-                                                            </Box>
-                                                            <OutlinedInput
-                                                                PlaceHolder="4th Link"
-                                                                onChange={(event) => {
-                                                                    setLink4(event.target.value);
-                                                                }}
-                                                                id="input-with-icon-adornment"
-                                                                sx={{
-                                                                    borderRadius: "50px",
-                                                                    backgroundColor: "darkgray",
-                                                                    "& fieldset": { border: 'none' },
-                                                                }}
-                                                            />
-                                                        </>
-                                                        : null
-                                                }
-                                            </Grid>
+                                                                :
+                                                                null
+                                                            }
 
-                                            <Grid pt={2} pb={2}>
-                                                {hidelabel && hidelabel1 && hidelabel2 && hidelabel3 ?
-                                                    hidelabel4 ?
-                                                        null
-                                                        :
-                                                        <Box sx={{ pt: 2, width: "200px", height: "200px", p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
-                                                            <Grid container spacing={0} pt={5}>
-                                                                <Grid xs={12} align="">
-                                                                    <Stack align="">
-                                                                        <label htmlFor="fileInput" style={{ display: "flex", justifyContent: "center", alignContent: "center", color: "#808080" }}>
-                                                                            <Stack direction="column" spacing={1} >
-                                                                                <Upload sx={{ fontSize: "50px", color: "#808080", ml: 1.8, pb: 1 }} />
-                                                                                <span style={{ paddingBottom: "2vh", font: "normal normal normal 16px/26px Arial" }}>Upload Image</span>
-                                                                            </Stack>
-                                                                        </label>
-                                                                        <input
-                                                                            style={{ display: "none" }}
-                                                                            id="fileInput"
-                                                                            type="file"
-                                                                            onChange={(e) => { handleImageChange(e, 4) }}
-                                                                            accept="image/*"
+                                                            {selectedFile3 ?
+                                                                <Box sx={{ pt: 2, width: "300px", height: "200px", p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
+
+                                                                    <img src={URL.createObjectURL(selectedFile3)} alt="Preview" style={{ width: "300px", height: "200px" }} />
+                                                                </Box>
+
+                                                                :
+                                                                null
+                                                            }
+
+                                                            {
+                                                                hidecrossicon3 ?
+                                                                    <>
+                                                                        <Close sx={{
+                                                                            position: "absolute", top: '12%', right: '2%',
+                                                                            padding: 0.2, backgroundColor: "#B5030B", borderRadius: "50px",
+                                                                            color: "white"
+                                                                        }} onClick={(e) => clearpreviewimage(e, 3)} />
+                                                                        <OutlinedInput
+                                                                            placeholder="4th Link"
+                                                                            onChange={(event) => {
+                                                                                setLink4(event.target.value);
+                                                                            }}
+                                                                            id="input-with-icon-adornment"
+                                                                            sx={{
+                                                                                mt: '10%',
+                                                                                width: '300px',
+                                                                                borderRadius: "50px",
+                                                                                backgroundColor: "darkgray",
+                                                                                "& fieldset": { border: 'none' },
+                                                                            }}
                                                                         />
-                                                                    </Stack>
-                                                                </Grid>
-                                                            </Grid>
-                                                        </Box>
-                                                    : null
-                                                }
+                                                                    </>
+                                                                    : null
+                                                            }
 
-                                                {selectedFile4 ?
-                                                    <Box sx={{ pt: 2, width: "200px", height: "200px", p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
-
-                                                        <img src={URL.createObjectURL(selectedFile4)} alt="Preview" style={{ width: "200px", height: "200px" }} />
+                                                        </Grid>
                                                     </Box>
-                                                    :
-                                                    null
-                                                }
+                                                    <Box pt={2} pb={2} sx={{ mr: '2%', position: 'relative' }}>
+                                                        <Grid item xs={6} sm={6} md={4} lg={4} >
+                                                            {hidelabel && hidelabel1 && hidelabel2 && hidelabel3 ?
+                                                                hidelabel4 ?
+                                                                    null
+                                                                    :
+                                                                    <Box sx={{ pt: 2, width: "300px", height: "200px", p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
+                                                                        <Grid container spacing={0} pt={5}>
+                                                                            <Grid xs={12} align="">
+                                                                                <Stack align="">
+                                                                                    <label htmlFor="fileInput" style={{ display: "flex", justifyContent: "center", alignContent: "center", color: "#808080" }}>
+                                                                                        <Stack direction="column" spacing={1} >
+                                                                                            <Upload sx={{ fontSize: "50px", color: "#808080", ml: 1.8, pb: 1 }} />
+                                                                                            <span style={{ paddingBottom: "2vh", font: "normal normal normal 16px/26px Arial" }}>Upload Image</span>
+                                                                                        </Stack>
+                                                                                    </label>
+                                                                                    <input
+                                                                                        style={{ display: "none" }}
+                                                                                        id="fileInput"
+                                                                                        type="file"
+                                                                                        onChange={(e) => { handleImageChange(e, 4) }}
+                                                                                        accept="image/*"
+                                                                                    />
+                                                                                </Stack>
+                                                                            </Grid>
+                                                                        </Grid>
+                                                                    </Box>
+                                                                : null
+                                                            }
 
-                                                {
-                                                    hidecrossicon4 ?
-                                                        <>
-                                                            <Box sx={{ mb: '5%', display: "flex", justifyContent: "center", alignContent: "center" }}>
-                                                                <Close sx={{
-                                                                    padding: 0.2, backgroundColor: "#B5030B", borderRadius: "50px",
-                                                                    color: "white", ml: 22, mt: -24
-                                                                }} onClick={(e) => clearpreviewimage(e, 4)} />
-                                                            </Box>
-                                                            <OutlinedInput
-                                                                PlaceHolder="5th Link"
-                                                                onChange={(event) => {
-                                                                    setLink5(event.target.value);
-                                                                }}
-                                                                id="input-with-icon-adornment"
-                                                                sx={{
-                                                                    borderRadius: "50px",
-                                                                    backgroundColor: "darkgray",
-                                                                    "& fieldset": { border: 'none' },
-                                                                }}
-                                                            />                                                        </>
-                                                        : null
-                                                }
-                                            </Grid>
+                                                            {selectedFile4 ?
+                                                                <Box sx={{ pt: 2, width: "300px", height: "200px", p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
+
+                                                                    <img src={URL.createObjectURL(selectedFile4)} alt="Preview" style={{ width: "300px", height: "200px" }} />
+                                                                </Box>
+                                                                :
+                                                                null
+                                                            }
+
+                                                            {
+                                                                hidecrossicon4 ?
+                                                                    <>
+                                                                        <Close sx={{
+                                                                            position: "absolute", top: '12%', right: '2%',
+                                                                            padding: 0.2, backgroundColor: "#B5030B", borderRadius: "50px",
+                                                                            color: "white"
+                                                                        }} onClick={(e) => clearpreviewimage(e, 4)} />
+                                                                        <OutlinedInput
+                                                                            placeholder="5th Link"
+                                                                            onChange={(event) => {
+                                                                                setLink5(event.target.value);
+                                                                            }}
+                                                                            id="input-with-icon-adornment"
+                                                                            sx={{
+                                                                                mt: '10%',
+                                                                                width: '300px',
+                                                                                borderRadius: "50px",
+                                                                                backgroundColor: "darkgray",
+                                                                                "& fieldset": { border: 'none' },
+                                                                            }}
+                                                                        />
+                                                                    </>
+                                                                    : null
+                                                            }
+
+                                                        </Grid>
+                                                    </Box>
 
 
+                                                </Grid>
+                                            </Stack>
 
-
-                                        </Grid>
+                                        </FormControl>
 
                                     </Stack>
 
                                 </FormControl>
-
                             </Grid>
-                            <ConditionalButton Title="Add Category" isloading={isloading2} handleAdd={handleAdd} />
+                            <Grid sx={{ width: '100%', mr: '10%' }}>
+                                <ConditionalButton Title="Add Category" isloading={isloading2} handleAdd={handleAdd} />
+                            </Grid>
 
                         </Grid>
                     </Container>
                 </Container>
 
             </Box>
-            {/* addmodal */}
-            <Modal
-                open={openaddmodal}
-                // onClose={handleClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-            >
-                <Box width={{ xs: 400, md: 500, lg: 500, xl: 600 }} height="auto" sx={style}>
-                    <Grid container spacing={0}>
-                        <Grid xs={6} align="left" >
-                            <Typography variant="h4" sx={{ letterSpacing: "3px" }} fontWeight={800} fontSize="large" color="#1F1F1F">Add Banner</Typography>
-                        </Grid>
-
-                        <Grid xs={6} align="right">
-                            <Close onClick={() => setOpenaddmodal(false)} />
-                        </Grid>
-
-                        <Grid xs={12} align="center" pt={7}>
-                            <FormControl fullWidth>
-
-
-                                <Box pt={2} pb={2}>
-                                    <Box sx={{ width: '300px', height: '200px', pt: 2, p: "0.5px", border: "dotted 1px lightgray", float: "center", borderRadius: "5px" }} className="image_preview">
-                                        {hidelabelBanner ?
-                                            null
-                                            :
-                                            <CustomImageUpload handleImageChange={handleImageChangeBanner} />
-                                        }
-
-                                        {selectedFileBanner && <img src={URL.createObjectURL(selectedFileBanner)} alt="Preview" style={{ width: "300px", height: "200px" }} />}
-                                    </Box>
-
-                                    {
-                                        hidecrossiconBanner ?
-                                            <Box sx={{ display: "flex", justifyContent: "center", alignContent: "center" }}>
-                                                <Close sx={{
-                                                    padding: 0.2, backgroundColor: "#B5030B", borderRadius: "50px",
-                                                    color: "white", ml: 32, mt: -24
-                                                }} onClick={() => clearpreviewimageBanner()} />
-                                            </Box>
-                                            :
-                                            null
-                                    }
-                                </Box>
-
-                                <CustomTextField
-                                    label="Banner Link"
-                                    value={BannerName}
-                                    onChange={(event) => {
-                                        setBannerName(event.target.value);
-                                    }}
-                                />
-                            </FormControl>
-                        </Grid>
-                    </Grid>
-
-                    <Grid container spacing={0} pt={7}>
-                        <ConditionalButton Title="Add Banner" isloading={isloading1} handleAdd={handleAddBanner} />
-                    </Grid>
-
-                </Box>
-            </Modal>
 
         </>
     )
