@@ -2,7 +2,7 @@ import React from 'react';
 import Typography from '@mui/material/Typography';
 import OutlinedInput from '@mui/material/OutlinedInput';
 
-function CustomTextField({ label, value, onChange,defaultValue }) {
+function CustomTextField({ label, value, onChange,defaultValue , PlaceHolder}) {
   return (
     <>
       <Typography
@@ -23,6 +23,7 @@ function CustomTextField({ label, value, onChange,defaultValue }) {
         maxRows={6}
         defaultValue={defaultValue}
         value={value}
+        placeholder={PlaceHolder}
         onChange={onChange}
         id="input-with-icon-adornment"
         sx={{
