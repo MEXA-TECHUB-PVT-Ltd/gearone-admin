@@ -1,0 +1,15 @@
+.map {
+    height: 100vh;
+    width: 100vw;
+}
+
+.map .map-container {
+    height: 100%;
+    width: 100%;
+}
+.unblock-row {
+    font-weight: 600;
+    font-size:larger;
+  }
+  
+  

@@ -1,0 +1,28 @@
+.image_preview {
+    height: 175px;
+    overflow-y: scroll; 
+}
+
+.image_preview::-webkit-scrollbar {
+    width: 5px;
+}
+
+.image_preview::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+.image_preview::-webkit-scrollbar-thumb {
+    background-color: transparent;
+}
+.unblock-row {
+    font-weight: 600;
+    font-size:larger;
+  }
+
+.admin-panel {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  

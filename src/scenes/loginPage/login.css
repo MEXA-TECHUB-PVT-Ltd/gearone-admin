@@ -1,0 +1,4 @@
+.form input::placeholder{
+    color:#808080;
+    font-weight: medium; 
+}

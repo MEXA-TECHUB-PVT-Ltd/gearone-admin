@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/static/css/main.0cb1f75c.css",
+    "main.js": "/static/js/main.4f9a7b0f.js",
+    "static/media/workout5.png": "/static/media/workout5.d2a68357561ee0729618.png",
+    "static/media/workout3.png": "/static/media/workout3.362635f5a635d6c96c4b.png",
+    "static/media/workout2.png": "/static/media/workout2.bd1a4fec905becef350d.png",
+    "static/media/workout6.png": "/static/media/workout6.1b210fa30a2ae0a3da06.png",
+    "static/media/workout4.png": "/static/media/workout4.b14ccebe0fabaf534749.png",
+    "static/media/workout7.png": "/static/media/workout7.d8dfba8ec93790e6fdbf.png",
+    "static/media/workout8.png": "/static/media/workout8.e2c55767bc9a736c0ca6.png",
+    "static/media/workout1.png": "/static/media/workout1.bcd4d19ec5760aa77570.png",
+    "static/media/logo.svg": "/static/media/logo.f88409450b2d07412fbea2b3bc0a142f.svg",
+    "static/media/loginLogo.webp": "/static/media/loginLogo.332056e455aa24b64c51.webp",
+    "static/media/Group 6.svg": "/static/media/Group 6.c514f63b7f59cd43be062ec7f553ee97.svg",
+    "static/media/Group 8.svg": "/static/media/Group 8.3daca80e4ec74cfc660f00f01400d6fc.svg",
+    "static/media/logo.png": "/static/media/logo.90df73d3524654297609.png",
+    "static/media/Group 7.svg": "/static/media/Group 7.38dfee1e0695020ed00f3fe0547efa93.svg",
+    "index.html": "/index.html",
+    "main.0cb1f75c.css.map": "/static/css/main.0cb1f75c.css.map",
+    "main.4f9a7b0f.js.map": "/static/js/main.4f9a7b0f.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.0cb1f75c.css",
+    "static/js/main.4f9a7b0f.js"
+  ]
+}
